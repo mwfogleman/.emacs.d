@@ -191,17 +191,6 @@ Note that there are certain program specific settings for IDO, which are not in 
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+begin_src emacs-lisp
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(require 'ido-vertical-mode)
-(require 'ido-ubiquitous)
-(require 'flx-ido)
-(ido-mode 1)
-(ido-vertical-mode)
-(ido-ubiquitous-mode 1)
-(flx-ido-mode 1)
-(setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
-(setq ido-create-new-buffer 'always) ;; Remove warning if buffer does not exist
 (require 'smex) ; Not needed if you use package.el
 (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
                   ; when Smex is auto-initialized on its first run.
