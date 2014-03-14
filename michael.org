@@ -125,6 +125,14 @@ Let apropos commands perform more extensive searches than default.
 #+begin_src emacs-lisp
 (setq apropos-do-all t)
 #+end_src
+**** Keyboard Shortcuts
+
+I'm sure I'll add more keyboard shortcuts later.
+
+#+begin_src emacs-lisp
+(global-set-key	(kbd "C-x C-j")	'find-file-at-point)
+#+end_src
+
 **** Miscellaneous tweaks
 Remove the warning if a buffer or file does not exist, so you can quickly create them.
 
@@ -135,7 +143,6 @@ Remove the warning if a buffer or file does not exist, so you can quickly create
 #+begin_src emacs-lisp
 (put 'narrow-to-region 'disabled nil)
 #+end_src
-
 ** Packages
 This allows me to browse and install packages from Melpa.
 #+begin_src emacs-lisp
