@@ -6,4 +6,6 @@
 (require 'org)
 (org-babel-load-file (concat (getenv "HOME") "/.emacs.d/michael.org"))
 
+;; I add any Custom Variables here.
+
 ;;; init.el ends here

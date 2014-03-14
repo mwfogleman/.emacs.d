@@ -383,4 +383,4 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
 ** Custom-set variables?
- I'm not sure how to relate custom-set variables to the Org-Babel configuration.
+ I'm not sure if there's a best practice for relating custom-set variables to the Org-Babel configuration, but I put mine in the init.el file.
