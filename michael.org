@@ -198,6 +198,11 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 #+end_src
+** Expand Region
+#+begin_src emacs-lisp
+(require 'expand-region)
+(global-set-key (kbd "C-@") 'er/expand-region)
+#+end_src
 ** Kill Ring
 
 While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
