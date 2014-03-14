@@ -298,6 +298,14 @@ Two more settings: to avoid keeping message buffers around, and to skip duplicat
 (setq mu4e-headers-skip-duplicates t)
 #+end_src
 
+** Internet
+It'd be great to get an Emacs browser going, but in the meantime:
+
+#+begin_src emacs-lisp
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium")
+#+end_src
+
 ** Org Mode
 *** Quotations
 #+begin_quote
