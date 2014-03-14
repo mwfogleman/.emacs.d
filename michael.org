@@ -64,7 +64,7 @@ Let's turn off some unnecessary graphical features.
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (setq inhibit-startup-message t)
-(setq inhibit-startup-echo-area-message t) ;; hide splash screen and banner (not relevant in Daemon)
+(setq inhibit-startup-echo-area-message t)
 #+end_src
 
 I'd like to turn on a theme like Solarized, but I'm having a bit of trouble with that right now.
