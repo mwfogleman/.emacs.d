@@ -1,0 +1,381 @@
+#+TITLE: Michael Fogleman's Emacs configuration
+#+OPTIONS: toc:4 h:4
+* Introduction
+** Quotations
+
+#+begin_quote 
+Emacs outshines all other editing software in approximately the same
+way that the noonday sun does the stars. It is not just bigger and
+brighter; it simply makes everything else vanish.
+
+-- Neal Stephenson, "[[http://www.cryptonomicon.com/beginning.html][In the Beginning was the Command Line]]"
+#+end_quote
+
+#+begin_quote 
+Let us change our traditional attitude to the construction of
+programs: Instead of imagining that our main task is to instruct a
+computer what to do, let us concentrate rather on explaining to human
+beings what we want a computer to do.
+
+The practitioner of literate programming can be regarded as an
+essayist, whose main concern is with exposition and excellence of
+style. Such an author, with thesaurus in hand, chooses the names of
+variables carefully and explains what each variable means. He or she
+strives for a program that is comprehensible because its concepts have
+been introduced in an order that is best for human understanding,
+using a mixture of formal and informal methods that reinforce each
+other.
+
+-- Donald Knuth
+#+end_quote
+
+#+begin_quote 
+In my experience, software created with literate programming has
+turned out to be significantly better than software developed in more
+traditional ways...
+
+Jon Bentley probably hit the nail on the head when he once was asked
+why literate programming hasn’t taken the whole world by storm. He
+observed that a small percentage of the world’s population is good at
+programming, and a small percentage is good at writing; apparently I
+am asking everybody to be in both subsets.
+
+Yet to me, literate programming is certainly the most important thing
+that came out of the TeX project. Not only has it enabled me to write
+and maintain programs faster and more reliably than ever before, and
+been one of my greatest sources of joy since the 1980s—it has actually
+been indispensable at times.
+
+-- [[http://www.informit.com/articles/article.aspx?p=1193856][Donald Knuth]]
+#+end_quote
+* Configuration
+** Personal Information
+#+begin_src emacs-lisp
+  (setq user-full-name "Michael Fogleman"
+        user-mail-address "michaelwfogleman@gmail.com")
+#+end_src
+** Some basic settings
+*** Graphical Features
+
+Let's turn off some unnecessary graphical features.
+
+#+begin_src emacs-lisp
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(setq inhibit-startup-message t)
+(setq inhibit-startup-echo-area-message t) ;; hide splash screen and banner (not relevant in Daemon)
+#+end_src
+
+I'd like to turn on a theme like Solarized, but I'm having a bit of trouble with that right now.
+*** Lines
+
+Turning on line numbers.
+#+begin_src emacs-lisp
+(global-linum-mode 1)
+#+end_src
+
+Enable line indenting automatically; if needed, disable on mode-by-mode basis.
+
+#+begin_src emacs-lisp
+(define-key global-map (kbd "RET") 'newline-and-indent)
+#+end_src
+
+Turn on the line numbers.
+
+#+begin_src emacs-lisp
+(global-linum-mode 1)
+#+end_src
+
+Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
+
+#+begin_src emacs-lisp
+(define-key global-map (kbd "RET") 'newline-and-indent)
+#+end_src
+
+Make C-n insert new lines if the point is at the end of the buffer.
+
+#+begin_src emacs-lisp
+(setq next-line-add-newlines t)
+#+end_src
+*** Change prompts
+Make yes or no prompts be y or n prompts.
+
+#+begin_src emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+end_src
+*** Defaults
+**** From Better Defaults
+Here are some settings I stole from "[[https://github.com/technomancy/better-defaults][Better Defaults]]." 
+
+These rebind the default commands to use hippie-expand, ibuffer, and the regex-aware versions of isearch.
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+(setq apropos-do-all t)
+#+end_src
+
+Let apropos commands perform more extensive searches than default.
+
+#+begin_src emacs-lisp
+(setq apropos-do-all t)
+#+end_src
+**** Miscellaneous tweaks
+Remove the warning if a buffer or file does not exist, so you can quickly create them.
+
+#+begin_src emacs-lisp
+(setq confirm-nonexistent-file-or-buffer nil)
+#+end_src
+** Packages
+This allows me to browse and install packages from Melpa.
+#+begin_src emacs-lisp
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+#+end_src
+
+It'd be handy to have a list of the packages that I have installed, so that I could use one of the fancy "install-if-not-installed" functions that the Elisp Gods have created.
+** Dired
+
+I like using Dired; dired-details makes it less loud. 
+
+Note that you can show or hide the details with ) and (, respectively. If, for some reason, it becomes hard to remember this, you can install dired-details+.
+
+#+begin_src emacs-lisp
+(require 'dired-details)
+(dired-details-install)
+#+end_src
+** IDO
+
+[[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
+
+One key component below is ido-vertical-mode, which makes ido much more attractive.
+
+#+begin_src emacs-lisp
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(require 'ido-vertical-mode)
+(require 'ido-ubiquitous)
+(require 'flx-ido)
+(ido-mode 1)
+(ido-vertical-mode)
+(ido-ubiquitous-mode 1)
+(flx-ido-mode 1)
+(setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
+(setq ido-create-new-buffer 'always) ;; Remove warning if buffer does not exist
+#+end_src
+
+Note that there are certain program specific settings for IDO, which are not in this section:
+- Org-Mode
+- ido-recentf-open function
+** Smex
+
+Smex (Smart M-X) implements IDO functionality for the M-X window.
+
+#+begin_src emacs-lisp
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(require 'ido-vertical-mode)
+(require 'ido-ubiquitous)
+(require 'flx-ido)
+(ido-mode 1)
+(ido-vertical-mode)
+(ido-ubiquitous-mode 1)
+(flx-ido-mode 1)
+(setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
+(setq ido-create-new-buffer 'always) ;; Remove warning if buffer does not exist
+(require 'smex) ; Not needed if you use package.el
+(smex-initialize) ; Can be omitted. This might cause a (minimal) delay
+                  ; when Smex is auto-initialized on its first run.
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+#+end_src
+** Kill Ring
+
+While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
+
+#+begin_src emacs-lisp
+(require 'browse-kill-ring)
+(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
+#+end_src
+** Recent Files
+Recent files is a minor mode that keeps track of which files you're using, and provides it in some handy places.
+
+#+begin_src emacs-lisp
+(require 'recentf)
+(recentf-mode t)
+(setq recentf-max-saved-items 50)
+#+end_src
+
+Let's rebind find-file-read-only with ido-recent-files functionality. The ido-recentf-open function was taken from [[http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/][Mastering Emacs]].
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
+(defun ido-recentf-open ()
+  "Use `ido-completing-read' to \\[find-file] a recent file"
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
+#+end_src
+** Email
+Email is pretty text-heavy... let's do that in Emacs. I am currently using mu4e, which was indeed pretty easy to set up.
+
+mu4e is mu for Emacs... so we have to tell Emacs where mu is before activating mu4e.
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+(require 'mu4e)
+#+end_src
+
+Here are some variables to use with mu4e.
+
+#+begin_src emacs-lisp
+(setq mu4e-maildir "~/Maildir")
+(setq mu4e-drafts-folder "/Gmail/[Gmail].Drafts")
+(setq mu4e-sent-folder   "/Gmail/[Gmail].Sent Mail")
+(setq mu4e-trash-folder  "/Gmail/[Gmail].Trash")
+#+end_src
+
+...and shortcuts. You can jump to a shortcut by prefixing 'j' to the corresponding letter, or move an email to a folder (including 'All Mail,' bound to 'a') by prefixing 'm.'
+
+#+begin_src emacs-lisp
+(setq mu4e-maildir-shortcuts
+    '( ("/Gmail/INBOX"               . ?i)
+       ("/Gmail/Correspondence"      . ?c)
+       ("/Gmail/[Gmail].Sent Mail"   . ?s)
+       ("/Gmail/[Gmail].Trash"       . ?t)
+       ("/Gmail/[Gmail].All Mail"    . ?a)))
+#+end_src
+
+Don't save message to Sent Messages, Gmail/IMAP takes care of this.
+
+#+begin_src emacs-lisp
+(setq mu4e-sent-messages-behavior 'delete)
+#+end_src
+
+Here we enable updating ('U'), and tell mu4e to update every half-hour.
+
+#+begin_src emacs-lisp
+(setq mu4e-get-mail-command "offlineimap")
+(setq mu4e-update-interval 1800)
+#+end_src
+
+I already set the user name and mail address above. Here I set my message signature.
+
+#+begin_src emacs-lisp
+(setq message-signature "MWF")
+#+end_src
+
+We use a stock Emacs package to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
+
+#+begin_src emacs-lisp
+(require 'smtpmail)
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
+#+end_src
+
+Two more settings: to avoid keeping message buffers around, and to skip duplicate messages in display mode, which is useful for Gmail.
+
+#+begin_src emacs-lisp
+(setq message-kill-buffer-on-exit t)
+(setq mu4e-headers-skip-duplicates t)
+#+end_src
+
+** Org Mode
+*** Quotations
+#+begin_quote
+Org-mode does outlining, note-taking, hyperlinks, spreadsheets, TODO
+lists, project planning, GTD, HTML and LaTeX authoring, all with plain
+text files in Emacs.
+
+-- [[http://article.gmane.org/gmane.emacs.orgmode/6224][Carsten Dominik]]
+#+end_quote
+
+#+begin_quote
+If I hated everything about Emacs, I would still use it for org-mode.
+
+--[[http://orgmode.org/worg/org-quotes.html][Avdi]] on Twitter
+#+end_quote
+
+#+begin_quote
+...for all intents and purposes, Org-mode *is* [[http://www.taskpaper.com/][Taskpaper]]!
+
+-- [[http://article.gmane.org/gmane.emacs.orgmode/6224][Carsten Dominik]]
+#+end_quote
+
+*** Enable
+I use the stock package of org-mode as the default major mode. 
+
+#+begin_src emacs-lisp
+(require 'org)
+(setq default-major-mode 'org-mode)
+#+end_src
+
+*** Org Variables
+Here are some critical variables for Org Mode. The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
+
+#+begin_src emacs-lisp
+(setq org-directory "/home/michael/Dropbox/org/")
+(setq org-log-done t)
+(setq org-startup-indented t)
+(setq org-completion-use-ido t)
+(setq org-agenda-start-on-weekday nil)
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+(setq org-default-notes-file (concat org-directory "notes.org"))
+#+end_src
+
+*** Org Capture
+Here are some settings for capture. This was some of my first ELisp! (With the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.)
+
+Some special capture items: I keep a log of everything that happens on my computer, a gratitude journal, and a [[https://medium.com/p/8d6e7df7ae58][Spark]] file (which I review periodically, scheduled with Org).
+
+#+begin_src emacs-lisp
+(setq org-capture-templates
+      '(("a" "Arch Log" plain (file "~/Dropbox/arch/log")
+	     "%?\n" :empty-lines 1)
+	("g" "Gratitude Journal" entry (file "~/Dropbox/org/gratitude.org")
+	     "* I am grateful for %?\n")
+	("n" "Note" entry (file+headline "~/Dropbox/org/notes.org" "Notes")
+	     "* %?\n")
+	("s" "Spark" entry (file+headline "~/Dropbox/org/spark.org" "Sparks")
+             "* %?\n  %u")
+	("t" "Todo" entry (file "~/Dropbox/org/todo.org")
+	     "* TODO %?\n")))
+#+end_src
+
+I'd like to implement a journal feature soon. Here's some code I took from the capture template suggestions.
+
+#+begin_quote
+;;  ("j" "Journal" entry (file+datetree "~/org/journal.org")
+
+;;              "* %?\nEntered on %U\n  %i\n  %a")))
+#+end_quote
+
+*** Org Keyboard Shortcuts
+#+begin_src emacs-lisp
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+#+end_src
+*** Start Org mode on init
+This opens the agenda on initiation. I still have to change buffers to it, though, so this could be improved in the future.
+
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook 'org-agenda-list)
+#+end_src
+** Custom-set variables?
+ I'm not sure how to relate custom-set variables to the Org-Babel configuration.
