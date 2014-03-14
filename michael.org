@@ -191,9 +191,8 @@ Note that there are certain program specific settings for IDO, which are not in 
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+begin_src emacs-lisp
-(require 'smex) ; Not needed if you use package.el
-(smex-initialize) ; Can be omitted. This might cause a (minimal) delay
-                  ; when Smex is auto-initialized on its first run.
+(require 'smex)
+(smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; This is your old M-x.
@@ -386,5 +385,3 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 #+begin_src emacs-lisp
 (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
-** Custom-set variables?
- I'm not sure if there's a best practice for relating custom-set variables to the Org-Babel configuration, but I put mine in the init.el file.
