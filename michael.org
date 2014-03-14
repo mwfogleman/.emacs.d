@@ -131,6 +131,11 @@ Remove the warning if a buffer or file does not exist, so you can quickly create
 #+begin_src emacs-lisp
 (setq confirm-nonexistent-file-or-buffer nil)
 #+end_src
+
+#+begin_src emacs-lisp
+(put 'narrow-to-region 'disabled nil)
+#+end_src
+
 ** Packages
 This allows me to browse and install packages from Melpa.
 #+begin_src emacs-lisp
