@@ -49,12 +49,12 @@ been indispensable at times.
 -- [[http://www.informit.com/articles/article.aspx?p=1193856][Donald Knuth]]
 #+end_quote
 * Configuration
-** Personal Information
+** Settings
+*** Personal Information
 #+begin_src emacs-lisp
   (setq user-full-name "Michael Fogleman"
         user-mail-address "michaelwfogleman@gmail.com")
 #+end_src
-** Some basic settings
 *** Graphical Features
 
 Let's turn off some unnecessary graphical features.
@@ -103,6 +103,14 @@ Make yes or no prompts be y or n prompts.
 
 #+begin_src emacs-lisp
 (fset 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+*** Internet
+It'd be great to get an Emacs browser going, but in the meantime:
+
+#+begin_src emacs-lisp
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium")
 #+end_src
 *** Defaults
 **** From Better Defaults
@@ -153,7 +161,8 @@ This allows me to browse and install packages from Melpa.
 #+end_src
 
 It'd be handy to have a list of the packages that I have installed, so that I could use one of the fancy "install-if-not-installed" functions that the Elisp Gods have created.
-** Dired
+** Specific Programs or Packages
+*** Dired
 
 I like using Dired; dired-details makes it less loud. 
 
@@ -163,7 +172,7 @@ Note that you can show or hide the details with ) and (, respectively. If, for s
 (require 'dired-details)
 (dired-details-install)
 #+end_src
-** IDO
+*** IDO
 
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
 
@@ -186,7 +195,7 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
 Note that there are certain program specific settings for IDO, which are not in this section:
 - Org-Mode
 - ido-recentf-open function
-** Smex
+*** Smex
 
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
@@ -198,12 +207,12 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 #+end_src
-** Expand Region
+*** Expand Region
 #+begin_src emacs-lisp
 (require 'expand-region)
 (global-set-key (kbd "C-@") 'er/expand-region)
 #+end_src
-** Kill Ring
+*** Kill Ring
 
 While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
 
@@ -211,7 +220,7 @@ While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great t
 (require 'browse-kill-ring)
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)
 #+end_src
-** Recent Files
+*** Recent Files
 Recent files is a minor mode that keeps track of which files you're using, and provides it in some handy places.
 
 #+begin_src emacs-lisp
@@ -231,7 +240,7 @@ Let's rebind find-file-read-only with ido-recent-files functionality. The ido-re
       (message "Opening file...")
     (message "Aborting")))
 #+end_src
-** Email
+*** Email (mu4e)
 Email is pretty text-heavy... let's do that in Emacs. I am currently using mu4e, which was indeed pretty easy to set up.
 
 mu4e is mu for Emacs... so we have to tell Emacs where mu is before activating mu4e.
@@ -297,16 +306,7 @@ Two more settings: to avoid keeping message buffers around, and to skip duplicat
 (setq message-kill-buffer-on-exit t)
 (setq mu4e-headers-skip-duplicates t)
 #+end_src
-
-** Internet
-It'd be great to get an Emacs browser going, but in the meantime:
-
-#+begin_src emacs-lisp
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium")
-#+end_src
-
-** Org Mode
+*** Org Mode
 *** Quotations
 #+begin_quote
 Org-mode does outlining, note-taking, hyperlinks, spreadsheets, TODO
