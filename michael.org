@@ -307,7 +307,7 @@ Two more settings: to avoid keeping message buffers around, and to skip duplicat
 (setq mu4e-headers-skip-duplicates t)
 #+end_src
 *** Org Mode
-*** Quotations
+**** Quotations
 #+begin_quote
 Org-mode does outlining, note-taking, hyperlinks, spreadsheets, TODO
 lists, project planning, GTD, HTML and LaTeX authoring, all with plain
@@ -328,7 +328,7 @@ If I hated everything about Emacs, I would still use it for org-mode.
 -- [[http://article.gmane.org/gmane.emacs.orgmode/6224][Carsten Dominik]]
 #+end_quote
 
-*** Enable
+**** Enable
 I use the stock package of org-mode as the default major mode. 
 
 #+begin_src emacs-lisp
@@ -336,7 +336,7 @@ I use the stock package of org-mode as the default major mode.
 (setq default-major-mode 'org-mode)
 #+end_src
 
-*** Org Variables
+**** Org Variables
 Here are some critical variables for Org Mode. The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
 
 #+begin_src emacs-lisp
@@ -350,7 +350,7 @@ Here are some critical variables for Org Mode. The org-agenda-files variable is 
 (setq org-default-notes-file (concat org-directory "notes.org"))
 #+end_src
 
-*** Org Capture
+**** Org Capture
 Here are some settings for capture. This was some of my first ELisp! (With the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.)
 
 Some special capture items: I keep a log of everything that happens on my computer, a gratitude journal, and a [[https://medium.com/p/8d6e7df7ae58][Spark]] file (which I review periodically, scheduled with Org).
@@ -377,14 +377,14 @@ I'd like to implement a journal feature soon. Here's some code I took from the c
 ;;              "* %?\nEntered on %U\n  %i\n  %a")))
 #+end_quote
 
-*** Org Keyboard Shortcuts
+**** Org Keyboard Shortcuts
 #+begin_src emacs-lisp
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 #+end_src
-*** Start Org mode on init
+**** Start Org mode on init
 This opens the agenda on initiation. I still have to change buffers to it, though, so this could be improved in the future.
 
 #+begin_src emacs-lisp
