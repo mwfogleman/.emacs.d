@@ -68,6 +68,12 @@ Let's turn off some unnecessary graphical features.
 #+end_src
 
 I'd like to turn on a theme like Solarized, but I'm having a bit of trouble with that right now.
+*** Backups
+#+begin_src emacs-lisp
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+#+end_src
 *** Lines
 
 Turning on line numbers.
