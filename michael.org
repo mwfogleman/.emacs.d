@@ -354,25 +354,19 @@ Some special capture items: I keep a log of everything that happens on my comput
 
 #+begin_src emacs-lisp
 (setq org-capture-templates
-      '(("a" "Arch Log" plain (file "~/Dropbox/arch/log")
+      '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
 	     "%?\n" :empty-lines 1)
-	("g" "Gratitude Journal" entry (file "~/Dropbox/org/gratitude.org")
+	("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
 	     "* I am grateful for %?\n")
 	("n" "Note" entry (file+headline "~/Dropbox/org/notes.org" "Notes")
 	     "* %?\n")
-	("s" "Spark" entry (file+headline "~/Dropbox/org/spark.org" "Sparks")
+	("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org" "Sparks")
              "* %?\n  %u")
+        ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
+             "* %?\nEntered on %U\n  %i\n")
 	("t" "Todo" entry (file "~/Dropbox/org/todo.org")
 	     "* TODO %?\n")))
 #+end_src
-
-I'd like to implement a journal feature soon. Here's some code I took from the capture template suggestions.
-
-#+begin_quote
-;;  ("j" "Journal" entry (file+datetree "~/org/journal.org")
-
-;;              "* %?\nEntered on %U\n  %i\n  %a")))
-#+end_quote
 
 **** Org Keyboard Shortcuts
 #+begin_src emacs-lisp
