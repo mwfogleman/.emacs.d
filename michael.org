@@ -215,6 +215,16 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
   :bind ("C-@" . er/expand-region))
 (pending-delete-mode t)
 #+end_src
+*** Multiple Cursors
+You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for the [[https://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html#sec-1-3-3-1][code]], Sacha.
+
+#+begin_src emacs-lisp
+(use-package multiple-cursors
+  :bind 
+   (("C->" . mc/mark-next-like-this)
+    ("C-<" . mc/mark-previous-like-this)
+    ("C-*" . mc/mark-all-like-this)))
+#+end_src emacs-lisp
 *** Kill Ring
 
 While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
