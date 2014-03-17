@@ -201,6 +201,16 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ;; This is your old M-x.
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 #+end_src
+*** Ace Jump Mode
+#+begin_src emacs-lisp
+(add-to-list 'load-path "/home/michael/.emacs.d/ace-jump-mode-20140207.530/ace-jump-mode.el")
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+#+end_src
 *** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
 
