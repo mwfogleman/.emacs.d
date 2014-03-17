@@ -319,6 +319,11 @@ Two more settings: to avoid keeping message buffers around, and to skip duplicat
 (setq message-kill-buffer-on-exit t)
 (setq mu4e-headers-skip-duplicates t)
 #+end_src
+*** Magit
+#+begin_src emacs-lisp
+(use-package magit
+  :bind ("C-x g" . magit-status))
+#+end_src
 *** Org Mode
 **** Quotations
 #+begin_quote
