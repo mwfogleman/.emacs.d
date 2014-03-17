@@ -152,6 +152,7 @@ This allows me to browse and install packages from Melpa.
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
+(require 'use-package)
 #+end_src
 
 It'd be handy to have a list of the packages that I have installed, so that I could use one of the fancy "install-if-not-installed" functions that the Elisp Gods have created.
@@ -203,13 +204,8 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+end_src
 *** Ace Jump Mode
 #+begin_src emacs-lisp
-(add-to-list 'load-path "/home/michael/.emacs.d/ace-jump-mode-20140207.530/ace-jump-mode.el")
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(use-package ace-jump-mode
+  :bind ("C-c SPC" . ace-jump-mode))
 #+end_src
 *** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
