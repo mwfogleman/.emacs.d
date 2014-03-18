@@ -313,6 +313,13 @@ We use a stock Emacs package to send mail. It plugs into the gnutls command line
       smtpmail-smtp-service 587)
 #+end_src
 
+Let's support offline emailing by creating a queue of emails to be sent with Internet access. The folder /home/user/Maildir/queue/ needs to be created with the command "mu mkdir."
+ 
+#+begin_src emacs-lisp
+(setq smtpmail-queue-mail  nil
+      smtpmail-queue-dir  "/home/user/Maildir/queue/cur")
+#+end_src
+
 Two more settings: to avoid keeping message buffers around, and to skip duplicate messages in display mode, which is useful for Gmail.
 
 #+begin_src emacs-lisp
