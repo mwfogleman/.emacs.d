@@ -68,6 +68,12 @@ Let's turn off some unnecessary graphical features.
 #+end_src
 
 I'd like to turn on a theme like Solarized, but I'm having a bit of trouble with that right now.
+
+Additionally, I'd like to handle windows intelligently:
+#+begin_src emacs-lisp
+(windmove-default-keybindings)
+#+end_src
+
 *** Backups
 #+begin_src emacs-lisp
 (setq backup-directory-alist
