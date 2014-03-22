@@ -341,6 +341,15 @@ Two more settings: to avoid keeping message buffers around, and to skip duplicat
 (setq message-kill-buffer-on-exit t)
 (setq mu4e-headers-skip-duplicates t)
 #+end_src
+*** ERC
+#+begin_src emacs-lisp
+(use-package erc
+  :config
+  (setq erc-autojoin-channels-alist '(("freenode.net"
+                                       "#emacs"))
+        erc-server "irc.freenode.net"
+        erc-nick "mwfogleman"))
+#+end_src
 *** Magit
 #+begin_src emacs-lisp
 (use-package magit
