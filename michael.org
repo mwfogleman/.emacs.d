@@ -449,8 +449,11 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
 ** Macros
-#+begin_src
+Org-src block inserts an Org source block, and puts the cursor where the code goes.
+
+Note that it does not specify a language.
+
+#+begin_src emacs-lisp
 (fset 'org-src-block
    [?# ?+ ?b ?e ?g ?i ?n ?_ ?s ?r ?c return ?# ?+ ?e ?n ?d ?_ ?s ?r ?c ?\C-a return ?\C-p])
 #+end_src
-
