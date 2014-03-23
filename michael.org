@@ -172,8 +172,8 @@ It'd be handy to have a list of the packages that I have installed, so that I co
 God Mode makes Emacs key-combinations a lot shorter! I've set ESC to toggle between God mode and non-God mode.
 
 #+begin_src emacs-lisp
-(require 'god-mode)
-(global-set-key (kbd "<escape>") 'god-local-mode)
+(use-package god-mode
+  :bind ("<escape>" . god-local-mode))
 #+end_src
 *** Dired
 
