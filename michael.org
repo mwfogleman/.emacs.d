@@ -178,7 +178,7 @@ It'd be handy to have a list of the packages that I have installed, so that I co
         ("C-x C-2" . split-window-below)
         ("C-x C-3" . split-window-right)
         ("C-x C-0" . delete-window))
-  :init
+  :config
         (define-key god-local-mode-map (kbd "z") 'repeat)
         (define-key god-local-mode-map (kbd ".") 'repeat)
         (define-key god-local-mode-map (kbd "i") 'god-local-mode))
