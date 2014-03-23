@@ -448,3 +448,9 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 #+begin_src emacs-lisp
 (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
+** Macros
+#+begin_src
+(fset 'org-src-block
+   [?# ?+ ?b ?e ?g ?i ?n ?_ ?s ?r ?c return ?# ?+ ?e ?n ?d ?_ ?s ?r ?c ?\C-a return ?\C-p])
+#+end_src
+
