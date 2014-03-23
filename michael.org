@@ -157,6 +157,7 @@ Remove the warning if a buffer or file does not exist, so you can quickly create
 (put 'narrow-to-region 'disabled nil)
 #+end_src
 ** Packages
+*** Enable Package Support
 This allows me to browse and install packages from Melpa.
 #+begin_src emacs-lisp
 (require 'package)
@@ -167,8 +168,8 @@ This allows me to browse and install packages from Melpa.
 #+end_src
 
 It'd be handy to have a list of the packages that I have installed, so that I could use one of the fancy "install-if-not-installed" functions that the Elisp Gods have created.
-** Specific Programs or Packages
-*** God Mode
+*** Specific Packages
+**** God Mode
 [[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to toggle between God mode and non-God mode.
 
 #+begin_src emacs-lisp
@@ -183,7 +184,7 @@ It'd be handy to have a list of the packages that I have installed, so that I co
         (define-key god-local-mode-map (kbd ".") 'repeat)
         (define-key god-local-mode-map (kbd "i") 'god-local-mode))
 #+end_src
-*** Dired
+**** Dired
 
 I like using Dired; dired-details makes it less loud. 
 
@@ -193,7 +194,7 @@ Note that you can show or hide the details with ) and (, respectively. If, for s
 (require 'dired-details)
 (dired-details-install)
 #+end_src
-*** IDO
+**** IDO
 
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
 
@@ -216,7 +217,7 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
 Note that there are certain program specific settings for IDO, which are not in this section:
 - Org-Mode
 - ido-recentf-open function
-*** Smex
+**** Smex
 
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
@@ -228,12 +229,12 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
   :init
   (smex-initialize))
 #+end_src
-*** Ace Jump Mode
+**** Ace Jump Mode
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
   :bind ("C-c SPC" . ace-jump-mode))
 #+end_src
-*** Expand Region
+**** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
 
 #+begin_src emacs-lisp
@@ -241,7 +242,7 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
   :bind ("C-@" . er/expand-region))
 (pending-delete-mode t)
 #+end_src
-*** Multiple Cursors
+**** Multiple Cursors
 You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for the [[https://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html#sec-1-3-3-1][code]], Sacha.
 
 #+begin_src emacs-lisp
@@ -251,7 +252,7 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
     ("C-<" . mc/mark-previous-like-this)
     ("C-*" . mc/mark-all-like-this)))
 #+end_src emacs-lisp
-*** Kill Ring
+**** Kill Ring
 
 While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
 
@@ -259,7 +260,7 @@ While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great t
 (use-package browse-kill-ring
   :bind ("C-x C-y" . browse-kill-ring))
 #+end_src
-*** Recent Files
+**** Recent Files
 Recent files is a minor mode that keeps track of which files you're using, and provides it in some handy places.
 
 #+begin_src emacs-lisp
@@ -279,7 +280,7 @@ Let's rebind find-file-read-only with ido-recent-files functionality. The ido-re
       (message "Opening file...")
     (message "Aborting")))
 #+end_src
-*** Email (mu4e)
+**** Email (mu4e)
 Email is pretty text-heavy... let's do that in Emacs. I am currently using mu4e, which was indeed pretty easy to set up.
 
 mu4e is mu for Emacs... so we have to tell Emacs where mu is before activating mu4e.
@@ -356,7 +357,7 @@ Two more settings: to avoid keeping message buffers around, and to skip duplicat
 (setq message-kill-buffer-on-exit t)
 (setq mu4e-headers-skip-duplicates t)
 #+end_src
-*** ERC
+**** ERC
 #+begin_src emacs-lisp
 (use-package erc
   :config
@@ -365,13 +366,13 @@ Two more settings: to avoid keeping message buffers around, and to skip duplicat
         erc-server "irc.freenode.net"
         erc-nick "mwfogleman"))
 #+end_src
-*** Magit
+**** Magit
 #+begin_src emacs-lisp
 (use-package magit
   :bind ("C-x g" . magit-status))
 #+end_src
-*** Org Mode
-**** Quotations
+**** Org Mode
+***** Quotations
 #+begin_quote
 Org-mode does outlining, note-taking, hyperlinks, spreadsheets, TODO
 lists, project planning, GTD, HTML and LaTeX authoring, all with plain
@@ -392,7 +393,7 @@ If I hated everything about Emacs, I would still use it for org-mode.
 -- [[http://article.gmane.org/gmane.emacs.orgmode/6224][Carsten Dominik]]
 #+end_quote
 
-**** Enable
+***** Enable
 I use the stock package of org-mode as the default major mode. 
 
 #+begin_src emacs-lisp
@@ -400,7 +401,7 @@ I use the stock package of org-mode as the default major mode.
 (setq default-major-mode 'org-mode)
 #+end_src
 
-**** Org Variables
+***** Org Variables
 Here are some critical variables for Org Mode. The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
 
 #+begin_src emacs-lisp
@@ -414,7 +415,7 @@ Here are some critical variables for Org Mode. The org-agenda-files variable is 
 (setq org-default-notes-file (concat org-directory "notes.org"))
 #+end_src
 
-**** Org Capture
+***** Org Capture
 Here are some settings for capture. This was some of my first ELisp! (With the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.)
 
 Some special capture items: I keep a log of everything that happens on my computer, a gratitude journal, and a [[https://medium.com/p/8d6e7df7ae58][Spark]] file (which I review periodically, scheduled with Org).
@@ -435,14 +436,14 @@ Some special capture items: I keep a log of everything that happens on my comput
 	     "* TODO %?\n")))
 #+end_src
 
-**** Org Keyboard Shortcuts
+***** Org Keyboard Shortcuts
 #+begin_src emacs-lisp
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 #+end_src
-**** Start Org mode on init
+***** Start Org mode on init
 This opens the agenda on initiation. I still have to change buffers to it, though, so this could be improved in the future.
 
 #+begin_src emacs-lisp
