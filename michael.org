@@ -359,7 +359,7 @@ Two more settings: to avoid keeping message buffers around, and to skip duplicat
 *** ERC
 #+begin_src emacs-lisp
 (use-package erc
-  :init
+  :config
   (setq erc-autojoin-channels-alist '(("freenode.net"
                                        "#emacs"))
         erc-server "irc.freenode.net"
