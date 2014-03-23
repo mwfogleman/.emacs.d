@@ -168,6 +168,13 @@ This allows me to browse and install packages from Melpa.
 
 It'd be handy to have a list of the packages that I have installed, so that I could use one of the fancy "install-if-not-installed" functions that the Elisp Gods have created.
 ** Specific Programs or Packages
+*** God Mode
+God Mode makes Emacs key-combinations a lot shorter! I've set ESC to toggle between God mode and non-God mode.
+
+#+begin_src emacs-lisp
+(require 'god-mode)
+(global-set-key (kbd "<escape>") 'god-local-mode)
+#+end_src
 *** Dired
 
 I like using Dired; dired-details makes it less loud. 
