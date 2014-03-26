@@ -11,7 +11,7 @@
  '(custom-enabled-themes (quote (whiteboard)))
  '(custom-safe-themes (quote ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(foreground-color nil)
- '(org-agenda-files (quote ("~/org/todo.org" "~/Dropbox/writing/lim.org" "~/Dropbox/org/notes.org" "~/org/me.org"))))
+ '(org-agenda-files (quote ("~/org/todo.org" "~/Dropbox/writing/lim/lim.org" "~/Dropbox/org/notes.org" "~/org/me.org"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
