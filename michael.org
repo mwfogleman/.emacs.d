@@ -427,7 +427,7 @@ I also want org-mode to be used elsewhere.
 
 #+begin_src emacs-lisp
 (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
-(add-hook 'text-mode-hook 'turn-on-orgstruct)
+; (add-hook 'text-mode-hook 'turn-on-orgstruct)
 (add-to-list 'auto-mode-alist '("\\.tid" . text-mode))
 #+end_src
 
@@ -488,4 +488,3 @@ Note that it does not specify a language.
 (fset 'org-src-block
    [?# ?+ ?b ?e ?g ?i ?n ?_ ?s ?r ?c return ?# ?+ ?e ?n ?d ?_ ?s ?r ?c ?\C-a return ?\C-p])
 #+end_src
-
