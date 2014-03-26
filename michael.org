@@ -174,7 +174,7 @@ It'd be handy to have a list of the packages that I have installed, so that I co
 
 #+begin_src emacs-lisp
 (use-package god-mode
-  :bind (("<escape>" . god-local-mode)
+  :bind (("<escape>" . god-mode-all)
         ("C-x C-1" . delete-other-windows)
         ("C-x C-2" . split-window-below)
         ("C-x C-3" . split-window-right)
@@ -183,6 +183,7 @@ It'd be handy to have a list of the packages that I have installed, so that I co
         (define-key god-local-mode-map (kbd "z") 'repeat)
         (define-key god-local-mode-map (kbd ".") 'repeat)
         (define-key god-local-mode-map (kbd "i") 'god-local-mode))
+(god-mode)
 #+end_src
 **** Dired
 
