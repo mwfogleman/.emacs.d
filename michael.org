@@ -416,7 +416,7 @@ If I hated everything about Emacs, I would still use it for org-mode.
 #+end_quote
 
 ***** Enable
-I use the stock package of org-mode as the default major mode. 
+I use the stock package of org-mode as the default major mode.
 
 #+begin_src emacs-lisp
 (require 'org)
@@ -438,6 +438,7 @@ Here are some critical variables for Org Mode. The org-agenda-files variable is 
 (setq org-directory "/home/michael/Dropbox/org/")
 (setq org-log-done t)
 (setq org-startup-indented t)
+(setq org-startup-truncated nil)
 (setq org-completion-use-ido t)
 (setq org-agenda-start-on-weekday nil)
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
