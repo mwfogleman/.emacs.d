@@ -415,6 +415,14 @@ I use the stock package of org-mode as the default major mode.
 (setq default-major-mode 'org-mode)
 #+end_src
 
+I also want org-mode to be used elsewhere.
+
+#+begin_src emacs-lisp
+(add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
+(add-hook 'text-mode-hook 'turn-on-orgstruct)
+(add-to-list 'auto-mode-alist '("\\.tid" . text-mode))
+#+end_src
+
 ***** Org Variables
 Here are some critical variables for Org Mode. The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
 
