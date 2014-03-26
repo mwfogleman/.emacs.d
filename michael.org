@@ -359,6 +359,12 @@ Once this is enabled, you can see some new options in the main view, to toggle o
       smtpmail-queue-dir  "/home/michael/Maildir/queue/cur")
 #+end_src
 
+I don't want to use God mode when I'm writing an email.
+
+#+begin_src emacs-lisp
+(add-to-list 'god-exempt-major-modes 'mu4e-compose-mode)
+#+end_src
+
 Two more settings: to avoid keeping message buffers around, and to skip duplicate messages in display mode, which is useful for Gmail.
 
 #+begin_src emacs-lisp
@@ -466,3 +472,4 @@ Note that it does not specify a language.
 (fset 'org-src-block
    [?# ?+ ?b ?e ?g ?i ?n ?_ ?s ?r ?c return ?# ?+ ?e ?n ?d ?_ ?s ?r ?c ?\C-a return ?\C-p])
 #+end_src
+
