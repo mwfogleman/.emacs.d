@@ -110,6 +110,14 @@ Make yes or no prompts be y or n prompts.
 (fset 'yes-or-no-p 'y-or-n-p)
 #+end_src
 
+*** Computer
+This displays the time and the status of my laptop battery.
+
+#+begin_src emacs-lisp
+(display-battery-mode 1)
+(setq display-time-day-and-date 1)
+(display-time-mode 1)
+#+end_src
 *** Internet
 It'd be great to get an Emacs browser going, but in the meantime:
 
