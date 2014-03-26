@@ -183,6 +183,13 @@ It'd be handy to have a list of the packages that I have installed, so that I co
         (define-key god-local-mode-map (kbd "z") 'repeat)
         (define-key god-local-mode-map (kbd ".") 'repeat)
         (define-key god-local-mode-map (kbd "i") 'god-local-mode))
+(defun my-update-cursor ()
+  (setq cursor-type (if (or god-local-mode buffer-read-only)
+                        'box
+                      'bar)))
+
+(add-hook 'god-mode-enabled-hook 'my-update-cursor)
+(add-hook 'god-mode-disabled-hook 'my-update-cursor)
 (god-mode)
 #+end_src
 **** Dired
