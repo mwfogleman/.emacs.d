@@ -431,6 +431,12 @@ I also want org-mode to be used elsewhere.
 (add-to-list 'auto-mode-alist '("\\.tid" . text-mode))
 #+end_src
 
+I don't want org-agenda to use God-mode.
+
+#+begin_src emacs-lisp
+(add-to-list 'god-exempt-major-modes 'org-agenda-mode)
+#+end_src
+
 ***** Org Variables
 Here are some critical variables for Org Mode. The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
 
