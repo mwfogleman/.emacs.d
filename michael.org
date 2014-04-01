@@ -373,6 +373,13 @@ I don't want to use God mode when I'm writing an email.
 (add-to-list 'god-exempt-major-modes 'mu4e-compose-mode)
 #+end_src
 
+This tells mu4e to attempt to show images when viewing messages.
+
+#+begin_src emacs-lisp
+(setq mu4e-view-show-images t
+      mu4e-view-image-max-width 800)
+#+end_src
+
 Two more settings: to avoid keeping message buffers around, and to skip duplicate messages in display mode, which is useful for Gmail.
 
 #+begin_src emacs-lisp
