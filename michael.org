@@ -245,6 +245,16 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
   :init
   (smex-initialize))
 #+end_src
+**** Auto-Complete
+#+begin_src emacs-lisp
+(use-package auto-complete-config
+  :bind ("C-." . auto-complete)
+  :init
+  (global-auto-complete-mode t)
+  :config
+  (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+  (ac-config-default))
+#+end_src
 **** Ace Jump Mode
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
