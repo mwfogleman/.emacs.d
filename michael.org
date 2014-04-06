@@ -525,7 +525,7 @@ This function and the corresponding keybinding allows me to rapidly access my co
   (interactive)
   ; Use mwf-init-file rather than user-init-file.
   (setq mwf-init-file "~/src/config/home/.emacs.d/michael.org")
-  (find-file-other-window mwf-init-file))
+  (find-file mwf-init-file))
 
 (global-set-key (kbd "C-c I") 'find-init-file)
 #+end_src
