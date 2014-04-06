@@ -514,7 +514,28 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 #+begin_src emacs-lisp
 (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
-** Macros
+** Functions and Macros
+*** Functions
+**** TiddlyWiki
+I edit TiddlyWiki 5 .tid files in Emacs. This allows me to update the metadata.
+
+#+begin_src emacs-lisp
+(defun tid-time ()
+  "If called in a tiddler file, this function updates the metadata to
+  reflect the modification time."
+  (interactive)
+  (when
+      (and
+       (> (length (buffer-file-name)) 4)
+       (string-equal (substring (buffer-file-name) -4) ".tid"))
+      (save-excursion
+	(goto-char (point-min))
+        (forward-line)
+	(kill-line)
+	(insert (format-time-string "modified: %Y%m%d%H%M%S%3N")))))
+#+end_src
+*** Macros
+**** Org Source Block
 Org-src block inserts an Org source block, and puts the cursor where the code goes.
 
 Note that it does not specify a language.
