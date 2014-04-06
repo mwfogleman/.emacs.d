@@ -516,6 +516,19 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 #+end_src
 ** Functions and Macros
 *** Functions
+**** Emacs Configuration File
+This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
+
+#+begin_src emacs-lisp
+(defun find-init-file ()
+  "Edit my init file in another window."
+  (interactive)
+  ; Use mwf-init-file rather than user-init-file.
+  (setq mwf-init-file "~/src/config/home/.emacs.d/michael.org")
+  (find-file-other-window mwf-init-file))
+
+(global-set-key (kbd "C-c I") 'find-init-file)
+#+end_src
 **** TiddlyWiki
 I edit TiddlyWiki 5 .tid files in Emacs. This allows me to update the metadata.
 
