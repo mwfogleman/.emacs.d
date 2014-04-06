@@ -530,7 +530,8 @@ I edit TiddlyWiki 5 .tid files in Emacs. This allows me to update the metadata.
        (string-equal (substring (buffer-file-name) -4) ".tid"))
       (save-excursion
 	(goto-char (point-min))
-        (forward-line)
+	(search-forward "modified: ")
+	(beginning-of-line)
 	(kill-line)
 	(insert (format-time-string "modified: %Y%m%d%H%M%S%3N")))))
 #+end_src
