@@ -567,5 +567,5 @@ Note that it does not specify a language.
 
 #+begin_src emacs-lisp
 (fset 'org-src-block
-   [?# ?+ ?b ?e ?g ?i ?n ?_ ?s ?r ?c return ?# ?+ ?e ?n ?d ?_ ?s ?r ?c ?\C-a return ?\C-p])
+   "#+begin_src\C-m#+end_src\C-a\C-m\C-p\C-p\C-e ")
 #+end_src
