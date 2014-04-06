@@ -529,6 +529,17 @@ This function and the corresponding keybinding allows me to rapidly access my co
 
 (global-set-key (kbd "C-c I") 'find-init-file)
 #+end_src
+
+Relatedly, I often want to reload my init-file. This will actually use the system-wide user-init-file variable.
+
+#+begin_src emacs-lisp
+(defun reload-init-file ()
+  "Reload my init file."
+  (interactive)
+  (load-file user-init-file))
+
+(global-set-key (kbd "C-c M-l") 'reload-init-file)
+#+end_src
 **** TiddlyWiki
 I edit TiddlyWiki 5 .tid files in Emacs. This allows me to update the metadata.
 
