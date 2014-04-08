@@ -67,8 +67,6 @@ Let's turn off some unnecessary graphical features.
 (setq inhibit-startup-echo-area-message t)
 #+end_src
 
-I'd like to turn on a theme like Solarized, but I'm having a bit of trouble with that right now.
-
 Additionally, I'd like to handle windows intelligently. I'll use the windmove functionality, along with some special functionality for Org where windmove is active in locations where Org Mode does not have special functions.
 
 #+begin_src emacs-lisp
