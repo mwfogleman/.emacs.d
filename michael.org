@@ -86,12 +86,6 @@ Additionally, I'd like to handle windows intelligently. I'll use the windmove fu
                  (concat user-emacs-directory "backups")))))
 #+end_src
 *** Lines
-Turn on the line numbers.
-
-#+begin_src emacs-lisp
-(global-linum-mode 1)
-#+end_src
-
 Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
 
 #+begin_src emacs-lisp
