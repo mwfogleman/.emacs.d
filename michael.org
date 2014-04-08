@@ -509,6 +509,7 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 **** smartparens
 #+begin_src emacs-lisp
 (smartparens-global-mode t)
+(show-smartparens-global-mode t)
 (require 'smartparens-config)
 #+end_src
 ** Functions and Macros
