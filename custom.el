@@ -11,7 +11,9 @@
  '(custom-enabled-themes (quote (solarized-dark)))
  '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(foreground-color nil)
- '(org-agenda-files (quote ("~/org/todo.org" "~/Dropbox/writing/lim/lim.org" "~/Dropbox/org/notes.org" "~/org/me.org"))))
+ '(magit-diff-use-overlays nil)
+ '(org-agenda-files (quote ("~/org/todo.org" "~/Dropbox/writing/lim/lim.org" "~/Dropbox/org/notes.org" "~/org/me.org")))
+ '(sp-base-key-bindings (quote paredit)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
