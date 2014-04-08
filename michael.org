@@ -506,6 +506,11 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 #+begin_src emacs-lisp
 (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
+**** smartparens
+#+begin_src emacs-lisp
+(smartparens-global-mode t)
+(require 'smartparens-config)
+#+end_src
 ** Functions and Macros
 *** Functions
 **** Emacs Configuration File
