@@ -56,9 +56,7 @@ been indispensable at times.
         user-mail-address "michaelwfogleman@gmail.com")
 #+end_src
 *** Graphical Features
-
-Let's turn off some unnecessary graphical features.
-
+**** Unnecessary graphical features
 #+begin_src emacs-lisp
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -66,7 +64,7 @@ Let's turn off some unnecessary graphical features.
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message t)
 #+end_src
-
+**** Windows
 Additionally, I'd like to handle windows intelligently. I'll use the windmove functionality, along with some special functionality for Org where windmove is active in locations where Org Mode does not have special functions.
 
 #+begin_src emacs-lisp
@@ -76,7 +74,10 @@ Additionally, I'd like to handle windows intelligently. I'll use the windmove fu
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 #+end_src
-
+**** Diminish
+#+begin_src emacs-lisp
+(require 'diminish)
+#+end_src
 *** Backups
 #+begin_src emacs-lisp
 (setq backup-directory-alist
@@ -225,7 +226,6 @@ Note that there are certain program specific settings for IDO, which are not in 
 - Org-Mode
 - ido-recentf-open function
 **** Smex
-
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+begin_src emacs-lisp
@@ -239,6 +239,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 **** Company Mode
 #+begin_src emacs-lisp
 (use-package company-mode
+  :diminish 'company-mode
   :bind ("C-." . company-complete)
   :init 
   (global-company-mode 1))
@@ -505,6 +506,7 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 **** smartparens
 #+begin_src emacs-lisp
 (use-package smartparens
+  :diminish smartparens-mode
   :bind
   (("C-M-f" . sp-forward-sexp)
    ("C-M-b" . sp-backward-sexp)
