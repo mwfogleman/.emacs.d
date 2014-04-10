@@ -203,7 +203,6 @@ Note that you can show or hide the details with ) and (, respectively. If, for s
   (dired-details-install))
 #+end_src
 **** IDO
-
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
 
 One key component below is ido-vertical-mode, which makes ido much more attractive.
@@ -505,9 +504,48 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 #+end_src
 **** smartparens
 #+begin_src emacs-lisp
-(smartparens-global-mode t)
-(show-smartparens-global-mode t)
-(require 'smartparens-config)
+(use-package smartparens
+  :bind
+  (("C-M-f" . sp-forward-sexp)
+   ("C-M-b" . sp-backward-sexp)
+   ("C-M-d" . sp-down-sexp)
+   ("C-M-a" . sp-backward-down-sexp)
+   ("C-S-a" . sp-beginning-of-sexp)
+   ("C-S-d" . sp-end-of-sexp)
+   ("C-M-e" . sp-up-sexp)
+   ("C-M-u" . sp-backward-up-sexp)
+   ("C-M-t" . sp-transpose-sexp)
+   ("C-M-n" . sp-next-sexp)
+   ("C-M-p" . sp-previous-sexp)
+   ("C-M-k" . sp-kill-sexp)
+   ("C-M-w" . sp-copy-sexp)
+   ("M-<delete>" . sp-unwrap-sexp)
+   ("M-S-<backspace>" . sp-backward-unwrap-sexp)
+   ("C-<right>" . sp-forward-slurp-sexp)
+   ("C-<left>" . sp-forward-barf-sexp)
+   ("C-M-<left>" . sp-backward-slurp-sexp)
+   ("C-M-<right>" . sp-backward-barf-sexp)
+   ("C-M-<delete>" . sp-splice-sexp-killing-forward)
+   ("C-M-<backspace>" . sp-splice-sexp-killing-backward)
+   ("C-S-<backspace>" . sp-splice-sexp-killing-around)
+   ("C-]" . sp-select-next-thing-exchange)
+   ("C-<left_bracket>" . sp-select-previous-thing)
+   ("C-M-]" . sp-select-next-thing)
+   ("M-F" . sp-forward-symbol)
+   ("M-B" . sp-backward-symbol)
+   ("H-t" . sp-prefix-tag-object)
+   ("H-p" . sp-prefix-pair-object)
+   ("H-s c" . sp-convolute-sexp)
+   ("H-s a" . sp-absorb-sexp)
+   ("H-s e" . sp-emit-sexp)
+   ("H-s p" . sp-add-to-previous-sexp)
+   ("H-s n" . sp-add-to-next-sexp)
+   ("H-s j" . sp-join-sexp)
+   ("H-s s" . sp-split-sexp))
+  :init
+  (smartparens-global-mode t)
+  (show-smartparens-global-mode t)
+  (require 'smartparens-config))
 #+end_src
 ** Functions and Macros
 *** Functions
