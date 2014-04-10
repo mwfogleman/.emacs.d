@@ -426,6 +426,23 @@ To avoid keeping message buffers around, this command kills the buffer when you 
 (use-package magit
   :bind ("C-x g" . magit-status))
 #+end_src
+
+This code, via [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]], opens magit-status in one frame, and then restores the old window configuration when you quit.
+
+#+begin_src emacs-lisp
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+(defun magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen))
+
+(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+#+end_src
 **** Org Mode
 ***** Quotations
 #+begin_quote
