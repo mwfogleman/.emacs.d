@@ -90,10 +90,6 @@ Additionally, I'd like to handle windows intelligently. I'll use the windmove fu
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 #+end_src
-**** Diminish
-#+begin_src emacs-lisp
-(require 'diminish)
-#+end_src
 *** Backups
 #+begin_src emacs-lisp
 (setq backup-directory-alist
@@ -255,7 +251,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 **** Company Mode
 #+begin_src emacs-lisp
 (use-package company-mode
-  :diminish 'company-mode
   :bind ("C-." . company-complete)
   :init 
   (global-company-mode 1))
@@ -284,7 +279,6 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
     ("C-*" . mc/mark-all-like-this)))
 #+end_src emacs-lisp
 **** Kill Ring
-
 While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
 
 #+begin_src emacs-lisp
@@ -537,7 +531,6 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
 **** smartparens
 #+begin_src emacs-lisp
 (use-package smartparens
-  :diminish smartparens-mode
   :bind
   (("C-M-f" . sp-forward-sexp)
    ("C-M-b" . sp-backward-sexp)
@@ -579,6 +572,13 @@ This opens the agenda on initiation. I still have to change buffers to it, thoug
   (smartparens-global-mode t)
   (show-smartparens-global-mode t)
   (require 'smartparens-config))
+#+end_src
+**** Diminish
+#+begin_src emacs-lisp
+(use-package diminish
+  :init
+  (diminish 'smartparens-mode)
+  (diminish 'company-mode))
 #+end_src
 ** Functions and Macros
 *** Functions
