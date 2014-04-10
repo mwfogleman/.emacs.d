@@ -193,14 +193,14 @@ It'd be handy to have a list of the packages that I have installed, so that I co
 (god-mode)
 #+end_src
 **** Dired
-
 I like using Dired; dired-details makes it less loud. 
 
 Note that you can show or hide the details with ) and (, respectively. If, for some reason, it becomes hard to remember this, you can install dired-details+.
 
 #+begin_src emacs-lisp
-(require 'dired-details)
-(dired-details-install)
+(use-package dired-details
+  :init
+  (dired-details-install))
 #+end_src
 **** IDO
 
