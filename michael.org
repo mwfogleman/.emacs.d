@@ -2,7 +2,7 @@
 #+OPTIONS: toc:4 h:4
 * Introduction
 ** Quotations
-
+*** On Emacs
 #+begin_quote 
 Emacs outshines all other editing software in approximately the same
 way that the noonday sun does the stars. It is not just bigger and
@@ -10,6 +10,22 @@ brighter; it simply makes everything else vanish.
 
 -- Neal Stephenson, "[[http://www.cryptonomicon.com/beginning.html][In the Beginning was the Command Line]]"
 #+end_quote
+
+#+begin_quote
+On 2 Apr 1992 in the journal Nature the discovery was reported that a
+giant ancient fungus had been living under the forests of Michigan for
+at least 1,500 years, the oldest and largest living thing on
+Earth. Software could get to be like that, I suppose, and Emacs,
+incorporating, like the fungal thallus, all the the filamentous
+strands of Emacs Lisp that now already thinly web the Earth, is surely
+a front runner. But do not be distracted by such lives.  Even the life
+of Emacs, like the life of that fungus, is an ephemerality; to grok
+life one must transcend not only thermospace but cyberspace.
+
+-- [[http://www.eskimo.com/~seldon/dotemacs.el][Will Mengarini]]
+#+end_quote
+
+*** On Literate Programming
 
 #+begin_quote 
 Let us change our traditional attitude to the construction of
