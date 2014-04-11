@@ -633,6 +633,31 @@ I edit TiddlyWiki 5 .tid files in Emacs. This allows me to update the metadata.
 	(kill-line)
 	(insert (format-time-string "modified: %Y%m%d%H%M%S%3N")))))
 #+end_src
+**** Keep In Touch
+I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of
+the command line utility's functionality in Elisp.
+
+#+begin_src emacs-lisp
+(setq keepintouch-file "/home/michael/Dropbox/keepintouch.data")
+
+(defun keptintouch ()
+   "Given that a keepintouchdata-file is specified on the system, try
+    to set the last contacted date to today's date."
+   (interactive)
+   (save-excursion
+     (setq kept-in-touch-contact (read-string "Who did you contact today? "))
+     (find-file keepintouch-file)
+     (goto-char (point-min))
+     (search-forward kept-in-touch-contact)
+     (forward-line -1)
+     (beginning-of-line)
+     (kill-line)
+     (insert (format-time-string "%Y/%m/%d"))
+     (save-buffer)
+     (switch-to-buffer (other-buffer))
+     (kill-buffer (other-buffer)))
+   (message "%s was contacted." kept-in-touch-contact))
+#+end_src
 *** Macros
 **** Org Source Block
 Org-src block inserts an Org source block, and puts the cursor where the code goes.
