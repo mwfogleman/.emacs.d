@@ -427,6 +427,13 @@ To avoid keeping message buffers around, this command kills the buffer when you 
         erc-server "irc.freenode.net"
         erc-nick "mwfogleman"))
 #+end_src
+**** SLIME
+#+begin_src emacs-lisp
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
+(require 'slime)
+(slime-setup)
+#+end_src
 **** Magit
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
 
