@@ -130,11 +130,9 @@ It'd be great to get an Emacs browser going, but in the meantime:
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
 #+end_src
-*** Defaults
+*** Keyboard Shortcuts
 **** From Better Defaults
-Here are some settings I stole from "[[https://github.com/technomancy/better-defaults][Better Defaults]]." 
-
-These rebind the default commands to use hippie-expand, ibuffer, and the regex-aware versions of isearch.
+These bindings (from "[[https://github.com/technomancy/better-defaults][Better Defaults]]")rebind the default commands to use hippie-expand, ibuffer, and the regex-aware versions of isearch.
 
 #+begin_src emacs-lisp
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -143,29 +141,49 @@ These rebind the default commands to use hippie-expand, ibuffer, and the regex-a
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
-(setq apropos-do-all t)
 #+end_src
+**** Find File at Point
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-j") 'find-file-at-point)
+#+end_src
+**** Movement
+These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
 
-Let apropos commands perform more extensive searches than default.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-S-n")
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (next-line 5))))
+
+(global-set-key (kbd "C-S-p")
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (previous-line 5))))
+
+(global-set-key (kbd "C-S-f")
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (forward-char 5))))
+
+(global-set-key (kbd "C-S-b")
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (backward-char 5))))
+#+end_src
+*** Other
+**** Apropos
+Let apropos commands perform more extensive searches than default. This also comes from Better Defaults.
 
 #+begin_src emacs-lisp
 (setq apropos-do-all t)
 #+end_src
-**** Keyboard Shortcuts
-
-I'm sure I'll add more keyboard shortcuts later.
-
-#+begin_src emacs-lisp
-(global-set-key	(kbd "C-x C-j")	'find-file-at-point)
-#+end_src
-
-**** Miscellaneous tweaks
-Remove the warning if a buffer or file does not exist, so you can quickly create them.
+**** Buffer / File Warnings
+Remove the warning if a buffer or file does not exist, so you can create them.
 
 #+begin_src emacs-lisp
 (setq confirm-nonexistent-file-or-buffer nil)
 #+end_src
-
+**** Narrow to Region
 #+begin_src emacs-lisp
 (put 'narrow-to-region 'disabled nil)
 #+end_src
