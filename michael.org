@@ -473,6 +473,8 @@ when you press "q."
         erc-nick "mwfogleman"))
 #+end_src
 *** SLIME
+"Take this REPL, brother, and may it serve you well."
+
 #+begin_src emacs-lisp
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
