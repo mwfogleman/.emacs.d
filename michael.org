@@ -663,7 +663,8 @@ it, though, so this could be improved in the future.
     (key-chord-define-global "yp"     'other-window)
     (key-chord-define-global "jw" 'ace-jump-word-mode)
     (key-chord-define-global "jc" 'ace-jump-char-mode)
-    (key-chord-define-global "jl" 'ace-jump-line-mode)))
+    (key-chord-define-global "jl" 'ace-jump-line-mode)
+    (key-chord-define-global "'l" 'smex)))
 #+end_src
 * Functions and Macros
 ** Functions
