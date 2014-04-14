@@ -740,6 +740,28 @@ the command line utility's functionality in Elisp.
      (kill-buffer (other-buffer)))
    (message "%s was contacted." kept-in-touch-contact))
 #+end_src
+*** Buffer Management
+**** Kill All Other Buffers
+#+begin_src emacs-lisp
+(defun kill-other-buffers ()
+   "Kill all other buffers."
+   (interactive)
+   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+#+end_src
+**** Kill All Dired Buffers
+#+begin_src emacs-lisp
+(defun kill-all-dired-buffers ()
+  "Kill all dired buffers."
+  (interactive)
+  (save-excursion
+    (let ((count 0))
+      (dolist (buffer (buffer-list))
+	(set-buffer buffer)
+        (when (equal major-mode 'dired-mode)
+	  (setq count (1+ count))
+	  (kill-buffer buffer)))
+      (message "Killed %i dired buffer(s)." count))))
+#+end_src
 ** Macros
 *** Org Source Block
 Org-src block inserts an Org source block, and puts the cursor where
