@@ -651,6 +651,13 @@ it, though, so this could be improved in the future.
   (diminish 'smartparens-mode)
   (diminish 'company-mode))
 #+end_src
+*** Key Chord mode
+#+begin_src emacs-lisp
+(use-package key-chord
+  :init
+  (progn 
+    (key-chord-mode 1)))
+#+end_src
 * Functions and Macros
 ** Functions
 *** Emacs Configuration File
