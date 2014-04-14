@@ -625,7 +625,6 @@ it, though, so this could be improved in the future.
    ("C-M-<right>" . sp-backward-barf-sexp)
    ("C-M-<delete>" . sp-splice-sexp-killing-forward)
    ("C-M-<backspace>" . sp-splice-sexp-killing-backward)
-   ("C-S-<backspace>" . sp-splice-sexp-killing-around)
    ("C-]" . sp-select-next-thing-exchange)
    ("C-<left_bracket>" . sp-select-previous-thing)
    ("C-M-]" . sp-select-next-thing)
