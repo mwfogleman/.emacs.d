@@ -657,6 +657,8 @@ it, though, so this could be improved in the future.
   :init
   (progn 
     (key-chord-mode 1)
+    (key-chord-define-global "cg"     'undo)
+    (key-chord-define-global "yp"     'other-window)
     (key-chord-define-global "jj" 'ace-jump-mode)
     (key-chord-define-global "jw" 'ace-jump-word-mode)
     (key-chord-define-global "jc" 'ace-jump-char-mode)
