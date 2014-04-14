@@ -489,7 +489,8 @@ restores the old window configuration when you quit.
 
 #+begin_src emacs-lisp
 (use-package magit
-  :bind ("C-x g" . magit-status)
+  :bind (("C-x g" . magit-status)
+         ("<f7>" . magit-status))
   :config
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
