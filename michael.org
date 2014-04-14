@@ -656,6 +656,8 @@ it, though, so this could be improved in the future.
 (use-package key-chord
   :init
   (progn 
+    (setq key-chord-two-keys-delay .015
+          key-chord-one-key-delay .020)
     (key-chord-mode 1)
     (key-chord-define-global "cg"     'undo)
     (key-chord-define-global "yp"     'other-window)
