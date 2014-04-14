@@ -656,7 +656,11 @@ it, though, so this could be improved in the future.
 (use-package key-chord
   :init
   (progn 
-    (key-chord-mode 1)))
+    (key-chord-mode 1)
+    (key-chord-define-global "jj" 'ace-jump-mode)
+    (key-chord-define-global "jw" 'ace-jump-word-mode)
+    (key-chord-define-global "jc" 'ace-jump-char-mode)
+    (key-chord-define-global "jl" 'ace-jump-line-mode)))
 #+end_src
 * Functions and Macros
 ** Functions
