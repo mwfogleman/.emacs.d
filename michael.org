@@ -672,7 +672,8 @@ it, though, so this could be improved in the future.
     (key-chord-define-global "jl" 'ace-jump-line-mode)
     (key-chord-define-global "xb" 'ido-switch-buffer)
     (key-chord-define-global "'l" 'smex)
-    (key-chord-define-global ",r" 'find-file)))
+    (key-chord-define-global ",r" 'find-file)
+    (key-chord-define-global ".c" 'ido-dired)))
 #+end_src
 * Functions and Macros
 ** Functions
