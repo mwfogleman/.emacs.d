@@ -144,10 +144,6 @@ use hippie-expand, ibuffer, and the regex-aware versions of isearch.
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 #+end_src
-*** Find File at Point
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-x C-j") 'find-file-at-point)
-#+end_src
 *** Movement
 These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
 
@@ -232,6 +228,11 @@ toggle between God mode and non-God mode.
 (god-mode)
 #+end_src
 *** Dired
+**** Dired-X
+#+begin_src emacs-lisp
+(use-package dired-x)
+#+end_src
+**** Dired Details
 I like using Dired; dired-details makes it less loud.
 
 Note that you can show or hide the details with ) and (,
