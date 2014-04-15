@@ -728,15 +728,13 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
 the command line utility's functionality in Elisp.
 
 #+begin_src emacs-lisp
-(setq keepintouch-file "/home/michael/Dropbox/keepintouch.data")
-
 (defun keptintouch ()
    "Given that a keepintouchdata-file is specified on the system, try
     to set the last contacted date to today's date."
    (interactive)
+   (setq kept-in-touch-contact (read-string "Who did you contact today? "))
    (save-excursion
-     (setq kept-in-touch-contact (read-string "Who did you contact today? "))
-     (find-file keepintouch-file)
+     (find-file "/home/michael/Dropbox/keepintouch.data")
      (goto-char (point-min))
      (search-forward kept-in-touch-contact)
      (forward-line -1)
