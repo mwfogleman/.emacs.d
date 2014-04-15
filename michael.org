@@ -478,6 +478,7 @@ when you press "q."
 
 #+begin_src emacs-lisp
 (setq inferior-lisp-program "/usr/bin/sbcl")
+(setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
 (add-to-list 'slime-contribs 'slime-fancy)
 (require 'slime-autoloads)
