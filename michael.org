@@ -76,8 +76,9 @@ been indispensable at times.
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(setq inhibit-startup-message t)
-(setq inhibit-startup-echo-area-message t)
+(setq inhibit-startup-message t
+      initial-scratch-message ""
+      inhibit-startup-echo-area-message t)
 #+end_src
 *** Windows
 Additionally, I'd like to handle windows intelligently. I'll use the
