@@ -223,7 +223,6 @@ toggle between God mode and non-God mode.
   :init
   (add-hook 'god-mode-enabled-hook 'my-update-cursor)
   (add-hook 'god-mode-disabled-hook 'my-update-cursor)
-  (god-mode)
   :config
   (define-key god-local-mode-map (kbd "z") 'repeat)
   (define-key god-local-mode-map (kbd ".") 'repeat)
