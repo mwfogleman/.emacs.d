@@ -249,7 +249,7 @@ you can install dired-details+.
 #+end_src
 *** IDO
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
-
+**** Set Up
 One key component below is ido-vertical-mode, which makes ido much
 more attractive.
 
@@ -266,7 +266,12 @@ more attractive.
 (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
 (setq ido-create-new-buffer 'always) ;; Remove warning if buffer does not exist
 #+end_src
-
+**** Ido Menu
+#+begin_src emacs-lisp
+(use-package idomenu
+  :bind ("M-i" . idomenu))
+#+end_src
+**** Other
 Note that there are certain program specific settings for IDO, which
 are not in this section:
 - Org-Mode
