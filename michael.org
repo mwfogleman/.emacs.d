@@ -550,15 +550,16 @@ Here are some critical variables for Org Mode. The org-agenda-files
 variable is set in Customize using the C-c [ and ] commands.
 
 #+begin_src emacs-lisp
-(setq org-directory "/home/michael/Dropbox/org/")
-(setq org-log-done t)
-(setq org-startup-indented t)
-(setq org-startup-truncated nil)
-(setq org-completion-use-ido t)
-(setq org-agenda-start-on-weekday nil)
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9))))
-(setq org-default-notes-file (concat org-directory "notes.org"))
+(setq org-directory "/home/michael/Dropbox/org/"
+      org-log-done t
+      org-startup-indented t
+      org-startup-truncated nil
+      org-completion-use-ido t
+      org-agenda-start-on-weekday nil
+      org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9)))
+      org-default-notes-file (concat org-directory "notes.org")
+      org-goto-max-level 10)
 #+end_src
 **** Org Capture
 Here are some settings for capture. This was some of my first ELisp!
