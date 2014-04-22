@@ -559,7 +559,8 @@ variable is set in Customize using the C-c [ and ] commands.
       org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9)))
       org-default-notes-file (concat org-directory "notes.org")
-      org-goto-max-level 10)
+      org-goto-max-level 10
+      org-outline-path-complete-in-steps nil)
 #+end_src
 **** Org Capture
 Here are some settings for capture. This was some of my first ELisp!
