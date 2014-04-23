@@ -600,6 +600,13 @@ it, though, so this could be improved in the future.
 #+begin_src emacs-lisp
 (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
+*** TiddlyWiki Mode
+I edit TiddlyWiki 5 .tid files in Emacs.
+
+#+begin_src emacs-lisp
+;; Add tid-mode to load path
+;; (require 'tid-mode)
+#+end_src
 *** smartparens
 #+begin_src emacs-lisp
 (use-package smartparens
