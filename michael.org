@@ -604,8 +604,9 @@ it, though, so this could be improved in the future.
 I edit TiddlyWiki 5 .tid files in Emacs.
 
 #+begin_src emacs-lisp
-;; Add tid-mode to load path
-;; (require 'tid-mode)
+(load (expand-file-name
+       (concat user-emacs-directory "site-lisp/tid-mode/tid-mode.el")))
+(require 'tid-mode)
 #+end_src
 *** smartparens
 #+begin_src emacs-lisp
