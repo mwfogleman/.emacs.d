@@ -601,7 +601,7 @@ it, though, so this could be improved in the future.
 (add-hook 'after-init-hook 'org-agenda-list)
 #+end_src
 *** TiddlyWiki Mode
-I edit TiddlyWiki 5 .tid files in Emacs.
+I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
 
 #+begin_src emacs-lisp
 (load (expand-file-name
