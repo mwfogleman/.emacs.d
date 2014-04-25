@@ -753,6 +753,17 @@ Let's bind this to a key-chord.
 #+begin_src emacs-lisp
 (key-chord-define-global "`a" 'open-agenda)
 #+end_src
+**** Reopen Buffer
+#+begin_src emacs-lisp
+(defun reopen-buffer ()
+  "Saves, kills, and re-opens the current buffer."
+  (interactive)
+  (let* ((buffer (current-buffer))
+	 (file (buffer-file-name buffer)))
+    (save-buffer buffer)
+    (kill-buffer buffer)
+    (find-file file)))
+#+end_src
 **** Kill All Other Buffers
 #+begin_src emacs-lisp
 (defun kill-other-buffers ()
