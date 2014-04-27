@@ -679,9 +679,8 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     (key-chord-define-global "jw" 'ace-jump-word-mode)
     (key-chord-define-global "jc" 'ace-jump-char-mode)
     (key-chord-define-global "jl" 'ace-jump-line-mode)
-    (key-chord-define-global "xb" 'ido-switch-buffer)
-    (key-chord-define-global "'-" 'ido-switch-buffer)
-    (key-chord-define-global "'l" 'smex)
+    (key-chord-define-global "'l" 'ido-switch-buffer)
+    (key-chord-define-global "'-" 'smex)
     (key-chord-define-global ",r" 'find-file)
     (key-chord-define-global ".c" 'ido-dired)))
 #+end_src
