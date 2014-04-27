@@ -564,7 +564,8 @@ variable is set in Customize using the C-c [ and ] commands.
         org-imenu-depth 5
         org-goto-interface 'outline-path-completion
         org-outline-path-complete-in-steps nil
-        org-use-speed-commands t)
+        org-use-speed-commands t
+        org-src-fontify-natively t)
 #+end_src
 **** Org Capture
 Here are some settings for capture. This was some of my first ELisp!
