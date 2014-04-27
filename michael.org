@@ -553,6 +553,7 @@ variable is set in Customize using the C-c [ and ] commands.
   (setq org-directory "/home/michael/Dropbox/org/"
         org-log-done t
         org-startup-indented t
+        org-hide-leading-stars t
         org-startup-truncated nil
         org-completion-use-ido t
         org-agenda-start-on-weekday nil
