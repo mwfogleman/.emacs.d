@@ -280,12 +280,13 @@ are not in this section:
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+begin_src emacs-lisp
-(use-package smex
-  :bind (("M-x" . smex)
-         ("M-X" . smex-major-mode-commands)
-         ("C-c C-c M-x" . execute-extended-command))
-  :init
-  (smex-initialize))
+  (use-package smex
+    :bind (("M-x" . smex)
+           ("<menu>" . smex)
+           ("M-X" . smex-major-mode-commands)
+           ("C-c C-c M-x" . execute-extended-command))
+    :init
+    (smex-initialize))
 #+end_src
 *** Company Mode
 #+begin_src emacs-lisp
