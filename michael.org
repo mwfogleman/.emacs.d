@@ -786,13 +786,3 @@ Let's bind this to a key-chord.
       (message "Killed %i dired buffer(s)." count))))
 #+end_src
 ** Macros
-*** Org Source Block
-Org-src block inserts an Org source block, and puts the cursor where
-the code goes.
-
-Note that it does not specify a language.
-
-#+begin_src emacs-lisp
-(fset 'org-src-block
-   "#+begin_src\C-m#+end_src\C-a\C-m\C-p\C-p\C-e ")
-#+end_src
