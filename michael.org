@@ -561,6 +561,7 @@ variable is set in Customize using the C-c [ and ] commands.
                                    (org-agenda-files :maxlevel . 9)))
         org-default-notes-file (concat org-directory "notes.org")
         org-goto-max-level 10
+        org-imenu-depth 5
         org-goto-interface 'outline-path-completion
         org-outline-path-complete-in-steps nil
         org-use-speed-commands t)
