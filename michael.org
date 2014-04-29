@@ -726,29 +726,32 @@ the system-wide user-init-file variable.
 I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of
 the command line utility's functionality in Elisp.
 
-I could generalize this function by accepting a prefix argument, which
-would call up the calendar, and thereby accept an alternate date for
-when the contact was last contacted.
-
 #+begin_src emacs-lisp
-  (defun keptintouch ()
-    "Request a contact in a keepintouch.data file, and set their last
-  contacted date to today's date."
-    (interactive)
-    (let ((contact (read-string "Who did you contact today? "))
-          (datafile "/home/michael/Dropbox/keepintouch.data"))
-      (save-excursion
-        (find-file datafile)
-        (goto-char (point-min))
-        (search-forward contact)
-        (forward-line -1)
-        (beginning-of-line)
-        (kill-line)
-        (insert (format-time-string "%Y/%m/%d"))
-        (save-buffer)
-        (switch-to-buffer (other-buffer))
-        (kill-buffer (other-buffer)))
-      (message "%s was contacted." contact)))
+  (defun keptintouch (arg)
+    "Request a contact in a keepintouch.data file, and update their last
+    contacted date (either today, or, if a prefix is supplied, a user-supplied date.)"
+    (interactive "P")
+    (let ((contact (read-string "Who did you contact? "))
+          (datafile "/home/michael/Dropbox/keepintouch.data")
+          (date (if (equal arg nil)
+                    (format-time-string "%Y/%m/%d")
+                  (read-string "When did you contact them? (year/month/date): "))))
+      (keptintouch-contact date)))
+  
+  (defun keptintouch-contact (date)
+    "Navigates the keepintouch.data file."
+    (save-excursion
+      (find-file datafile)
+      (goto-char (point-min))
+      (search-forward contact)
+      (forward-line -1)
+      (beginning-of-line)
+      (kill-line)
+      (insert date)
+      (save-buffer)
+      (switch-to-buffer (other-buffer))
+      (kill-buffer (other-buffer)))
+    (message "%s was contacted." contact))
 #+end_src
 *** Buffer Management
 **** Open Org Agenda
