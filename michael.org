@@ -761,14 +761,16 @@ the command line utility's functionality in Elisp.
 #+end_src
 *** Buffer Management
 **** Open Org Agenda
-I use the org-agenda. I like seeing it in full-screen.
+This function opens the agenda in full screen.
 
 #+begin_src emacs-lisp
-(defun open-agenda ()
-  "Opens the org-agenda."
-  (interactive)
-  (org-agenda-list)
-  (delete-other-windows))
+  (defun open-agenda ()
+    "Opens the org-agenda."
+    (interactive)
+    (if (equal (get-buffer "*Org Agenda*") nil)
+        (org-agenda-list)
+      (switch-to-buffer "*Org Agenda*"))
+    (delete-other-windows))
 #+end_src
 
 Let's bind this to a key-chord.
