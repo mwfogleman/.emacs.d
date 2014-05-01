@@ -608,6 +608,12 @@ periodically, scheduled with Org).
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 #+end_src
+**** Start Org mode on init
+This opens the agenda on initiation.
+
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook 'org-agenda-list)
+#+end_src
 *** TiddlyWiki Mode
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
 
