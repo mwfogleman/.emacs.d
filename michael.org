@@ -588,7 +588,7 @@ periodically, scheduled with Org).
 #+begin_src emacs-lisp
 (setq org-capture-templates
       '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
-	     "%?\n" :empty-lines 1)
+	     "%?\n")
 	("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
 	     "* I am grateful for %?\n")
 	("n" "Note" entry (file+headline "~/Dropbox/org/notes.org" "Notes")
