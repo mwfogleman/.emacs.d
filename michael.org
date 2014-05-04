@@ -778,6 +778,14 @@ Let's bind this to a key-chord.
 #+begin_src emacs-lisp
 (key-chord-define-global "`a" 'open-agenda)
 #+end_src
+**** Kill This Buffer
+#+BEGIN_SRC emacs-lisp
+  (defun kill-this-buffer ()
+    (interactive)
+    (kill-buffer (current-buffer)))
+  
+  (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
+#+END_SRC
 **** Kill All Other Buffers
 #+begin_src emacs-lisp
 (defun kill-other-buffers ()
