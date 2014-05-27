@@ -763,7 +763,9 @@ This function opens the agenda in full screen.
     (interactive)
     (if (equal (get-buffer "*Org Agenda*") nil)
         (org-agenda-list)
-      (switch-to-buffer "*Org Agenda*"))
+      (progn
+        (switch-to-buffer "*Org Agenda*")
+        (org-agenda-redo t)))
     (delete-other-windows))
 #+end_src
 
