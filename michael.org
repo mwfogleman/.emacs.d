@@ -761,11 +761,12 @@ This function opens the agenda in full screen.
   (defun open-agenda ()
     "Opens the org-agenda."
     (interactive)
-    (if (equal (get-buffer "*Org Agenda*") nil)
-        (org-agenda-list)
-      (progn
-        (switch-to-buffer "*Org Agenda*")
-        (org-agenda-redo t)))
+    (let ((agenda "*Org Agenda*"))
+      (if (equal (get-buffer agenda) nil)
+          (org-agenda-list)
+        (if (equal (buffer-name (current-buffer)) agenda)
+            (org-agenda-redo t)
+          (switch-to-buffer agenda))))
     (delete-other-windows))
 #+end_src
 
