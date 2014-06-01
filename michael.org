@@ -818,7 +818,7 @@ Let's bind this to a key-chord.
       (message "Killed %i dired buffer(s)." count))))
 #+end_src
 *** Open Wiki
-This is a function to open my TiddlyWiki. I then bind it to C-c w.
+This is a function to open my TiddlyWiki directory. I bind it to C-c w.
 
 #+BEGIN_SRC emacs-lisp
   (defun open-wiki ()
@@ -827,5 +827,16 @@ This is a function to open my TiddlyWiki. I then bind it to C-c w.
     (dired "~/Dropbox/wiki/tiddlers/"))
   
   (global-set-key (kbd "C-c w") 'open-wiki)
+#+END_SRC
+
+I also often want to open my wiki in Chromium. I bind this to C-c W.
+
+#+BEGIN_SRC emacs-lisp
+  (defun browse-wiki ()
+    "Opens my TiddlyWiki in my browser."
+    (interactive)
+    (browse-url "127.0.0.1:8080/"))
+  
+  (global-set-key (kbd "C-c W") 'browse-wiki)
 #+END_SRC
 ** Macros
