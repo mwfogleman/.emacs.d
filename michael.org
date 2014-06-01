@@ -188,6 +188,12 @@ create them.
 #+begin_src emacs-lisp
 (put 'narrow-to-region 'disabled nil)
 #+end_src
+*** ELisp
+When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip, Sacha.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+#+END_SRC
 * Packages
 ** Enable Package Support
 This allows me to browse and install packages from Melpa.
