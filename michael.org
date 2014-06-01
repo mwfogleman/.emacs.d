@@ -380,6 +380,10 @@ activating mu4e.
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (require 'mu4e)
 #+end_src
+**** Opening
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c m") 'mu4e)
+#+END_SRC
 **** Directories
 #+begin_src emacs-lisp
 (setq mu4e-maildir "~/Maildir")
@@ -395,7 +399,6 @@ half-hour.
 (setq mu4e-get-mail-command "offlineimap")
 (setq mu4e-update-interval 1800)
 #+end_src
-
 **** Browsing
 ***** Shortcuts
 
