@@ -816,4 +816,15 @@ Let's bind this to a key-chord.
 	  (kill-buffer buffer)))
       (message "Killed %i dired buffer(s)." count))))
 #+end_src
+*** Open Wiki
+This is a function to open my TiddlyWiki. I then bind it to C-c w.
+
+#+BEGIN_SRC emacs-lisp
+  (defun open-wiki ()
+    "Opens my TiddlyWiki directory."
+    (interactive)
+    (dired "~/Dropbox/wiki/tiddlers/"))
+  
+  (global-set-key (kbd "C-c w") 'open-wiki)
+#+END_SRC
 ** Macros
