@@ -759,6 +759,12 @@ the command line utility's functionality in Elisp.
       (kill-buffer (other-buffer)))
     (message "%s was contacted." contact))
 #+end_src
+
+Sacha informs us that "shortcuts like C-c followed by a lowercase letter (a to z) are reserved for your use." Let's bind "C-c k" to keptintouch.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c k") 'keptintouch)
+#+END_SRC
 *** Buffer Management
 **** Open Org Agenda
 This function opens the agenda in full screen.
