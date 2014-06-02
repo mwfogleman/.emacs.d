@@ -618,14 +618,36 @@ periodically, scheduled with Org).
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 #+end_src
-*** TiddlyWiki Mode
+*** TiddlyWiki
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
-
+**** tid-mode
 #+begin_src emacs-lisp
 (load (expand-file-name
        (concat user-emacs-directory "site-lisp/tid-mode/tid-mode.el")))
 (require 'tid-mode)
 #+end_src
+**** open-wiki
+This function, bound to C-c w, opens my TiddlyWiki tiddlers directory in Dired.
+
+#+BEGIN_SRC emacs-lisp
+  (defun open-wiki ()
+    "Opens my TiddlyWiki directory."
+    (interactive)
+    (dired "~/Dropbox/wiki/tiddlers/"))
+  
+  (global-set-key (kbd "C-c w") 'open-wiki)
+#+END_SRC
+**** browse-wiki
+I also often want to open my wiki in Chromium. I bind this to C-c W.
+
+#+BEGIN_SRC emacs-lisp
+  (defun browse-wiki ()
+    "Opens my TiddlyWiki in my browser."
+    (interactive)
+    (browse-url "127.0.0.1:8080/"))
+  
+  (global-set-key (kbd "C-c W") 'browse-wiki)
+#+END_SRC
 *** smartparens
 #+begin_src emacs-lisp
 (use-package smartparens
@@ -820,26 +842,4 @@ Let's bind this to a key-chord.
 	  (kill-buffer buffer)))
       (message "Killed %i dired buffer(s)." count))))
 #+end_src
-*** Open Wiki
-This is a function to open my TiddlyWiki directory. I bind it to C-c w.
-
-#+BEGIN_SRC emacs-lisp
-  (defun open-wiki ()
-    "Opens my TiddlyWiki directory."
-    (interactive)
-    (dired "~/Dropbox/wiki/tiddlers/"))
-  
-  (global-set-key (kbd "C-c w") 'open-wiki)
-#+END_SRC
-
-I also often want to open my wiki in Chromium. I bind this to C-c W.
-
-#+BEGIN_SRC emacs-lisp
-  (defun browse-wiki ()
-    "Opens my TiddlyWiki in my browser."
-    (interactive)
-    (browse-url "127.0.0.1:8080/"))
-  
-  (global-set-key (kbd "C-c W") 'browse-wiki)
-#+END_SRC
 ** Macros
