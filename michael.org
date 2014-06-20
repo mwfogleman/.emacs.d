@@ -169,6 +169,12 @@ These keybindings for movement come from [[http://whattheemacsd.com/key-bindings
                   (interactive)
                   (ignore-errors (backward-char 5))))
 #+end_src
+*** Battery
+Sometimes I can't see my battery display, even though I have used Diminish. This gives me quick access, in Emacs, to the battery status. It's bound to "p," because "b" is taken. Mnemonyic: "power."
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c p") 'battery)
+#+END_SRC
 ** Other
 *** Apropos
 Let apropos commands perform more extensive searches than
