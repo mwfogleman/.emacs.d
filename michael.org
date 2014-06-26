@@ -585,6 +585,7 @@ variable is set in Customize using the C-c [ and ] commands.
         org-agenda-start-on-weekday nil
         org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9)))
+        org-refile-use-outline-path t
         org-default-notes-file (concat org-directory "notes.org")
         org-goto-max-level 10
         org-imenu-depth 5
