@@ -814,10 +814,11 @@ This function opens the agenda in full screen.
     (delete-other-windows))
 #+end_src
 
-Let's bind this to a key-chord.
+Let's bind this to a key-chord and a function key.
 
 #+begin_src emacs-lisp
-(key-chord-define-global "`a" 'open-agenda)
+  (key-chord-define-global "`a" 'open-agenda)
+  (global-set-key (kbd "<f5>") 'open-agenda)
 #+end_src
 **** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
