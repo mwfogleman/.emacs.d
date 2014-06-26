@@ -850,4 +850,20 @@ Let's bind this to a key-chord and a function key.
 	  (kill-buffer buffer)))
       (message "Killed %i dired buffer(s)." count))))
 #+end_src
+*** Edit as Root
+This tip comes from an [[http://emacs-fu.blogspot.kr/2013/03/editing-with-root-privileges-once-more.html][emacs-fu blog post]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun find-file-as-root ()
+    "Like `ido-find-file, but automatically edit the file with
+  root-privileges (using tramp/sudo), if the file is not writable by
+  user."
+    (interactive)
+    (let ((file (ido-read-file-name "Edit as root: ")))
+      (unless (file-writable-p file)
+        (setq file (concat "/sudo:root@localhost:" file)))
+      (find-file file)))
+  
+  (global-set-key (kbd "C-x F") 'find-file-as-root)
+#+END_SRC
 ** Macros
