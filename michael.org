@@ -602,19 +602,19 @@ my computer, a gratitude journal, and a [[https://medium.com/p/8d6e7df7ae58][Spa
 periodically, scheduled with Org).
 
 #+begin_src emacs-lisp
-(setq org-capture-templates
-      '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
-	     "%?\n")
-	("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
-	     "* I am grateful for %?\n")
-	("n" "Note" entry (file+headline "~/Dropbox/org/notes.org" "Notes")
-	     "* %?\n")
-	("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org" "Sparks")
-             "* %?\n  %u")
-        ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-             "* %?\nEntered on %U\n  %i\n")
-	("t" "Todo" entry (file "~/Dropbox/org/todo.org")
-	     "* TODO %?\n")))
+  (setq org-capture-templates
+        '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
+               "%?\n")
+          ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
+               "* I am grateful for %?\n")
+          ("n" "Note" entry (file+headline "~/Dropbox/org/notes.org" "Notes")
+               "* %?\n")
+          ("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org" "Sparks")
+               "* %?")
+          ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
+               "* %?\nEntered on %U\n  %i\n")
+          ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
+               "* TODO %?\n")))
 #+end_src
 
 **** Org Keyboard Shortcuts
