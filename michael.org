@@ -253,6 +253,12 @@ toggle between God mode and non-God mode.
   (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
 #+end_src
 *** Dired
+Let's require Dired.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'dired)
+#+END_SRC
+
 **** Settings
 ***** Buffer Reuse
 These suggestions about buffer reuse come from [[http://ergoemacs.org/emacs/emacs_dired_tips.html][Xah Lee]]. First, let's enable the use of the 'a' key in Dired, which runs dired-find-alternate-file, and replaces the current buffer with another file.
