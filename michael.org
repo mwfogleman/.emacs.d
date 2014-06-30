@@ -275,6 +275,8 @@ But, since I don't want to remember that key, let's re-map <return> and ^ to wor
 #+END_SRC
 
 Note that <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory.
+***** Buffer Quitting
+See below for using kill-this-buffer on 'q.'
 **** Dired-X
 #+begin_src emacs-lisp
 (use-package dired-x)
@@ -861,6 +863,12 @@ Let's bind this to a key-chord and a function key.
   
   (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 #+END_SRC
+
+By default, pressing 'q' in Dired runs quit-window, which quits the Dired window and buries its buffer. I'd prefer the buffer to close.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key dired-mode-map (kbd "q") 'kill-this-buffer)
+#+END_SRC
 **** Kill All Other Buffers
 #+begin_src emacs-lisp
 (defun kill-other-buffers ()
@@ -882,6 +890,8 @@ Let's bind this to a key-chord and a function key.
 	  (kill-buffer buffer)))
       (message "Killed %i dired buffer(s)." count))))
 #+end_src
+
+Note that this function is largely obsoleted by the in-Dired re-mappings of <return>, ^, and q, located elsewhere in this config.
 *** Edit as Root
 This tip comes from an [[http://emacs-fu.blogspot.kr/2013/03/editing-with-root-privileges-once-more.html][emacs-fu blog post]].
 
