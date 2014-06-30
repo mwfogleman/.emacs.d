@@ -253,6 +253,12 @@ toggle between God mode and non-God mode.
   (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
 #+end_src
 *** Dired
+**** Settings
+This enables the use of the 'a' key in Dired, which runs dired-find-alternate-file, and replaces the current buffer with another file.
+
+#+BEGIN_SRC emacs-lisp
+  (put 'dired-find-alternate-file 'disabled nil)
+#+END_SRC
 **** Dired-X
 #+begin_src emacs-lisp
 (use-package dired-x)
