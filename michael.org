@@ -287,17 +287,18 @@ One key component below is ido-vertical-mode, which makes ido much
 more attractive.
 
 #+begin_src emacs-lisp
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(require 'ido-vertical-mode)
-(require 'ido-ubiquitous)
-(require 'flx-ido)
-(ido-mode 1)
-(ido-vertical-mode)
-(ido-ubiquitous-mode 1)
-(flx-ido-mode 1)
-(setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
-(setq ido-create-new-buffer 'always) ;; Remove warning if buffer does not exist
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (require 'ido-vertical-mode)
+  (require 'ido-ubiquitous)
+  (require 'flx-ido)
+  (ido-mode 1)
+  (ido-vertical-mode)
+  (ido-ubiquitous-mode 1)
+  (flx-ido-mode 1)
+  (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
+  (setq ido-create-new-buffer 'always) ;; Remove warning if buffer does not exist
+  (setq ido-use-filename-at-point 'guess)
 #+end_src
 **** Ido Menu
 #+begin_src emacs-lisp
