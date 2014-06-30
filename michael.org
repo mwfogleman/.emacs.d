@@ -254,11 +254,21 @@ toggle between God mode and non-God mode.
 #+end_src
 *** Dired
 **** Settings
-This enables the use of the 'a' key in Dired, which runs dired-find-alternate-file, and replaces the current buffer with another file.
+***** Buffer Reuse
+These suggestions about buffer reuse come from [[http://ergoemacs.org/emacs/emacs_dired_tips.html][Xah Lee]]. First, let's enable the use of the 'a' key in Dired, which runs dired-find-alternate-file, and replaces the current buffer with another file.
 
 #+BEGIN_SRC emacs-lisp
   (put 'dired-find-alternate-file 'disabled nil)
 #+END_SRC
+
+But, since I don't want to remember that key, let's re-map <return> and ^ to work similarly:
+
+#+BEGIN_SRC emacs-lisp
+  (define-key dired-mode-map (kbd "<return>") 'dired-find-alternate-file)
+  (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
+#+END_SRC
+
+Note that <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory.
 **** Dired-X
 #+begin_src emacs-lisp
 (use-package dired-x)
