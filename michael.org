@@ -413,113 +413,50 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
     (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
 #+end_src
 ** Email (mu4e)
-Email is pretty text-heavy... let's do that in Emacs.
+Email is pretty text-heavy... let's do that in Emacs. I am currently using mu4e, which was indeed pretty easy to set up. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
 
-I am currently using mu4e, which was indeed pretty easy to set up.
-*** mu
-mu4e is mu for Emacs... so we have to tell Emacs where mu is before
-activating mu4e.
+I also have queuing set up, so that I can still "send" emails without Internet access. Once this is enabled, you can see some new options in the main view, to toggle online/offline [m], and to send queued mail [f].
 
-#+begin_src emacs-lisp
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
-(require 'mu4e)
-#+end_src
-*** Opening
-#+BEGIN_SRC emacs-lisp
-  (bind-key "C-c m" 'mu4e)
-#+END_SRC
-*** Directories
-#+begin_src emacs-lisp
-(setq mu4e-maildir "~/Maildir")
-(setq mu4e-drafts-folder "/Gmail/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/Gmail/[Gmail].Sent Mail")
-(setq mu4e-trash-folder  "/Gmail/[Gmail].Trash")
-#+end_src
-*** Receiving
-Here we enable updating ('U'), and tell mu4e to update every
-half-hour.
+The folder /home/user/Maildir/queue/ needs to be created with the command "mu mkdir." After that, run "touch ~/Maildir/queue/.noindex" to make sure mu doesn't index this folder.
+
+Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
 
 #+begin_src emacs-lisp
-(setq mu4e-get-mail-command "offlineimap")
-(setq mu4e-update-interval 1800)
-#+end_src
-*** Browsing
-**** Shortcuts
-
-You can jump to a shortcut by prefixing 'j' to the corresponding
-letter, or move an email to a folder (including 'All Mail,' bound to
-'a') by prefixing 'm.'
-
-#+begin_src emacs-lisp
-(setq mu4e-maildir-shortcuts
-    '( ("/Gmail/INBOX"               . ?i)
-       ("/Gmail/Correspondence"      . ?c)
-       ("/Gmail/[Gmail].Sent Mail"   . ?s)
-       ("/Gmail/[Gmail].Trash"       . ?t)
-       ("/Gmail/[Gmail].All Mail"    . ?a)))
-#+end_src
-**** Skip Duplicates
-This is useful for Gmail.
-
-#+begin_src emacs-lisp
-(setq mu4e-headers-skip-duplicates t)
-#+end_src
-*** Viewing
-**** Inline Images
-This tells mu4e to attempt to show images when viewing messages.
-
-#+begin_src emacs-lisp
-(setq mu4e-view-show-images t
-      mu4e-view-image-max-width 800)
-#+end_src
-*** Composing
-**** Signature
-I already set the user name and mail address above. Here I set my
-message signature.
-
-#+begin_src emacs-lisp
-(setq message-signature "MWF")
-#+end_src
-*** Sending
-**** smtpmail
-
-We use a stock Emacs package to send mail. It plugs into the gnutls
-command line utilities, which my Arch machine has installed already.
-
-#+begin_src emacs-lisp
-(require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-stream-type 'starttls
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587)
-#+end_src
-**** Offline Support
-This creates a queue of emails to be sent with Internet access. Once
-this is enabled, you can see some new options in the main view, to
-toggle online/offline [m], and to send queued mail [f].
-
-The folder /home/user/Maildir/queue/ needs to be created with the
-command "mu mkdir." After that, run "touch ~/Maildir/queue/.noindex"
-to make sure mu doesn't index this folder.
-
-#+begin_src emacs-lisp
-(setq smtpmail-queue-mail  nil
-      smtpmail-queue-dir  "/home/michael/Maildir/queue/cur")
-#+end_src
-*** Other Set Up
-Don't save message to Sent Messages, Gmail/IMAP takes care of this.
-
-#+begin_src emacs-lisp
-(setq mu4e-sent-messages-behavior 'delete)
-#+end_src
-
-To avoid keeping message buffers around, this command kills the buffer
-when you press "q."
-
-#+begin_src emacs-lisp
-(setq message-kill-buffer-on-exit t)
-(setq mu4e-headers-skip-duplicates t)
+  (use-package mu4e
+    :load-path "/usr/share/emacs/site-lisp/mu4e/"
+    :init
+    (setq mu4e-maildir "~/Maildir"
+          mu4e-drafts-folder "/Gmail/[Gmail].Drafts"
+          mu4e-sent-folder   "/Gmail/[Gmail].Sent Mail"
+          mu4e-trash-folder  "/Gmail/[Gmail].Trash"
+          mu4e-get-mail-command "offlineimap"
+          mu4e-update-interval 1800
+          mu4e-maildir-shortcuts
+          '( ("/Gmail/INBOX"               . ?i)
+             ("/Gmail/Correspondence"      . ?c)
+             ("/Gmail/[Gmail].Sent Mail"   . ?s)
+             ("/Gmail/[Gmail].Trash"       . ?t)
+             ("/Gmail/[Gmail].All Mail"    . ?a))
+          mu4e-headers-skip-duplicates t
+          mu4e-view-show-images t
+          mu4e-view-image-max-width 800
+          message-signature "MWF"
+          mu4e-sent-messages-behavior 'delete
+          message-kill-buffer-on-exit t
+          mu4e-headers-skip-duplicates t)
+    (use-package smtpmail
+      :init
+      (setq message-send-mail-function 'smtpmail-send-it
+            smtpmail-stream-type 'starttls
+            smtpmail-default-smtp-server "smtp.gmail.com"
+            smtpmail-smtp-server "smtp.gmail.com"
+            smtpmail-smtp-service 587
+            smtpmail-queue-mail  nil
+            smtpmail-queue-dir  "/home/michael/Maildir/queue/cur"))
+    :bind ("C-c m" . mu4e)
+    :config
+    (add-to-list 'mu4e-view-actions
+                 '("ViewInBrowser" . mu4e-action-view-in-browser) t))
 #+end_src
 ** ERC
 #+begin_src emacs-lisp
@@ -566,15 +503,6 @@ restores the old window configuration when you quit.
   
     (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 #+end_src
-**** View in Browser
-"Some messages are unreadable in Emacs." 
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'mu4e-view-actions
-               '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-#+END_SRC
-
-"Now, when viewing such a difficult message, type `aV', and the message opens inside a webbrowser."
 ** Org Mode
 *** Quotations
 #+begin_quote
