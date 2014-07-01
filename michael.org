@@ -109,18 +109,6 @@ special functions.
       `(("." . ,(expand-file-name
                  (concat user-emacs-directory "backups")))))
 #+end_src
-** Lines
-Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
-
-#+begin_src emacs-lisp
-  (bind-key "RET" 'newline-and-indent)
-#+end_src
-
-Make C-n insert new lines if the point is at the end of the buffer.
-
-#+begin_src emacs-lisp
-(setq next-line-add-newlines t)
-#+end_src
 ** Change prompts
 Make yes or no prompts be y or n prompts.
 
@@ -154,6 +142,18 @@ use hippie-expand, ibuffer, and the regex-aware versions of isearch.
   (bind-key "C-r" 'isearch-backward-regexp)
   (bind-key "C-M-s" 'isearch-forward)
   (bind-key "C-M-r" 'isearch-backward)
+#+end_src
+*** Lines
+Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
+
+#+begin_src emacs-lisp
+  (bind-key "RET" 'newline-and-indent)
+#+end_src
+
+Make C-n insert new lines if the point is at the end of the buffer.
+
+#+begin_src emacs-lisp
+(setq next-line-add-newlines t)
 #+end_src
 *** Movement
 These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
