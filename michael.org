@@ -386,27 +386,22 @@ ring is crucial to making that functionality visible and usable.
   :bind ("C-x C-y" . browse-kill-ring))
 #+end_src
 ** Recent Files
-Recent files is a minor mode that keeps track of which files you're
-using, and provides it in some handy places.
+Recent files is a minor mode that keeps track of which files you're using, and provides it in some handy places.
+
+I also rebind the find-file-read-only with ido-recent-files functionality, which I took from [[http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/][Mastering Emacs]].
 
 #+begin_src emacs-lisp
-(require 'recentf)
-(recentf-mode t)
-(setq recentf-max-saved-items 50)
-#+end_src
-
-Let's rebind find-file-read-only with ido-recent-files
-functionality. The ido-recentf-open function was taken from [[http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/][Mastering
-Emacs]].
-
-#+begin_src emacs-lisp
-  (bind-key "C-x C-r" 'ido-recentf-open)
-  (defun ido-recentf-open ()
-    "Use `ido-completing-read' to \\[find-file] a recent file"
-    (interactive)
-    (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-        (message "Opening file...")
-      (message "Aborting")))
+  (use-package recentf
+    :init
+    (recentf-mode t)
+    (setq recentf-max-saved-items 50)
+    (defun ido-recentf-open ()
+      "Use `ido-completing-read' to \\[find-file] a recent file"
+      (interactive)
+      (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+          (message "Opening file...")
+        (message "Aborting")))
+    :bind ("C-x C-r" . ido-recentf-open))
 #+end_src
 ** Save Place
 This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
