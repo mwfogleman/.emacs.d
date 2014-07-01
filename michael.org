@@ -188,6 +188,7 @@ The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%
   (bind-key "M-9" 'backward-sexp)
   (bind-key "M-0" 'forward-sexp)
   (bind-key "M-1" 'delete-other-windows)
+  (bind-key "M-O" 'mode-line-other-buffer)
 #+END_SRC
 
 I look forward to riffing on this idea...
@@ -860,18 +861,6 @@ Let's bind this to a key-chord and a function key.
   (key-chord-define-global "`a" 'open-agenda)
   (bind-key "<f5>" 'open-agenda)
 #+end_src
-*** Switch to other buffer
-Borrowed from [[http://emacsredux.com/blog/2013/04/28/switch-to-previous-buffer/][Emacs Redux]].
-
-#+BEGIN_SRC emacs-lisp
-  (defun switch-to-previous-buffer ()
-    "Switch to previously open buffer.
-  Repeated invocations toggle between the two most recently open buffers."
-    (interactive)
-    (switch-to-buffer (other-buffer (current-buffer) 1)))
-  
-  (bind-key "C-x M-b" 'switch-to-previous-buffer)
-#+END_SRC
 *** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
   (defun kill-this-buffer ()
