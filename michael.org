@@ -596,53 +596,31 @@ If I hated everything about Emacs, I would still use it for org-mode.
 
 -- [[http://article.gmane.org/gmane.emacs.orgmode/6224][Carsten Dominik]]
 #+end_quote
-*** Enable
+*** Configuration
 I use the stock package of org-mode as the default major mode.
 
 #+begin_src emacs-lisp
-(require 'org)
-(setq default-major-mode 'org-mode)
-#+end_src
-
-I also want org-mode to be used elsewhere.
-
-#+begin_src emacs-lisp
-(add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
-; (add-hook 'text-mode-hook 'turn-on-orgstruct)
-#+end_src
-*** Org Variables
-Here are some critical variables for Org Mode. The org-agenda-files
-variable is set in Customize using the C-c [ and ] commands.
-
-#+begin_src emacs-lisp
-  (setq org-directory "/home/michael/Dropbox/org/"
-        org-log-done t
-        org-startup-indented t
-        org-agenda-inhibit-startup nil
-        org-startup-truncated nil
-        org-completion-use-ido t
-        org-agenda-start-on-weekday nil
-        org-refile-targets (quote ((nil :maxlevel . 9)
-                                   (org-agenda-files :maxlevel . 9)))
-        org-refile-use-outline-path t
-        org-default-notes-file (concat org-directory "notes.org")
-        org-goto-max-level 10
-        org-imenu-depth 5
-        org-goto-interface 'outline-path-completion
-        org-outline-path-complete-in-steps nil
-        org-use-speed-commands t
-        org-src-fontify-natively t)
-#+end_src
-*** Org Capture
-Here are some settings for capture. This was some of my first ELisp!
-(With the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.)
-
-Some special capture items: I keep a log of everything that happens on
-my computer, a gratitude journal, and a [[https://medium.com/p/8d6e7df7ae58][Spark]] file (which I review
-periodically, scheduled with Org).
-
-#+begin_src emacs-lisp
-  (setq org-capture-templates
+  (use-package org
+    :init
+    (setq default-major-mode 'org-mode
+          org-directory "/home/michael/Dropbox/org/"
+          org-log-done t
+          org-startup-indented t
+          org-agenda-inhibit-startup nil
+          org-startup-truncated nil
+          org-completion-use-ido t
+          org-agenda-start-on-weekday nil
+          org-refile-targets (quote ((nil :maxlevel . 9)
+                                     (org-agenda-files :maxlevel . 9)))
+          org-refile-use-outline-path t
+          org-default-notes-file (concat org-directory "notes.org")
+          org-goto-max-level 10
+          org-imenu-depth 5
+          org-goto-interface 'outline-path-completion
+          org-outline-path-complete-in-steps nil
+          org-use-speed-commands t
+          org-src-fontify-natively t)
+    (setq org-capture-templates
         '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
                "%?\n")
           ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
@@ -654,10 +632,21 @@ periodically, scheduled with Org).
           ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
                "* %?\nEntered on %U\n  %i\n")
           ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
-               "* TODO %?\n")))
+               "* TODO %?\n"))))
 #+end_src
 
-*** Org Keyboard Shortcuts
+The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
+
+My settings for capture were some of my first Elisp :) I did need, and still need, the help of the  [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
+
+I also want org-mode to be used elsewhere:
+
+#+begin_src emacs-lisp
+  (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
+#+end_src
+
+I wanted to add a similar hook to text-mode, but that causes fatal errors. I think that is because I use org-mode as my default mode.
+*** Bindings
 #+begin_src emacs-lisp
   (bind-key "C-c l" 'org-store-link)
   (bind-key "C-c c" 'org-capture)
