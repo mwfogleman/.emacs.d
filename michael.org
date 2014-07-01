@@ -240,8 +240,7 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 * Packages
-** Specific Packages
-*** God Mode
+** God Mode
 [[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to
 toggle between God mode and non-God mode.
 
@@ -267,7 +266,7 @@ toggle between God mode and non-God mode.
   (add-to-list 'god-exempt-major-modes 'mu4e-compose-mode)
   (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
 #+end_src
-*** Dired
+** Dired
 #+BEGIN_SRC emacs-lisp
   (use-package dired
     :init
@@ -279,11 +278,11 @@ toggle between God mode and non-God mode.
 These suggestions about buffer reuse are adapted from Xah Lee's [[http://ergoemacs.org/emacs/emacs_dired_tips.html][article on Dired]]. dired-find-alternate-file, which is bound to a, is disabled by default. <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory.
 
 Below, I re-bind 'q' to my kill-this-buffer function.
-**** Dired-X
+*** Dired-X
 #+begin_src emacs-lisp
 (use-package dired-x)
 #+end_src
-**** Dired Details
+*** Dired Details
 I like using Dired; dired-details makes it less loud.
 
 Note that you can show or hide the details with ) and (,
@@ -295,9 +294,9 @@ you can install dired-details+.
   :init
   (dired-details-install))
 #+end_src
-*** IDO
+** IDO
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
-**** Set Up
+*** Set Up
 One key component below is ido-vertical-mode, which makes ido much
 more attractive.
 
@@ -315,17 +314,17 @@ more attractive.
   (setq ido-create-new-buffer 'always) ;; Remove warning if buffer does not exist
   (setq ido-use-filename-at-point 'guess)
 #+end_src
-**** Ido Menu
+*** Ido Menu
 #+begin_src emacs-lisp
 (use-package idomenu
   :bind ("M-i" . idomenu))
 #+end_src
-**** Other
+*** Other
 Note that there are certain program specific settings for IDO, which
 are not in this section:
 - Org-Mode
 - ido-recentf-open function
-*** Smex
+** Smex
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+begin_src emacs-lisp
@@ -337,7 +336,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     :init
     (smex-initialize))
 #+end_src
-*** Company Mode
+** Company Mode
 #+begin_src emacs-lisp
 (use-package company-mode
   :bind ("C-." . company-complete)
@@ -348,12 +347,12 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
   (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
   (define-key company-active-map (kbd "<tab>") 'company-complete))
 #+end_src
-*** Ace Jump Mode
+** Ace Jump Mode
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
   :bind ("C-c SPC" . ace-jump-mode))
 #+end_src
-*** Expand Region
+** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
 
 #+begin_src emacs-lisp
@@ -361,7 +360,7 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
   :bind ("C-@" . er/expand-region))
 (pending-delete-mode t)
 #+end_src
-*** Multiple Cursors
+** Multiple Cursors
 You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for the [[https://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html#sec-1-3-3-1][code]], Sacha.
 
 #+begin_src emacs-lisp
@@ -371,7 +370,7 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
     ("C-<" . mc/mark-previous-like-this)
     ("C-*" . mc/mark-all-like-this)))
 #+end_src emacs-lisp
-*** Kill Ring
+** Kill Ring
 While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary,
 it's great that Emacs keeps track of what's been killed. Browse kill
 ring is crucial to making that functionality visible and usable.
@@ -380,7 +379,7 @@ ring is crucial to making that functionality visible and usable.
 (use-package browse-kill-ring
   :bind ("C-x C-y" . browse-kill-ring))
 #+end_src
-*** Recent Files
+** Recent Files
 Recent files is a minor mode that keeps track of which files you're
 using, and provides it in some handy places.
 
@@ -403,7 +402,7 @@ Emacs]].
         (message "Opening file...")
       (message "Aborting")))
 #+end_src
-*** Save Place
+** Save Place
 This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 
 #+begin_src emacs-lisp
@@ -411,11 +410,11 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 #+end_src
-*** Email (mu4e)
+** Email (mu4e)
 Email is pretty text-heavy... let's do that in Emacs.
 
 I am currently using mu4e, which was indeed pretty easy to set up.
-**** mu
+*** mu
 mu4e is mu for Emacs... so we have to tell Emacs where mu is before
 activating mu4e.
 
@@ -423,18 +422,18 @@ activating mu4e.
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (require 'mu4e)
 #+end_src
-**** Opening
+*** Opening
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c m" 'mu4e)
 #+END_SRC
-**** Directories
+*** Directories
 #+begin_src emacs-lisp
 (setq mu4e-maildir "~/Maildir")
 (setq mu4e-drafts-folder "/Gmail/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/Gmail/[Gmail].Sent Mail")
 (setq mu4e-trash-folder  "/Gmail/[Gmail].Trash")
 #+end_src
-**** Receiving
+*** Receiving
 Here we enable updating ('U'), and tell mu4e to update every
 half-hour.
 
@@ -442,8 +441,8 @@ half-hour.
 (setq mu4e-get-mail-command "offlineimap")
 (setq mu4e-update-interval 1800)
 #+end_src
-**** Browsing
-***** Shortcuts
+*** Browsing
+**** Shortcuts
 
 You can jump to a shortcut by prefixing 'j' to the corresponding
 letter, or move an email to a folder (including 'All Mail,' bound to
@@ -457,30 +456,30 @@ letter, or move an email to a folder (including 'All Mail,' bound to
        ("/Gmail/[Gmail].Trash"       . ?t)
        ("/Gmail/[Gmail].All Mail"    . ?a)))
 #+end_src
-***** Skip Duplicates
+**** Skip Duplicates
 This is useful for Gmail.
 
 #+begin_src emacs-lisp
 (setq mu4e-headers-skip-duplicates t)
 #+end_src
-**** Viewing
-***** Inline Images
+*** Viewing
+**** Inline Images
 This tells mu4e to attempt to show images when viewing messages.
 
 #+begin_src emacs-lisp
 (setq mu4e-view-show-images t
       mu4e-view-image-max-width 800)
 #+end_src
-**** Composing
-***** Signature
+*** Composing
+**** Signature
 I already set the user name and mail address above. Here I set my
 message signature.
 
 #+begin_src emacs-lisp
 (setq message-signature "MWF")
 #+end_src
-**** Sending
-***** smtpmail
+*** Sending
+**** smtpmail
 
 We use a stock Emacs package to send mail. It plugs into the gnutls
 command line utilities, which my Arch machine has installed already.
@@ -493,7 +492,7 @@ command line utilities, which my Arch machine has installed already.
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 #+end_src
-***** Offline Support
+**** Offline Support
 This creates a queue of emails to be sent with Internet access. Once
 this is enabled, you can see some new options in the main view, to
 toggle online/offline [m], and to send queued mail [f].
@@ -506,7 +505,7 @@ to make sure mu doesn't index this folder.
 (setq smtpmail-queue-mail  nil
       smtpmail-queue-dir  "/home/michael/Maildir/queue/cur")
 #+end_src
-**** Other Set Up
+*** Other Set Up
 Don't save message to Sent Messages, Gmail/IMAP takes care of this.
 
 #+begin_src emacs-lisp
@@ -520,7 +519,7 @@ when you press "q."
 (setq message-kill-buffer-on-exit t)
 (setq mu4e-headers-skip-duplicates t)
 #+end_src
-*** ERC
+** ERC
 #+begin_src emacs-lisp
 (use-package erc
   :config
@@ -529,7 +528,7 @@ when you press "q."
         erc-server "irc.freenode.net"
         erc-nick "mwfogleman"))
 #+end_src
-*** SLIME
+** SLIME
 "Take this REPL, brother, and may it serve you well."
 
 #+begin_src emacs-lisp
@@ -541,7 +540,7 @@ when you press "q."
 (require 'slime)
 (slime-setup)
 #+end_src
-*** Magit
+** Magit
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then
 restores the old window configuration when you quit.
 
@@ -564,7 +563,7 @@ restores the old window configuration when you quit.
   
     (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 #+end_src
-***** View in Browser
+**** View in Browser
 "Some messages are unreadable in Emacs." 
 
 #+BEGIN_SRC emacs-lisp
@@ -573,8 +572,8 @@ restores the old window configuration when you quit.
 #+END_SRC
 
 "Now, when viewing such a difficult message, type `aV', and the message opens inside a webbrowser."
-*** Org Mode
-**** Quotations
+** Org Mode
+*** Quotations
 #+begin_quote
 Org-mode does outlining, note-taking, hyperlinks, spreadsheets, TODO
 lists, project planning, GTD, HTML and LaTeX authoring, all with plain
@@ -594,7 +593,7 @@ If I hated everything about Emacs, I would still use it for org-mode.
 
 -- [[http://article.gmane.org/gmane.emacs.orgmode/6224][Carsten Dominik]]
 #+end_quote
-**** Enable
+*** Enable
 I use the stock package of org-mode as the default major mode.
 
 #+begin_src emacs-lisp
@@ -608,7 +607,7 @@ I also want org-mode to be used elsewhere.
 (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
 ; (add-hook 'text-mode-hook 'turn-on-orgstruct)
 #+end_src
-**** Org Variables
+*** Org Variables
 Here are some critical variables for Org Mode. The org-agenda-files
 variable is set in Customize using the C-c [ and ] commands.
 
@@ -631,7 +630,7 @@ variable is set in Customize using the C-c [ and ] commands.
         org-use-speed-commands t
         org-src-fontify-natively t)
 #+end_src
-**** Org Capture
+*** Org Capture
 Here are some settings for capture. This was some of my first ELisp!
 (With the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.)
 
@@ -655,21 +654,21 @@ periodically, scheduled with Org).
                "* TODO %?\n")))
 #+end_src
 
-**** Org Keyboard Shortcuts
+*** Org Keyboard Shortcuts
 #+begin_src emacs-lisp
   (bind-key "C-c l" 'org-store-link)
   (bind-key "C-c c" 'org-capture)
   (bind-key "C-c a" 'org-agenda)
   (bind-key "C-c b" 'org-iswitchb)
 #+end_src
-*** TiddlyWiki
+** TiddlyWiki
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
-**** tid-mode
+*** tid-mode
 #+begin_src emacs-lisp
   (use-package tid-mode
     :load-path "site-lisp/tid-mode/")
 #+end_src
-**** open-wiki
+*** open-wiki
 This function, bound to C-c w, opens my TiddlyWiki tiddlers directory in Dired.
 
 #+BEGIN_SRC emacs-lisp
@@ -680,7 +679,7 @@ This function, bound to C-c w, opens my TiddlyWiki tiddlers directory in Dired.
   
   (bind-key "C-c w" 'open-wiki)
 #+END_SRC
-**** browse-wiki
+*** browse-wiki
 I also often want to open my wiki in Chromium. I bind this to C-c W.
 
 #+BEGIN_SRC emacs-lisp
@@ -691,7 +690,7 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
   
   (bind-key "C-c W" 'browse-wiki)
 #+END_SRC
-*** smartparens
+** smartparens
 #+begin_src emacs-lisp
 (use-package smartparens
   :bind
@@ -735,14 +734,14 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
   (show-smartparens-global-mode t)
   (require 'smartparens-config))
 #+end_src
-*** Diminish
+** Diminish
 #+begin_src emacs-lisp
 (use-package diminish
   :init
   (diminish 'smartparens-mode)
   (diminish 'company-mode))
 #+end_src
-*** Key Chord mode
+** Key Chord mode
 #+begin_src emacs-lisp
 (use-package key-chord
   :init
