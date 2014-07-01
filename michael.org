@@ -103,7 +103,7 @@ special functions.
 Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
 
 #+begin_src emacs-lisp
-(define-key global-map (kbd "RET") 'newline-and-indent)
+  (bind-key "RET" 'newline-and-indent)
 #+end_src
 
 Make C-n insert new lines if the point is at the end of the buffer.
@@ -138,50 +138,50 @@ These bindings (from "[[https://github.com/technomancy/better-defaults][Better D
 use hippie-expand, ibuffer, and the regex-aware versions of isearch.
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") 'isearch-forward)
-(global-set-key (kbd "C-M-r") 'isearch-backward)
+  (bind-key "M-/" 'hippie-expand)
+  (bind-key "C-x C-b" 'ibuffer)
+  (bind-key "C-s" 'isearch-forward-regexp)
+  (bind-key "C-r" 'isearch-backward-regexp)
+  (bind-key "C-M-s" 'isearch-forward)
+  (bind-key "C-M-r" 'isearch-backward)
 #+end_src
 *** Movement
 These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-S-n")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (next-line 5))))
-
-(global-set-key (kbd "C-S-p")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (previous-line 5))))
-
-(global-set-key (kbd "C-S-f")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (forward-char 5))))
-
-(global-set-key (kbd "C-S-b")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (backward-char 5))))
+  (bind-key "C-S-n"
+            (lambda ()
+              (interactive)
+              (ignore-errors (next-line 5))))
+  
+  (bind-key "C-S-p"
+            (lambda ()
+              (interactive)
+              (ignore-errors (previous-line 5))))
+  
+  (bind-key "C-S-f"
+            (lambda ()
+              (interactive)
+              (ignore-errors (forward-char 5))))
+  
+  (bind-key "C-S-b"
+            (lambda ()
+              (interactive)
+              (ignore-errors (backward-char 5))))
 #+end_src
 *** Battery
 Sometimes I can't see my battery display, even though I have used Diminish. This gives me quick access, in Emacs, to the battery status. It's bound to "p," because "b" is taken. Mnemonyic: "power."
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c p") 'battery)
+  (bind-key "C-c p" 'battery)
 #+END_SRC
 *** Meta Binds
 The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][Drunk in the Dark]]" suggests that you don't need three ways to do numeric prefixes, and that you can make use of the meta-binds instead. He suggests using backward- and forward-sexp and delete-other-windows:
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key "\M-9" #'backward-sexp)
-  (global-set-key "\M-0" #'forward-sexp)
-  (global-set-key "\M-1" #'delete-other-windows)
+  (bind-key "M-9" 'backward-sexp)
+  (bind-key "M-0" 'forward-sexp)
+  (bind-key "M-1" 'delete-other-windows)
 #+END_SRC
 
 I look forward to riffing on this idea...
@@ -234,16 +234,14 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 This allows me to browse and install packages from Melpa.
 
 #+begin_src emacs-lisp
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
-(require 'use-package)
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (package-initialize)
+  (require 'use-package)
 #+end_src
 
-It'd be handy to have a list of the packages that I have installed, so
-that I could use one of the fancy "install-if-not-installed" functions
-that the Elisp Gods have created.
+I use use-package liberally in my config, as well as its companion macro, bind-key. In the future, I'd like to make use of its :ensure keyword.
 ** Specific Packages
 *** God Mode
 [[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to
@@ -399,13 +397,13 @@ functionality. The ido-recentf-open function was taken from [[http://www.masteri
 Emacs]].
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to \\[find-file] a recent file"
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
+  (bind-key "C-x C-r" 'ido-recentf-open)
+  (defun ido-recentf-open ()
+    "Use `ido-completing-read' to \\[find-file] a recent file"
+    (interactive)
+    (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+        (message "Opening file...")
+      (message "Aborting")))
 #+end_src
 *** Save Place
 This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
@@ -429,7 +427,7 @@ activating mu4e.
 #+end_src
 **** Opening
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c m") 'mu4e)
+  (bind-key "C-c m" 'mu4e)
 #+END_SRC
 **** Directories
 #+begin_src emacs-lisp
@@ -661,10 +659,10 @@ periodically, scheduled with Org).
 
 **** Org Keyboard Shortcuts
 #+begin_src emacs-lisp
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+  (bind-key "C-c l" 'org-store-link)
+  (bind-key "C-c c" 'org-capture)
+  (bind-key "C-c a" 'org-agenda)
+  (bind-key "C-c b" 'org-iswitchb)
 #+end_src
 *** TiddlyWiki
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
@@ -682,7 +680,7 @@ This function, bound to C-c w, opens my TiddlyWiki tiddlers directory in Dired.
     (interactive)
     (dired "~/Dropbox/wiki/tiddlers/"))
   
-  (global-set-key (kbd "C-c w") 'open-wiki)
+  (bind-key "C-c w" 'open-wiki)
 #+END_SRC
 **** browse-wiki
 I also often want to open my wiki in Chromium. I bind this to C-c W.
@@ -693,7 +691,7 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
     (interactive)
     (browse-url "127.0.0.1:8080/"))
   
-  (global-set-key (kbd "C-c W") 'browse-wiki)
+  (bind-key "C-c W" 'browse-wiki)
 #+END_SRC
 *** smartparens
 #+begin_src emacs-lisp
@@ -787,19 +785,19 @@ config file in a Git repo.
     (let ((mwf-init-file "~/src/config/home/.emacs.d/michael.org"))
       (find-file mwf-init-file)))
   
-  (global-set-key (kbd "C-c I") 'find-init-file)
+  (bind-key "C-c I" 'find-init-file)
 #+end_src
 
 Relatedly, I often want to reload my init-file. This will actually use
 the system-wide user-init-file variable.
 
 #+begin_src emacs-lisp
-(defun reload-init-file ()
-  "Reload my init file."
-  (interactive)
-  (load-file user-init-file))
-
-(global-set-key (kbd "C-c M-l") 'reload-init-file)
+  (defun reload-init-file ()
+    "Reload my init file."
+    (interactive)
+    (load-file user-init-file))
+  
+  (bind-key "C-c M-l" 'reload-init-file)
 #+end_src
 *** Keep In Touch
 I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of
@@ -836,7 +834,7 @@ the command line utility's functionality in Elisp.
 Sacha informs us that "shortcuts like C-c followed by a lowercase letter (a to z) are reserved for your use." Let's bind "C-c k" to keptintouch.
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c k") 'keptintouch)
+  (bind-key "C-c k" 'keptintouch)
 #+END_SRC
 *** Buffer Management
 **** Open Org Agenda
@@ -859,7 +857,7 @@ Let's bind this to a key-chord and a function key.
 
 #+begin_src emacs-lisp
   (key-chord-define-global "`a" 'open-agenda)
-  (global-set-key (kbd "<f5>") 'open-agenda)
+  (bind-key "<f5>" 'open-agenda)
 #+end_src
 **** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
@@ -867,7 +865,7 @@ Let's bind this to a key-chord and a function key.
     (interactive)
     (kill-buffer (current-buffer)))
   
-  (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
+  (bind-key "C-x C-k" 'kill-this-buffer)
 #+END_SRC
 
 By default, pressing 'q' in Dired runs quit-window, which quits the Dired window and buries its buffer. I'd prefer the buffer to close.
@@ -912,7 +910,7 @@ This tip comes from an [[http://emacs-fu.blogspot.kr/2013/03/editing-with-root-p
         (setq file (concat "/sudo:root@localhost:" file)))
       (find-file file)))
   
-  (global-set-key (kbd "C-x F") 'find-file-as-root)
+  (bind-key "C-x F" 'find-file-as-root)
 #+END_SRC
 *** Unfill Paragraph
 This function greedily borrowed from Sacha.
