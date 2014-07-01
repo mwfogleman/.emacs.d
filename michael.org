@@ -70,6 +70,16 @@ been indispensable at times.
 (setq user-full-name "Michael Fogleman"
       user-mail-address "michaelwfogleman@gmail.com")
 #+end_src
+** Enable Package Support
+I set up packages, Melpa, and use-package bright and early so that I can make use of use-package's bind-key macro. In the future, I'd like to make use of its :ensure keyword.
+
+#+begin_src emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (package-initialize)
+  (require 'use-package)
+#+end_src
 ** Graphical Features
 *** Unnecessary graphical features
 #+begin_src emacs-lisp
@@ -230,18 +240,6 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 * Packages
-** Enable Package Support
-This allows me to browse and install packages from Melpa.
-
-#+begin_src emacs-lisp
-  (require 'package)
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  (package-initialize)
-  (require 'use-package)
-#+end_src
-
-I use use-package liberally in my config, as well as its companion macro, bind-key. In the future, I'd like to make use of its :ensure keyword.
 ** Specific Packages
 *** God Mode
 [[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to
