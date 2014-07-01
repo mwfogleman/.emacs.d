@@ -407,9 +407,10 @@ I also rebind the find-file-read-only with ido-recent-files functionality, which
 This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 
 #+begin_src emacs-lisp
-(require 'saveplace)
-(setq-default save-place t)
-(setq save-place-file (expand-file-name ".places" user-emacs-directory))
+  (use-package saveplace
+    :init
+    (setq-default save-place t)
+    (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
 #+end_src
 ** Email (mu4e)
 Email is pretty text-heavy... let's do that in Emacs.
