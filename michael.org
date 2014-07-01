@@ -309,9 +309,9 @@ more attractive.
 #+begin_src emacs-lisp
   (setq ido-enable-flex-matching t)
   (setq ido-everywhere t)
-  (require 'ido-vertical-mode)
-  (require 'ido-ubiquitous)
-  (require 'flx-ido)
+  (use-package ido-vertical-mode)
+  (use-package ido-ubiquitous)
+  (use-package flx-ido)
   (ido-mode 1)
   (ido-vertical-mode)
   (ido-ubiquitous-mode 1)
