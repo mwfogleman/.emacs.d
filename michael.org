@@ -210,6 +210,15 @@ ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-confi
        (list (line-beginning-position)
              (line-beginning-position 2)))))
 #+END_SRC
+*** backward-kill-line
+This binding comes from [[http://emacsredux.com/blog/2013/04/08/kill-line-backward/][Emacs Redux]]. Note that we don't need a new function, just an anonymous function.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-<backspace>" (lambda ()
+                              (interactive)
+                              (kill-line 0)
+                              (indent-according-to-mode)))
+#+END_SRC
 ** Other
 *** Apropos
 Let apropos commands perform more extensive searches than
