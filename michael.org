@@ -761,9 +761,8 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
     (key-chord-define-global ",r" 'find-file)
     (key-chord-define-global ".c" 'ido-dired)))
 #+end_src
-* Functions and Macros
-** Functions
-*** Emacs Configuration File
+* Functions
+** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly
 access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post
 on Emacs Redux]].
@@ -792,7 +791,7 @@ the system-wide user-init-file variable.
   
   (bind-key "C-c M-l" 'reload-init-file)
 #+end_src
-*** Keep In Touch
+** Keep In Touch
 I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of
 the command line utility's functionality in Elisp.
 
@@ -829,8 +828,8 @@ Sacha informs us that "shortcuts like C-c followed by a lowercase letter (a to z
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c k" 'keptintouch)
 #+END_SRC
-*** Buffer Management
-**** Open Org Agenda
+** Buffer Management
+*** Open Org Agenda
 This function opens the agenda in full screen.
 
 #+begin_src emacs-lisp
@@ -852,7 +851,7 @@ Let's bind this to a key-chord and a function key.
   (key-chord-define-global "`a" 'open-agenda)
   (bind-key "<f5>" 'open-agenda)
 #+end_src
-**** Kill This Buffer
+*** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
   (defun kill-this-buffer ()
     (interactive)
@@ -866,14 +865,14 @@ By default, pressing 'q' in Dired runs quit-window, which quits the Dired window
 #+BEGIN_SRC emacs-lisp
   (define-key dired-mode-map (kbd "q") 'kill-this-buffer)
 #+END_SRC
-**** Kill All Other Buffers
+*** Kill All Other Buffers
 #+begin_src emacs-lisp
 (defun kill-other-buffers ()
    "Kill all other buffers."
    (interactive)
    (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 #+end_src
-**** Kill All Dired Buffers
+*** Kill All Dired Buffers
 #+begin_src emacs-lisp
 (defun kill-all-dired-buffers ()
   "Kill all dired buffers."
@@ -889,7 +888,7 @@ By default, pressing 'q' in Dired runs quit-window, which quits the Dired window
 #+end_src
 
 Note that this function is largely obsoleted by the in-Dired re-mappings of <return>, ^, and q, located elsewhere in this config.
-*** Edit as Root
+** Edit as Root
 This tip comes from an [[http://emacs-fu.blogspot.kr/2013/03/editing-with-root-privileges-once-more.html][emacs-fu blog post]].
 
 #+BEGIN_SRC emacs-lisp
@@ -905,7 +904,7 @@ This tip comes from an [[http://emacs-fu.blogspot.kr/2013/03/editing-with-root-p
   
   (bind-key "C-x F" 'find-file-as-root)
 #+END_SRC
-*** Unfill Paragraph
+** Unfill Paragraph
 This function greedily borrowed from Sacha.
 
 #+BEGIN_SRC emacs-lisp
@@ -919,4 +918,3 @@ This function greedily borrowed from Sacha.
   
   (bind-key "M-Q" 'unfill-paragraph)
 #+END_SRC
-** Macros
