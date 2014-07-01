@@ -65,12 +65,12 @@ been indispensable at times.
 -- [[http://www.informit.com/articles/article.aspx?p=1193856][Donald Knuth]]
 #+end_quote
 * Settings
-** Personal Information
+** Personal information
 #+begin_src emacs-lisp
 (setq user-full-name "Michael Fogleman"
       user-mail-address "michaelwfogleman@gmail.com")
 #+end_src
-** Enable Package Support
+** Enable package support
 I set up packages, Melpa, and use-package bright and early so that I can make use of use-package's bind-key macro. In the future, I'd like to make use of its :ensure keyword.
 
 #+begin_src emacs-lisp
@@ -80,8 +80,7 @@ I set up packages, Melpa, and use-package bright and early so that I can make us
   (package-initialize)
   (require 'use-package)
 #+end_src
-** Graphical Features
-*** Unnecessary graphical features
+** Turn off unnecessary graphical features
 #+begin_src emacs-lisp
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -90,11 +89,8 @@ I set up packages, Melpa, and use-package bright and early so that I can make us
       initial-scratch-message ""
       inhibit-startup-echo-area-message t)
 #+end_src
-*** Windows
-Additionally, I'd like to handle windows intelligently. I'll use the
-windmove functionality, along with some special functionality for Org
-where windmove is active in locations where Org Mode does not have
-special functions.
+** Window handling
+To handle windows intelligently, I use the windmove functionality, along with some special functionality for Org where windmove is active in locations where Org Mode does not have special functions.
 
 #+begin_src emacs-lisp
 (windmove-default-keybindings)
@@ -130,7 +126,7 @@ It'd be great to get an Emacs browser going, but in the meantime:
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "chromium")
 #+end_src
-** Keyboard Shortcuts
+** Keyboard shortcuts
 *** From Better Defaults
 These bindings (from "[[https://github.com/technomancy/better-defaults][Better Defaults]]") rebind the default commands to
 use hippie-expand, ibuffer, and the regex-aware versions of isearch.
