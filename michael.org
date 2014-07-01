@@ -534,13 +534,14 @@ when you press "q."
 "Take this REPL, brother, and may it serve you well."
 
 #+begin_src emacs-lisp
-(setq inferior-lisp-program "/usr/bin/sbcl")
-(setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
-(add-to-list 'slime-contribs 'slime-fancy)
-(require 'slime-autoloads)
-(require 'slime)
-(slime-setup)
+  (use-package slime-autoloads)
+  (use-package slime
+    :load-path "/usr/share/emacs/site-lisp/slime/"
+    :init
+    (slime-setup)
+    (setq inferior-lisp-program "/usr/bin/sbcl")
+    (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
+    (add-to-list 'slime-contribs 'slime-fancy))
 #+end_src
 ** Magit
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then
