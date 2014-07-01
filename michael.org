@@ -185,6 +185,25 @@ The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%
 #+END_SRC
 
 I look forward to riffing on this idea...
+*** Copying and Killing
+ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-configuration/][snippets post]] recommends giving this advice to kill-ring-save and kill-ring, which, if no region is selected, makes C-w and M-w kill or copy the current line. 
+
+#+BEGIN_SRC emacs-lisp
+  (defadvice kill-ring-save (before slick-copy activate compile)
+    "When called interactively with no active region, copy a single line instead."
+    (interactive
+     (if mark-active (list (region-beginning) (region-end))
+       (message "Copied line")
+       (list (line-beginning-position)
+             (line-beginning-position 2)))))
+  
+  (defadvice kill-region (before slick-cut activate compile)
+    "When called interactively with no active region, kill a single line instead."
+    (interactive
+     (if mark-active (list (region-beginning) (region-end))
+       (list (line-beginning-position)
+             (line-beginning-position 2)))))
+#+END_SRC
 ** Other
 *** Apropos
 Let apropos commands perform more extensive searches than
