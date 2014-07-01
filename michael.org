@@ -651,9 +651,8 @@ periodically, scheduled with Org).
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
 **** tid-mode
 #+begin_src emacs-lisp
-(load (expand-file-name
-       (concat user-emacs-directory "site-lisp/tid-mode/tid-mode.el")))
-(require 'tid-mode)
+  (use-package tid-mode
+    :load-path "site-lisp/tid-mode/")
 #+end_src
 **** open-wiki
 This function, bound to C-c w, opens my TiddlyWiki tiddlers directory in Dired.
