@@ -468,7 +468,8 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
     :bind ("C-c m" . mu4e)
     :config
     (add-to-list 'mu4e-view-actions
-                 '("ViewInBrowser" . mu4e-action-view-in-browser) t))
+                 '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+    (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct))
 #+end_src
 ** ERC
 #+begin_src emacs-lisp
@@ -560,33 +561,27 @@ I use the stock package of org-mode as the default major mode.
           org-goto-interface 'outline-path-completion
           org-outline-path-complete-in-steps nil
           org-use-speed-commands t
-          org-src-fontify-natively t)
-    (setq org-capture-templates
-        '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
-               "%?\n")
-          ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
-               "* I am grateful for %?\n")
-          ("n" "Note" entry (file "~/Dropbox/org/notes.org")
-               "* %?\n")
-          ("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org")
-               "* %?")
-          ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-               "* %?\nEntered on %U\n  %i\n")
-          ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
-               "* TODO %?\n"))))
+          org-src-fontify-natively t
+          org-capture-templates
+          '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
+             "%?\n")
+            ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
+             "* I am grateful for %?\n")
+            ("n" "Note" entry (file "~/Dropbox/org/notes.org")
+             "* %?\n")
+            ("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org")
+             "* %?")
+            ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
+             "* %?\nEntered on %U\n  %i\n")
+            ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
+             "* TODO %?\n"))))
 #+end_src
 
 The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
 
 My settings for capture were some of my first Elisp :) I did need, and still need, the help of the  [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
 
-I also want org-mode to be used elsewhere:
-
-#+begin_src emacs-lisp
-  (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
-#+end_src
-
-I wanted to add a similar hook to text-mode, but that causes fatal errors. I think that is because I use org-mode as my default mode.
+I use org-struct in mu4e. See above.
 *** Bindings
 #+begin_src emacs-lisp
   (bind-key "C-c l" 'org-store-link)
