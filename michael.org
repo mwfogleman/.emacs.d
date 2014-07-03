@@ -334,14 +334,16 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+end_src
 ** Company Mode
 #+begin_src emacs-lisp
-(use-package company-mode
-  :bind ("C-." . company-complete)
-  :init 
-  (global-company-mode 1)
-  (define-key company-active-map (kbd "\C-n") 'company-select-next)
-  (define-key company-active-map (kbd "\C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
-  (define-key company-active-map (kbd "<tab>") 'company-complete))
+  (use-package company-mode
+    :bind ("C-." . company-complete)
+    :init 
+    (global-company-mode 1)
+    :config
+    (bind-keys :map company-active-map
+               ("C-n" . company-select-next)
+               ("C-p" . company-select-previous)
+               ("C-d" . company-show-doc-buffer)
+               ("<tab>" . company-complete)))
 #+end_src
 ** Ace Jump Mode
 #+begin_src emacs-lisp
