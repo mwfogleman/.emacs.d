@@ -312,32 +312,33 @@ Some of these suggestions are adapted from Xah Lee's [[http://ergoemacs.org/emac
 Dired-details lets me show or hide the details with ) and (, respectively. If, for some reason, it becomes hard to remember this, dired-details+ makes the parentheses interchangeable.
 ** IDO
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
-*** Set Up
+
 One key component below is ido-vertical-mode, which makes ido much
 more attractive.
 
 #+begin_src emacs-lisp
-  (setq ido-enable-flex-matching t)
-  (setq ido-everywhere t)
-  (use-package ido-vertical-mode)
-  (use-package ido-ubiquitous)
-  (use-package flx-ido)
+  (setq ido-enable-flex-matching t
+        ido-everywhere t
+        ido-use-faces nil ;; disable ido faces to see flx highlights.
+        ido-create-new-buffer 'always
+        ido-use-filename-at-point 'guess)
   (ido-mode 1)
-  (ido-vertical-mode)
-  (ido-ubiquitous-mode 1)
-  (flx-ido-mode 1)
-  (setq ido-use-faces nil) ;; disable ido faces to see flx highlights.
-  (setq ido-create-new-buffer 'always) ;; Remove warning if buffer does not exist
-  (setq ido-use-filename-at-point 'guess)
+  (use-package ido-vertical-mode
+    :init
+    (ido-vertical-mode))
+  (use-package ido-ubiquitous
+    :init
+    (ido-ubiquitous-mode 1))
+  (use-package flx-ido
+    :init
+    (flx-ido-mode 1))
+  (use-package idomenu
+    :bind ("M-i" . idomenu))
 #+end_src
-*** Ido Menu
-#+begin_src emacs-lisp
-(use-package idomenu
-  :bind ("M-i" . idomenu))
-#+end_src
-*** Other
+
 Note that there are certain program specific settings for IDO, which
 are not in this section:
+- Smex
 - Org-Mode
 - ido-recentf-open function
 ** Smex
