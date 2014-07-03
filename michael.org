@@ -285,7 +285,26 @@ toggle between God mode and non-God mode.
                ("^" . (lambda () (interactive) (find-alternate-file ".."))))
     (use-package dired-details
       :init
-      (dired-details-install)))
+      (dired-details-install))
+    (use-package dired-subtree
+      :init
+      (bind-keys :map dired-mode-map
+                 :prefix "C-,"
+                 :prefix-map dired-subtree-map
+                 :prefix-docstring "Dired subtree map."
+                 ("C-i" . dired-subtree-insert)
+                 ("C-/" . dired-subtree-apply-filter)
+                 ("C-k" . dired-subtree-remove)
+                 ("C-n" . dired-subtree-next-sibling)
+                 ("C-p" . dired-subtree-previous-sibling)
+                 ("C-u" . dired-subtree-up)
+                 ("C-d" . dired-subtree-down)
+                 ("C-a" . dired-subtree-beginning)
+                 ("C-e" . dired-subtree-end)
+                 ("m" . dired-subtree-mark-subtree)
+                 ("u" . dired-subtree-unmark-subtree)
+                 ("C-o C-f" . dired-subtree-only-this-file)
+                 ("C-o C-d" . dired-subtree-only-this-directory))))
 #+END_SRC
 
 Some of these suggestions are adapted from Xah Lee's [[http://ergoemacs.org/emacs/emacs_dired_tips.html][article on Dired]]. dired-find-alternate-file, which is bound to a, is disabled by default. <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory. Relatedly, I re-bind 'q' to my kill-this-buffer function below.
