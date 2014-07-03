@@ -251,26 +251,27 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 toggle between God mode and non-God mode.
 
 #+begin_src emacs-lisp
-(defun my-update-cursor ()
-  (setq cursor-type (if (or god-local-mode buffer-read-only)
-                        'bar
-                      'box)))
-
-(use-package god-mode
-  :bind (("<escape>" . god-local-mode)
-        ("C-x C-1" . delete-other-windows)
-        ("C-x C-2" . split-window-below)
-        ("C-x C-3" . split-window-right)
-        ("C-x C-0" . delete-window))
-  :init
-  (add-hook 'god-mode-enabled-hook 'my-update-cursor)
-  (add-hook 'god-mode-disabled-hook 'my-update-cursor)
-  :config
-  (define-key god-local-mode-map (kbd "z") 'repeat)
-  (define-key god-local-mode-map (kbd ".") 'repeat)
-  (define-key god-local-mode-map (kbd "i") 'god-local-mode)
-  (add-to-list 'god-exempt-major-modes 'mu4e-compose-mode)
-  (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
+  (defun my-update-cursor ()
+    (setq cursor-type (if (or god-local-mode buffer-read-only)
+                          'bar
+                        'box)))
+  
+  (use-package god-mode
+    :bind (("<escape>" . god-local-mode)
+          ("C-x C-1" . delete-other-windows)
+          ("C-x C-2" . split-window-below)
+          ("C-x C-3" . split-window-right)
+          ("C-x C-0" . delete-window))
+    :init
+    (add-hook 'god-mode-enabled-hook 'my-update-cursor)
+    (add-hook 'god-mode-disabled-hook 'my-update-cursor)
+    :config
+    (bind-keys :map god-local-mode-map
+               ("z" . repeat)
+               ("." . repeat)
+               ("i" . god-local-mode))
+    (add-to-list 'god-exempt-major-modes 'mu4e-compose-mode)
+    (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
 #+end_src
 ** Dired
 #+BEGIN_SRC emacs-lisp
