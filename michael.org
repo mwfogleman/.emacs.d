@@ -189,8 +189,8 @@ Sometimes I can't see my battery display, even though I have used Diminish. This
 The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][Drunk in the Dark]]" suggests that you don't need three ways to do numeric prefixes, and that you can make use of the meta-binds instead. He suggests using backward- and forward-sexp and delete-other-windows:
 
 #+BEGIN_SRC emacs-lisp
-  (bind-key "M-9" 'backward-sexp)
-  (bind-key "M-0" 'forward-sexp)
+  (bind-key "M-9" 'sp-backward-sexp)
+  (bind-key "M-0" 'sp-forward-sexp)
   (bind-key "M-1" 'delete-other-windows)
   (bind-key "M-O" 'mode-line-other-buffer)
 #+END_SRC
