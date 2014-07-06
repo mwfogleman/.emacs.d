@@ -415,7 +415,8 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
 
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
-    :bind ("C-@" . er/expand-region))
+    :bind (("C-@" . er/expand-region)
+           ("C-=" . er/expand-region)))
   (pending-delete-mode t)
 #+END_SRC
 ** Multiple Cursors
