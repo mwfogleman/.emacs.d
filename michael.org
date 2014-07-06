@@ -819,11 +819,7 @@ the command line utility's functionality in Elisp.
       (switch-to-buffer (other-buffer))
       (kill-buffer (other-buffer)))
     (message "%s was contacted." contact))
-#+END_SRC
-
-Sacha informs us that "shortcuts like C-c followed by a lowercase letter (a to z) are reserved for your use." Let's bind "C-c k" to keptintouch.
-
-#+BEGIN_SRC emacs-lisp
+  
   (bind-key "C-c k" 'keptintouch)
 #+END_SRC
 ** Buffer Management
