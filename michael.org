@@ -685,13 +685,6 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
     (show-smartparens-global-mode t)
     (use-package smartparens-config))
 #+end_src
-** Diminish
-#+begin_src emacs-lisp
-(use-package diminish
-  :init
-  (diminish 'smartparens-mode)
-  (diminish 'company-mode))
-#+end_src
 ** Key Chord mode
 #+begin_src emacs-lisp
 (use-package key-chord
@@ -723,6 +716,16 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
     (projectile-global-mode)
     (setq projectile-enable-caching t))
 #+END_SRC
+** Diminish
+#+begin_src emacs-lisp
+  (use-package diminish
+    :init
+    (diminish 'smartparens-mode)
+    (diminish 'company-mode)
+    (diminish 'magit-auto-revert-mode)
+    (diminish 'projectile-mode)
+    (diminish 'eldoc-mode))
+#+end_src
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly
