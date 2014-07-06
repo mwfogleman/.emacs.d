@@ -266,6 +266,12 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
+*** Ediff
+The default Ediff behavior is confusing and not desirable. This fixes it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+END_SRC
 * Packages
 ** God Mode
 [[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to
