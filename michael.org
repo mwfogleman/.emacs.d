@@ -403,6 +403,9 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
   (use-package ace-jump-mode
     :init
     (use-package ace-jump-buffer)
+    (use-package ace-link
+      :init
+      (ace-link-setup-default))
     (bind-keys :prefix-map ace-jump-map
                :prefix "C-c j"
                ("c" . ace-jump-char-mode)
