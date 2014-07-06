@@ -219,7 +219,7 @@ This binding comes from [[http://emacsredux.com/blog/2013/04/08/kill-line-backwa
                               (kill-line 0)
                               (indent-according-to-mode)))
 #+END_SRC
-*** Sentence Commands
+*** Sentence and Paragraph Commands
 By default, sentence-end-double-space is set to t. That convention may be programatically convenient, but that's not how I write. I want to be able to write normal sentences, but still be able to fill normally. Let to the rescue!
 
 #+BEGIN_SRC emacs-lisp
@@ -242,6 +242,13 @@ By default, sentence-end-double-space is set to t. That convention may be progra
   (ad-activate 'backward-sentence)
   (ad-activate 'kill-sentence)
 #+END_SRC
+
+A slightly less tricky matter is the default binding of backward- and forward-paragraph, which are at the inconvenient M-{ and M-}. This makes a bit more sense, no?
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "M-A" 'backward-paragraph)
+  (bind-key "M-E" 'forward-paragraph)
+#+END_SRC 
 ** Other
 *** Apropos
 Let apropos commands perform more extensive searches than
