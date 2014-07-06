@@ -397,6 +397,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ** Ace Jump Mode
 #+BEGIN_SRC emacs-lisp
   (use-package ace-jump-mode
+    :bind ("M-SPC" . ace-jump-mode)
     :init
     (use-package ace-jump-buffer)
     (use-package ace-link
@@ -409,6 +410,8 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                ("w" . ace-jump-word-mode)
                ("b" . ace-jump-buffer)
                ("o" . ace-jump-buffer-other-window)))
+  
+  (bind-key "M-S-SPC" 'just-one-space)
 #+END_SRC
 ** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
