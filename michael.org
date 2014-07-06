@@ -266,12 +266,6 @@ create them.
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
 #+END_SRC
-*** ELisp
-When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip, Sacha.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-#+END_SRC
 *** Ediff
 The default Ediff behavior is confusing and not desirable. This fixes it.
 
@@ -538,6 +532,15 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
     (setq inferior-lisp-program "/usr/bin/sbcl")
     (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
     (add-to-list 'slime-contribs 'slime-fancy))
+#+END_SRC
+** Eldoc
+When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip and code, Sacha.
+
+#+BEGIN_SRC emacs-lisp
+  (autoload 'turn-on-eldoc-mode "eldoc" nil t)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 ** Magit
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then
