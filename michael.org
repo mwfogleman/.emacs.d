@@ -593,6 +593,7 @@ I use org-struct in mu4e. See above.
   (bind-key "C-c c" 'org-capture)
   (bind-key "C-c a" 'org-agenda)
   (bind-key "C-c b" 'org-iswitchb)
+  (bind-key "C-c M-k" 'org-cut-subtree)
 #+end_src
 ** TiddlyWiki
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
