@@ -66,66 +66,66 @@ been indispensable at times.
 #+end_quote
 * Settings
 ** Personal information
-#+begin_src emacs-lisp
-(setq user-full-name "Michael Fogleman"
-      user-mail-address "michaelwfogleman@gmail.com")
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Michael Fogleman"
+        user-mail-address "michaelwfogleman@gmail.com")
+#+END_SRC
 ** Enable package support
 I set up packages, Melpa, and use-package bright and early so that I can make use of use-package's bind-key macro. In the future, I'd like to make use of its :ensure keyword.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'package)
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (package-initialize)
   (require 'use-package)
-#+end_src
+#+END_SRC
 ** Turn off unnecessary graphical features
-#+begin_src emacs-lisp
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(setq inhibit-startup-message t
-      initial-scratch-message ""
-      inhibit-startup-echo-area-message t)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+  (setq inhibit-startup-message t
+        initial-scratch-message ""
+        inhibit-startup-echo-area-message t)
+#+END_SRC
 ** Window handling
 To handle windows intelligently, I use the windmove functionality, along with some special functionality for Org where windmove is active in locations where Org Mode does not have special functions.
 
-#+begin_src emacs-lisp
-(windmove-default-keybindings)
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (windmove-default-keybindings)
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
+#+END_SRC
 ** Backups
-#+begin_src emacs-lisp
-(setq backup-directory-alist
-      `(("." . ,(expand-file-name
-                 (concat user-emacs-directory "backups")))))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist
+        `(("." . ,(expand-file-name
+                   (concat user-emacs-directory "backups")))))
+#+END_SRC
 ** Change prompts
 Make yes or no prompts be y or n prompts.
 
-#+begin_src emacs-lisp
-(fset 'yes-or-no-p 'y-or-n-p)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
 ** Computer
 This displays the time and the status of my laptop battery.
 
-#+begin_src emacs-lisp
-(setq display-time-day-and-date 1)
-(display-time-mode 1)
-(display-battery-mode 1)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-day-and-date 1)
+  (display-time-mode 1)
+  (display-battery-mode 1)
+#+END_SRC
 ** Internet
 It'd be great to get an Emacs browser going, but in the meantime:
 
-#+begin_src emacs-lisp
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium")
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "chromium")
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c B" 'browse-url)
@@ -135,30 +135,30 @@ It'd be great to get an Emacs browser going, but in the meantime:
 These bindings (from "[[https://github.com/technomancy/better-defaults][Better Defaults]]") rebind the default commands to
 use hippie-expand, ibuffer, and the regex-aware versions of isearch.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (bind-key "M-/" 'hippie-expand)
   (bind-key "C-x C-b" 'ibuffer)
   (bind-key "C-s" 'isearch-forward-regexp)
   (bind-key "C-r" 'isearch-backward-regexp)
   (bind-key "C-M-s" 'isearch-forward)
   (bind-key "C-M-r" 'isearch-backward)
-#+end_src
+#+END_SRC
 *** Lines
 Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (bind-key "RET" 'newline-and-indent)
-#+end_src
+#+END_SRC
 
 Make C-n insert new lines if the point is at the end of the buffer.
 
-#+begin_src emacs-lisp
-(setq next-line-add-newlines t)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq next-line-add-newlines t)
+#+END_SRC
 *** Movement
 These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (bind-key "C-S-n"
             (lambda ()
               (interactive)
@@ -178,7 +178,7 @@ These keybindings for movement come from [[http://whattheemacsd.com/key-bindings
             (lambda ()
               (interactive)
               (ignore-errors (backward-char 5))))
-#+end_src
+#+END_SRC
 *** Meta Binds
 The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][Drunk in the Dark]]" suggests that you don't need three ways to do numeric prefixes, and that you can make use of the meta-binds instead. He suggests using backward- and forward-sexp and delete-other-windows:
 
@@ -246,20 +246,20 @@ By default, sentence-end-double-space is set to t. That convention may be progra
 Let apropos commands perform more extensive searches than
 default. This also comes from Better Defaults.
 
-#+begin_src emacs-lisp
-(setq apropos-do-all t)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq apropos-do-all t)
+#+END_SRC
 *** Buffer / File Warnings
 Remove the warning if a buffer or file does not exist, so you can
 create them.
 
-#+begin_src emacs-lisp
-(setq confirm-nonexistent-file-or-buffer nil)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (setq confirm-nonexistent-file-or-buffer nil)
+#+END_SRC
 *** Narrow to Region
-#+begin_src emacs-lisp
-(put 'narrow-to-region 'disabled nil)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (put 'narrow-to-region 'disabled nil)
+#+END_SRC
 *** ELisp
 When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip, Sacha.
 
@@ -277,7 +277,7 @@ The default Ediff behavior is confusing and not desirable. This fixes it.
 [[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to
 toggle between God mode and non-God mode.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun my-update-cursor ()
     (setq cursor-type (if (or god-local-mode buffer-read-only)
                           'bar
@@ -299,7 +299,7 @@ toggle between God mode and non-God mode.
                ("i" . god-local-mode))
     (add-to-list 'god-exempt-major-modes 'mu4e-compose-mode)
     (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
-#+end_src
+#+END_SRC
 ** Dired
 #+BEGIN_SRC emacs-lisp
   (use-package dired
@@ -343,7 +343,7 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
 One key component below is ido-vertical-mode, which makes ido much
 more attractive.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq ido-enable-flex-matching t
         ido-everywhere t
         ido-use-faces nil ;; disable ido faces to see flx highlights.
@@ -362,7 +362,7 @@ more attractive.
     (flx-ido-mode 1))
   (use-package idomenu
     :bind ("M-i" . idomenu))
-#+end_src
+#+END_SRC
 
 Note that there are certain program specific settings for IDO, which
 are not in this section:
@@ -372,7 +372,7 @@ are not in this section:
 ** Smex
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package smex
     :bind (("M-x" . smex)
            ("<menu>" . smex)
@@ -380,9 +380,9 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
            ("C-c C-c M-x" . execute-extended-command))
     :init
     (smex-initialize))
-#+end_src
+#+END_SRC
 ** Company Mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package company-mode
     :bind ("C-." . company-complete)
     :init 
@@ -392,47 +392,47 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                ("C-p" . company-select-previous)
                ("C-d" . company-show-doc-buffer)
                ("<tab>" . company-complete)))
-#+end_src
+#+END_SRC
 ** Ace Jump Mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package ace-jump-mode
     :bind ("C-c SPC" . ace-jump-mode)
     :init
     (use-package ace-jump-buffer))
-#+end_src
+#+END_SRC
 ** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
 
-#+begin_src emacs-lisp
-(use-package expand-region
-  :bind ("C-@" . er/expand-region))
-(pending-delete-mode t)
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :bind ("C-@" . er/expand-region))
+  (pending-delete-mode t)
+#+END_SRC
 ** Multiple Cursors
 You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for the [[https://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html#sec-1-3-3-1][code]], Sacha.
 
-#+begin_src emacs-lisp
-(use-package multiple-cursors
-  :bind 
-   (("C->" . mc/mark-next-like-this)
-    ("C-<" . mc/mark-previous-like-this)
-    ("C-*" . mc/mark-all-like-this)))
-#+end_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :bind 
+     (("C->" . mc/mark-next-like-this)
+      ("C-<" . mc/mark-previous-like-this)
+      ("C-*" . mc/mark-all-like-this)))
+#+END_SRC EMACS-LISP
 ** Kill Ring
 While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary,
 it's great that Emacs keeps track of what's been killed. Browse kill
 ring is crucial to making that functionality visible and usable.
 
-#+begin_src emacs-lisp
-(use-package browse-kill-ring
-  :bind ("C-x C-y" . browse-kill-ring))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (use-package browse-kill-ring
+    :bind ("C-x C-y" . browse-kill-ring))
+#+END_SRC
 ** Recent Files
 Recent files is a minor mode that keeps track of which files you're using, and provides it in some handy places.
 
 I also rebind the find-file-read-only with ido-recent-files functionality, which I took from [[http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/][Mastering Emacs]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package recentf
     :init
     (recentf-mode t)
@@ -444,16 +444,16 @@ I also rebind the find-file-read-only with ido-recent-files functionality, which
           (message "Opening file...")
         (message "Aborting")))
     :bind ("C-x C-r" . ido-recentf-open))
-#+end_src
+#+END_SRC
 ** Save Place
 This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package saveplace
     :init
     (setq-default save-place t)
     (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
-#+end_src
+#+END_SRC
 ** Email (mu4e)
 Email is pretty text-heavy... let's do that in Emacs. I am currently using mu4e, which was indeed pretty easy to set up. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
 
@@ -463,7 +463,7 @@ The folder /home/user/Maildir/queue/ needs to be created with the command "mu mk
 
 Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package mu4e
     :load-path "/usr/share/emacs/site-lisp/mu4e/"
     :init
@@ -500,20 +500,20 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
     (add-to-list 'mu4e-view-actions
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
     (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct))
-#+end_src
+#+END_SRC
 ** ERC
-#+begin_src emacs-lisp
-(use-package erc
-  :config
-  (setq erc-autojoin-channels-alist '(("freenode.net"
-                                       "#emacs"))
-        erc-server "irc.freenode.net"
-        erc-nick "mwfogleman"))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (use-package erc
+    :config
+    (setq erc-autojoin-channels-alist '(("freenode.net"
+                                         "#emacs"))
+          erc-server "irc.freenode.net"
+          erc-nick "mwfogleman"))
+#+END_SRC
 ** SLIME
 "Take this REPL, brother, and may it serve you well."
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package slime-autoloads)
   (use-package slime
     :load-path "/usr/share/emacs/site-lisp/slime/"
@@ -522,12 +522,12 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
     (setq inferior-lisp-program "/usr/bin/sbcl")
     (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
     (add-to-list 'slime-contribs 'slime-fancy))
-#+end_src
+#+END_SRC
 ** Magit
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then
 restores the old window configuration when you quit.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package magit
     :bind (("C-x g" . magit-status)
            ("<f7>" . magit-status)
@@ -546,7 +546,7 @@ restores the old window configuration when you quit.
   
     (bind-keys :map magit-status-mode-map
                ("q" . magit-quit-session)))
-#+end_src
+#+END_SRC
 ** Org Mode
 *** Quotations
 #+begin_quote
@@ -571,7 +571,7 @@ If I hated everything about Emacs, I would still use it for org-mode.
 *** Configuration
 I use the stock package of org-mode as the default major mode.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package org
     :init
     (setq default-major-mode 'org-mode
@@ -605,7 +605,7 @@ I use the stock package of org-mode as the default major mode.
              "* %?\nEntered on %U\n  %i\n")
             ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
              "* TODO %?\n"))))
-#+end_src
+#+END_SRC
 
 The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
 
@@ -613,20 +613,20 @@ My settings for capture were some of my first Elisp :) I did need, and still nee
 
 I use org-struct in mu4e. See above.
 *** Bindings
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (bind-key "C-c l" 'org-store-link)
   (bind-key "C-c c" 'org-capture)
   (bind-key "C-c a" 'org-agenda)
   (bind-key "C-c b" 'org-iswitchb)
   (bind-key "C-c M-k" 'org-cut-subtree)
-#+end_src
+#+END_SRC
 ** TiddlyWiki
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
 *** tid-mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package tid-mode
     :load-path "site-lisp/tid-mode/")
-#+end_src
+#+END_SRC
 *** open-wiki
 This function, bound to C-c w, opens my TiddlyWiki tiddlers directory in Dired.
 
@@ -650,7 +650,7 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
   (bind-key "C-c W" 'browse-wiki)
 #+END_SRC
 ** smartparens
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package smartparens
     :bind
     (("C-M-f" . sp-forward-sexp)
@@ -692,9 +692,9 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
     (use-package smartparens-config))
-#+end_src
+#+END_SRC
 ** Key Chord mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package key-chord
     :init
     (progn 
@@ -717,7 +717,7 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
       (key-chord-define-global "'-" 'smex)
       (key-chord-define-global ",r" 'find-file)
       (key-chord-define-global ".c" 'ido-dired)))
-#+end_src
+#+END_SRC
 ** Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
@@ -726,7 +726,7 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
     (setq projectile-enable-caching t))
 #+END_SRC
 ** Diminish
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (use-package diminish
     :init
     (diminish 'smartparens-mode)
@@ -734,7 +734,7 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
     (diminish 'magit-auto-revert-mode)
     (diminish 'projectile-mode)
     (diminish 'eldoc-mode))
-#+end_src
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly
@@ -744,7 +744,7 @@ on Emacs Redux]].
 I use mwf-init-file rather than user-init-file, because I edit the
 config file in a Git repo.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun find-init-file ()
     "Edit my init file in another window."
     (interactive)
@@ -752,24 +752,24 @@ config file in a Git repo.
       (find-file mwf-init-file)))
   
   (bind-key "C-c I" 'find-init-file)
-#+end_src
+#+END_SRC
 
 Relatedly, I often want to reload my init-file. This will actually use
 the system-wide user-init-file variable.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun reload-init-file ()
     "Reload my init file."
     (interactive)
     (load-file user-init-file))
   
   (bind-key "C-c M-l" 'reload-init-file)
-#+end_src
+#+END_SRC
 ** Keep In Touch
 I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of
 the command line utility's functionality in Elisp.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun keptintouch (arg)
     "Request a contact in a keepintouch.data file, and update their last
     contacted date (either today, or, if a prefix is supplied, a user-supplied date.)"
@@ -795,7 +795,7 @@ the command line utility's functionality in Elisp.
       (switch-to-buffer (other-buffer))
       (kill-buffer (other-buffer)))
     (message "%s was contacted." contact))
-#+end_src
+#+END_SRC
 
 Sacha informs us that "shortcuts like C-c followed by a lowercase letter (a to z) are reserved for your use." Let's bind "C-c k" to keptintouch.
 
@@ -806,7 +806,7 @@ Sacha informs us that "shortcuts like C-c followed by a lowercase letter (a to z
 *** Open Org Agenda
 This function opens the agenda in full screen.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun open-agenda ()
     "Opens the org-agenda."
     (interactive)
@@ -817,14 +817,14 @@ This function opens the agenda in full screen.
             (org-agenda-redo t)
           (switch-to-buffer agenda))))
     (delete-other-windows))
-#+end_src
+#+END_SRC
 
 Let's bind this to a key-chord and a function key.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (key-chord-define-global "`a" 'open-agenda)
   (bind-key "<f5>" 'open-agenda)
-#+end_src
+#+END_SRC
 *** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
   (defun kill-this-buffer ()
@@ -841,26 +841,26 @@ By default, pressing 'q' in Dired runs quit-window, which quits the Dired window
              ("q" . kill-this-buffer))
 #+END_SRC
 *** Kill All Other Buffers
-#+begin_src emacs-lisp
-(defun kill-other-buffers ()
-   "Kill all other buffers."
-   (interactive)
-   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (defun kill-other-buffers ()
+     "Kill all other buffers."
+     (interactive)
+     (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+#+END_SRC
 *** Kill All Dired Buffers
-#+begin_src emacs-lisp
-(defun kill-all-dired-buffers ()
-  "Kill all dired buffers."
-  (interactive)
-  (save-excursion
-    (let ((count 0))
-      (dolist (buffer (buffer-list))
-	(set-buffer buffer)
-        (when (equal major-mode 'dired-mode)
-	  (setq count (1+ count))
-	  (kill-buffer buffer)))
-      (message "Killed %i dired buffer(s)." count))))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+  (defun kill-all-dired-buffers ()
+    "Kill all dired buffers."
+    (interactive)
+    (save-excursion
+      (let ((count 0))
+        (dolist (buffer (buffer-list))
+          (set-buffer buffer)
+          (when (equal major-mode 'dired-mode)
+            (setq count (1+ count))
+            (kill-buffer buffer)))
+        (message "Killed %i dired buffer(s)." count))))
+#+END_SRC
 
 Note that this function is largely obsoleted by the in-Dired re-mappings of <return>, ^, and q, located elsewhere in this config.
 ** Edit as Root
