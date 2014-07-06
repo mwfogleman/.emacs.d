@@ -720,7 +720,8 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :init
-    (projectile-global-mode))
+    (projectile-global-mode)
+    (setq projectile-enable-caching t))
 #+END_SRC
 * Functions
 ** Emacs Configuration File
