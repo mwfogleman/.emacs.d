@@ -358,6 +358,7 @@ more attractive.
     (ido-ubiquitous-mode 1))
   (use-package flx-ido
     :init
+    (setq flx-ido-threshold 1000)
     (flx-ido-mode 1))
   (use-package idomenu
     :bind ("M-i" . idomenu))
