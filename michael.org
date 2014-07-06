@@ -79,6 +79,7 @@ I set up packages, Melpa, and use-package bright and early so that I can make us
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (package-initialize)
   (require 'use-package)
+  (use-package diminish)
 #+END_SRC
 ** Turn off unnecessary graphical features
 #+BEGIN_SRC emacs-lisp
@@ -396,7 +397,8 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                ("C-n" . company-select-next)
                ("C-p" . company-select-previous)
                ("C-d" . company-show-doc-buffer)
-               ("<tab>" . company-complete)))
+               ("<tab>" . company-complete))
+    (diminish 'company-mode))
 #+END_SRC
 ** Ace Jump Mode
 #+BEGIN_SRC emacs-lisp
@@ -559,7 +561,8 @@ restores the old window configuration when you quit.
       (jump-to-register :magit-fullscreen))
   
     (bind-keys :map magit-status-mode-map
-               ("q" . magit-quit-session)))
+               ("q" . magit-quit-session))
+    (diminish 'magit-auto-revert-mode))
 #+END_SRC
 ** Org Mode
 *** Quotations
@@ -705,7 +708,8 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
     :init
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
-    (use-package smartparens-config))
+    (use-package smartparens-config)
+    (diminish 'smartparens-mode))
 #+END_SRC
 ** Key Chord mode
 #+BEGIN_SRC emacs-lisp
@@ -738,17 +742,8 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
   (use-package projectile
     :init
     (projectile-global-mode)
-    (setq projectile-enable-caching t))
-#+END_SRC
-** Diminish
-#+BEGIN_SRC emacs-lisp
-  (use-package diminish
-    :init
-    (diminish 'smartparens-mode)
-    (diminish 'company-mode)
-    (diminish 'magit-auto-revert-mode)
-    (diminish 'projectile-mode)
-    (diminish 'eldoc-mode))
+    (setq projectile-enable-caching t)
+    (diminish 'projectile-mode))
 #+END_SRC
 * Functions
 ** Emacs Configuration File
