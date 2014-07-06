@@ -386,7 +386,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     :bind ("C-." . company-complete)
     :init 
     (global-company-mode 1)
-    :config
     (bind-keys :map company-active-map
                ("C-n" . company-select-next)
                ("C-p" . company-select-previous)
