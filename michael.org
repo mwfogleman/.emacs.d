@@ -224,6 +224,29 @@ This binding comes from [[http://emacsredux.com/blog/2013/04/08/kill-line-backwa
                               (kill-line 0)
                               (indent-according-to-mode)))
 #+END_SRC
+*** Sentence Commands
+By default, sentence-end-double-space is set to t. That convention may be programatically convenient, but that's not how I write. I want to be able to write normal sentences, but still be able to fill normally. Let to the rescue!
+
+#+BEGIN_SRC emacs-lisp
+  (defadvice forward-sentence (around real-forward)
+    "Consider a sentence to have one space at the end."
+    (let ((sentence-end-double-space nil))
+      ad-do-it))
+  
+  (defadvice backward-sentence (around real-backward)
+    "Consider a sentence to have one space at the end."
+    (let ((sentence-end-double-space nil))
+      ad-do-it))
+  
+  (defadvice kill-sentence (around real-kill)
+    "Consider a sentence to have one space at the end."
+    (let ((sentence-end-double-space nil))
+      ad-do-it))
+  
+  (ad-activate 'forward-sentence)
+  (ad-activate 'backward-sentence)
+  (ad-activate 'kill-sentence)
+#+END_SRC
 ** Other
 *** Apropos
 Let apropos commands perform more extensive searches than
@@ -856,30 +879,4 @@ This function greedily borrowed from Sacha.
       (fill-paragraph nil region)))
   
   (bind-key "M-Q" 'unfill-paragraph)
-#+END_SRC
-** Sentence Commands
-By default, sentence-end-double-space is set to t. That convention may be programatically convenient, but that's not how I write. I want to be able to write normal sentences, but still be able to fill normally. Let to the rescue!
-
-#+BEGIN_SRC emacs-lisp
-  (defun kill-real-sentence ()
-    "Kills a real sentence, i.e. one with one space at the end."
-    (interactive)
-    (let ((sentence-end-double-space nil))
-      (kill-sentence)))
-  
-  (defun backward-real-sentence ()
-    "Moves backwards by a real sentence, i.e. one with one space at the end."
-    (interactive)
-    (let ((sentence-end-double-space nil))
-      (backward-sentence)))
-  
-  (defun forward-real-sentence ()
-    "Moves forwards by a real sentence, i.e. one with one space at the end."
-    (interactive)
-    (let ((sentence-end-double-space nil))
-      (forward-sentence)))
-  
-  (bind-key "M-k" 'kill-real-sentence)
-  (bind-key "M-a" 'backward-real-sentence)
-  (bind-key "M-e" 'forward-real-sentence)
 #+END_SRC
