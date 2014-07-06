@@ -260,6 +260,11 @@ create them.
 #+BEGIN_SRC emacs-lisp
   (put 'narrow-to-region 'disabled nil)
 #+END_SRC
+*** Upcase and Downcase Regions
+#+BEGIN_SRC emacs-lisp
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
+#+END_SRC
 *** ELisp
 When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip, Sacha.
 
@@ -713,6 +718,7 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
       (key-chord-define-global "jc" 'ace-jump-char-mode)
       (key-chord-define-global "jl" 'ace-jump-line-mode)
       (key-chord-define-global "jb" 'ace-jump-buffer)
+      (key-chord-define-global "jo" 'ace-jump-buffer-other-window)
       (key-chord-define-global "'l" 'ido-switch-buffer)
       (key-chord-define-global "'-" 'smex)
       (key-chord-define-global ",r" 'find-file)
