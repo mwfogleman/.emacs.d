@@ -13,7 +13,7 @@
  '(foreground-color nil)
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
- '(org-agenda-files (quote ("~/org/org.org" "~/org/rocinante.org" "~/org/travel.org" "~/org/anki.org" "~/org/programming.org" "~/org/meditation.org" "~/org/reading.org" "~/org/writing.org" "~/org/personal.org" "~/Dropbox/writing/lim/lim.org" "~/org/todo.org" "~/org/notes.org"))))
+ '(org-agenda-files (quote ("~/org/org.org" "~/org/rocinante.org" "~/org/anki.org" "~/org/programming.org" "~/org/meditation.org" "~/org/reading.org" "~/org/writing.org" "~/org/personal.org" "~/org/social.org" "~/Dropbox/writing/lim/lim.org" "~/org/todo.org" "~/org/notes.org"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
