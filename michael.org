@@ -854,10 +854,13 @@ Let's bind this to a key-chord and a function key.
   (bind-key "C-x C-k" 'kill-this-buffer)
 #+END_SRC
 
-By default, pressing 'q' in Dired runs quit-window, which quits the Dired window and buries its buffer. I'd prefer the buffer to close.
+By default, pressing 'q' in either Dired or package-menu runs quit-window, which quits the window and buries its buffer. I'd prefer the buffer to close.
 
 #+BEGIN_SRC emacs-lisp
   (bind-keys :map dired-mode-map
+             ("q" . kill-this-buffer))
+  
+  (bind-keys :map package-menu-mode-map
              ("q" . kill-this-buffer))
 #+END_SRC
 *** Kill All Other Buffers
