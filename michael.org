@@ -861,7 +861,7 @@ By default, pressing 'q' in either Dired or package-menu runs quit-window, which
              ("q" . kill-this-buffer))
   
   (bind-keys :map package-menu-mode-map
-             ("q" . kill-this-buffer))
+             ("q" . kill-this-buffer))  
 #+END_SRC
 *** Kill All Other Buffers
 #+BEGIN_SRC emacs-lisp
@@ -886,6 +886,19 @@ By default, pressing 'q' in either Dired or package-menu runs quit-window, which
 #+END_SRC
 
 Note that this function is largely obsoleted by the in-Dired re-mappings of <return>, ^, and q, located elsewhere in this config.
+*** Minibuffer
+This code comes from [[http://www.emacswiki.org/emacs/MiniBuffer][EmacsWiki]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun switch-to-minibuffer ()
+    "Switch to minibuffer window."
+    (interactive)
+    (if (active-minibuffer-window)
+        (select-window (active-minibuffer-window))
+      (error "Minibuffer is not active")))
+  
+  (bind-key "M-m" 'switch-to-minibuffer)
+#+END_SRC
 ** Edit as Root
 This tip comes from an [[http://emacs-fu.blogspot.kr/2013/03/editing-with-root-privileges-once-more.html][emacs-fu blog post]].
 
