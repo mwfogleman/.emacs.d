@@ -833,9 +833,12 @@ This function opens the agenda in full screen.
     (let ((agenda "*Org Agenda*"))
       (if (equal (get-buffer agenda) nil)
           (org-agenda-list)
-        (if (equal (buffer-name (current-buffer)) agenda)
+        (progn
+          (unless (equal (buffer-name (current-buffer)) agenda)
+            (switch-to-buffer agenda))
+          (progn
             (org-agenda-redo t)
-          (switch-to-buffer agenda))))
+            (beginning-of-buffer)))))
     (delete-other-windows))
 #+END_SRC
 
