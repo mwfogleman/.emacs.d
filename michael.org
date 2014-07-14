@@ -854,6 +854,18 @@ By default, pressing 'q' in either Dired or package-menu runs quit-window, which
      (interactive)
      (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 #+END_SRC
+*** Narrowing and Widening
+I like to alternate between C-x n s (org-narrow-to-subtree) and C-x n w (widen) in Org files. This toggles those functions with a simple hot-key. In future iterations, I might want to take into account other narrowing functions, like org-narrow-to-element.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-narrow-or-widen ()
+    (interactive)
+    (if (buffer-narrowed-p)
+        (widen)
+      (org-narrow-to-subtree)))
+  
+  (bind-key "C-c n" 'org-narrow-or-widen)
+#+END_SRC
 *** Minibuffer
 This code comes from [[http://www.emacswiki.org/emacs/MiniBuffer][EmacsWiki]].
 
