@@ -851,22 +851,6 @@ By default, pressing 'q' in either Dired or package-menu runs quit-window, which
      (interactive)
      (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 #+END_SRC
-*** Kill All Dired Buffers
-#+BEGIN_SRC emacs-lisp
-  (defun kill-all-dired-buffers ()
-    "Kill all dired buffers."
-    (interactive)
-    (save-excursion
-      (let ((count 0))
-        (dolist (buffer (buffer-list))
-          (set-buffer buffer)
-          (when (equal major-mode 'dired-mode)
-            (setq count (1+ count))
-            (kill-buffer buffer)))
-        (message "Killed %i dired buffer(s)." count))))
-#+END_SRC
-
-Note that this function is largely obsoleted by the in-Dired re-mappings of <return>, ^, and q, located elsewhere in this config.
 *** Minibuffer
 This code comes from [[http://www.emacswiki.org/emacs/MiniBuffer][EmacsWiki]].
 
