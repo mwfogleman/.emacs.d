@@ -644,6 +644,7 @@ I use org-struct in mu4e. See above.
   (bind-key "C-c a" 'org-agenda)
   (bind-key "C-c b" 'org-iswitchb)
   (bind-key "C-c M-k" 'org-cut-subtree)
+  (add-to-list 'org-speed-commands-user '("k" org-cut-subtree))
 #+END_SRC
 ** TiddlyWiki
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode. I create and bind functions to open the TiddlyWiki in Dired and Chromium.
