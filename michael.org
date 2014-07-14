@@ -646,33 +646,22 @@ I use org-struct in mu4e. See above.
   (bind-key "C-c M-k" 'org-cut-subtree)
 #+END_SRC
 ** TiddlyWiki
-I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode.
-*** tid-mode
+I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode. I create and bind functions to open the TiddlyWiki in Dired and Chromium.
+
 #+BEGIN_SRC emacs-lisp
   (use-package tid-mode
-    :load-path "site-lisp/tid-mode/")
-#+END_SRC
-*** open-wiki
-This function, bound to C-c w, opens my TiddlyWiki tiddlers directory in Dired.
-
-#+BEGIN_SRC emacs-lisp
-  (defun open-wiki ()
-    "Opens my TiddlyWiki directory."
-    (interactive)
-    (dired "~/Dropbox/wiki/tiddlers/"))
-  
-  (bind-key "C-c w" 'open-wiki)
-#+END_SRC
-*** browse-wiki
-I also often want to open my wiki in Chromium. I bind this to C-c W.
-
-#+BEGIN_SRC emacs-lisp
-  (defun browse-wiki ()
-    "Opens my TiddlyWiki in my browser."
-    (interactive)
-    (browse-url "127.0.0.1:8080/"))
-  
-  (bind-key "C-c W" 'browse-wiki)
+    :load-path "site-lisp/tid-mode/"
+    :init
+    (defun open-wiki ()
+      "Opens my TiddlyWiki directory."
+      (interactive)
+      (dired "~/Dropbox/wiki/tiddlers/"))
+    (defun browse-wiki ()
+      "Opens my TiddlyWiki in my browser."
+      (interactive)
+      (browse-url "127.0.0.1:8080/"))
+    (bind-key "C-c w" 'open-wiki)
+    (bind-key "C-c W" 'browse-wiki))
 #+END_SRC
 ** smartparens
 #+BEGIN_SRC emacs-lisp
