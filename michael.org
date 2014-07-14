@@ -251,15 +251,13 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
 #+END_SRC 
 ** Other
 *** Apropos
-Let apropos commands perform more extensive searches than
-default. This also comes from Better Defaults.
+Let apropos commands perform more extensive searches than default. This also comes from Better Defaults.
 
 #+BEGIN_SRC emacs-lisp
   (setq apropos-do-all t)
 #+END_SRC
 *** Buffer / File Warnings
-Remove the warning if a buffer or file does not exist, so you can
-create them.
+Remove the warning if a buffer or file does not exist, so you can create them.
 
 #+BEGIN_SRC emacs-lisp
   (setq confirm-nonexistent-file-or-buffer nil)
@@ -347,8 +345,7 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
 ** IDO
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
 
-One key component below is ido-vertical-mode, which makes ido much
-more attractive.
+One key component below is ido-vertical-mode, which makes ido much more attractive.
 
 #+BEGIN_SRC emacs-lisp
   (setq ido-enable-flex-matching t
@@ -371,11 +368,11 @@ more attractive.
     :bind ("M-i" . idomenu))
 #+END_SRC
 
-Note that there are certain program specific settings for IDO, which
-are not in this section:
-- Smex
-- Org-Mode
-- ido-recentf-open function
+Note that there are certain program specific settings for IDO, which are not in this section:
+
+*** Smex
+*** Org-Mode
+*** ido-recentf-open function
 ** Smex
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
@@ -440,9 +437,7 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
       ("C-*" . mc/mark-all-like-this)))
 #+END_SRC EMACS-LISP
 ** Kill Ring
-While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary,
-it's great that Emacs keeps track of what's been killed. Browse kill
-ring is crucial to making that functionality visible and usable.
+While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
 
 #+BEGIN_SRC emacs-lisp
   (use-package browse-kill-ring
@@ -761,12 +756,9 @@ I also often want to open my wiki in Chromium. I bind this to C-c W.
 #+END_SRC
 * Functions
 ** Emacs Configuration File
-This function and the corresponding keybinding allows me to rapidly
-access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post
-on Emacs Redux]].
+This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
 
-I use mwf-init-file rather than user-init-file, because I edit the
-config file in a Git repo.
+I use mwf-init-file rather than user-init-file, because I edit the config file in a Git repo.
 
 #+BEGIN_SRC emacs-lisp
   (defun find-init-file ()
@@ -778,8 +770,7 @@ config file in a Git repo.
   (bind-key "C-c I" 'find-init-file)
 #+END_SRC
 
-Relatedly, I often want to reload my init-file. This will actually use
-the system-wide user-init-file variable.
+Relatedly, I often want to reload my init-file. This will actually use the system-wide user-init-file variable.
 
 #+BEGIN_SRC emacs-lisp
   (defun reload-init-file ()
@@ -790,8 +781,7 @@ the system-wide user-init-file variable.
   (bind-key "C-c M-l" 'reload-init-file)
 #+END_SRC
 ** Keep In Touch
-I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of
-the command line utility's functionality in Elisp.
+I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of the command line utility's functionality in Elisp.
 
 #+BEGIN_SRC emacs-lisp
   (defun keptintouch (arg)
