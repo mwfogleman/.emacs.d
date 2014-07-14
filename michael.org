@@ -262,20 +262,19 @@ Remove the warning if a buffer or file does not exist, so you can create them.
 #+BEGIN_SRC emacs-lisp
   (setq confirm-nonexistent-file-or-buffer nil)
 #+END_SRC
-*** Narrow to Region
-#+BEGIN_SRC emacs-lisp
-  (put 'narrow-to-region 'disabled nil)
-#+END_SRC
-*** Upcase and Downcase Regions
-#+BEGIN_SRC emacs-lisp
-  (put 'upcase-region 'disabled nil)
-  (put 'downcase-region 'disabled nil)
-#+END_SRC
 *** Ediff
 The default Ediff behavior is confusing and not desirable. This fixes it.
 
 #+BEGIN_SRC emacs-lisp
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+END_SRC
+*** Enable
+Some features and settings are disabled by default; this is sane behavior for new users, but it is expected that we will disable them eventually.
+
+#+BEGIN_SRC emacs-lisp
+  (put 'narrow-to-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
 #+END_SRC
 * Packages
 ** God Mode
