@@ -918,3 +918,17 @@ This function greedily borrowed from Sacha.
   
   (bind-key "M-Q" 'unfill-paragraph)
 #+END_SRC
+** Org Go To Heading
+Speed commands are really useful, but I often want to make use of them when I'm not at the beginning of a header. This command brings you back to the beginning of an item's header, so that you can do speed commands.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-go-speed ()
+    "Goes to the beginning of an element's header, so that you can execute speed commands."
+    (interactive)
+    (when (equal major-mode 'org-mode)
+      (if (org-at-heading-p)
+          (org-beginning-of-line)
+        (org-up-element))))
+  
+  (bind-key "C-c s" 'org-go-speed)
+#+END_SRC
