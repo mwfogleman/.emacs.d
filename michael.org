@@ -856,16 +856,20 @@ By default, pressing 'q' in either Dired or package-menu runs quit-window, which
      (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 #+END_SRC
 *** Narrowing and Widening
-I like to alternate between C-x n s (org-narrow-to-subtree) and C-x n w (widen) in Org files. This toggles those functions with a simple hot-key. In future iterations, I might want to take into account other narrowing functions, like org-narrow-to-element.
+Before this function, I was alternating between C-x n s (org-narrow-to-subtree) and C-x n w (widen) in Org files. This toggles those functions with a simple hot-key. I also added a case where I've selected a region. 
+
+In future iterations, I might want to take into account other narrowing functions, like org-narrow-to-element or narrow-to-page.
 
 #+BEGIN_SRC emacs-lisp
-  (defun org-narrow-or-widen ()
+  (defun narrow-or-widen-dwim ()
+    "If the buffer is narrowed, it widens. Otherwise, it narrows to region, Org subtree, or page."
     (interactive)
-    (if (buffer-narrowed-p)
-        (widen)
-      (org-narrow-to-subtree)))
+    (cond ((buffer-narrowed-p) (widen))
+          ((region-active-p) (narrow-to-region (region-beginning) (region-end)))
+          ((equal major-mode 'org-mode) (org-narrow-to-subtree))
+          (t (error "Please select a region to narrow to"))))
   
-  (bind-key "C-c n" 'org-narrow-or-widen)
+  (bind-key "C-c n" 'narrow-or-widen-dwim)
 #+END_SRC
 *** Minibuffer
 This code comes from [[http://www.emacswiki.org/emacs/MiniBuffer][EmacsWiki]].
