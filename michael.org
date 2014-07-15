@@ -711,7 +711,10 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
     (use-package smartparens-config)
-    (diminish 'smartparens-mode))
+    (diminish 'smartparens-mode)
+    (sp-local-pair 'org-mode "*" "*")  ; bold
+    (sp-local-pair 'org-mode "/" "/")  ; italics
+    (sp-local-pair 'org-mode "_" "_")) ; underlined
 #+END_SRC
 ** Key Chord mode
 #+BEGIN_SRC emacs-lisp
