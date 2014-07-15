@@ -273,6 +273,7 @@ Some features and settings are disabled by default; this is sane behavior for ne
 
 #+BEGIN_SRC emacs-lisp
   (put 'narrow-to-region 'disabled nil)
+  (put 'narrow-to-page 'disabled nil)
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
 #+END_SRC
