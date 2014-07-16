@@ -599,6 +599,7 @@ I use the stock package of org-mode as the default major mode.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
+    :diminish org-indent-mode
     :init
     (setq default-major-mode 'org-mode
           org-directory "/home/michael/Dropbox/org/"
