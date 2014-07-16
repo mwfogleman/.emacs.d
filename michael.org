@@ -378,12 +378,11 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
-    :bind (("M-x" . smex)
-           ("C-x C-m" . smex)
-           ("<menu>" . smex)
-           ("M-X" . smex-major-mode-commands)
+    :bind (("C-x C-m" . smex)
            ("C-c C-c M-x" . execute-extended-command))
     :init
+    (unbind-key "M-x")
+    (unbind-key "<menu>")
     (smex-initialize))
 #+END_SRC
 ** Company Mode
