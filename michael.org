@@ -390,14 +390,14 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+BEGIN_SRC emacs-lisp
   (use-package company-mode
     :bind ("C-." . company-complete)
-    :init 
+    :init
     (global-company-mode 1)
+    (diminish 'company-mode)
     (bind-keys :map company-active-map
                ("C-n" . company-select-next)
                ("C-p" . company-select-previous)
                ("C-d" . company-show-doc-buffer)
-               ("<tab>" . company-complete))
-    (diminish 'company-mode))
+               ("<tab>" . company-complete)))
 #+END_SRC
 ** Ace Jump Mode
 #+BEGIN_SRC emacs-lisp
@@ -555,6 +555,7 @@ restores the old window configuration when you quit.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
+    :diminish magit-auto-revert-mode
     :bind (("C-x g" . magit-status)
            ("<f7>" . magit-status)
            ("C-c g" . magit-status))
@@ -571,8 +572,7 @@ restores the old window configuration when you quit.
       (jump-to-register :magit-fullscreen))
   
     (bind-keys :map magit-status-mode-map
-               ("q" . magit-quit-session))
-    (diminish 'magit-auto-revert-mode))
+               ("q" . magit-quit-session)))
 #+END_SRC
 ** Org Mode
 *** Quotations
@@ -672,6 +672,7 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
 ** smartparens
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
+    :diminish smartparens-mode
     :bind
     (("C-M-f" . sp-forward-sexp)
      ("C-M-b" . sp-backward-sexp)
@@ -712,7 +713,6 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
     (use-package smartparens-config)
-    (diminish 'smartparens-mode)
     (sp-local-pair 'org-mode "*" "*")  ; bold
     (sp-local-pair 'org-mode "/" "/")  ; italics
     (sp-local-pair 'org-mode "_" "_")) ; underlined
@@ -746,10 +746,10 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
 ** Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
+    :diminish projectile-mode
     :init
     (projectile-global-mode)
-    (setq projectile-enable-caching t)
-    (diminish 'projectile-mode))
+    (setq projectile-enable-caching t))
 #+END_SRC
 * Functions
 ** Emacs Configuration File
