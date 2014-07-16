@@ -751,6 +751,13 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     (projectile-global-mode)
     (setq projectile-enable-caching t))
 #+END_SRC
+** Golden Ratio
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :diminish golden-ratio-mode
+    :init
+    (golden-ratio-mode 1))
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
