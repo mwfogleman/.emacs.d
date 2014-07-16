@@ -627,7 +627,7 @@ I use the stock package of org-mode as the default major mode.
             ("c" "Conversation" entry (file+datetree "~/Dropbox/org/conversations.org")
              "* %?\n")
             ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
-             "* I am grateful for %?\n")
+             "* I am grateful for: \n** %?")
             ("n" "Note" entry (file "~/Dropbox/org/notes.org")
              "* %?\n")
             ("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org")
