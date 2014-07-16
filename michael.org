@@ -624,6 +624,8 @@ I use the stock package of org-mode as the default major mode.
           org-capture-templates
           '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
              "%?\n")
+            ("c" "Conversation" entry (file+datetree "~/Dropbox/org/conversations.org")
+             "* %?\n")
             ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
              "* I am grateful for %?\n")
             ("n" "Note" entry (file "~/Dropbox/org/notes.org")
