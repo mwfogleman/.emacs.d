@@ -517,6 +517,12 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
     (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct))
 #+END_SRC
+** Calc
+#+BEGIN_SRC emacs-lisp
+  (use-package calc
+    :config
+    (setq calc-display-trail ()))
+#+END_SRC
 ** ERC
 #+BEGIN_SRC emacs-lisp
   (use-package erc
