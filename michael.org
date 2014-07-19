@@ -133,8 +133,7 @@ It'd be great to get an Emacs browser going, but in the meantime:
 #+END_SRC
 ** Keyboard shortcuts
 *** From Better Defaults
-These bindings (from "[[https://github.com/technomancy/better-defaults][Better Defaults]]") rebind the default commands to
-use hippie-expand, ibuffer, and the regex-aware versions of isearch.
+These bindings (from "[[https://github.com/technomancy/better-defaults][Better Defaults]]") rebind the default commands to use hippie-expand, ibuffer, and the regex-aware versions of isearch.
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "M-/" 'hippie-expand)
@@ -279,8 +278,7 @@ Some features and settings are disabled by default; this is sane behavior for ne
 #+END_SRC
 * Packages
 ** God Mode
-[[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to
-toggle between God mode and non-God mode.
+[[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to toggle between God mode and non-God mode.
 
 #+BEGIN_SRC emacs-lisp
   (defun my-update-cursor ()
@@ -568,8 +566,7 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
 #+END_SRC
 ** Magit
-This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then
-restores the old window configuration when you quit.
+This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
