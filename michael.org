@@ -314,7 +314,8 @@ toggle between God mode and non-God mode.
     (put 'dired-find-alternate-file 'disabled nil)
     (bind-keys :map dired-mode-map
                ("<return>" . dired-find-alternate-file)
-               ("^" . (lambda () (interactive) (find-alternate-file ".."))))
+               ("^" . (lambda () (interactive) (find-alternate-file "..")))
+               ("'" . wdired-change-to-wdired-mode))
     (use-package dired-details
       :init
       (dired-details-install))
