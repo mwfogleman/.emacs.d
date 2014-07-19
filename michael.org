@@ -958,3 +958,15 @@ Speed commands are really useful, but I often want to make use of them when I'm 
   
   (bind-key "C-c s" 'org-go-speed)
 #+END_SRC
+** Org Encrypt
+#+BEGIN_SRC emacs-lisp
+  (defun org-prepare-encryption ()
+    "Inserts the string recommended by
+  http://orgmode.org/worg/org-tutorials/encrypting-files.html"
+    (interactive)
+    (save-excursion
+      (widen)
+      (save-restriction
+        (goto-line 0)
+        (insert-string "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))))
+#+END_SRC
