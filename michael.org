@@ -416,7 +416,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                ("b" . ace-jump-buffer)
                ("o" . ace-jump-buffer-other-window)))
   
-  (bind-key "M-S-SPC" 'just-one-space)
+  (bind-key "C-x SPC" 'just-one-space)
 #+END_SRC
 ** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
