@@ -516,11 +516,6 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
     :config
     (add-to-list 'mu4e-view-actions
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-** Calc
-#+BEGIN_SRC emacs-lisp
-  (use-package calc
-    :config
-    (setq calc-display-trail ()))
     (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
     (add-hook 'mu4e-compose-mode-hook 'auto-fill-mode))
 #+END_SRC
@@ -532,6 +527,23 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
                                          "#emacs"))
           erc-server "irc.freenode.net"
           erc-nick "mwfogleman"))
+#+END_SRC
+** Twitter
+#+BEGIN_SRC emacs-lisp
+  (use-package twittering-mode
+    :bind ("C-c t" . twit)
+    :config
+    (bind-keys :map twittering-mode-map
+               ("?" . describe-mode))
+    (setq twittering-use-master-password t
+          twittering-icon-mode t
+          twittering-use-icon-storage t))
+#+END_SRC
+** Calc
+#+BEGIN_SRC emacs-lisp
+  (use-package calc
+    :config
+    (setq calc-display-trail ()))
 #+END_SRC
 ** SLIME
 "Take this REPL, brother, and may it serve you well."
