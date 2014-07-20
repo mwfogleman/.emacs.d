@@ -186,6 +186,7 @@ The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%
   (bind-key "M-9" 'sp-backward-sexp)
   (bind-key "M-0" 'sp-forward-sexp)
   (bind-key "M-1" 'delete-other-windows)
+  (bind-key "M-5" 'replace-string)
   (bind-key "M-O" 'mode-line-other-buffer)
 #+END_SRC
 
