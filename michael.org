@@ -575,6 +575,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     :bind (("C-x g" . magit-status)
            ("C-c g" . magit-status))
     :config
+    (setq magit-use-overlays nil)
     (defadvice magit-status (around magit-fullscreen activate)
       (window-configuration-to-register :magit-fullscreen)
       ad-do-it
