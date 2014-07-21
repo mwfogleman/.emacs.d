@@ -573,7 +573,6 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
   (use-package magit
     :diminish magit-auto-revert-mode
     :bind (("C-x g" . magit-status)
-           ("<f7>" . magit-status)
            ("C-c g" . magit-status))
     :config
     (defadvice magit-status (around magit-fullscreen activate)
