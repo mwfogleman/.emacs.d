@@ -615,49 +615,50 @@ If I hated everything about Emacs, I would still use it for org-mode.
 I use the stock package of org-mode as the default major mode.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org
-    :diminish org-indent-mode
-    :init
-    (setq default-major-mode 'org-mode
-          org-directory "/home/michael/Dropbox/org/"
-          org-log-done t
-          org-startup-indented t
-          org-agenda-inhibit-startup nil
-          org-startup-truncated nil
-          org-completion-use-ido t
-          org-agenda-start-on-weekday nil
-          org-refile-targets (quote ((nil :maxlevel . 9)
-                                     (org-agenda-files :maxlevel . 9)))
-          org-refile-use-outline-path t
-          org-default-notes-file (concat org-directory "notes.org")
-          org-goto-max-level 10
-          org-imenu-depth 5
-          org-goto-interface 'outline-path-completion
-          org-outline-path-complete-in-steps nil
-          org-use-speed-commands t
-          org-src-fontify-natively t
-          org-lowest-priority 68
-          org-default-priority 68
-          org-capture-templates
-          '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
-             "%?\n")
-            ("c" "Conversation" entry (file+datetree "~/Dropbox/org/conversations.org")
-             "* %?\n")
-            ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
-             "* I am grateful for: \n** %?")
-            ("n" "Note" entry (file "~/Dropbox/org/notes.org")
-             "* %?\n")
-            ("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org")
-             "* %?")
-            ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-             "* %?\nEntered on %U\n  %i\n")
-            ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
-             "* TODO %?\n")))
-    (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
-    (add-hook 'org-shiftup-final-hook 'windmove-up)
-    (add-hook 'org-shiftleft-final-hook 'windmove-left)
-    (add-hook 'org-shiftdown-final-hook 'windmove-down)
-    (add-hook 'org-shiftright-final-hook 'windmove-right))
+    (use-package org
+      :diminish org-indent-mode
+      :init
+      (setq default-major-mode 'org-mode
+            org-directory "/home/michael/Dropbox/org/"
+            org-log-done t
+            org-startup-indented t
+            org-agenda-inhibit-startup nil
+            org-startup-truncated nil
+            org-completion-use-ido t
+            org-agenda-start-on-weekday nil
+            org-refile-targets (quote ((nil :maxlevel . 9)
+                                       (org-agenda-files :maxlevel . 9)))
+            org-refile-use-outline-path t
+            org-default-notes-file (concat org-directory "notes.org")
+            org-goto-max-level 10
+            org-imenu-depth 5
+            org-goto-interface 'outline-path-completion
+            org-outline-path-complete-in-steps nil
+            org-use-speed-commands t
+            org-src-fontify-natively t
+            org-lowest-priority 68
+            org-default-priority 68
+            org-tag-alist '(("@email" . ?e) ("@phone" . ?p) ("@laptop" . ?l))
+            org-capture-templates
+            '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
+               "%?\n")
+              ("c" "Conversation" entry (file+datetree "~/Dropbox/org/conversations.org")
+               "* %?\n")
+              ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
+               "* I am grateful for: \n** %?")
+              ("n" "Note" entry (file "~/Dropbox/org/notes.org")
+               "* %?\n")
+              ("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org")
+               "* %?")
+              ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
+               "* %?\nEntered on %U\n  %i\n")
+              ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
+               "* TODO %?\n")))
+      (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
+      (add-hook 'org-shiftup-final-hook 'windmove-up)
+      (add-hook 'org-shiftleft-final-hook 'windmove-left)
+      (add-hook 'org-shiftdown-final-hook 'windmove-down)
+      (add-hook 'org-shiftright-final-hook 'windmove-right))
 #+END_SRC
 
 The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
