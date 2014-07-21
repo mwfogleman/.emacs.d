@@ -901,7 +901,7 @@ In future iterations, I might want to take into account other narrowing function
 
 #+BEGIN_SRC emacs-lisp
   (defun narrow-or-widen-dwim ()
-    "If the buffer is narrowed, it widens. Otherwise, it narrows to region, Org subtree, or page."
+    "If the buffer is narrowed, it widens. Otherwise, it narrows to region or Org subtree."
     (interactive)
     (cond ((buffer-narrowed-p) (widen))
           ((region-active-p) (narrow-to-region (region-beginning) (region-end)))
