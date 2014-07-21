@@ -653,7 +653,11 @@ I use the stock package of org-mode as the default major mode.
              "* %?\nEntered on %U\n  %i\n")
             ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
              "* TODO %?\n")))
-    (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-")))
+    (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
+    (add-hook 'org-shiftup-final-hook 'windmove-up)
+    (add-hook 'org-shiftleft-final-hook 'windmove-left)
+    (add-hook 'org-shiftdown-final-hook 'windmove-down)
+    (add-hook 'org-shiftright-final-hook 'windmove-right))
 #+END_SRC
 
 The org-agenda-files variable is set in Customize using the C-c [ and ] commands.
