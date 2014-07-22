@@ -131,8 +131,38 @@ It'd be great to get an Emacs browser going, but in the meantime:
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c B" 'browse-url)
 #+END_SRC
-** Keyboard shortcuts
-*** From Better Defaults
+** Other
+*** Apropos
+Let apropos commands perform more extensive searches than default. This also comes from Better Defaults.
+
+#+BEGIN_SRC emacs-lisp
+  (setq apropos-do-all t)
+#+END_SRC
+*** Buffer / File Warnings
+Remove the warning if a buffer or file does not exist, so you can create them.
+
+#+BEGIN_SRC emacs-lisp
+  (setq confirm-nonexistent-file-or-buffer nil)
+#+END_SRC
+*** Ediff
+The default Ediff behavior is confusing and not desirable. This fixes it.
+
+#+BEGIN_SRC emacs-lisp
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+END_SRC
+*** Enable
+Some features and settings are disabled by default; this is sane behavior for new users, but it is expected that we will disable them eventually.
+
+#+BEGIN_SRC emacs-lisp
+  (put 'narrow-to-region 'disabled nil)
+  (put 'narrow-to-page 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
+#+END_SRC
+* Key Bindings
+Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function. 
+
+** From Better Defaults
 These bindings (from "[[https://github.com/technomancy/better-defaults][Better Defaults]]") rebind the default commands to use hippie-expand, ibuffer, and the regex-aware versions of isearch.
 
 #+BEGIN_SRC emacs-lisp
@@ -143,7 +173,7 @@ These bindings (from "[[https://github.com/technomancy/better-defaults][Better D
   (bind-key "C-M-s" 'isearch-forward)
   (bind-key "C-M-r" 'isearch-backward)
 #+END_SRC
-*** Lines
+** Lines
 Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
 
 #+BEGIN_SRC emacs-lisp
@@ -155,7 +185,7 @@ Make C-n insert new lines if the point is at the end of the buffer.
 #+BEGIN_SRC emacs-lisp
   (setq next-line-add-newlines t)
 #+END_SRC
-*** Movement
+** Movement
 These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
 
 #+BEGIN_SRC emacs-lisp
@@ -179,7 +209,7 @@ These keybindings for movement come from [[http://whattheemacsd.com/key-bindings
               (interactive)
               (ignore-errors (backward-char 5))))
 #+END_SRC
-*** Meta Binds
+** Meta Binds
 The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][Drunk in the Dark]]" suggests that you don't need three ways to do numeric prefixes, and that you can make use of the meta-binds instead. He suggests using backward- and forward-sexp and delete-other-windows:
 
 #+BEGIN_SRC emacs-lisp
@@ -191,7 +221,7 @@ The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%
 #+END_SRC
 
 I look forward to riffing on this idea...
-*** Copying and Killing
+** Copying and Killing
 ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-configuration/][snippets post]] recommends giving this advice to kill-ring-save and kill-ring, which, if no region is selected, makes C-w and M-w kill or copy the current line. 
 
 #+BEGIN_SRC emacs-lisp
@@ -210,7 +240,7 @@ ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-confi
        (list (line-beginning-position)
              (line-beginning-position 2)))))
 #+END_SRC
-*** backward-kill-line
+** backward-kill-line
 This binding comes from [[http://emacsredux.com/blog/2013/04/08/kill-line-backward/][Emacs Redux]]. Note that we don't need a new function, just an anonymous function.
 
 #+BEGIN_SRC emacs-lisp
@@ -219,7 +249,7 @@ This binding comes from [[http://emacsredux.com/blog/2013/04/08/kill-line-backwa
                               (kill-line 0)
                               (indent-according-to-mode)))
 #+END_SRC
-*** Sentence and Paragraph Commands
+** Sentence and Paragraph Commands
 By default, sentence-end-double-space is set to t. That convention may be programatically convenient, but that's not how I write. I want to be able to write normal sentences, but still be able to fill normally. Let to the rescue!
 
 #+BEGIN_SRC emacs-lisp
@@ -249,7 +279,7 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
   (bind-key "M-A" 'backward-paragraph)
   (bind-key "M-E" 'forward-paragraph)
 #+END_SRC 
-*** Toggle Map
+** Toggle Map
 Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Endless Parentheses]] and [[http://irreal.org/blog/?p%3D2830][Irreal]].
 
 #+BEGIN_SRC emacs-lisp
@@ -262,34 +292,6 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
              ("s" . smartparens-mode)
              ("t" . text-mode)
              ("w" . whitespace-mode))
-#+END_SRC
-** Other
-*** Apropos
-Let apropos commands perform more extensive searches than default. This also comes from Better Defaults.
-
-#+BEGIN_SRC emacs-lisp
-  (setq apropos-do-all t)
-#+END_SRC
-*** Buffer / File Warnings
-Remove the warning if a buffer or file does not exist, so you can create them.
-
-#+BEGIN_SRC emacs-lisp
-  (setq confirm-nonexistent-file-or-buffer nil)
-#+END_SRC
-*** Ediff
-The default Ediff behavior is confusing and not desirable. This fixes it.
-
-#+BEGIN_SRC emacs-lisp
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-#+END_SRC
-*** Enable
-Some features and settings are disabled by default; this is sane behavior for new users, but it is expected that we will disable them eventually.
-
-#+BEGIN_SRC emacs-lisp
-  (put 'narrow-to-region 'disabled nil)
-  (put 'narrow-to-page 'disabled nil)
-  (put 'upcase-region 'disabled nil)
-  (put 'downcase-region 'disabled nil)
 #+END_SRC
 * Packages
 ** God Mode
