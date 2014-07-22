@@ -249,6 +249,20 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
   (bind-key "M-A" 'backward-paragraph)
   (bind-key "M-E" 'forward-paragraph)
 #+END_SRC 
+*** Toggle Map
+Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Endless Parentheses]] and [[http://irreal.org/blog/?p%3D2830][Irreal]].
+
+#+BEGIN_SRC emacs-lisp
+  (define-prefix-command 'toggle-map)
+  (bind-key "C-x t" 'toggle-map)
+  (bind-keys :map toggle-map
+             ("l" . linum-mode)
+             ("o" . org-mode)
+             ("r" . dired-toggle-read-only)
+             ("s" . smartparens-mode)
+             ("t" . text-mode)
+             ("w" . whitespace-mode))
+#+END_SRC
 ** Other
 *** Apropos
 Let apropos commands perform more extensive searches than default. This also comes from Better Defaults.
