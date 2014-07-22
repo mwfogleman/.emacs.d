@@ -804,6 +804,16 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     :init
     (golden-ratio-mode 1))
 #+END_SRC
+** linum-relative
+When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package linum-relative
+    :init
+    (setq linum-format 'linum-relative)
+    :config
+    (setq linum-relative-current-symbol ""))
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
