@@ -540,6 +540,31 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
           erc-server "irc.freenode.net"
           erc-nick "mwfogleman"))
 #+END_SRC
+** Elfeed
+#+BEGIN_SRC emacs-lisp
+  (use-package elfeed
+    :bind (("C-c f" . elfeed))
+    :config
+    (setq elfeed-feeds
+          '("http://cmvanschaik.blogspot.com/feeds/posts/default"
+            "http://chazaqinbenin.blogspot.com/feeds/posts/default?alt=rss"
+            "http://exaequali.blogspot.com/feeds/posts/default?alt=rss"
+            "http://garyborjesson.wordpress.com/feed/"
+            "http://thinknet.quora.com/rss"
+            "http://planet.emacsen.org/atom.xml"
+            "http://www.techmeme.com/index.xml"
+            "http://www.daemonology.net/hn-daily/index.rss"
+            "http://feeds.arstechnica.com/arstechnica/BAaf"
+            "http://www.archlinux.org/feeds/news/"
+            "http://endlessparentheses.com/atom.xml"
+            "http://lifehacker.com/tag/highlights/index.xml"
+            "http://shinzenyoung.blogspot.com/feeds/posts/default?alt=rss"
+            "http://bakingcathedrals.wordpress.com/feed/"
+            "http://nathangoldman.wordpress.com/feed/"
+            "http://www.eff.org/rss/updates.xml"
+            "http://www.democracynow.org/democracynow.rss"
+            "http://www.economist.com/rss/the_world_this_week_rss.xml")))
+#+END_SRC
 ** Twitter
 #+BEGIN_SRC emacs-lisp
   (use-package twittering-mode
