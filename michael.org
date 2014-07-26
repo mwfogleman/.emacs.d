@@ -449,6 +449,13 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
       ("C-<" . mc/mark-previous-like-this)
       ("C-*" . mc/mark-all-like-this)))
 #+END_SRC EMACS-LISP
+** Hungry Delete Mode
+Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endless Parentheses]].
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+    :init
+    (global-hungry-delete-mode))
+#+END_SRC
 ** Kill Ring
 While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
 
