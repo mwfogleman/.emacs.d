@@ -964,7 +964,7 @@ By default, pressing 'q' in either Dired or package-menu runs quit-window, which
              ("q" . kill-this-buffer))
   
   (bind-keys :map package-menu-mode-map
-             ("q" . kill-this-buffer))  
+             ("q" . kill-this-buffer))
 #+END_SRC
 *** Kill All Other Buffers
 #+BEGIN_SRC emacs-lisp
