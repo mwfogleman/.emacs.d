@@ -457,11 +457,13 @@ Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endles
     (global-hungry-delete-mode))
 #+END_SRC
 ** Kill Ring
-While "kill" might epitomize the idiosyncrasy of Emacs' vocabulary, it's great that Emacs keeps track of what's been killed. Browse kill ring is crucial to making that functionality visible and usable.
+The word "kill" might be antiquated, idiosyncratic jargon, but it's great that Emacs keeps track of what's been killed. The package "Browse Kill Ring" is crucial to making that functionality visible and usable.
 
 #+BEGIN_SRC emacs-lisp
   (use-package browse-kill-ring
-    :bind ("C-x C-y" . browse-kill-ring))
+    :bind ("C-x C-y" . browse-kill-ring)
+    :config
+    (setq browse-kill-ring-quit-action 'kill-and-delete-window))
 #+END_SRC
 ** Recent Files
 Recent files is a minor mode that keeps track of which files you're using, and provides it in some handy places.
