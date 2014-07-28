@@ -843,6 +843,15 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     (projectile-global-mode)
     (setq projectile-enable-caching t))
 #+END_SRC
+** Ag
+#+BEGIN_SRC emacs-lisp
+  (use-package ag
+    :init
+    (use-package wgrep)
+    (use-package wgrep-ag)
+    :config
+    (setq ag-highlight-search t))
+#+END_SRC
 ** Golden Ratio
 #+BEGIN_SRC emacs-lisp
   (use-package golden-ratio
