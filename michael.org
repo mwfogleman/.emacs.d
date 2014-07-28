@@ -277,7 +277,7 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
   (bind-key "M-E" 'forward-paragraph)
 #+END_SRC 
 ** Toggle Map
-Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Endless Parentheses]] and [[http://irreal.org/blog/?p%3D2830][Irreal]].
+Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Endless Parentheses]] and [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys on the toggle map are elsewhere in this config.
 
 #+BEGIN_SRC emacs-lisp
   (define-prefix-command 'toggle-map)
@@ -285,7 +285,6 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
   (bind-keys :map toggle-map
              ("l" . linum-mode)
              ("o" . org-mode)
-             ("r" . dired-toggle-read-only)
              ("s" . smartparens-mode)
              ("t" . text-mode)
              ("w" . whitespace-mode))
@@ -1093,4 +1092,21 @@ In future iterations, I might want to take into account other narrowing function
   (bind-key "C-c n" 'narrow-or-widen-dwim)
   (bind-key "n" 'narrow-or-widen-dwim toggle-map)
 #+END_SRC
+** Toggle Read Only
+A lot of modes let you change from read-only to writeable, or backwards: files, Dired, and also wgrep-enabled modes. I use [[https://github.com/ggreer/the_silver_searcher][ag, the silver searcher]], instead of grep or ack. Anyways, this function decides which mode I am in and acts accordingly. That way, I need to remember just one key bind, C-x t r.
 
+#+BEGIN_SRC emacs-lisp
+  (defun read-write-toggle ()
+    "Toggles read-only in any relevant mode: ag-mode, Dired, or
+  just any file at all."
+    (interactive)
+    (if (equal major-mode 'ag-mode)
+        ;; wgrep-ag can support ag-mode
+        (wgrep-change-to-wgrep-mode)
+      ;; dired-toggle-read-only has its own conditional:
+      ;; if the mode is Dired, it will make the directory writable
+      ;; if it is not, it will just toggle read only, as desired
+      (dired-toggle-read-only)))
+  
+  (bind-key "r" 'read-write-toggle toggle-map)
+#+END_SRC
