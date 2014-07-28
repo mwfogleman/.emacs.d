@@ -702,6 +702,7 @@ I use the stock package of org-mode as the default major mode.
                                    "~/org/anki.org"
                                    "~/org/programming.org"
                                    "~/org/meditation.org"
+                                   "~/org/cml.org"
                                    "~/org/reading.org"
                                    "~/org/writing.org"
                                    "~/org/personal.org"
