@@ -246,6 +246,12 @@ This binding comes from [[http://emacsredux.com/blog/2013/04/08/kill-line-backwa
                               (kill-line 0)
                               (indent-according-to-mode)))
 #+END_SRC
+** zap-up-to-char
+#+BEGIN_SRC emacs-lisp
+  (autoload 'zap-up-to-char "misc"
+    "Kill up to, but not including ARGth occurrence of CHAR.")
+  (bind-key "M-Z" 'zap-up-to-char)
+#+END_SRC
 ** Sentence and Paragraph Commands
 By default, sentence-end-double-space is set to t. That convention may be programatically convenient, but that's not how I write. I want to be able to write normal sentences, but still be able to fill normally. Let to the rescue!
 
