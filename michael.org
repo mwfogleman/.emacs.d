@@ -207,7 +207,7 @@ These keybindings for movement come from [[http://whattheemacsd.com/key-bindings
               (ignore-errors (backward-char 5))))
 #+END_SRC
 ** Meta Binds
-The Endless Parentheses blog "[[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][Drunk in the Dark]]" suggests that you don't need three ways to do numeric prefixes, and that you can make use of the meta-binds instead. He suggests using backward- and forward-sexp and delete-other-windows:
+The Endless Parentheses blog post "[[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][Drunk in the Dark]]" suggests that you don't need three ways to do numeric prefixes, and that you can make use of the meta-binds instead. He suggests using backward- and forward-sexp and delete-other-windows:
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "M-9" 'sp-backward-sexp)
@@ -620,6 +620,13 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
     (setq inferior-lisp-program "/usr/bin/sbcl")
     (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
     (add-to-list 'slime-contribs 'slime-fancy))
+#+END_SRC
+** Flycheck
+Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :init
+  (global-flycheck-mode))
 #+END_SRC
 ** Eldoc
 When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip and code, Sacha.
