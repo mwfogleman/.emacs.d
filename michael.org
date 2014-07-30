@@ -715,7 +715,7 @@ I use the stock package of org-mode as the default major mode.
                                    "~/org/notes.org"))
           org-tag-alist '(("@email" . ?e) ("@phone" . ?p) ("@laptop" . ?l))
           org-capture-templates
-          '(("a" "Arch Log" plain (file+datetree "~/Dropbox/arch/log")
+          '(("a" "Arch Log" plain (file+datetree "~/org/archlog.org")
              "%?\n")
             ("c" "Conversation" entry (file+datetree "~/Dropbox/org/conversations.org")
              "* %?\n")
