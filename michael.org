@@ -558,17 +558,7 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
 ** Elfeed
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
-    :bind (("C-c f" . my-elfeed))
-    :init
-    (defun my-elfeed ()
-      "Open and update elfeed."
-      (interactive)
-      (let ((feeds "*elfeed-search*"))
-        (progn (if (equal (get-buffer feeds) nil)
-                   (elfeed)
-                 (unless (equal (buffer-name (current-buffer)) feeds)
-                     (switch-to-buffer feeds)))
-               (elfeed-update))))
+    :bind (("C-c f" . elfeed))
     :config
     (setq elfeed-feeds
           '("http://cmvanschaik.blogspot.com/feeds/posts/default"
