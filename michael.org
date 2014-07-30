@@ -611,6 +611,12 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
     (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
     (add-to-list 'slime-contribs 'slime-fancy))
 #+END_SRC
+** CIDER
+#+BEGIN_SRC emacs-lisp
+  (use-package cider
+    :config
+    (use-package company-cider))
+#+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
 #+BEGIN_SRC emacs-lisp
