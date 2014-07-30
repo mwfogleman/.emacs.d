@@ -706,15 +706,11 @@ I use the stock package of org-mode as the default major mode.
           org-lowest-priority 68
           org-default-priority 68
           org-agenda-files (quote ("~/org/org.org"
-                                   "~/org/rocinante.org"
-                                   "~/org/anki.org"
-                                   "~/org/programming.org"
+                                   "~/org/tech.org"
                                    "~/org/meditation.org"
                                    "~/org/cml.org"
-                                   "~/org/reading.org"
-                                   "~/org/writing.org"
+                                   "~/org/readwrite.org"
                                    "~/org/personal.org"
-                                   "~/org/social.org"
                                    "~/org/todo.org"
                                    "~/org/notes.org"))
           org-tag-alist '(("@email" . ?e) ("@phone" . ?p) ("@laptop" . ?l))
@@ -815,7 +811,8 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     :init
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
-    (use-package smartparens-config))
+    (use-package smartparens-config)
+    (setq sp-show-pair-from-inside t))
 #+END_SRC
 ** Key Chord mode
 #+BEGIN_SRC emacs-lisp
