@@ -479,7 +479,7 @@ I also rebind the find-file-read-only with ido-recent-files functionality, which
   (use-package recentf
     :init
     (recentf-mode t)
-    (setq recentf-max-saved-items 50)
+    (setq recentf-max-saved-items 100)
     (defun ido-recentf-open ()
       "Use `ido-completing-read' to \\[find-file] a recent file"
       (interactive)
