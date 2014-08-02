@@ -571,7 +571,7 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
             "http://www.techmeme.com/index.xml"
             "http://www.daemonology.net/hn-daily/index.rss"
             "http://feeds.arstechnica.com/arstechnica/BAaf"
-            "http://www.archlinux.org/feeds/news/"
+            "https://planet.archlinux.org/rss20.xml"
             "http://lifehacker.com/tag/highlights/index.xml"
             "http://shinzenyoung.blogspot.com/feeds/posts/default?alt=rss"
             "http://www.eff.org/rss/updates.xml"
