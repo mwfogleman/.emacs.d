@@ -4,63 +4,31 @@
 ** Quotations
 *** On Emacs
 #+begin_quote 
-Emacs outshines all other editing software in approximately the same
-way that the noonday sun does the stars. It is not just bigger and
-brighter; it simply makes everything else vanish.
+Emacs outshines all other editing software in approximately the same way that the noonday sun does the stars. It is not just bigger and brighter; it simply makes everything else vanish.
 
 -- Neal Stephenson, "[[http://www.cryptonomicon.com/beginning.html][In the Beginning was the Command Line]]"
 #+end_quote
 
 #+begin_quote
-On 2 Apr 1992 in the journal Nature the discovery was reported that a
-giant ancient fungus had been living under the forests of Michigan for
-at least 1,500 years, the oldest and largest living thing on
-Earth. Software could get to be like that, I suppose, and Emacs,
-incorporating, like the fungal thallus, all the the filamentous
-strands of Emacs Lisp that now already thinly web the Earth, is surely
-a front runner. But do not be distracted by such lives.  Even the life
-of Emacs, like the life of that fungus, is an ephemerality; to grok
-life one must transcend not only thermospace but cyberspace.
+On 2 Apr 1992 in the journal Nature the discovery was reported that a giant ancient fungus had been living under the forests of Michigan for at least 1,500 years, the oldest and largest living thing on Earth. Software could get to be like that, I suppose, and Emacs, incorporating, like the fungal thallus, all the the filamentous strands of Emacs Lisp that now already thinly web the Earth, is surely a front runner. But do not be distracted by such lives.  Even the life of Emacs, like the life of that fungus, is an ephemerality; to grok life one must transcend not only thermospace but cyberspace.
 
 -- [[http://www.eskimo.com/~seldon/dotemacs.el][Will Mengarini]]
 #+end_quote
-
 *** On Literate Programming
-
 #+begin_quote 
-Let us change our traditional attitude to the construction of
-programs: Instead of imagining that our main task is to instruct a
-computer what to do, let us concentrate rather on explaining to human
-beings what we want a computer to do.
+Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do.
 
-The practitioner of literate programming can be regarded as an
-essayist, whose main concern is with exposition and excellence of
-style. Such an author, with thesaurus in hand, chooses the names of
-variables carefully and explains what each variable means. He or she
-strives for a program that is comprehensible because its concepts have
-been introduced in an order that is best for human understanding,
-using a mixture of formal and informal methods that reinforce each
-other.
+The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author, with thesaurus in hand, chooses the names of variables carefully and explains what each variable means. He or she strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other.
 
 -- Donald Knuth
 #+end_quote
 
 #+begin_quote 
-In my experience, software created with literate programming has
-turned out to be significantly better than software developed in more
-traditional ways...
+In my experience, software created with literate programming has turned out to be significantly better than software developed in more traditional ways...
 
-Jon Bentley probably hit the nail on the head when he once was asked
-why literate programming hasn’t taken the whole world by storm. He
-observed that a small percentage of the world’s population is good at
-programming, and a small percentage is good at writing; apparently I
-am asking everybody to be in both subsets.
+Jon Bentley probably hit the nail on the head when he once was asked why literate programming hasn’t taken the whole world by storm. He observed that a small percentage of the world’s population is good at programming, and a small percentage is good at writing; apparently I am asking everybody to be in both subsets.
 
-Yet to me, literate programming is certainly the most important thing
-that came out of the TeX project. Not only has it enabled me to write
-and maintain programs faster and more reliably than ever before, and
-been one of my greatest sources of joy since the 1980s—it has actually
-been indispensable at times.
+Yet to me, literate programming is certainly the most important thing that came out of the TeX project. Not only has it enabled me to write and maintain programs faster and more reliably than ever before, and been one of my greatest sources of joy since the 1980s—it has actually been indispensable at times.
 
 -- [[http://www.informit.com/articles/article.aspx?p=1193856][Donald Knuth]]
 #+end_quote
@@ -662,9 +630,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 ** Org Mode
 *** Quotations
 #+begin_quote
-Org-mode does outlining, note-taking, hyperlinks, spreadsheets, TODO
-lists, project planning, GTD, HTML and LaTeX authoring, all with plain
-text files in Emacs.
+Org-mode does outlining, note-taking, hyperlinks, spreadsheets, TODO lists, project planning, GTD, HTML and LaTeX authoring, all with plain text files in Emacs.
 
 -- [[http://article.gmane.org/gmane.emacs.orgmode/6224][Carsten Dominik]]
 #+end_quote
@@ -672,7 +638,7 @@ text files in Emacs.
 #+begin_quote
 If I hated everything about Emacs, I would still use it for org-mode.
 
---[[http://orgmode.org/worg/org-quotes.html][Avdi]] on Twitter
+-- [[http://orgmode.org/worg/org-quotes.html][Avdi]] on Twitter
 #+end_quote
 
 #+begin_quote
