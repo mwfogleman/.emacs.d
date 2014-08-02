@@ -340,6 +340,7 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
         ido-create-new-buffer 'always
         ido-use-filename-at-point 'guess)
   (ido-mode 1)
+  (bind-key "C-x C-d" 'ido-dired)
   (use-package ido-vertical-mode
     :init
     (ido-vertical-mode))
