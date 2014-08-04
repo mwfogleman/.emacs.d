@@ -943,12 +943,7 @@ This function opens the agenda in full screen.
             (org-agenda-redo t)
             (beginning-of-buffer)))))
     (delete-other-windows))
-#+END_SRC
 
-Let's bind this to a key-chord and a function key.
-
-#+BEGIN_SRC emacs-lisp
-  (key-chord-define-global "`a" 'open-agenda)
   (bind-key "<f5>" 'open-agenda)
 #+END_SRC
 *** Kill This Buffer
