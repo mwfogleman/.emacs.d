@@ -587,7 +587,8 @@ Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
     :config
     (use-package company-cider)
     (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-    (setq nrepl-hide-special-buffers t))
+    (setq nrepl-hide-special-buffers t)
+    (setq cider-mode-line " CIDER"))
 #+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
