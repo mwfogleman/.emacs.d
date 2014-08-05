@@ -679,7 +679,7 @@ I use the stock package of org-mode as the default major mode.
           org-agenda-files (quote ("~/org/org.org"
                                    "~/org/tech.org"
                                    "~/org/meditation.org"
-                                   "~/org/cml.org"
+                                   "~/org/work.org"
                                    "~/org/readwrite.org"
                                    "~/org/personal.org"
                                    "~/org/todo.org"
