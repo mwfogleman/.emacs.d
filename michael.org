@@ -1118,3 +1118,20 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
   (bind-key "M-<up>" 'move-line-up)
   (bind-key "M-<down>" 'move-line-down)
 #+END_SRC
+** Window Management
+Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun split-window-below-and-switch ()
+    (interactive)
+    (split-window-below)
+    (other-window 1))
+  
+  (defun split-window-right-and-switch ()
+    (interactive)
+    (split-window-right)
+    (other-window 1))
+  
+  (bind-key "C-x 2" 'split-window-below-and-switch)
+  (bind-key "C-x 3" 'split-window-right-and-switch)
+#+END_SRC
