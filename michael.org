@@ -1100,3 +1100,21 @@ A lot of modes let you change from read-only to writeable, or backwards: files, 
   
   (bind-key "r" 'read-write-toggle toggle-map)
 #+END_SRC
+** Move Lines
+Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun move-line-up ()
+    (interactive)
+    (transpose-lines 1)
+    (forward-line -2))
+  
+  (defun move-line-down ()
+    (interactive)
+    (forward-line 1)
+    (transpose-lines 1)
+    (forward-line -1))
+  
+  (bind-key "M-<up>" 'move-line-up)
+  (bind-key "M-<down>" 'move-line-down)
+#+END_SRC
