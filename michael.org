@@ -474,7 +474,7 @@ I also have queuing set up, so that I can still "send" emails without Internet a
 
 The folder /home/user/Maildir/queue/ needs to be created with the command "mu mkdir." After that, run "touch ~/Maildir/queue/.noindex" to make sure mu doesn't index this folder.
 
-Messages that Emacs cannot read can be read in Chromium with the "aV" shortcut.
+Messages that Emacs cannot read can be read in the browser with the "aV" shortcut.
 
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
@@ -722,7 +722,7 @@ I use org-struct in mu4e. See above.
   (add-to-list 'org-speed-commands-user '("d" org-down-element))
 #+END_SRC
 ** TiddlyWiki
-I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode. I create and bind functions to open the TiddlyWiki in Dired and Chromium.
+I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode. I create and bind functions to open the TiddlyWiki in Dired and the browser.
 
 #+BEGIN_SRC emacs-lisp
   (use-package tid-mode
