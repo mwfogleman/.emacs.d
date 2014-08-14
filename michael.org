@@ -585,7 +585,6 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 #+BEGIN_SRC emacs-lisp
   (use-package cider
     :config
-    (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
     (setq nrepl-hide-special-buffers t
           cider-mode-line " CIDER"
           cider-repl-display-in-current-window t))
@@ -602,9 +601,11 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 
 #+BEGIN_SRC emacs-lisp
   (autoload 'turn-on-eldoc-mode "eldoc" nil t)
+  (diminish 'eldoc-mode)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 #+END_SRC
 ** Magit
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
