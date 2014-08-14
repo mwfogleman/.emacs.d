@@ -50,13 +50,55 @@ I set up packages, Melpa, and use-package bright and early so that I can make us
   (use-package diminish)
 #+END_SRC
 ** Turn off unnecessary graphical features
+*** Tool Bar
 #+BEGIN_SRC emacs-lisp
   (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
   (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
   (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+#+END_SRC
+*** Startup Messages
+#+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-message t
         initial-scratch-message ""
         inhibit-startup-echo-area-message t)
+#+END_SRC
+*** Mode Line
+[[http://www.lunaryorn.com/2014/07/26/make-your-emacs-mode-line-more-useful.html#understanding-mode-line-format][Sebastian Wiesner]] inspired me to slim down my mode line. 
+
+I change the default mode-line-format variable, but comment out any variables that I eliminated, so that I can add them in later if I deem them useful.
+
+I add in the date, time, and battery information in formats that I like.
+
+Finally, I diminish some built-in minor modes.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default mode-line-format
+                '("%e" ; print error message about full memory.
+                  mode-line-front-space
+                  ; mode-line-mule-info
+                  ; mode-line-client
+                  ; mode-line-modified
+                  ; mode-line-remote
+                  ; mode-line-frame-identification
+                  mode-line-buffer-identification
+                  "   "
+                  ; mode-line-position
+                  ; (vc-mode vc-mode)
+                  ; "  "
+                  mode-line-modes
+                  "   "
+                  ; mode-line-misc-info
+                  display-time-string
+                  "   "
+                  battery-mode-line-string
+                  mode-line-end-spaces))
+  
+  (display-time-mode 1)
+  (setq display-time-format "%a %m/%d%t%R")
+  (display-battery-mode 1)
+  (setq battery-mode-line-format "%p%%") ; Default: "[%b%p%%]"
+  
+  (diminish 'isearch-mode)
 #+END_SRC
 ** Window handling
 To handle windows intelligently, I use the windmove functionality, along with some special functionality for Org where windmove is active in locations where Org Mode does not have special functions.
@@ -79,14 +121,6 @@ Make yes or no prompts be y or n prompts.
 
 #+BEGIN_SRC emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
-** Computer
-This displays the time and the status of my laptop battery.
-
-#+BEGIN_SRC emacs-lisp
-  (setq display-time-day-and-date 1)
-  (display-time-mode 1)
-  (display-battery-mode 1)
 #+END_SRC
 ** Internet
 It'd be great to get an Emacs browser going, but in the meantime:
