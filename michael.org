@@ -1175,3 +1175,27 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
   (bind-key "C-x 2" 'split-window-below-and-switch)
   (bind-key "C-x 3" 'split-window-right-and-switch)
 #+END_SRC
+** Clojure Cookbook
+I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs. There are a lot of short chapters, so I whipped up this Elisp to switch between them.
+
+#+BEGIN_SRC emacs-lisp
+  (defun increment-clojure-cookbook ()
+    "When reading the Clojure cookbook, find the next section, and close the buffer."
+    (interactive)
+    (let* ((cur (buffer-name))
+           (split-cur (split-string cur "[-_]"))
+           (chap (car split-cur))
+           (rec (car (cdr split-cur)))
+           (rec-num (string-to-number rec))
+           (next-rec-num (1+ rec-num))
+           (next-rec-s (number-to-string next-rec-num))
+           (next-rec (if (< next-rec-num 10)
+                         (concat "0" next-rec-s)
+                       next-rec-s))
+           (target (file-name-completion (concat chap "-" next-rec) "")))
+      (progn 
+        (if (equal target nil)
+            (dired (file-name-directory (buffer-file-name)))
+          (find-file target))
+        (kill-buffer cur))))
+#+END_SRC
