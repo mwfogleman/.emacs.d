@@ -1116,7 +1116,10 @@ In future iterations, I might want to take into account other narrowing function
     (cond ((and (buffer-narrowed-p) (not p)) (widen))
           ((region-active-p)
            (narrow-to-region (region-beginning) (region-end)))
-          ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
+          ((derived-mode-p 'org-mode)
+           (if (or (org-at-block-p) (org-in-src-block-p))
+               (org-narrow-to-block)
+             (org-narrow-to-subtree)))
           ((derived-mode-p 'prog-mode) (narrow-to-defun))
           ((t (error "Please select a region to narrow to")))))
   
