@@ -629,7 +629,8 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
     (add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
     (add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
     :config
-    (rename-modeline "clojure-mode" clojure-mode "Clj"))
+    (rename-modeline "clojure-mode" clojure-mode "Clj")
+    (use-package align-cljlet))
 #+END_SRC
 *** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
