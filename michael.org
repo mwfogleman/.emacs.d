@@ -620,13 +620,51 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
     (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
     (add-to-list 'slime-contribs 'slime-fancy))
 #+END_SRC
-** CIDER
+** Clojure
+*** Clojure Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package clojure-mode)
+#+END_SRC
+*** CIDER
 #+BEGIN_SRC emacs-lisp
   (use-package cider
     :config
     (setq nrepl-hide-special-buffers t
           cider-mode-line " CIDER"
           cider-repl-display-in-current-window t))
+#+END_SRC
+*** Clojure Cookbook
+I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs with AsciiDoc mode. 
+
+There are a lot of short chapters, so I whipped up this Elisp to switch between them.
+
+#+BEGIN_SRC emacs-lisp
+  (defun increment-clojure-cookbook ()
+    "When reading the Clojure cookbook, find the next section, and close the buffer."
+    (interactive)
+    (let* ((cur (buffer-name))
+           (split-cur (split-string cur "[-_]"))
+           (chap (car split-cur))
+           (rec (car (cdr split-cur)))
+           (rec-num (string-to-number rec))
+           (next-rec-num (1+ rec-num))
+           (next-rec-s (number-to-string next-rec-num))
+           (next-rec (if (< next-rec-num 10)
+                         (concat "0" next-rec-s)
+                       next-rec-s))
+           (target (file-name-completion (concat chap "-" next-rec) "")))
+      (progn 
+        (if (equal target nil)
+            (dired (file-name-directory (buffer-file-name)))
+          (find-file target))
+        (kill-buffer cur))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package adoc-mode
+    :bind (("M-+" . increment-clojure-cookbook))
+    :init
+    (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode)))
 #+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
@@ -759,12 +797,6 @@ I use org-struct in mu4e. See above.
   (bind-key "C-c M-k" 'org-cut-subtree)
   (add-to-list 'org-speed-commands-user '("k" org-cut-subtree))
   (add-to-list 'org-speed-commands-user '("d" org-down-element))
-#+END_SRC
-** AsciiDoc
-#+BEGIN_SRC emacs-lisp
-  (use-package adoc-mode
-    :init
-    (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode)))
 #+END_SRC
 ** TiddlyWiki
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode. I create and bind functions to open the TiddlyWiki in Dired and the browser.
@@ -1186,28 +1218,4 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
   
   (bind-key "C-x 2" 'split-window-below-and-switch)
   (bind-key "C-x 3" 'split-window-right-and-switch)
-#+END_SRC
-** Clojure Cookbook
-I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs. There are a lot of short chapters, so I whipped up this Elisp to switch between them.
-
-#+BEGIN_SRC emacs-lisp
-  (defun increment-clojure-cookbook ()
-    "When reading the Clojure cookbook, find the next section, and close the buffer."
-    (interactive)
-    (let* ((cur (buffer-name))
-           (split-cur (split-string cur "[-_]"))
-           (chap (car split-cur))
-           (rec (car (cdr split-cur)))
-           (rec-num (string-to-number rec))
-           (next-rec-num (1+ rec-num))
-           (next-rec-s (number-to-string next-rec-num))
-           (next-rec (if (< next-rec-num 10)
-                         (concat "0" next-rec-s)
-                       next-rec-s))
-           (target (file-name-completion (concat chap "-" next-rec) "")))
-      (progn 
-        (if (equal target nil)
-            (dired (file-name-directory (buffer-file-name)))
-          (find-file target))
-        (kill-buffer cur))))
 #+END_SRC
