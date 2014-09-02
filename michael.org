@@ -623,7 +623,9 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** Clojure
 *** Clojure Mode
 #+BEGIN_SRC emacs-lisp
-  (use-package clojure-mode)
+  (use-package clojure-mode
+    :config
+    (rename-modeline "clojure-mode" clojure-mode "Clj"))
 #+END_SRC
 *** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
