@@ -822,7 +822,10 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     :init
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
-    (use-package smartparens-config))
+    (use-package smartparens-config)
+    (use-package rainbow-delimiters
+      :init
+      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
 #+END_SRC
 ** Key Chord mode
 #+BEGIN_SRC emacs-lisp
