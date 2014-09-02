@@ -626,12 +626,21 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
   (use-package clojure-mode)
 #+END_SRC
 *** CIDER
+The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
+
 #+BEGIN_SRC emacs-lisp
   (use-package cider
     :config
     (setq nrepl-hide-special-buffers t
           cider-mode-line " CIDER"
-          cider-repl-display-in-current-window t))
+          cider-repl-display-in-current-window t)
+    (defun cider-namespace-refresh ()
+      (interactive)
+      (cider-interactive-eval
+       "(require 'clojure.tools.namespace.repl)
+    (clojure.tools.namespace.repl/refresh)"))
+      
+    (bind-key "M-r" 'cider-namespace-refresh cider-repl-mode-map))
 #+END_SRC
 *** Clojure Cookbook
 I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs with AsciiDoc mode. 
