@@ -664,7 +664,8 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
   (use-package adoc-mode
     :bind (("M-+" . increment-clojure-cookbook))
     :init
-    (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode)))
+    (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
+    (add-hook 'adoc-mode-hook 'cider-mode))
 #+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
