@@ -624,6 +624,10 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 *** Clojure Mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
+    :init
+    (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
+    (add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
+    (add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
     :config
     (rename-modeline "clojure-mode" clojure-mode "Clj"))
 #+END_SRC
