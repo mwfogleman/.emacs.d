@@ -47,7 +47,12 @@ I set up packages, Melpa, and use-package bright and early so that I can make us
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (package-initialize)
   (require 'use-package)
-  (use-package diminish)
+  (use-package diminish
+    :init
+    (defmacro rename-modeline (package-name mode new-name)
+      `(eval-after-load ,package-name
+         '(defadvice ,mode (after rename-modeline activate)
+            (setq mode-name ,new-name)))))
 #+END_SRC
 ** Turn off unnecessary graphical features
 *** Tool Bar
