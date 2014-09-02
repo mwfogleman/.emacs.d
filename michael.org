@@ -868,6 +868,7 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
 ** Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
+    :bind ("M-p" . projectile-find-file)
     :diminish projectile-mode
     :init
     (projectile-global-mode)
