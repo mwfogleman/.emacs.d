@@ -335,7 +335,8 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
   (use-package shell
     :bind ("<f1>" . shell)
     :init
-    (dirtrack-mode))
+    (dirtrack-mode)
+    (setq explicit-shell-file-name "/usr/bin/bash"))
 #+END_SRC
 ** Dired
 #+BEGIN_SRC emacs-lisp
