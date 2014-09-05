@@ -330,6 +330,13 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
     (add-to-list 'god-exempt-major-modes 'mu4e-compose-mode)
     (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
 #+END_SRC
+** Shell
+#+BEGIN_SRC emacs-lisp
+  (use-package shell
+    :bind ("<f1>" . shell)
+    :init
+    (dirtrack-mode))
+#+END_SRC
 ** Dired
 #+BEGIN_SRC emacs-lisp
   (use-package dired
