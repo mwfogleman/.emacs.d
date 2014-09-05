@@ -340,6 +340,7 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
 ** Dired
 #+BEGIN_SRC emacs-lisp
   (use-package dired
+    :bind ("<f2>" . dired)
     :init
     (use-package dired-x) ; enables dired-jump, C-x C-j
     :config
