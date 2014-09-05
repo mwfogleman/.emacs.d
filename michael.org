@@ -1045,14 +1045,12 @@ This function opens the agenda in full screen.
     (let ((agenda "*Org Agenda*"))
       (if (equal (get-buffer agenda) nil)
           (org-agenda-list)
-        (progn
-          (unless (equal (buffer-name (current-buffer)) agenda)
-            (switch-to-buffer agenda))
-          (progn
-            (org-agenda-redo t)
-            (beginning-of-buffer)))))
+        (unless (equal (buffer-name (current-buffer)) agenda)
+          (switch-to-buffer agenda))
+        (org-agenda-redo t)
+        (beginning-of-buffer)))
     (delete-other-windows))
-
+  
   (bind-key "<f5>" 'open-agenda)
 #+END_SRC
 *** Kill This Buffer
@@ -1190,7 +1188,7 @@ In future iterations, I might want to take into account other narrowing function
                (org-narrow-to-block)
              (org-narrow-to-subtree)))
           ((derived-mode-p 'prog-mode) (narrow-to-defun))
-          ((t (error "Please select a region to narrow to")))))
+          (t (error "Please select a region to narrow to"))))
   
   (bind-key "n" 'narrow-or-widen-dwim toggle-map)
 #+END_SRC
