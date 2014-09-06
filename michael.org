@@ -333,7 +333,8 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
 ** Shell
 #+BEGIN_SRC emacs-lisp
   (use-package shell
-    :bind ("<f1>" . shell)
+    :bind (("<f6>" . shell)
+           ("<f7>" . term))
     :init
     (dirtrack-mode)
     (setq explicit-shell-file-name "/usr/bin/bash"))
@@ -341,7 +342,7 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
 ** Dired
 #+BEGIN_SRC emacs-lisp
   (use-package dired
-    :bind ("<f2>" . dired)
+    :bind ("<f8>" . dired)
     :init
     (use-package dired-x) ; enables dired-jump, C-x C-j
     :config
