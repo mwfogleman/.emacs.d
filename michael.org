@@ -1167,15 +1167,14 @@ I wonder if Will Mengarini would approve of [[http://bzg.fr/emacs-hide-mode-line
   (bind-key "m" 'hidden-mode-line-mode toggle-map)
 #+END_SRC
 ** Narrowing and Widening
-Before this function, I was alternating between C-x n s (org-narrow-to-subtree) and C-x n w (widen) in Org files. This function, bound to a [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][toggle map key]], toggles between those cases as well as a selected region and a function definition. [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][Artur Malabarba suggested]] the latter feature, as well as a prefix argument to narrow-no-matter-what.
-
-In future iterations, I might want to take into account other narrowing functions, like org-narrow-to-element or narrow-to-page.
+Before this function, I was alternating between C-x n s (org-narrow-to-subtree) and C-x n w (widen) in Org files. I originally implemented this to [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][toggle]] between those two cases as well as the region. [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][Artur Malabarba and Sacha Chua]] have made successive improvements: a prefix argument to narrow no matter what, and increasing features for Org.
 
 #+BEGIN_SRC emacs-lisp
   (defun narrow-or-widen-dwim (p)
-    "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
-  Intelligently means: region, subtree, or defun, whichever applies
-  first.
+    "If the buffer is narrowed, it widens. Otherwise, it narrows
+  intelligently.  Intelligently means: region, org-src-block,
+  org-subtree, or defun, whichever applies first.  Narrowing to
+  org-src-block actually calls `org-edit-src-code'.
   
   With prefix P, don't widen, just narrow even if buffer is already
   narrowed."
@@ -1184,10 +1183,15 @@ In future iterations, I might want to take into account other narrowing function
     (cond ((and (buffer-narrowed-p) (not p)) (widen))
           ((region-active-p)
            (narrow-to-region (region-beginning) (region-end)))
+          ((equal "*Org Src " (substring (buffer-name) 0 9))
+                  (org-edit-src-exit))
           ((derived-mode-p 'org-mode)
-           (if (or (org-at-block-p) (org-in-src-block-p))
-               (org-narrow-to-block)
-             (org-narrow-to-subtree)))
+           (cond ((org-in-src-block-p)
+                  (org-edit-src-code)
+                  (delete-other-windows))
+                 ((org-at-block-p)
+                  (org-narrow-to-block))
+                 (t (org-narrow-to-subtree))))
           ((derived-mode-p 'prog-mode) (narrow-to-defun))
           (t (error "Please select a region to narrow to"))))
   
