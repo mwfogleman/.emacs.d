@@ -643,6 +643,14 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
     (use-package align-cljlet
       :bind ("<menu> a a" . align-cljlet)))
 #+END_SRC
+*** Clojure Refactor
+#+BEGIN_SRC emacs-lisp
+  (use-package clj-refactor
+      :init
+      (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
+      :config
+      (cljr-add-keybindings-with-prefix "<menu>"))
+#+END_SRC
 *** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
 
