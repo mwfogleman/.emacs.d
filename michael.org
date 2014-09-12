@@ -1031,17 +1031,7 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
       (kill-buffer (other-buffer)))
     (message "%s was contacted." contact))
   
-  (defun keptintouch-scala ()
-    "Create a buffer with Keep In Touch backlog."
-    (interactive)
-    (let ((src "~/src/keepintouch")
-          (cur default-directory))
-      (cd src)
-      (shell-command (concat "./keepintouch " keepintouch-datafile " schedule backlog | less") "*Keep In Touch Backlog*")
-      (cd cur)))
-  
   (bind-key "C-c k" 'keptintouch)
-  (bind-key "C-c K" 'keptintouch-scala)
 #+END_SRC
 ** Buffer Management
 *** Open Org Agenda
