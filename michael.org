@@ -333,8 +333,7 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
 ** Shell
 #+BEGIN_SRC emacs-lisp
   (use-package shell
-    :bind (("<f6>" . shell)
-           ("<f7>" . term))
+    :bind ("<f1>" . shell)
     :init
     (dirtrack-mode)
     (setq explicit-shell-file-name "/usr/bin/bash"))
@@ -342,7 +341,7 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
 ** Dired
 #+BEGIN_SRC emacs-lisp
   (use-package dired
-    :bind ("<f8>" . dired)
+    :bind ("<f2>" . dired)
     :init
     (use-package dired-x) ; enables dired-jump, C-x C-j
     :config
@@ -667,7 +666,7 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
       (cider-interactive-eval
        "(require 'clojure.tools.namespace.repl)
     (clojure.tools.namespace.repl/refresh)"))
-      
+    
     (bind-key "M-r" 'cider-namespace-refresh cider-repl-mode-map))
 #+END_SRC
 *** Clojure Cookbook
