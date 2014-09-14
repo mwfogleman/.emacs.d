@@ -303,6 +303,18 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
              ("t" . text-mode)
              ("w" . whitespace-mode))
 #+END_SRC
+** [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][Launcher Map]]
+#+BEGIN_SRC emacs-lisp
+  (define-prefix-command 'launcher-map)
+  (bind-key "C-x l" 'launcher-map)
+  (bind-keys :map launcher-map
+             ("a" . ansi-term)
+             ("c" . calc)
+             ("d" . ediff-buffers)
+             ("h" . man)
+             ("p" . list-packages)
+             ("P" . proced))
+#+END_SRC
 * Packages
 ** God Mode
 [[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to toggle between God mode and non-God mode.
