@@ -167,9 +167,7 @@ Some features and settings are disabled by default; this is sane behavior for ne
 * Key Bindings
 Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function. 
 
-** From Better Defaults
-These bindings (from "[[https://github.com/technomancy/better-defaults][Better Defaults]]") rebind the default commands to use hippie-expand, ibuffer, and the regex-aware versions of isearch.
-
+** From [[https://github.com/technomancy/better-defaults][Better Defaults]]
 #+BEGIN_SRC emacs-lisp
   (bind-key "M-/" 'hippie-expand)
   (bind-key "C-x C-b" 'ibuffer)
@@ -290,8 +288,8 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
   (bind-key "M-A" 'backward-paragraph)
   (bind-key "M-E" 'forward-paragraph)
 #+END_SRC 
-** Toggle Map
-Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Endless Parentheses]] and [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys on the toggle map are elsewhere in this config.
+** [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Toggle Map]]
+Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys on the toggle map are elsewhere in this config.
 
 #+BEGIN_SRC emacs-lisp
   (define-prefix-command 'toggle-map)
@@ -316,9 +314,7 @@ Inspired by posts on [[http://endlessparentheses.com/the-toggle-map-and-wizardry
              ("P" . proced))
 #+END_SRC
 * Packages
-** God Mode
-[[https://github.com/chrisdone/god-mode][God Mode]] makes Emacs key-combinations a lot shorter! I've set ESC to toggle between God mode and non-God mode.
-
+** [[https://github.com/chrisdone/god-mode][God Mode]]
 #+BEGIN_SRC emacs-lisp
   (defun my-update-cursor ()
     (setq cursor-type (if (or god-local-mode buffer-read-only)
