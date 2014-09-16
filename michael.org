@@ -982,6 +982,10 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
     :config
     (setq linum-relative-current-symbol ""))
 #+END_SRC
+** comment-dwim-2
+#+BEGIN_SRC emacs-lisp
+  (bind-key "M-;" 'comment-dwim-2)
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
