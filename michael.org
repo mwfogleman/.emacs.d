@@ -802,6 +802,7 @@ I use the stock package of org-mode as the default major mode.
                                    "~/org/tech.org"
                                    "~/org/meditation.org"
                                    "~/org/work.org"
+                                   "~/org/money.org"
                                    "~/org/readwrite.org"
                                    "~/org/personal.org"
                                    "~/org/todo.org"
