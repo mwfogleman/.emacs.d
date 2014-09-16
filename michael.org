@@ -308,6 +308,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("a" . ansi-term)
              ("c" . calc)
              ("d" . ediff-buffers)
+             ("e" . eshell)
              ("h" . man)
              ("p" . list-packages)
              ("P" . proced))
