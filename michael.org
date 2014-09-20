@@ -354,7 +354,9 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
     (use-package dired-x) ; enables dired-jump, C-x C-j
     :config
     (put 'dired-find-alternate-file 'disabled nil)
-    (setq dired-dwim-target t)
+    (setq dired-dwim-target t
+          dired-recursive-deletes 'always
+          dired-recursive-copies 'always)
     (bind-keys :map dired-mode-map
                ("<return>" . dired-find-alternate-file)
                ("^" . (lambda () (interactive) (find-alternate-file "..")))
