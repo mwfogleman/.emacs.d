@@ -823,7 +823,12 @@ I use the stock package of org-mode as the default major mode.
             ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org.gpg")
              "* %?")
             ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
-             "* TODO %?\n")))
+             "* TODO %?\n"))
+          org-file-apps
+          '((auto-mode . emacs)
+            ("\\.mm\\'" . default)
+            ("\\.x?html?\\'" . "firefox %s")
+            ("\\.pdf\\'" . "evince %s")))
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
     (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
