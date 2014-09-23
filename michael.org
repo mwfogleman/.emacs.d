@@ -251,12 +251,6 @@ This binding comes from [[http://emacsredux.com/blog/2013/04/08/kill-line-backwa
                               (kill-line 0)
                               (indent-according-to-mode)))
 #+END_SRC
-** zap-up-to-char
-#+BEGIN_SRC emacs-lisp
-  (autoload 'zap-up-to-char "misc"
-    "Kill up to, but not including ARGth occurrence of CHAR.")
-  (bind-key "M-Z" 'zap-up-to-char)
-#+END_SRC
 ** Sentence and Paragraph Commands
 By default, sentence-end-double-space is set to t. That convention may be programatically convenient, but that's not how I write. I want to be able to write normal sentences, but still be able to fill normally. Let to the rescue!
 
@@ -454,13 +448,19 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     (use-package ace-link
       :init
       (ace-link-setup-default))
-    (bind-keys :prefix-map ace-jump-map
-               :prefix "C-c j"
-               ("c" . ace-jump-char-mode)
-               ("l" . ace-jump-line-mode)
-               ("w" . ace-jump-word-mode)
-               ("b" . ace-jump-buffer)
-               ("o" . ace-jump-buffer-other-window)))
+    (use-package ace-jump-zap
+      :bind (("M-z" . ace-jump-zap-to-char-dwim)
+             ("M-Z" . ace-jump-zap-up-to-char-dwim))
+      :init
+      (bind-keys :prefix-map ace-jump-map
+                 :prefix "C-c j"
+                 ("c" . ace-jump-char-mode)
+                 ("l" . ace-jump-line-mode)
+                 ("w" . ace-jump-word-mode)
+                 ("b" . ace-jump-buffer)
+                 ("o" . ace-jump-buffer-other-window)
+                 ("z" . ace-jump-zap-to-char)
+                 ("Z" . ace-jump-zap-up-to-char))))
   
   (bind-key "C-x SPC" 'just-one-space)
 #+END_SRC
