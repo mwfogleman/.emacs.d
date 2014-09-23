@@ -801,8 +801,7 @@ I use the stock package of org-mode as the default major mode.
           org-src-fontify-natively t
           org-lowest-priority 68
           org-default-priority 68
-          org-agenda-files (quote ("~/org/org.org"
-                                   "~/org/tech.org"
+          org-agenda-files (quote ("~/org/tech.org"
                                    "~/org/meditation.org"
                                    "~/org/work.org"
                                    "~/org/money.org"
