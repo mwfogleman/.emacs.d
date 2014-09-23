@@ -831,6 +831,17 @@ I use the stock package of org-mode as the default major mode.
             ("\\.mm\\'" . default)
             ("\\.x?html?\\'" . "firefox %s")
             ("\\.pdf\\'" . "evince %s")))
+    (defun endless/inside-org-code-block-p (&optional lang)
+      "Non-nil if point is inside an org code block.
+  If LANG is given, restrict to that language."
+      (save-match-data
+        (save-excursion
+          (when (search-backward-regexp "^#\\+\\(begin\\|end\\)_src\\b" nil 'noerror)
+            (looking-at-p
+             (concat "^#\\+begin_src *"
+                     (if lang
+                         (format "\\_<%s\\_>" (regexp-quote lang))
+                       "")))))))
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
     (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
@@ -1207,7 +1218,7 @@ Before this function, I was alternating between C-x n s (org-narrow-to-subtree) 
           ((region-active-p)
            (narrow-to-region (region-beginning) (region-end)))
           ((derived-mode-p 'org-mode)
-           (cond ((org-in-src-block-p)
+           (cond ((endless/inside-org-code-block-p)
                   (org-edit-src-code)
                   (delete-other-windows))
                  ((org-at-block-p)
