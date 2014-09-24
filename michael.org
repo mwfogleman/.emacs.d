@@ -307,31 +307,8 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("p" . list-packages)
              ("P" . proced))
 #+END_SRC
-* Packages
-** [[https://github.com/chrisdone/god-mode][God Mode]]
-#+BEGIN_SRC emacs-lisp
-  (defun my-update-cursor ()
-    (setq cursor-type (if (or god-local-mode buffer-read-only)
-                          'bar
-                        'box)))
-  
-  (use-package god-mode
-    :bind (("<escape>" . god-local-mode)
-          ("C-x C-1" . delete-other-windows)
-          ("C-x C-2" . split-window-below)
-          ("C-x C-3" . split-window-right)
-          ("C-x C-0" . delete-window))
-    :init
-    (add-hook 'god-mode-enabled-hook 'my-update-cursor)
-    (add-hook 'god-mode-disabled-hook 'my-update-cursor)
-    :config
-    (bind-keys :map god-local-mode-map
-               ("z" . repeat)
-               ("." . repeat)
-               ("i" . god-local-mode))
-    (add-to-list 'god-exempt-major-modes 'mu4e-compose-mode)
-    (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
-#+END_SRC
+* System
+All of my packages for interacting with my laptop.
 ** Shell
 #+BEGIN_SRC emacs-lisp
   (use-package shell
@@ -382,6 +359,18 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 Some of these suggestions are adapted from Xah Lee's [[http://ergoemacs.org/emacs/emacs_dired_tips.html][article on Dired]]. dired-find-alternate-file, which is bound to a, is disabled by default. <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory. Relatedly, I re-bind 'q' to my kill-this-buffer function below.
 
 Dired-details lets me show or hide the details with ) and (, respectively. If, for some reason, it becomes hard to remember this, dired-details+ makes the parentheses interchangeable.
+** Ag
+#+BEGIN_SRC emacs-lisp
+  (use-package ag
+    :init
+    (use-package wgrep)
+    (use-package wgrep-ag)
+    :config
+    (setq ag-highlight-search t))
+#+END_SRC
+
+* Emacs
+These are helper packages that make Emacs even more awesome.
 ** IDO
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
 
@@ -526,8 +515,57 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
     (setq-default save-place t)
     (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
 #+END_SRC
+** Key Chord mode
+#+BEGIN_SRC emacs-lisp
+  (use-package key-chord
+    :init
+    (progn 
+      (setq key-chord-two-keys-delay .015
+            key-chord-one-key-delay .020)
+      (key-chord-mode 1)
+      (key-chord-define-global "cg" 'undo)
+      (key-chord-define-global "yp" 'other-window)
+      (key-chord-define-global ";0" 'delete-window)
+      (key-chord-define-global ";1" 'delete-other-windows)
+      (key-chord-define-global ";2" 'split-window-below)
+      (key-chord-define-global ";3"  'split-window-right)
+      (key-chord-define-global ",." 'beginning-of-buffer)
+      (key-chord-define-global ".p" 'end-of-buffer)
+      (key-chord-define-global "jw" 'ace-jump-word-mode)
+      (key-chord-define-global "jc" 'ace-jump-char-mode)
+      (key-chord-define-global "jl" 'ace-jump-line-mode)
+      (key-chord-define-global "jb" 'ace-jump-buffer)
+      (key-chord-define-global "jo" 'ace-jump-buffer-other-window)
+      (key-chord-define-global "'l" 'ido-switch-buffer)
+      (key-chord-define-global "'-" 'smex)
+      (key-chord-define-global ",r" 'find-file)
+      (key-chord-define-global ".c" 'ido-dired)
+      (key-chord-define-global "0r" ")")
+      (key-chord-define-global "1'" "!")
+      (key-chord-define-global "2," "@")
+      (key-chord-define-global "3." "#")
+      (key-chord-define-global "4p" "$")
+      (key-chord-define-global "5y" "%")
+      (key-chord-define-global "6y" "^")
+      (key-chord-define-global "7f" "&")
+      (key-chord-define-global "8g" "*")
+      (key-chord-define-global "9c" "(")
+      (key-chord-define-global "-l" "_")
+      (key-chord-define emacs-lisp-mode-map "7f" "&optional ")))
+#+END_SRC
+
+** Golden Ratio
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :diminish golden-ratio-mode
+    :init
+    (golden-ratio-mode 1))
+#+END_SRC
+
+* Social
+It initially seemed kind of crazy to me to do these things in Emacs, but since they are text-heavy, it ultimately makes a lot of sense.
 ** Email (mu4e)
-Email is pretty text-heavy... let's do that in Emacs. I am currently using mu4e, which was indeed pretty easy to set up. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
+I am currently using mu4e, which was indeed pretty easy to set up. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
 
 I also have queuing set up, so that I can still "send" emails without Internet access. Once this is enabled, you can see some new options in the main view, to toggle online/offline [m], and to send queued mail [f].
 
@@ -574,7 +612,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
     (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
     (add-hook 'mu4e-compose-mode-hook 'auto-fill-mode))
 #+END_SRC
-** ERC
+** IRC (ERC)
 #+BEGIN_SRC emacs-lisp
   (use-package erc
     :config
@@ -584,7 +622,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
           erc-nick "mwfogleman"
           erc-fill-function 'erc-fill-static))
 #+END_SRC
-** Elfeed
+** Feeds (Elfeed)
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
     :bind ("C-c f" . elfeed)
@@ -610,7 +648,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
                ("?" . describe-mode)
                ("q" . kill-this-buffer)))
 #+END_SRC
-** Twitter
+** Twitter (Twittering)
 #+BEGIN_SRC emacs-lisp
   (use-package twittering-mode
     :bind ("C-c t" . twit)
@@ -622,25 +660,9 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
           twittering-icon-mode t
           twittering-use-icon-storage t))
 #+END_SRC
-** Calc
-#+BEGIN_SRC emacs-lisp
-  (use-package calc
-    :config
-    (setq calc-display-trail ()))
-#+END_SRC
-** SLIME
-"Take this REPL, brother, and may it serve you well."
+* Development
+I had coded here and there before using Emacs, but it made me fall in love with programming! Here are language-specific (largely Lisps) or development-related packages.
 
-#+BEGIN_SRC emacs-lisp
-  (use-package slime-autoloads)
-  (use-package slime
-    :load-path "/usr/share/emacs/site-lisp/slime/"
-    :init
-    (slime-setup)
-    (setq inferior-lisp-program "/usr/bin/sbcl")
-    (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
-    (add-to-list 'slime-contribs 'slime-fancy))
-#+END_SRC
 ** Clojure
 *** Clojure Mode
 #+BEGIN_SRC emacs-lisp
@@ -715,12 +737,18 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
     (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
     (add-hook 'adoc-mode-hook 'cider-mode))
 #+END_SRC
-** Flycheck
-Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
+** Common Lisp
+"Take this REPL, brother, and may it serve you well."
+
 #+BEGIN_SRC emacs-lisp
-(use-package flycheck
-  :init
-  (global-flycheck-mode))
+  (use-package slime-autoloads)
+  (use-package slime
+    :load-path "/usr/share/emacs/site-lisp/slime/"
+    :init
+    (slime-setup)
+    (setq inferior-lisp-program "/usr/bin/sbcl")
+    (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
+    (add-to-list 'slime-contribs 'slime-fancy))
 #+END_SRC
 ** Emacs Lisp
 *** Elisp-Slime-Nav
@@ -741,6 +769,13 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+#+END_SRC
+** Flycheck
+Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :init
+  (global-flycheck-mode))
 #+END_SRC
 ** Magit
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
@@ -766,6 +801,82 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (bind-keys :map magit-status-mode-map
                ("q" . magit-quit-session)))
 #+END_SRC
+** smartparens
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :diminish smartparens-mode
+    :bind
+    (("C-M-f" . sp-forward-sexp)
+     ("C-M-b" . sp-backward-sexp)
+     ("C-M-d" . sp-down-sexp)
+     ("C-M-a" . sp-backward-down-sexp)
+     ("C-S-a" . sp-beginning-of-sexp)
+     ("C-S-d" . sp-end-of-sexp)
+     ("C-M-e" . sp-up-sexp)
+     ("C-M-u" . sp-backward-up-sexp)
+     ("C-M-t" . sp-transpose-sexp)
+     ("C-M-n" . sp-next-sexp)
+     ("C-M-p" . sp-previous-sexp)
+     ("C-M-k" . sp-kill-sexp)
+     ("C-M-w" . sp-copy-sexp)
+     ("M-<delete>" . sp-unwrap-sexp)
+     ("M-S-<backspace>" . sp-backward-unwrap-sexp)
+     ("C-<right>" . sp-forward-slurp-sexp)
+     ("C-<left>" . sp-forward-barf-sexp)
+     ("C-M-<left>" . sp-backward-slurp-sexp)
+     ("C-M-<right>" . sp-backward-barf-sexp)
+     ("M-D" . sp-splice-sexp)
+     ("C-M-<delete>" . sp-splice-sexp-killing-forward)
+     ("C-M-<backspace>" . sp-splice-sexp-killing-backward)
+     ("C-M-S-<backspace>" . sp-splice-sexp-killing-around)
+     ("C-]" . sp-select-next-thing-exchange)
+     ("C-<left_bracket>" . sp-select-previous-thing)
+     ("C-M-]" . sp-select-next-thing)
+     ("M-F" . sp-forward-symbol)
+     ("M-B" . sp-backward-symbol)
+     ("H-t" . sp-prefix-tag-object)
+     ("H-p" . sp-prefix-pair-object)
+     ("H-s c" . sp-convolute-sexp)
+     ("H-s a" . sp-absorb-sexp)
+     ("H-s e" . sp-emit-sexp)
+     ("H-s p" . sp-add-to-previous-sexp)
+     ("H-s n" . sp-add-to-next-sexp)
+     ("H-s j" . sp-join-sexp)
+     ("H-s s" . sp-split-sexp))
+    :init
+    (smartparens-global-mode t)
+    (show-smartparens-global-mode t)
+    (use-package smartparens-config)
+    (use-package rainbow-delimiters
+      :init
+      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
+#+END_SRC
+** Projectile
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :bind ("M-p" . projectile-find-file)
+    :diminish projectile-mode
+    :init
+    (projectile-global-mode)
+    (setq projectile-enable-caching t))
+#+END_SRC
+** linum-relative
+When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package linum-relative
+    :init
+    (setq linum-format 'linum-relative)
+    :config
+    (setq linum-relative-current-symbol ""))
+#+END_SRC
+** comment-dwim-2
+#+BEGIN_SRC emacs-lisp
+  (bind-key "M-;" 'comment-dwim-2)
+#+END_SRC
+
+* Words and Numbers
+"GNU Office Suite Pro Edition," coming to a cubicle near you!
 ** Org Mode
 *** Quotations
 #+begin_quote
@@ -890,132 +1001,11 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     (bind-key "C-c w" 'open-wiki)
     (bind-key "C-c W" 'browse-wiki))
 #+END_SRC
-** smartparens
+** Calc
 #+BEGIN_SRC emacs-lisp
-  (use-package smartparens
-    :diminish smartparens-mode
-    :bind
-    (("C-M-f" . sp-forward-sexp)
-     ("C-M-b" . sp-backward-sexp)
-     ("C-M-d" . sp-down-sexp)
-     ("C-M-a" . sp-backward-down-sexp)
-     ("C-S-a" . sp-beginning-of-sexp)
-     ("C-S-d" . sp-end-of-sexp)
-     ("C-M-e" . sp-up-sexp)
-     ("C-M-u" . sp-backward-up-sexp)
-     ("C-M-t" . sp-transpose-sexp)
-     ("C-M-n" . sp-next-sexp)
-     ("C-M-p" . sp-previous-sexp)
-     ("C-M-k" . sp-kill-sexp)
-     ("C-M-w" . sp-copy-sexp)
-     ("M-<delete>" . sp-unwrap-sexp)
-     ("M-S-<backspace>" . sp-backward-unwrap-sexp)
-     ("C-<right>" . sp-forward-slurp-sexp)
-     ("C-<left>" . sp-forward-barf-sexp)
-     ("C-M-<left>" . sp-backward-slurp-sexp)
-     ("C-M-<right>" . sp-backward-barf-sexp)
-     ("M-D" . sp-splice-sexp)
-     ("C-M-<delete>" . sp-splice-sexp-killing-forward)
-     ("C-M-<backspace>" . sp-splice-sexp-killing-backward)
-     ("C-M-S-<backspace>" . sp-splice-sexp-killing-around)
-     ("C-]" . sp-select-next-thing-exchange)
-     ("C-<left_bracket>" . sp-select-previous-thing)
-     ("C-M-]" . sp-select-next-thing)
-     ("M-F" . sp-forward-symbol)
-     ("M-B" . sp-backward-symbol)
-     ("H-t" . sp-prefix-tag-object)
-     ("H-p" . sp-prefix-pair-object)
-     ("H-s c" . sp-convolute-sexp)
-     ("H-s a" . sp-absorb-sexp)
-     ("H-s e" . sp-emit-sexp)
-     ("H-s p" . sp-add-to-previous-sexp)
-     ("H-s n" . sp-add-to-next-sexp)
-     ("H-s j" . sp-join-sexp)
-     ("H-s s" . sp-split-sexp))
-    :init
-    (smartparens-global-mode t)
-    (show-smartparens-global-mode t)
-    (use-package smartparens-config)
-    (use-package rainbow-delimiters
-      :init
-      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
-#+END_SRC
-** Key Chord mode
-#+BEGIN_SRC emacs-lisp
-  (use-package key-chord
-    :init
-    (progn 
-      (setq key-chord-two-keys-delay .015
-            key-chord-one-key-delay .020)
-      (key-chord-mode 1)
-      (key-chord-define-global "cg" 'undo)
-      (key-chord-define-global "yp" 'other-window)
-      (key-chord-define-global ";0" 'delete-window)
-      (key-chord-define-global ";1" 'delete-other-windows)
-      (key-chord-define-global ";2" 'split-window-below)
-      (key-chord-define-global ";3"  'split-window-right)
-      (key-chord-define-global ",." 'beginning-of-buffer)
-      (key-chord-define-global ".p" 'end-of-buffer)
-      (key-chord-define-global "jw" 'ace-jump-word-mode)
-      (key-chord-define-global "jc" 'ace-jump-char-mode)
-      (key-chord-define-global "jl" 'ace-jump-line-mode)
-      (key-chord-define-global "jb" 'ace-jump-buffer)
-      (key-chord-define-global "jo" 'ace-jump-buffer-other-window)
-      (key-chord-define-global "'l" 'ido-switch-buffer)
-      (key-chord-define-global "'-" 'smex)
-      (key-chord-define-global ",r" 'find-file)
-      (key-chord-define-global ".c" 'ido-dired)
-      (key-chord-define-global "0r" ")")
-      (key-chord-define-global "1'" "!")
-      (key-chord-define-global "2," "@")
-      (key-chord-define-global "3." "#")
-      (key-chord-define-global "4p" "$")
-      (key-chord-define-global "5y" "%")
-      (key-chord-define-global "6y" "^")
-      (key-chord-define-global "7f" "&")
-      (key-chord-define-global "8g" "*")
-      (key-chord-define-global "9c" "(")
-      (key-chord-define-global "-l" "_")
-      (key-chord-define emacs-lisp-mode-map "7f" "&optional ")))
-#+END_SRC
-** Projectile
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :bind ("M-p" . projectile-find-file)
-    :diminish projectile-mode
-    :init
-    (projectile-global-mode)
-    (setq projectile-enable-caching t))
-#+END_SRC
-** Ag
-#+BEGIN_SRC emacs-lisp
-  (use-package ag
-    :init
-    (use-package wgrep)
-    (use-package wgrep-ag)
+  (use-package calc
     :config
-    (setq ag-highlight-search t))
-#+END_SRC
-** Golden Ratio
-#+BEGIN_SRC emacs-lisp
-  (use-package golden-ratio
-    :diminish golden-ratio-mode
-    :init
-    (golden-ratio-mode 1))
-#+END_SRC
-** linum-relative
-When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package linum-relative
-    :init
-    (setq linum-format 'linum-relative)
-    :config
-    (setq linum-relative-current-symbol ""))
-#+END_SRC
-** comment-dwim-2
-#+BEGIN_SRC emacs-lisp
-  (bind-key "M-;" 'comment-dwim-2)
+    (setq calc-display-trail ()))
 #+END_SRC
 * Functions
 ** Emacs Configuration File
