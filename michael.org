@@ -655,7 +655,8 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
     :config
     (bind-keys :map twittering-mode-map
                ("?" . describe-mode)
-               ("@" . twittering-reply-to-user))
+               ("@" . twittering-reply-to-user)
+               ("F" . twittering-follow))
     (setq twittering-use-master-password t
           twittering-icon-mode t
           twittering-use-icon-storage t))
