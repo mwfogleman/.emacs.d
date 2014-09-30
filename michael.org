@@ -634,7 +634,6 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
             "http://garyborjesson.wordpress.com/feed/"
             "http://planet.clojure.in/atom.xml"
             "http://planet.emacsen.org/atom.xml"
-            "http://endlessparentheses.com/atom.xml"
             "http://www.techmeme.com/index.xml"
             "http://www.daemonology.net/hn-daily/index.rss"
             "http://feeds.arstechnica.com/arstechnica/BAaf"
