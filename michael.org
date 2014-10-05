@@ -996,6 +996,15 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     :config
     (setq calc-display-trail ()))
 #+END_SRC
+** Gnuplot
+#+BEGIN_SRC emacs-lisp
+  (use-package gnuplot
+    :load-path "/usr/bin/gnuplot"
+    :init
+    (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
+    (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
+    (add-to-list 'auto-mode-alist '("\\.gp$" . gnuplot-mode)))
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
