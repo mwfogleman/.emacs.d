@@ -663,6 +663,17 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
           erc-nick "mwfogleman"
           erc-fill-function 'erc-fill-static))
 #+END_SRC
+** Jabber
+#+BEGIN_SRC emacs-lisp
+  (use-package jabber
+    :ensure jabber
+    :init
+    (setq jabber-show-offline-contacts nil
+          jabber-account-list
+          '(("michaelwfogleman@gmail.com" 
+             (:network-server . "talk.google.com")
+             (:connection-type . ssl)))))
+#+END_SRC
 ** Feeds (Elfeed)
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
