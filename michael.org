@@ -742,8 +742,10 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
 "Take this REPL, brother, and may it serve you well."
 
 #+BEGIN_SRC emacs-lisp
-  (use-package slime-autoloads)
+  (use-package slime-autoloads
+    :disabled t)
   (use-package slime
+    :disabled t
     :load-path "/usr/share/emacs/site-lisp/slime/"
     :init
     (slime-setup)
