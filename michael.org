@@ -901,6 +901,9 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
     (use-package smartparens-config)
+    (when (eq system-type 'darwin)
+      (bind-keys ("<s-right>" . sp-forward-slurp-sexp)
+                 ("<s-left>" . sp-forward-barf-sexp)))
     (use-package rainbow-delimiters
       :ensure rainbow-delimiters
       :init
