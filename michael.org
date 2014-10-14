@@ -39,14 +39,16 @@ Yet to me, literate programming is certainly the most important thing that came 
         user-mail-address "michaelwfogleman@gmail.com")
 #+END_SRC
 ** Enable package support
-I set up packages, Melpa, and use-package bright and early so that I can make use of use-package's bind-key macro. In the future, I'd like to make use of its :ensure keyword.
+I set up packages, Melpa, and use-package bright and early so that I can make use of use-package's bind-key macro.
+
+When I first copy this set-up into a new machine, I still have to require package, add MELPA, initialize package, and grab use-package, solarized-theme, and a couple of others (including my tid-mode) from the package archives and the internet. This could be improved, but it's not so bad.
 
 #+BEGIN_SRC emacs-lisp
   (require 'package)
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (package-initialize)
-  (require 'use-package)
+  (require 'use-package) ;; currently you have to do up to hear and grab this manually :/
   (use-package diminish
     :ensure diminish
     :init
