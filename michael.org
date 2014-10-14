@@ -135,7 +135,8 @@ It'd be great to get an Emacs browser going, but in the meantime:
 
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "firefox")
+        browse-url-generic-program (cond ((eq system-type 'darwin) "open") 
+                                         ((eq system-type 'gnu/linux) "firefox")))
   (bind-key "C-c B" 'browse-url)
 #+END_SRC
 ** Other
