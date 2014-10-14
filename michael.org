@@ -906,7 +906,7 @@ I use the stock package of org-mode as the default major mode.
   (use-package org
     :init
     (setq default-major-mode 'org-mode
-          org-directory "/home/michael/Dropbox/org/"
+          org-directory "~/org/"
           org-log-done t
           org-startup-indented t
           org-agenda-inhibit-startup nil
@@ -937,17 +937,17 @@ I use the stock package of org-mode as the default major mode.
           org-capture-templates
           '(("a" "Arch Log" plain (file+datetree "~/org/archlog.org")
              "%?\n")
-            ("c" "Conversation" entry (file+datetree "~/Dropbox/org/conversations.org")
+            ("c" "Conversation" entry (file+datetree "~/org/conversations.org")
              "* %?\n")
-            ("g" "Gratitude Journal" entry (file+datetree "~/Dropbox/org/gratitude.org")
+            ("g" "Gratitude Journal" entry (file+datetree "~/org/gratitude.org")
              "* I am grateful for: \n** %?")
-            ("n" "Note" entry (file "~/Dropbox/org/notes.org")
+            ("n" "Note" entry (file "~/org/notes.org")
              "* %?\n")
-            ("s" "Spark" entry (file+datetree "~/Dropbox/org/spark.org")
+            ("s" "Spark" entry (file+datetree "~/org/spark.org")
              "* %?")
-            ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org.gpg")
+            ("j" "Journal" entry (file+datetree "~/org/journal.org.gpg")
              "* %?")
-            ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
+            ("t" "Todo" entry (file "~/org/todo.org")
              "* TODO %?\n"))
           org-file-apps
           '((auto-mode . emacs)
@@ -1039,7 +1039,7 @@ Relatedly, I often want to reload my init-file. This will actually use the syste
 I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of the command line utility's functionality in Elisp.
 
 #+BEGIN_SRC emacs-lisp
-  (setq keepintouch-datafile "/home/michael/Dropbox/keepintouch.data")
+  (setq keepintouch-datafile "~/Dropbox/keepintouch.data")
   
   (defun keptintouch (arg)
     "Request a contact in a keepintouch.data file, and update their last
