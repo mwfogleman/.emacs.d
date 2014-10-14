@@ -167,6 +167,10 @@ Some features and settings are disabled by default; this is sane behavior for ne
   (put 'downcase-region 'disabled nil)
   (put 'erase-buffer 'disabled nil)
 #+END_SRC
+*** Mac Related
+#+BEGIN_SRC emacs-lisp
+  (when (eq system-type 'darwin) (set-face-attribute 'default nil :height 165))
+#+END_SRC
 * Key Bindings
 Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function. 
 
