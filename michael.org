@@ -48,6 +48,7 @@ I set up packages, Melpa, and use-package bright and early so that I can make us
   (package-initialize)
   (require 'use-package)
   (use-package diminish
+    :ensure diminish
     :init
     (defmacro rename-modeline (package-name mode new-name)
       `(eval-after-load ,package-name
@@ -322,7 +323,7 @@ All of my packages for interacting with my laptop.
   (use-package dired
     :bind ("<f2>" . dired)
     :init
-    (use-package dired-x) ; enables dired-jump, C-x C-j
+    (use-package dired-x)  ; enables dired-jump, C-x C-j
     :config
     (put 'dired-find-alternate-file 'disabled nil)
     (setq dired-dwim-target t
@@ -333,9 +334,11 @@ All of my packages for interacting with my laptop.
                ("^" . (lambda () (interactive) (find-alternate-file "..")))
                ("'" . wdired-change-to-wdired-mode))
     (use-package dired-details
+      :ensure dired-details
       :init
       (dired-details-install))
     (use-package dired-subtree
+      :ensure dired-subtree
       :init
       (bind-keys :map dired-mode-map
                  :prefix "C-,"
@@ -362,13 +365,15 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
 ** Ag
 #+BEGIN_SRC emacs-lisp
   (use-package ag
+    :ensure ag
     :init
-    (use-package wgrep)
-    (use-package wgrep-ag)
+    (use-package wgrep
+      :ensure wgrep)
+    (use-package wgrep-ag
+      :ensure wgrep-ag)
     :config
     (setq ag-highlight-search t))
 #+END_SRC
-
 * Emacs
 These are helper packages that make Emacs even more awesome.
 ** IDO
@@ -385,16 +390,20 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
   (ido-mode 1)
   (bind-key "C-x C-d" 'ido-dired)
   (use-package ido-vertical-mode
+    :ensure ido-vertical-mode
     :init
     (ido-vertical-mode))
   (use-package ido-ubiquitous
+    :ensure ido-ubiquitous
     :init
     (ido-ubiquitous-mode 1))
   (use-package flx-ido
+    :ensure flx-ido
     :init
     (setq flx-ido-threshold 1000)
     (flx-ido-mode 1))
   (use-package idomenu
+    :ensure idomenu
     :bind ("M-i" . idomenu))
 #+END_SRC
 
@@ -408,6 +417,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
+    :ensure smex
     :bind (("C-x C-m" . smex)
            ("C-c C-c M-x" . execute-extended-command))
     :init
@@ -418,6 +428,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ** Company Mode
 #+BEGIN_SRC emacs-lisp
   (use-package company-mode
+    :ensure company
     :bind ("C-." . company-complete)
     :init
     (global-company-mode 1)
@@ -431,13 +442,17 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ** Ace Jump Mode
 #+BEGIN_SRC emacs-lisp
   (use-package ace-jump-mode
+    :ensure ace-jump-mode
     :bind ("M-SPC" . ace-jump-mode)
     :init
-    (use-package ace-jump-buffer)
+    (use-package ace-jump-buffer
+      :ensure ace-jump-buffer)
     (use-package ace-link
+      :ensure ace-link
       :init
       (ace-link-setup-default))
     (use-package ace-jump-zap
+      :ensure ace-jump-zap
       :bind (("M-z" . ace-jump-zap-to-char-dwim)
              ("M-Z" . ace-jump-zap-up-to-char-dwim))
       :init
@@ -458,6 +473,7 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
 
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
+    :ensure expand-region
     :bind (("C-@" . er/expand-region)
            ("C-=" . er/expand-region)))
   (pending-delete-mode t)
@@ -467,6 +483,7 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
 
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
+    :ensure multiple-cursors
     :bind 
      (("C->" . mc/mark-next-like-this)
       ("C-<" . mc/mark-previous-like-this)
@@ -476,6 +493,7 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
 Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endless Parentheses]].
 #+BEGIN_SRC emacs-lisp
   (use-package hungry-delete
+    :ensure hungry-delete
     :init
     (global-hungry-delete-mode))
 #+END_SRC
@@ -484,6 +502,7 @@ The word "kill" might be antiquated, idiosyncratic jargon, but it's great that E
 
 #+BEGIN_SRC emacs-lisp
   (use-package browse-kill-ring
+    :ensure browse-kill-ring
     :bind ("C-x C-y" . browse-kill-ring)
     :config
     (setq browse-kill-ring-quit-action 'kill-and-delete-window))
@@ -518,6 +537,7 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 ** Key Chord mode
 #+BEGIN_SRC emacs-lisp
   (use-package key-chord
+    :ensure key-chord
     :init
     (progn 
       (setq key-chord-two-keys-delay .015
@@ -553,15 +573,14 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
       (key-chord-define-global "-l" "_")
       (key-chord-define emacs-lisp-mode-map "7f" "&optional ")))
 #+END_SRC
-
 ** Golden Ratio
 #+BEGIN_SRC emacs-lisp
   (use-package golden-ratio
+    :ensure golden-ratio
     :diminish golden-ratio-mode
     :init
     (golden-ratio-mode 1))
 #+END_SRC
-
 * Social
 It initially seemed kind of crazy to me to do these things in Emacs, but since they are text-heavy, it ultimately makes a lot of sense.
 ** Email (mu4e)
@@ -616,6 +635,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** IRC (ERC)
 #+BEGIN_SRC emacs-lisp
   (use-package erc
+    :ensure erc
     :config
     (setq erc-autojoin-channels-alist '(("freenode.net"
                                          "#emacs"))
@@ -626,6 +646,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** Feeds (Elfeed)
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
+    :ensure elfeed
     :bind ("C-c f" . elfeed)
     :config
     (setq elfeed-feeds
@@ -651,6 +672,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** Twitter (Twittering)
 #+BEGIN_SRC emacs-lisp
   (use-package twittering-mode
+    :ensure twittering-mode
     :bind ("C-c t" . twit)
     :config
     (bind-keys :map twittering-mode-map
@@ -668,6 +690,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
 *** Clojure Mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
+    :ensure clojure-mode
     :init
     (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
     (add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
@@ -675,21 +698,24 @@ I had coded here and there before using Emacs, but it made me fall in love with 
     :config
     (rename-modeline "clojure-mode" clojure-mode "λ")
     (use-package align-cljlet
+      :ensure align-cljlet
       :bind ("<menu> a a" . align-cljlet)))
 #+END_SRC
 *** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
-      :init
-      (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
-      :config
-      (cljr-add-keybindings-with-prefix "<menu>"))
+    :ensure clj-refactor
+    :init
+    (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
+    :config
+    (cljr-add-keybindings-with-prefix "<menu>"))
 #+END_SRC
 *** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package cider
+    :ensure cider
     :config
     (setq nrepl-hide-special-buffers t
           nrepl-popup-stacktraces-in-repl t
@@ -733,6 +759,7 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
 
 #+BEGIN_SRC emacs-lisp
   (use-package adoc-mode
+    :ensure adoc-mode
     :bind (("M-+" . increment-clojure-cookbook))
     :init
     (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
@@ -757,6 +784,7 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
 *** Elisp-Slime-Nav
 #+BEGIN_SRC emacs-lisp
   (use-package elisp-slime-nav
+    :ensure elisp-slime-nav
     :diminish elisp-slime-nav-mode
     :init
     (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
@@ -776,15 +804,17 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
 #+BEGIN_SRC emacs-lisp
-(use-package flycheck
-  :init
-  (global-flycheck-mode))
+  (use-package flycheck
+    :ensure flycheck
+    :init
+    (global-flycheck-mode))
 #+END_SRC
 ** Magit
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
+    :ensure magit
     :diminish magit-auto-revert-mode
     :bind (("C-x g" . magit-status)
            ("C-c g" . magit-status))
@@ -807,6 +837,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 ** smartparens
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
+    :ensure smartparens
     :diminish smartparens-mode
     :bind
     (("C-M-f" . sp-forward-sexp)
@@ -851,12 +882,14 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (show-smartparens-global-mode t)
     (use-package smartparens-config)
     (use-package rainbow-delimiters
+      :ensure rainbow-delimiters
       :init
       (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
 #+END_SRC
 ** Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
+    :ensure projectile
     :bind ("M-p" . projectile-find-file)
     :diminish projectile-mode
     :init
@@ -868,6 +901,7 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
 
 #+BEGIN_SRC emacs-lisp
   (use-package linum-relative
+    :ensure linum-relative
     :init
     (setq linum-format 'linum-relative)
     :config
