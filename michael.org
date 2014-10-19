@@ -955,8 +955,8 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
     :diminish aggressive-indent-mode
     :init
     (global-aggressive-indent-mode 1)
-    (cond )
-    (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
+    (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+    (unbind-key "C-c C-q" aggressive-indent-mode-map))
 #+END_SRC
 * Words and Numbers
 "GNU Office Suite Pro Edition," coming to a cubicle near you!
