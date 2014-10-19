@@ -196,7 +196,8 @@ Although keybindings are also located elsewhere, this section will aim to provid
 Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
 
 #+BEGIN_SRC emacs-lisp
-  (bind-key "RET" 'newline-and-indent)
+  (bind-keys ("RET" . newline-and-indent)
+             ("C-j" . newline-and-indent))
 #+END_SRC
 
 Make C-n insert new lines if the point is at the end of the buffer.
