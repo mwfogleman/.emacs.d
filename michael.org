@@ -615,6 +615,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
+    :disabled t
     :if (eq system-type 'gnu/linux)
     :load-path "/usr/share/emacs/site-lisp/mu4e/"
     :init
@@ -704,6 +705,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** Twitter (Twittering)
 #+BEGIN_SRC emacs-lisp
   (use-package twittering-mode
+    :disabled t
     :ensure twittering-mode
     :bind ("C-c t" . twit)
     :config
