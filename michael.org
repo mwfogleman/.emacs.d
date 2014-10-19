@@ -948,6 +948,16 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
     :ensure comment-dwim-2
     :bind ("M-;" . comment-dwim-2))
 #+END_SRC
+** aggressive-indent
+#+BEGIN_SRC emacs-lisp
+  (use-package aggressive-indent
+    :ensure aggressive-indent
+    :diminish aggressive-indent-mode
+    :init
+    (global-aggressive-indent-mode 1)
+    (cond )
+    (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
+#+END_SRC
 * Words and Numbers
 "GNU Office Suite Pro Edition," coming to a cubicle near you!
 ** Org Mode
