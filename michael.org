@@ -944,9 +944,10 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
 #+END_SRC
 ** comment-dwim-2
 #+BEGIN_SRC emacs-lisp
-  (bind-key "M-;" 'comment-dwim-2)
+  (use-package comment-dwim-2
+    :ensure comment-dwim-2
+    :bind ("M-;" . comment-dwim-2))
 #+END_SRC
-
 * Words and Numbers
 "GNU Office Suite Pro Edition," coming to a cubicle near you!
 ** Org Mode
