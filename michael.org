@@ -355,7 +355,7 @@ All of my packages for interacting with my laptop.
                ("^" . (lambda () (interactive) (find-alternate-file "..")))
                ("'" . wdired-change-to-wdired-mode))
     (when (eq system-type 'darwin)
-      (add-to-list 'dired-omit-extensions "\\.DS_STORE\\'"))
+      (add-to-list 'dired-omit-extensions ".DS_STORE"))
     (use-package dired-details
       :ensure dired-details
       :init
