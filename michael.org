@@ -749,6 +749,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
 *** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
+    :disabled t
     :ensure clj-refactor
     :init
     (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
