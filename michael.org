@@ -46,7 +46,7 @@ When I first copy this set-up into a new machine, I still have to require packag
 #+BEGIN_SRC emacs-lisp
   (require 'package)
   (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+               '("melpa" . "http://melpa.org/packages/") t)
   (package-initialize)
   (require 'use-package) ;; currently you have to do up to hear and grab this manually :/
   (use-package diminish
