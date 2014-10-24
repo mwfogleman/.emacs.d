@@ -744,7 +744,13 @@ I had coded here and there before using Emacs, but it made me fall in love with 
     (rename-modeline "clojure-mode" clojure-mode "λ")
     (use-package align-cljlet
       :ensure align-cljlet
-      :bind ("<menu> a a" . align-cljlet)))
+      :bind ("<menu> a a" . align-cljlet))
+    (use-package kibit-mode
+      :ensure kibit-mode
+      :init
+      (add-hook 'clojure-mode-hook 'kibit-mode)
+      (add-hook 'clojure-mode-hook 'flymake-mode-on)
+      (add-hook 'clojure-mode-hook 'flycheck-mode)))
 #+END_SRC
 *** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
