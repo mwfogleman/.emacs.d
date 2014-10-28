@@ -748,9 +748,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
     (use-package kibit-mode
       :ensure kibit-mode
       :init
-      (add-hook 'clojure-mode-hook 'kibit-mode)
-      (add-hook 'clojure-mode-hook 'flymake-mode-on)
-      (add-hook 'clojure-mode-hook 'flycheck-mode)))
+      (add-hook 'clojure-mode-hook 'kibit-mode)))
 #+END_SRC
 *** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
