@@ -753,12 +753,11 @@ I had coded here and there before using Emacs, but it made me fall in love with 
 *** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
-    :disabled t
     :ensure clj-refactor
     :init
     (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
     :config
-    (cljr-add-keybindings-with-prefix "<menu>"))
+    (cljr-add-keybindings-with-prefix "H"))
 #+END_SRC
 *** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
