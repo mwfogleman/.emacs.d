@@ -758,7 +758,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
     :init
     (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
     :config
-    (cljr-add-keybindings-with-prefix "H"))
+    (cljr-add-keybindings-with-prefix "C-!"))
 #+END_SRC
 *** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
