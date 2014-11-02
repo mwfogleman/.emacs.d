@@ -671,7 +671,8 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
     :ensure erc
     :config
     (setq erc-autojoin-channels-alist '(("freenode.net"
-                                         "#emacs"))
+                                         "#emacs"
+                                         "#clojure"))
           erc-server "irc.freenode.net"
           erc-nick "mwfogleman"
           erc-fill-function 'erc-fill-static))
