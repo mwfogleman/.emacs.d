@@ -771,7 +771,13 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
        "(use 'clojure.repl)"))
     
     (bind-key "M-r" 'cider-namespace-refresh cider-repl-mode-map)
-    (bind-key "M-R" 'cider-use-repl-tools cider-repl-mode-map))
+    (bind-key "M-R" 'cider-use-repl-tools cider-repl-mode-map)
+    
+    ;; this snippet comes from schmir https://github.com/schmir/.emacs.d/blob/master/lisp/setup-clojure.el
+    (defadvice cider-load-current-buffer (after switch-namespace activate compile)
+      "switch to namespace"
+      (cider-repl-set-ns (cider-current-ns))
+      (cider-switch-to-repl-buffer))
 #+END_SRC
 *** Clojure Cookbook
 I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs with AsciiDoc mode. 
