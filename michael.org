@@ -137,7 +137,8 @@ It'd be great to get an Emacs browser going, but in the meantime:
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program (cond ((eq system-type 'darwin) "open") 
                                          ((eq system-type 'gnu/linux) "firefox")))
-  (bind-key "C-c B" 'browse-url)
+
+  (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
 ** Other
 *** Apropos
