@@ -778,6 +778,9 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
       "switch to namespace"
       (cider-repl-set-ns (cider-current-ns))
       (cider-switch-to-repl-buffer))
+
+    ;; fix cond indenting
+    (put 'cond 'clojure-backtracking-indent '(2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4)))
 #+END_SRC
 *** Clojure Cookbook
 I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs with AsciiDoc mode. 
