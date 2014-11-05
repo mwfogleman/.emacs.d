@@ -130,16 +130,6 @@ Make yes or no prompts be y or n prompts.
 #+BEGIN_SRC emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-** Internet
-It'd be great to get an Emacs browser going, but in the meantime:
-
-#+BEGIN_SRC emacs-lisp
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program (cond ((eq system-type 'darwin) "open") 
-                                         ((eq system-type 'gnu/linux) "firefox")))
-
-  (bind-key "C-c B" 'browse-url-at-point)
-#+END_SRC
 ** Other
 *** Apropos
 Let apropos commands perform more extensive searches than default. This also comes from Better Defaults.
@@ -618,8 +608,28 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
     :init
     (golden-ratio-mode 1))
 #+END_SRC
-* Social
+* Networked
 It initially seemed kind of crazy to me to do these things in Emacs, but since they are text-heavy, it ultimately makes a lot of sense.
+** Browsing
+*** External Browsers
+#+BEGIN_SRC emacs-lisp
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program (cond ((eq system-type 'darwin) "open") 
+                                         ((eq system-type 'gnu/linux) "firefox")))
+
+  (bind-key "C-c B" 'browse-url-at-point)
+#+END_SRC
+*** EWW!
+I've enjoyed using Conkeror on my Arch machine. This package brings one neat feature of Conkeror to eww.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eww-lnum
+    :ensure eww-lnum
+    :init
+    (eval-after-load "eww"
+      '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
+              (define-key eww-mode-map "F" 'eww-lnum-universal))))
+#+END_SRC
 ** Email (mu4e)
 I am currently using mu4e, which was indeed pretty easy to set up. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
 
