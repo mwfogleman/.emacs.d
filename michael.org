@@ -743,7 +743,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
     (rename-modeline "clojure-mode" clojure-mode "λ")
     (use-package align-cljlet
       :ensure align-cljlet
-      :bind ("<menu> a a" . align-cljlet))
+      :bind ("C-! a a" . align-cljlet))
     (use-package kibit-mode
       :ensure kibit-mode
       :init
@@ -962,7 +962,10 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     :diminish projectile-mode
     :init
     (projectile-global-mode)
-    (setq projectile-enable-caching t))
+    (setq projectile-enable-caching t)
+    (bind-keys :prefix-map ace-jump-map
+               :prefix "C-c j"
+               ("p" . ace-jump-projectile-buffers)))
 #+END_SRC
 ** linum-relative
 When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
