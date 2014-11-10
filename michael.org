@@ -424,7 +424,7 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
     (flx-ido-mode 1))
   (use-package idomenu
     :ensure idomenu
-    :bind ("M-i" . idomenu))
+    :bind ("M-I" . idomenu))
 #+END_SRC
 
 Note that there are certain program specific settings for IDO, which are not in this section:
@@ -485,7 +485,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                  ("o" . ace-jump-buffer-other-window)
                  ("z" . ace-jump-zap-to-char)
                  ("Z" . ace-jump-zap-up-to-char))))
-  
+
   (bind-key "C-x SPC" 'just-one-space)
 #+END_SRC
 ** Expand Region
@@ -621,7 +621,6 @@ It initially seemed kind of crazy to me to do these things in Emacs, but since t
 #+END_SRC
 *** EWW!
 I've enjoyed using Conkeror on my Arch machine. This package brings one neat feature of Conkeror to eww.
-
 #+BEGIN_SRC emacs-lisp
   (use-package eww-lnum
     :ensure eww-lnum
