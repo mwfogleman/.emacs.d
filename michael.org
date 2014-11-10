@@ -769,7 +769,10 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
           nrepl-popup-stacktraces-in-repl t
           nrepl-history-file "~/.emacs.d/nrepl-history"
           cider-mode-line " CIDER"
-          cider-repl-display-in-current-window t)
+          cider-repl-display-in-current-window t
+          cider-auto-select-error-buffer nil
+          cider-repl-pop-to-buffer-on-connect nil
+          cider-show-error-buffer nil)
     (defun cider-namespace-refresh ()
       (interactive)
       (cider-interactive-eval
