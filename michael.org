@@ -1021,6 +1021,7 @@ I use the stock package of org-mode as the default major mode.
           org-startup-indented t
           org-agenda-inhibit-startup nil
           org-startup-truncated nil
+          org-startup-with-inline-images t
           org-completion-use-ido t
           org-agenda-start-on-weekday nil
           org-refile-targets (quote ((nil :maxlevel . 9)
