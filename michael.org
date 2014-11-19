@@ -473,8 +473,8 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
       (ace-link-setup-default))
     (use-package ace-jump-zap
       :ensure ace-jump-zap
-      :bind (("M-z" . ace-jump-zap-to-char-dwim)
-             ("M-Z" . ace-jump-zap-up-to-char-dwim))
+      :bind (("M-z" . ace-jump-zap-to-char)
+             ("M-Z" . ace-jump-zap-up-to-char))
       :init
       (bind-keys :prefix-map ace-jump-map
                  :prefix "C-c j"
@@ -483,6 +483,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                  ("w" . ace-jump-word-mode)
                  ("b" . ace-jump-buffer)
                  ("o" . ace-jump-buffer-other-window)
+                 ("p" . ace-jump-projectile-buffers)
                  ("z" . ace-jump-zap-to-char)
                  ("Z" . ace-jump-zap-up-to-char))))
 
@@ -962,10 +963,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     :diminish projectile-mode
     :init
     (projectile-global-mode)
-    (setq projectile-enable-caching t)
-    (bind-keys :prefix-map ace-jump-map
-               :prefix "C-c j"
-               ("p" . ace-jump-projectile-buffers)))
+    (setq projectile-enable-caching t))
 #+END_SRC
 ** linum-relative
 When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
