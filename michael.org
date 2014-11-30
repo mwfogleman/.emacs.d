@@ -429,10 +429,10 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
 
 Note that there are certain program specific settings for IDO, which are not in this section:
 
+- Smex
+- Org-Mode
+- ido-recentf-open function
 *** Smex
-*** Org-Mode
-*** ido-recentf-open function
-** Smex
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+BEGIN_SRC emacs-lisp
@@ -445,6 +445,45 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     (unbind-key "<menu>")
     (smex-initialize))
 #+END_SRC
+** Helm
+#+BEGIN_SRC emacs-lisp
+  (use-package helm
+    :ensure helm
+    :init
+    (progn
+      (require 'helm-config)
+      ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+      ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+      ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+      (global-set-key (kbd "C-c h") 'helm-command-prefix)
+      (global-unset-key (kbd "C-x c"))
+      ;; From https://gist.github.com/antifuchs/9238468
+      (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
+            helm-input-idle-delay 0.01  ; this actually updates things
+                                          ; reeeelatively quickly.
+            helm-quick-update t
+            helm-M-x-requires-pattern nil
+            helm-ff-skip-boring-files t
+            helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+            helm-buffers-fuzzy-matching           t ; fuzzy matching buffer names when non--nil
+            helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+            helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+            helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+            helm-ff-file-name-history-use-recentf t)
+      (helm-mode))
+    (use-package helm-projectile
+      :ensure helm-projectile)
+    (use-package helm-ag
+      :ensure helm-ag)
+    (use-package helm-descbinds
+      :ensure helm-descbinds
+      :bind ("C-h b" . helm-descbinds))
+    (bind-keys :map helm-command-map
+               ("o" . helm-occur))
+    :bind
+    (("M-y" . helm-show-kill-ring)))
+#+END_SRC
+
 ** Company Mode
 #+BEGIN_SRC emacs-lisp
   (use-package company-mode
