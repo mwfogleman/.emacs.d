@@ -1225,6 +1225,8 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
           (cur default-directory)) 
       (cd src)
       (shell-command (concat "java " jar " " keepintouch-datafile " schedule backlog | less") "*Keep In Touch Backlog*")
+      (let ((people (count-lines (point-min) (point-max))))
+        (message "You have %d people to keep in touch with." people))
       (cd cur)))
 
   (bind-key "C-c k" 'keptintouch)
