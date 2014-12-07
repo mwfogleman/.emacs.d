@@ -645,6 +645,12 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
     :init
     (golden-ratio-mode 1))
 #+END_SRC
+** Regex Builder
+#+BEGIN_SRC emacs-lisp
+  (use-package re-builder
+    :init
+    (setq reb-re-syntax 'string))
+#+END_SRC
 * Networked
 It initially seemed kind of crazy to me to do these things in Emacs, but since they are text-heavy, it ultimately makes a lot of sense.
 ** Browsing
