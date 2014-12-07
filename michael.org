@@ -459,6 +459,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ** Helm
 #+BEGIN_SRC emacs-lisp
   (use-package helm
+    :disabled t
     :ensure helm
     :init
     (progn
@@ -924,6 +925,7 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
+    :disabled t
     :ensure flycheck
     :init
     (global-flycheck-mode))
