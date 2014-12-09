@@ -191,12 +191,12 @@ Although keybindings are also located elsewhere, this section will aim to provid
 #+END_SRC
 ** From [[https://github.com/technomancy/better-defaults][Better Defaults]]
 #+BEGIN_SRC emacs-lisp
-  (bind-key "M-/" 'hippie-expand)
-  (bind-key "C-x C-b" 'ibuffer)
-  (bind-key "C-s" 'isearch-forward-regexp)
-  (bind-key "C-r" 'isearch-backward-regexp)
-  (bind-key "C-M-s" 'isearch-forward)
-  (bind-key "C-M-r" 'isearch-backward)
+  (bind-keys ("M-/" .  hippie-expand)
+             ("C-x C-b" .  ibuffer)
+             ("C-s" . isearch-forward-regexp)
+             ("C-r" . isearch-backward-regexp)
+             ("C-M-s" . isearch-forward)
+             ("C-M-r" . isearch-backward))
 #+END_SRC
 ** Lines
 Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
@@ -215,36 +215,21 @@ Make C-n insert new lines if the point is at the end of the buffer.
 These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
 
 #+BEGIN_SRC emacs-lisp
-  (bind-key "C-S-n"
-            (lambda ()
-              (interactive)
-              (ignore-errors (next-line 5))))
-  
-  (bind-key "C-S-p"
-            (lambda ()
-              (interactive)
-              (ignore-errors (previous-line 5))))
-  
-  (bind-key "C-S-f"
-            (lambda ()
-              (interactive)
-              (ignore-errors (forward-char 5))))
-  
-  (bind-key "C-S-b"
-            (lambda ()
-              (interactive)
-              (ignore-errors (backward-char 5))))
+  (bind-keys ("C-S-n" . (lambda () (interactive) (ignore-errors (next-line 5))))
+             ("C-S-p" . (lambda () (interactive) (ignore-errors (previous-line 5))))
+             ("C-S-b" . (lambda () (interactive) (ignore-errors (backward-char 5))))
+             ("C-S-f" . (lambda () (interactive) (ignore-errors (forward-char 5)))))
 #+END_SRC
 ** Meta Binds
 Since you don't need three ways to do numeric prefixes, you can [[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][make use of]] meta-binds instead:
 
 #+BEGIN_SRC emacs-lisp
-  (bind-key "M-9" 'sp-backward-sexp)
-  (bind-key "M-0" 'sp-forward-sexp)
-  (bind-key "M-1" 'delete-other-windows)
-  (bind-key "M-%" 'query-replace-regexp)
-  (bind-key "M-5" 'replace-regexp)
-  (bind-key "M-O" 'mode-line-other-buffer)
+  (bind-keys ("M-9" . sp-backward-sexp)
+             ("M-0" . sp-forward-sexp)
+             ("M-1" . delete-other-windows)
+             ("M-%" . query-replace-regexp)
+             ("M-5" . replace-regexp)
+             ("M-O" . mode-line-other-buffer))
 #+END_SRC
 ** Copying and Killing
 ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-configuration/][snippets post]] recommends giving this advice to kill-ring-save and kill-ring, which, if no region is selected, makes C-w and M-w kill or copy the current line. 
@@ -514,7 +499,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+BEGIN_SRC emacs-lisp
   (use-package ace-jump-mode
     :ensure ace-jump-mode
-    :bind ("M-SPC" . ace-jump-mode)
+    :bind ("M-SPC" . ace-jump-char-mode)
     :init
     (use-package ace-jump-buffer
       :ensure ace-jump-buffer)
@@ -535,7 +520,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                ("z" . ace-jump-zap-to-char)
                ("Z" . ace-jump-zap-up-to-char)))
 
-  (bind-key "C-x SPC" 'just-one-space)
+  (bind-key "C-x SPC" 'cycle-spacing)
 #+END_SRC
 ** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
