@@ -50,7 +50,7 @@ When I first copy this set-up into a new machine, I still have to require packag
   (package-initialize)
   (require 'use-package) ;; currently you have to evaluate everything up to here, and grab use-package manually :/
   (use-package diminish
-    :ensure diminish
+    :ensure t
     :init
     (defmacro rename-modeline (package-name mode new-name)
       `(eval-after-load ,package-name
@@ -348,11 +348,11 @@ All of my packages for interacting with my laptop.
     (when (eq system-type 'darwin)
       (add-to-list 'dired-omit-extensions ".DS_STORE"))
     (use-package dired-details
-      :ensure dired-details
+      :ensure t
       :init
       (dired-details-install))
     (use-package dired-subtree
-      :ensure dired-subtree
+      :ensure t
       :init
       (bind-keys :map dired-mode-map
                  :prefix "C-,"
@@ -379,12 +379,12 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
 ** Ag
 #+BEGIN_SRC emacs-lisp
   (use-package ag
-    :ensure ag
+    :ensure t
     :init
     (use-package wgrep
-      :ensure wgrep)
+      :ensure t)
     (use-package wgrep-ag
-      :ensure wgrep-ag)
+      :ensure t)
     :config
     (setq ag-highlight-search t))
 #+END_SRC
@@ -406,20 +406,20 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
     (add-to-list 'completion-ignored-extensions "\\.DS_STORE\\'"))
   (bind-key "C-x C-d" 'ido-dired)
   (use-package ido-vertical-mode
-    :ensure ido-vertical-mode
+    :ensure t
     :init
     (ido-vertical-mode))
   (use-package ido-ubiquitous
-    :ensure ido-ubiquitous
+    :ensure t
     :init
     (ido-ubiquitous-mode 1))
   (use-package flx-ido
-    :ensure flx-ido
+    :ensure t
     :init
     (setq flx-ido-threshold 1000)
     (flx-ido-mode 1))
   (use-package idomenu
-    :ensure idomenu
+    :ensure t
     :bind ("M-I" . idomenu))
 #+END_SRC
 
@@ -433,7 +433,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
-    :ensure smex
+    :ensure t
     :bind (("C-x C-m" . smex)
            ("C-c C-c M-x" . execute-extended-command))
     :init
@@ -445,7 +445,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :disabled t
-    :ensure helm
+    :ensure t
     :init
     (progn
       (require 'helm-config)
@@ -469,18 +469,17 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
             helm-ff-file-name-history-use-recentf t)
       (helm-mode))
     (use-package helm-projectile
-      :ensure helm-projectile)
+      :ensure t)
     (use-package helm-ag
-      :ensure helm-ag)
+      :ensure t)
     (use-package helm-descbinds
-      :ensure helm-descbinds
+      :ensure t
       :bind ("C-h b" . helm-descbinds))
     (bind-keys :map helm-command-map
                ("o" . helm-occur))
     :bind
     (("M-y" . helm-show-kill-ring)))
 #+END_SRC
-
 ** Company Mode
 #+BEGIN_SRC emacs-lisp
   (use-package company-mode
@@ -498,17 +497,17 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ** Ace Jump Mode
 #+BEGIN_SRC emacs-lisp
   (use-package ace-jump-mode
-    :ensure ace-jump-mode
+    :ensure t
     :bind ("M-SPC" . ace-jump-char-mode)
     :init
     (use-package ace-jump-buffer
-      :ensure ace-jump-buffer)
+      :ensure t)
     (use-package ace-link
-      :ensure ace-link
+      :ensure t
       :init
       (ace-link-setup-default))
     (use-package ace-jump-zap
-      :ensure ace-jump-zap)
+      :ensure t)
     (bind-keys :prefix-map ace-jump-map
                :prefix "C-c j"
                ("c" . ace-jump-char-mode)
@@ -527,7 +526,7 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
 *** Configuration
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
-    :ensure expand-region
+    :ensure t
     :bind (("C-@" . er/expand-region)
            ("C-=" . er/expand-region)))
   (pending-delete-mode t)
@@ -535,7 +534,7 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
 *** Extension
 #+BEGIN_SRC emacs-lisp
   (use-package change-inner
-    :ensure change-inner
+    :ensure t
     :bind (("M-i" . change-inner)
            ("M-o" . change-outer)))
 #+END_SRC
@@ -544,17 +543,17 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
 
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
-    :ensure multiple-cursors
+    :ensure t
     :bind 
-     (("C->" . mc/mark-next-like-this)
-      ("C-<" . mc/mark-previous-like-this)
-      ("C-*" . mc/mark-all-like-this)))
+    (("C->" . mc/mark-next-like-this)
+     ("C-<" . mc/mark-previous-like-this)
+     ("C-*" . mc/mark-all-like-this)))
 #+END_SRC EMACS-LISP
 ** Hungry Delete Mode
 Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endless Parentheses]].
 #+BEGIN_SRC emacs-lisp
   (use-package hungry-delete
-    :ensure hungry-delete
+    :ensure t
     :init
     (global-hungry-delete-mode))
 #+END_SRC
@@ -563,7 +562,7 @@ The word "kill" might be antiquated, idiosyncratic jargon, but it's great that E
 
 #+BEGIN_SRC emacs-lisp
   (use-package browse-kill-ring
-    :ensure browse-kill-ring
+    :ensure t
     :bind ("C-x C-y" . browse-kill-ring)
     :config
     (setq browse-kill-ring-quit-action 'kill-and-delete-window))
@@ -598,7 +597,7 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 ** Key Chord mode
 #+BEGIN_SRC emacs-lisp
   (use-package key-chord
-    :ensure key-chord
+    :ensure t
     :init
     (progn 
       (setq key-chord-two-keys-delay .015
@@ -637,7 +636,7 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 ** Golden Ratio
 #+BEGIN_SRC emacs-lisp
   (use-package golden-ratio
-    :ensure golden-ratio
+    :ensure t
     :diminish golden-ratio-mode
     :init
     (golden-ratio-mode 1))
@@ -663,7 +662,7 @@ It initially seemed kind of crazy to me to do these things in Emacs, but since t
 I've enjoyed using Conkeror on my Arch machine. This package brings one neat feature of Conkeror to eww.
 #+BEGIN_SRC emacs-lisp
   (use-package eww-lnum
-    :ensure eww-lnum
+    :ensure t
     :init
     (eval-after-load "eww"
       '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
@@ -722,7 +721,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** IRC (ERC)
 #+BEGIN_SRC emacs-lisp
   (use-package erc
-    :ensure erc
+    :ensure t
     :config
     (setq erc-autojoin-channels-alist '(("freenode.net"
                                          "#emacs"
@@ -734,7 +733,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** Jabber
 #+BEGIN_SRC emacs-lisp
   (use-package jabber
-    :ensure jabber
+    :ensure t
     :init
     (setq jabber-show-offline-contacts nil
           jabber-account-list
@@ -745,7 +744,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** Feeds (Elfeed)
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
-    :ensure elfeed
+    :ensure t
     :bind ("C-c f" . elfeed)
     :config
     (bind-keys :map elfeed-search-mode-map
@@ -756,7 +755,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 #+BEGIN_SRC emacs-lisp
   (use-package twittering-mode
     :disabled t
-    :ensure twittering-mode
+    :ensure t
     :bind ("C-c t" . twit)
     :config
     (bind-keys :map twittering-mode-map
@@ -774,7 +773,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
 *** Clojure Mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
-    :ensure clojure-mode
+    :ensure t
     :init
     (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
     (add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
@@ -782,17 +781,17 @@ I had coded here and there before using Emacs, but it made me fall in love with 
     :config
     (rename-modeline "clojure-mode" clojure-mode "λ")
     (use-package align-cljlet
-      :ensure align-cljlet
+      :ensure t
       :bind ("C-! a a" . align-cljlet))
     (use-package kibit-mode
-      :ensure kibit-mode
+      :ensure t
       :init
       (add-hook 'clojure-mode-hook 'kibit-mode)))
 #+END_SRC
 *** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
-    :ensure clj-refactor
+    :ensure t
     :init
     (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
     :config
@@ -803,7 +802,7 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
 
 #+BEGIN_SRC emacs-lisp
   (use-package cider
-    :ensure cider
+    :ensure t
     :config
     (setq nrepl-hide-special-buffers t
           nrepl-popup-stacktraces-in-repl t
@@ -864,7 +863,7 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
 
 #+BEGIN_SRC emacs-lisp
   (use-package adoc-mode
-    :ensure adoc-mode
+    :ensure t
     :bind (("M-+" . increment-clojure-cookbook))
     :init
     (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
@@ -889,7 +888,7 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
 *** Elisp-Slime-Nav
 #+BEGIN_SRC emacs-lisp
   (use-package elisp-slime-nav
-    :ensure elisp-slime-nav
+    :ensure t
     :diminish elisp-slime-nav-mode
     :init
     (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
@@ -911,7 +910,7 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :disabled t
-    :ensure flycheck
+    :ensure t
     :init
     (global-flycheck-mode))
 #+END_SRC
@@ -920,7 +919,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
-    :ensure magit
+    :ensure t
     :diminish magit-auto-revert-mode
     :bind (("C-x g" . magit-status)
            ("C-c g" . magit-status))
@@ -930,20 +929,20 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       (window-configuration-to-register :magit-fullscreen)
       ad-do-it
       (delete-other-windows))
-  
+
     (defun magit-quit-session ()
       "Restores the previous window configuration and kills the magit buffer"
       (interactive)
       (kill-buffer)
       (jump-to-register :magit-fullscreen))
-  
+
     (bind-keys :map magit-status-mode-map
                ("q" . magit-quit-session)))
 #+END_SRC
 ** smartparens
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
-    :ensure smartparens
+    :ensure t
     :diminish smartparens-mode
     :bind
     (("C-M-f" . sp-forward-sexp)
@@ -991,14 +990,14 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       (bind-keys ("<s-right>" . sp-forward-slurp-sexp)
                  ("<s-left>" . sp-forward-barf-sexp)))
     (use-package rainbow-delimiters
-      :ensure rainbow-delimiters
+      :ensure t
       :init
       (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
 #+END_SRC
 ** Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :ensure projectile
+    :ensure t
     :bind ("M-p" . projectile-find-file)
     :diminish projectile-mode
     :init
@@ -1008,14 +1007,14 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 ** Floobits
 #+BEGIN_SRC emacs-lisp
   (use-package floobits
-    :ensure floobits)
+    :ensure t)
 #+END_SRC
 ** linum-relative
 When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
 
 #+BEGIN_SRC emacs-lisp
   (use-package linum-relative
-    :ensure linum-relative
+    :ensure t
     :init
     (setq linum-format 'linum-relative)
     :config
@@ -1024,13 +1023,13 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
 ** comment-dwim-2
 #+BEGIN_SRC emacs-lisp
   (use-package comment-dwim-2
-    :ensure comment-dwim-2
+    :ensure t
     :bind ("M-;" . comment-dwim-2))
 #+END_SRC
 ** aggressive-indent
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
-    :ensure aggressive-indent
+    :ensure t
     :diminish aggressive-indent-mode
     :init
     (global-aggressive-indent-mode 1)
