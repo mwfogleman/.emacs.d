@@ -914,7 +914,9 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
     :init
     (global-flycheck-mode))
 #+END_SRC
-** Magit
+** Git
+I understand that some beardy-folks are worried that the ubiquity of Github will cause people to equate it with Git, and forget that you can use Git without Github. I don't worry about that- I worry about forgetting how to use Git itself. Magit has spoiled me!
+
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
 
 #+BEGIN_SRC emacs-lisp
@@ -923,6 +925,10 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     :diminish magit-auto-revert-mode
     :bind (("C-x g" . magit-status)
            ("C-c g" . magit-status))
+    :init
+    (use-package git-timemachine
+      :ensure t
+      :bind (("C-x v t" . git-timemachine)))
     :config
     (setq magit-use-overlays nil)
     (defadvice magit-status (around magit-fullscreen activate)
