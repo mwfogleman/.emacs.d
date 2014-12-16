@@ -929,6 +929,11 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (use-package git-timemachine
       :ensure t
       :bind (("C-x v t" . git-timemachine)))
+    (use-package git-link
+      :ensure t
+      :bind (("C-x v L" . git-link))
+      :init
+      (setq git-link-open-in-browser t))
     :config
     (setq magit-use-overlays nil)
     (defadvice magit-status (around magit-fullscreen activate)
