@@ -790,6 +790,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
       :ensure t
       :bind ("C-! a a" . align-cljlet))
     (use-package kibit-mode
+      :disabled t
       :ensure t
       :init
       (add-hook 'clojure-mode-hook 'kibit-mode)))
