@@ -812,17 +812,12 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
           cider-auto-select-error-buffer nil
           cider-repl-pop-to-buffer-on-connect nil
           cider-show-error-buffer nil)
-    (defun cider-namespace-refresh ()
-      (interactive)
-      (cider-interactive-eval
-       "(require 'clojure.tools.namespace.repl)
-    (clojure.tools.namespace.repl/refresh)"))
     (defun cider-use-repl-tools ()
       (interactive)
       (cider-interactive-eval
        "(use 'clojure.repl)"))
     
-    (bind-key "M-r" 'cider-namespace-refresh cider-repl-mode-map)
+    (bind-key "M-r" 'cider-refresh cider-repl-mode-map)
     (bind-key "M-R" 'cider-use-repl-tools cider-repl-mode-map)
     
     ;; this snippet comes from schmir https://github.com/schmir/.emacs.d/blob/master/lisp/setup-clojure.el
