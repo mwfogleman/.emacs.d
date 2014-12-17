@@ -401,8 +401,12 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
   (setq ido-enable-flex-matching t
         ido-everywhere t
         ido-use-faces nil ;; disable ido faces to see flx highlights.
-        ido-create-new-buffer 'always
-        ido-use-filename-at-point 'guess)
+        ido-create-new-buffer 'always)
+  ;; suppress  "reference to free variable problems"
+  (setq ido-cur-item nil
+        ido-context-switch-command nil
+        ido-cur-list nil
+        ido-default-item nil)
   (ido-mode 1)
   (when (eq system-type 'darwin)
     (add-to-list 'completion-ignored-extensions "\\.DS_STORE\\'"))
