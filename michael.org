@@ -1168,6 +1168,11 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     (bind-keys ("C-c w" . open-wiki)
                ("C-c W" . browse-wiki)))
 #+END_SRC
+** Markdown
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure t)
+#+END_SRC
 ** Calc
 #+BEGIN_SRC emacs-lisp
   (use-package calc
