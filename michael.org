@@ -235,15 +235,9 @@ Since you don't need three ways to do numeric prefixes, you can [[http://endless
 ** Copying and Killing
 ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-configuration/][snippets post]] recommends giving this advice to kill-ring-save and kill-ring, which, if no region is selected, makes C-w and M-w kill or copy the current line. 
 
+Currently, I just advise kill-region (C-w), as M-w is taken over by easy-kill.
+
 #+BEGIN_SRC emacs-lisp
-  (defadvice kill-ring-save (before slick-copy activate compile)
-    "When called interactively with no active region, copy a single line instead."
-    (interactive
-     (if mark-active (list (region-beginning) (region-end))
-       (message "Copied line")
-       (list (line-beginning-position)
-             (line-beginning-position 2)))))
-  
   (defadvice kill-region (before slick-cut activate compile)
     "When called interactively with no active region, kill a single line instead."
     (interactive
@@ -562,6 +556,12 @@ Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endles
     :ensure t
     :init
     (global-hungry-delete-mode))
+#+END_SRC
+** easy-kill
+#+BEGIN_SRC emacs-lisp
+  (use-package easy-kill
+    :ensure t
+    :bind ("M-w" . easy-kill))
 #+END_SRC
 ** Kill Ring
 The word "kill" might be antiquated, idiosyncratic jargon, but it's great that Emacs keeps track of what's been killed. The package "Browse Kill Ring" is crucial to making that functionality visible and usable.
