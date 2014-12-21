@@ -304,6 +304,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
   (bind-keys :map launcher-map
              ("a" . ansi-term)
              ("c" . calc)
+             ("C" . calendar)
              ("d" . ediff-buffers)
              ("e" . eshell)
              ("h" . man)
