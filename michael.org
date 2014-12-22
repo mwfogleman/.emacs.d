@@ -1022,6 +1022,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 ** Floobits
 #+BEGIN_SRC emacs-lisp
   (use-package floobits
+    :disabled t
     :ensure t)
 #+END_SRC
 ** linum-relative
