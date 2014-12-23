@@ -382,6 +382,8 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
     (use-package wgrep-ag
       :ensure t)
     :config
+    (bind-keys :map ag-mode-map
+               ("q" . kill-this-buffer))
     (setq ag-highlight-search t))
 #+END_SRC
 * Emacs
