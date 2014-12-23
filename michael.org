@@ -486,7 +486,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     :ensure t
     :bind ("C-." . company-complete)
     :init
-    (add-hook 'prog-mode-hook 'company-mode)
+    (global-company-mode 1)
     :config
     (diminish 'company-mode)
     (bind-keys :map company-active-map
