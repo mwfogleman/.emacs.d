@@ -921,7 +921,7 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
     (global-flycheck-mode))
 #+END_SRC
 ** Git
-I understand that some beardy-folks are worried that the ubiquity of Github will cause people to equate it with Git, and forget that you can use Git without Github. I don't worry about that- I worry about forgetting how to use Git itself. Magit has spoiled me!
+I understand that some beardy-folks are worried that the ubiquity of Github will cause people to equate it with Git, and forget that you can use Git without Github. I don't worry about that- I worry about forgetting how to use Git itself (or the CLI, at least). Magit has spoiled me!
 
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
 
@@ -955,6 +955,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       (jump-to-register :magit-fullscreen))
 
     (bind-keys :map magit-status-mode-map
+               ("TAB" . magit-section-toggle)
+               ("<C-tab>" . magit-section-cycle)
                ("q" . magit-quit-session)))
 #+END_SRC
 ** smartparens
