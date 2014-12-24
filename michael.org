@@ -927,8 +927,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
-    :ensure t
-    :diminish magit-auto-revert-mode
+    :load-path "~/.emacs.d/site-lisp/magit"
     :bind (("C-x g" . magit-status)
            ("C-c g" . magit-status))
     :init
@@ -942,6 +941,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       (setq git-link-open-in-browser t))
     :config
     (setq magit-use-overlays nil)
+    (diminish 'magit-auto-revert-mode)
+    (diminish 'magit-backup-mode)
     (defadvice magit-status (around magit-fullscreen activate)
       (window-configuration-to-register :magit-fullscreen)
       ad-do-it
