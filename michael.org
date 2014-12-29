@@ -110,7 +110,7 @@ Finally, I diminish some built-in minor modes.
   (diminish 'isearch-mode)
 #+END_SRC
 ** Window handling
-To handle windows intelligently, I use the windmove functionality, along with some special functionality for Org where windmove is active in locations where Org Mode does not have special functions.
+To handle windows intelligently, I use the built-in windmove functionality. I also add some special functionality for Org where windmove is active in locations where Org Mode does not have special functions.
 
 #+BEGIN_SRC emacs-lisp
   (windmove-default-keybindings)
@@ -1151,11 +1151,7 @@ I use the stock package of org-mode as the default major mode.
             ("\\.pdf\\'" . "evince %s")))
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
-    (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
-    (add-hook 'org-shiftup-final-hook 'windmove-up)
-    (add-hook 'org-shiftleft-final-hook 'windmove-left)
-    (add-hook 'org-shiftdown-final-hook 'windmove-down)
-    (add-hook 'org-shiftright-final-hook 'windmove-right))
+    (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-")))
 #+END_SRC
 My settings for capture were some of my first Elisp :) I did need, and still need, the help of the  [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
 
