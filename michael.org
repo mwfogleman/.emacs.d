@@ -620,11 +620,16 @@ This snippet automatically saves buffers in an intelligent way. It was originall
 
 #+BEGIN_SRC emacs-lisp
   (defun auto-save-command ()
-    (when (and buffer-file-name
-               (buffer-modified-p (current-buffer))
-               (file-writable-p buffer-file-name)
-               (not org-src-mode))
-      (save-buffer)))
+    (let* ((basic (and buffer-file-name
+                       (buffer-modified-p (current-buffer))
+                       (file-writable-p buffer-file-name)
+                       (not org-src-mode)))
+           (proj (and (projectile-project-p)
+                      basic)))
+      (if proj
+          (projectile-save-project-buffers)
+        (when basic
+          (save-buffer)))))
 
   (defmacro advise-commands (advice-name commands class &rest body)
     "Apply advice named ADVICE-NAME to multiple COMMANDS.
@@ -636,7 +641,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
                  commands)))
 
   (advise-commands "auto-save"
-                   (ido-switch-buffer ace-window windmove-up windmove-down windmove-left windmove-right)
+                   (ido-switch-buffer ace-window magit-status windmove-up windmove-down windmove-left windmove-right)
                    before
                    (auto-save-command))
 
