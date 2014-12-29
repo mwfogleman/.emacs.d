@@ -610,7 +610,13 @@ I also rebind the find-file-read-only with ido-recent-files functionality, which
         (message "Aborting")))
     :bind ("C-x C-r" . ido-recentf-open))
 #+END_SRC
-** Save Place
+** Saving
+*** Auto Revert Mode
+Revert buffers automatically when underlying files are changed externally.
+#+BEGIN_SRC emacs-lisp
+  (global-auto-revert-mode t)
+#+END_SRC
+*** Save Place
 This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 
 #+BEGIN_SRC emacs-lisp
