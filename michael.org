@@ -611,6 +611,34 @@ I also rebind the find-file-read-only with ido-recent-files functionality, which
     :bind ("C-x C-r" . ido-recentf-open))
 #+END_SRC
 ** Saving
+*** Automatic Saving
+This snippet automatically saves buffers in an intelligent way. It was originally mentioned in a post by [[http://batsov.com/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch/][Bozhidar Batsov]]; the version below is adapted from his [[https://github.com/bbatsov/prelude/blob/76c2e990709d5c5cd1c48ee1e8df29e4069ed06a/core/prelude-editor.el][Prelude]] distribution and his post on [[http://emacsredux.com/blog/2014/03/22/a-peek-at-emacs-24-dot-4-focus-hooks/][focus hooks]] in Emacs 24.4.
+
+#+BEGIN_SRC emacs-lisp
+  (defun auto-save-command ()
+    (when (and buffer-file-name
+               (buffer-modified-p (current-buffer))
+               (file-writable-p buffer-file-name)
+               (not org-src-mode))
+      (save-buffer)))
+
+  (defmacro advise-commands (advice-name commands class &rest body)
+    "Apply advice named ADVICE-NAME to multiple COMMANDS.
+  The body of the advice is in BODY."
+    `(progn
+       ,@(mapcar (lambda (command)
+                   `(defadvice ,command (,class ,(intern (concat (symbol-name command) "-" advice-name)) activate)
+                      ,@body))
+                 commands)))
+
+  (advise-commands "auto-save"
+                   (ido-switch-buffer other-window windmove-up windmove-down windmove-left windmove-right)
+                   before
+                   (auto-save-command))
+
+  (add-hook 'mouse-leave-buffer-hook 'auto-save-command)
+  (add-hook 'focus-out-hook 'auto-save-command)
+#+END_SRC
 *** Auto Revert Mode
 Revert buffers automatically when underlying files are changed externally.
 #+BEGIN_SRC emacs-lisp
