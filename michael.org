@@ -49,7 +49,16 @@ When I first copy this set-up into a new machine, I still have to require packag
                '("melpa" . "http://melpa.org/packages/") t)
   (setq load-prefer-newer t)
   (require 'use-package) ;; currently you have to evaluate everything up to here, and grab use-package manually :/
-
+#+END_SRC
+*** Paradox
+#+BEGIN_SRC emacs-lisp
+  (use-package paradox
+    :ensure t
+    :config
+    (setq paradox-execute-asynchronously t))
+#+END_SRC
+*** Diminish
+#+BEGIN_SRC emacs-lisp
   (use-package diminish
     :ensure t
     :init
@@ -324,7 +333,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("d" . ediff-buffers)
              ("e" . eshell)
              ("h" . man)
-             ("p" . list-packages)
+             ("p" . paradox-upgrade-packages)
              ("P" . proced))
 #+END_SRC
 * System
