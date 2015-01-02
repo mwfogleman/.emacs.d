@@ -333,7 +333,8 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("d" . ediff-buffers)
              ("e" . eshell)
              ("h" . man)
-             ("p" . paradox-upgrade-packages)
+             ("l" . paradox-list-packages)
+             ("u" . paradox-upgrade-packages)
              ("P" . proced))
 #+END_SRC
 * System
