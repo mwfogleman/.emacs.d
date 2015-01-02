@@ -253,8 +253,7 @@ Since you don't need three ways to do numeric prefixes, you can [[http://endless
   (bind-keys ("M-9" . sp-backward-sexp)
              ("M-0" . sp-forward-sexp)
              ("M-1" . delete-other-windows)
-             ("M-%" . query-replace-regexp)
-             ("M-5" . replace-regexp)
+             ("M-2" . ace-window)
              ("M-O" . mode-line-other-buffer))
 #+END_SRC
 ** Copying and Killing
@@ -539,7 +538,10 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
       :ensure t)
     (use-package ace-window
       :ensure t
-      :bind ("C-x o" . ace-window))
+      :bind ("C-x o" . ace-window)
+      :init
+      (setq aw-background nil)
+      (setq aw-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
     (bind-keys :prefix-map ace-jump-map
                :prefix "C-c j"
                ("c" . ace-jump-char-mode)
