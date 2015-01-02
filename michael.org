@@ -196,10 +196,6 @@ The following advice makes the upcase/downcase/capitalize-word functions more us
     (unless (looking-back "\\b")
       (backward-word)))
 #+END_SRC
-*** Mac Related
-#+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin) (set-face-attribute 'default nil :height 165))
-#+END_SRC
 *** Private Files
 #+BEGIN_SRC emacs-lisp
   (load "~/.emacs.d/secrets.el" t)
@@ -338,6 +334,27 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 #+END_SRC
 * System
 All of my packages for interacting with my laptop.
+** OS
+*** OS X
+**** Mac Related
+#+BEGIN_SRC emacs-lisp
+  (defun is-mac-p
+      ()
+    (eq system-type 'darwin))
+
+  (when (is-mac-p) (setq osx t))
+#+END_SRC
+**** Face Attributes
+#+BEGIN_SRC emacs-lisp
+  (when (is-mac-p)
+    (set-face-attribute 'default nil :height 165))
+#+END_SRC
+**** Reveal In Finder
+#+BEGIN_SRC emacs-lisp
+  (use-package reveal-in-finder
+    :if osx
+    :ensure t)
+#+END_SRC
 ** Shell
 #+BEGIN_SRC emacs-lisp
   (use-package shell
@@ -990,7 +1007,12 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
     (use-package go-eldoc
       :ensure t
       :config
-      (go-eldoc-setup)))
+      (go-eldoc-setup))
+    (use-package company-go
+      :ensure t)
+    :config
+    (add-hook 'go-mode-hook
+              (lambda () (set (make-local-variable 'company-backends) '(company-go)))))
 #+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
