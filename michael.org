@@ -528,11 +528,11 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
+    :diminish company-mode
     :bind ("C-." . company-complete)
     :init
     (global-company-mode 1)
     :config
-    (diminish 'company-mode)
     (bind-keys :map company-active-map
                ("C-n" . company-select-next)
                ("C-p" . company-select-previous)
@@ -1024,6 +1024,7 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t
+    :diminish flycheck-mode
     :init
     (global-flycheck-mode))
 #+END_SRC
