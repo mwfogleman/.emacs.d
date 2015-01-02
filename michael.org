@@ -738,8 +738,13 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
     :init
     (golden-ratio-mode 1))
 #+END_SRC
-** Regex Builder
+** Regexes
 #+BEGIN_SRC emacs-lisp
+  (use-package visual-regexp
+    :ensure t
+    :bind (("M-5" . vr/replace)
+           ("M-%" . vr/query-replace)))
+
   (use-package re-builder
     :init
     (setq reb-re-syntax 'string))
