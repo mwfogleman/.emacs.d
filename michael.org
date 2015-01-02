@@ -847,10 +847,10 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
           twittering-use-icon-storage t))
 #+END_SRC
 * Development
-I had coded here and there before using Emacs, but it made me fall in love with programming! Here are language-specific (largely Lisps) or development-related packages.
-
-** Clojure
-*** Clojure Mode
+Here are language-specific (largely Lisps) or development-related packages.
+** Languages
+*** Clojure
+**** Clojure Mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
     :ensure t
@@ -869,7 +869,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
       :init
       (add-hook 'clojure-mode-hook 'kibit-mode)))
 #+END_SRC
-*** Clojure Refactor
+**** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
     :ensure t
@@ -878,7 +878,7 @@ I had coded here and there before using Emacs, but it made me fall in love with 
     :config
     (cljr-add-keybindings-with-prefix "C-!"))
 #+END_SRC
-*** CIDER
+**** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
 
 #+BEGIN_SRC emacs-lisp
@@ -911,7 +911,7 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
     ;; fix cond indenting
     (put 'cond 'clojure-backtracking-indent '(2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4)))
 #+END_SRC
-*** Clojure Cookbook
+**** Clojure Cookbook
 I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs with AsciiDoc mode. 
 
 There are a lot of short chapters, so I whipped up this Elisp to switch between them.
@@ -946,7 +946,7 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
     (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
     (add-hook 'adoc-mode-hook 'cider-mode))
 #+END_SRC
-** Common Lisp
+*** Common Lisp
 "Take this REPL, brother, and may it serve you well."
 
 #+BEGIN_SRC emacs-lisp
@@ -961,8 +961,8 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
     (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
     (add-to-list 'slime-contribs 'slime-fancy))
 #+END_SRC
-** Emacs Lisp
-*** Elisp-Slime-Nav
+*** Emacs Lisp
+**** Elisp-Slime-Nav
 #+BEGIN_SRC emacs-lisp
   (use-package elisp-slime-nav
     :ensure t
@@ -971,7 +971,7 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
     (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
       (add-hook hook 'elisp-slime-nav-mode)))
 #+END_SRC
-*** Eldoc
+**** Eldoc
 When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip and code, Sacha.
 
 #+BEGIN_SRC emacs-lisp
@@ -981,6 +981,16 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+#+END_SRC
+*** Go
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode
+    :ensure t
+    :init
+    (use-package go-eldoc
+      :ensure t
+      :config
+      (go-eldoc-setup)))
 #+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
