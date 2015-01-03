@@ -52,6 +52,9 @@ When I first copy this set-up into a new machine, I still have to require packag
 #+END_SRC
 *** Paradox
 #+BEGIN_SRC emacs-lisp
+  (use-package async
+    :ensure t)
+
   (use-package paradox
     :ensure t
     :config
