@@ -1381,9 +1381,9 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
           (date (if (equal arg nil)
                     (format-time-string "%Y/%m/%d")
                   (read-string "When did you contact them? (year/month/date): "))))
-      (keptintouch-contact date)))
+      (keptintouch-contact)))
 
-  (defun keptintouch-contact (date)
+  (defun keptintouch-contact ()
     "Navigates the keepintouch.data file."
     (save-excursion
       (find-file keepintouch-datafile)
