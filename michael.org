@@ -322,9 +322,8 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 #+END_SRC
 ** [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][Launcher Map]]
 #+BEGIN_SRC emacs-lisp
-  (define-prefix-command 'launcher-map)
-  (bind-key "C-x l" 'launcher-map)
-  (bind-keys :map launcher-map
+  (bind-keys :prefix-map launcher-map
+             :prefix "C-x l"
              ("a" . ansi-term)
              ("c" . calc)
              ("C" . calendar)
@@ -334,6 +333,8 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("h" . man)
              ("l" . paradox-list-packages)
              ("u" . paradox-upgrade-packages)
+             ("p l" . paradox-list-packages)
+             ("p u" . paradox-upgrade-packages)
              ("P" . proced))
 #+END_SRC
 * System
