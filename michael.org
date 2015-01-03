@@ -342,7 +342,8 @@ All of my packages for interacting with my laptop.
       ()
     (eq system-type 'darwin))
 
-  (when (is-mac-p) (setq osx t))
+  (if (is-mac-p) (setq osx t)
+    (setq osx nil))
 #+END_SRC
 **** Face Attributes
 #+BEGIN_SRC emacs-lisp
