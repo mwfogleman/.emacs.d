@@ -330,6 +330,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("C" . calendar)
              ("d" . ediff-buffers)
              ("e" . eshell)
+             ("E" . eww)
              ("h" . man)
              ("l" . paradox-list-packages)
              ("u" . paradox-upgrade-packages)
