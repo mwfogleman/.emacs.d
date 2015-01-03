@@ -435,6 +435,26 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
 #+END_SRC
 * Emacs
 These are helper packages that make Emacs even more awesome.
+** God
+#+BEGIN_SRC emacs-lisp
+  (use-package god-mode
+    :ensure t
+    :init
+    (defun update-cursor ()
+      (setq cursor-type (if (or god-local-mode buffer-read-only)
+                            'bar
+                          'box)))
+    (add-hook 'god-mode-enabled-hook 'update-cursor)
+    (add-hook 'god-mode-disabled-hook 'update-cursor)
+    :config
+    (bind-keys :map launcher-map
+               ("g" . god-local-mode))
+    (bind-keys :map god-local-mode-map
+               ("z" . repeat)
+               ("." . repeat)
+               ("i" . god-local-mode))
+    (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
+#+END_SRC
 ** IDO
 [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
 
