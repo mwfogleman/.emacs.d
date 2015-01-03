@@ -702,6 +702,8 @@ This snippet automatically saves buffers in an intelligent way. It was originall
 
   (add-hook 'mouse-leave-buffer-hook 'auto-save-command)
   (add-hook 'focus-out-hook 'auto-save-command)
+
+  (unbind-key "C-x C-s")
 #+END_SRC
 *** Auto Revert Mode
 Revert buffers automatically when underlying files are changed externally.
