@@ -48,7 +48,11 @@ When I first copy this set-up into a new machine, I still have to require packag
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.org/packages/") t)
   (setq load-prefer-newer t)
-  (require 'use-package) ;; currently you have to evaluate everything up to here, and grab use-package manually :/
+  (package-initialize)
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (require 'use-package)
 #+END_SRC
 *** Paradox
 #+BEGIN_SRC emacs-lisp
