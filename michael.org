@@ -1096,7 +1096,9 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (bind-keys :map magit-status-mode-map
                ("TAB" . magit-section-toggle)
                ("<C-tab>" . magit-section-cycle)
-               ("q" . magit-quit-session)))
+               ("q" . magit-quit-session))
+    (bind-keys :map magit-branch-section-map
+               ("RET" . magit-checkout)))
 #+END_SRC
 ** smartparens
 #+BEGIN_SRC emacs-lisp
