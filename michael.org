@@ -1331,10 +1331,10 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
   (use-package number
     :ensure t
     :bind
-    (("C-c +" . number/add)
-     ("C-c -" . number/sub)
-     ("C-c *" . number/multiply)
-     ("C-c /" . number/divide)))
+    (("C-c C-+" . number/add)
+     ("C-c C--" . number/sub)
+     ("C-c C-*" . number/multiply)
+     ("C-c C-/" . number/divide)))
 #+END_SRC
 ** Gnuplot
 #+BEGIN_SRC emacs-lisp
