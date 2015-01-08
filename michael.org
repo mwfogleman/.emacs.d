@@ -1386,35 +1386,33 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
           (date (if (equal arg nil)
                     (format-time-string "%Y/%m/%d")
                   (read-string "When did you contact them? (year/month/date): "))))
-      (keptintouch-contact)))
+      (save-excursion
+        (find-file keepintouch-datafile)
+        (goto-char (point-min))
+        (search-forward contact)
+        (forward-line -1)
+        (beginning-of-line)
+        (kill-line)
+        (insert date)
+        (save-buffer)
+        (switch-to-buffer (other-buffer))
+        (kill-buffer (other-buffer)))
+      (message "%s was contacted." contact)))
 
-  (defun keptintouch-contact ()
-    "Navigates the keepintouch.data file."
-    (save-excursion
-      (find-file keepintouch-datafile)
-      (goto-char (point-min))
-      (search-forward contact)
-      (forward-line -1)
-      (beginning-of-line)
-      (kill-line)
-      (insert date)
-      (save-buffer)
-      (switch-to-buffer (other-buffer))
-      (kill-buffer (other-buffer)))
-    (message "%s was contacted." contact))
-
-  (defun keptintouch-clojure ()
+  (defun keptintouch-backlog ()
     "Create a buffer with Keep In Touch backlog."
     (interactive)
     (let ((src "~/src/keepintouch/clj/keepintouch")
           (jar "-jar target/uberjar/keepintouch-0.1.0-SNAPSHOT-standalone.jar")
           (cur default-directory)) 
       (cd src)
-      (shell-command (concat "java " jar " " keepintouch-datafile " schedule backlog | less") "*Keep In Touch Backlog*")
+      (shell-command
+       (concat "java " jar " " keepintouch-datafile " schedule backlog")
+       "*Keep In Touch Backlog*")
       (cd cur)))
 
   (bind-keys ("C-c k" . keptintouch)
-             ("C-c K" . keptintouch-clojure))
+             ("C-c K" . keptintouch-backlog))
 #+END_SRC
 ** Buffer Management
 *** Open Org Agenda
