@@ -71,7 +71,8 @@ When I first copy this set-up into a new machine, I still have to require packag
     (defmacro rename-modeline (package-name mode new-name)
       `(eval-after-load ,package-name
          '(defadvice ,mode (after rename-modeline activate)
-            (setq mode-name ,new-name)))))
+            (setq mode-name ,new-name))))
+    (diminish 'isearch-mode))
 #+END_SRC
 ** Turn off unnecessary graphical features
 *** Tool Bar
@@ -252,10 +253,7 @@ These keybindings for movement come from [[http://whattheemacsd.com/key-bindings
 Since you don't need three ways to do numeric prefixes, you can [[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][make use of]] meta-binds instead:
 
 #+BEGIN_SRC emacs-lisp
-  (bind-keys ("M-9" . sp-backward-sexp)
-             ("M-0" . sp-forward-sexp)
-             ("M-1" . delete-other-windows)
-             ("M-2" . ace-window)
+  (bind-keys ("M-1" . delete-other-windows)
              ("M-O" . mode-line-other-buffer))
 #+END_SRC
 ** Copying and Killing
@@ -319,7 +317,6 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
   (bind-keys :map toggle-map
              ("l" . linum-mode)
              ("o" . org-mode)
-             ("s" . smartparens-mode)
              ("t" . text-mode)
              ("w" . whitespace-mode))
 #+END_SRC
@@ -572,7 +569,8 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+BEGIN_SRC emacs-lisp
   (use-package ace-jump-mode
     :ensure t
-    :bind ("M-SPC" . ace-jump-char-mode)
+    :bind (("M-SPC" . ace-jump-char-mode)
+           ("M-2" . ace-window))
     :init
     (use-package ace-jump-buffer
       :ensure t)
@@ -609,7 +607,9 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
   (use-package expand-region
     :ensure t
     :bind (("C-@" . er/expand-region)
-           ("C-=" . er/expand-region)))
+           ("C-=" . er/expand-region)
+           ("M-3" . er/expand-region)))
+
   (pending-delete-mode t)
 #+END_SRC
 *** Extension
@@ -1150,11 +1150,14 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
      ("H-s p" . sp-add-to-previous-sexp)
      ("H-s n" . sp-add-to-next-sexp)
      ("H-s j" . sp-join-sexp)
-     ("H-s s" . sp-split-sexp))
+     ("H-s s" . sp-split-sexp)
+     ("M-9" . sp-backward-sexp)
+     ("M-0" . sp-forward-sexp))
     :init
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
     (use-package smartparens-config)
+    (bind-key "s" 'smartparens-mode toggle-map)
     (when (eq system-type 'darwin)
       (bind-keys ("<s-right>" . sp-forward-slurp-sexp)
                  ("<s-left>" . sp-forward-barf-sexp)))
