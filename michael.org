@@ -1258,6 +1258,7 @@ I use the stock package of org-mode as the default major mode.
           org-lowest-priority 68
           org-default-priority 68
           org-agenda-files (quote ("~/org/tech.org"
+                                   "~/org/cml.org"
                                    "~/org/meditation.org"
                                    "~/org/work.org"
                                    "~/org/money.org"
@@ -1286,6 +1287,7 @@ I use the stock package of org-mode as the default major mode.
             ("\\.mm\\'" . default)
             ("\\.x?html?\\'" . "firefox %s")
             ("\\.pdf\\'" . "evince %s")))
+    (diminish 'org-indent-mode)
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
     (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-")))
