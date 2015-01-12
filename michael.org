@@ -699,7 +699,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
                  commands)))
 
   (advise-commands "auto-save"
-                   (ido-switch-buffer ace-window magit-status windmove-up windmove-down windmove-left windmove-right)
+                   (ido-switch-buffer ace-window magit-status windmove-up windmove-down windmove-left windmove-right mode-line-other-buffer)
                    before
                    (auto-save-command))
 
