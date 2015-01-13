@@ -918,14 +918,10 @@ Here are language-specific (largely Lisps) or development-related packages.
     (add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
     :config
     (rename-modeline "clojure-mode" clojure-mode "λ")
+    (add-hook 'clojure-mode-hook 'flycheck-mode)
     (use-package align-cljlet
       :ensure t
-      :bind ("C-! a a" . align-cljlet))
-    (use-package kibit-mode
-      :disabled t
-      :ensure t
-      :init
-      (add-hook 'clojure-mode-hook 'kibit-mode)))
+      :bind ("C-! a a" . align-cljlet)))
 #+END_SRC
 **** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
