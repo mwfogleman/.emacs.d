@@ -1161,6 +1161,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (when (eq system-type 'darwin)
       (bind-keys ("<s-right>" . sp-forward-slurp-sexp)
                  ("<s-left>" . sp-forward-barf-sexp)))
+    (sp-with-modes '(markdown-mode gfm-mode)
+      (sp-local-pair "*" "*"))
     (use-package rainbow-delimiters
       :ensure t
       :init
