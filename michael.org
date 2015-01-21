@@ -221,7 +221,6 @@ Although keybindings are also located elsewhere, this section will aim to provid
 ** From [[https://github.com/technomancy/better-defaults][Better Defaults]]
 #+BEGIN_SRC emacs-lisp
   (bind-keys ("M-/" .  hippie-expand)
-             ("C-x C-b" .  ibuffer)
              ("C-s" . isearch-forward-regexp)
              ("C-r" . isearch-backward-regexp)
              ("C-M-s" . isearch-forward)
@@ -1176,7 +1175,16 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     :diminish projectile-mode
     :init
     (projectile-global-mode)
-    (setq projectile-enable-caching t))
+    (setq projectile-enable-caching t)
+    (use-package ibuffer-projectile
+      :ensure t
+      :bind ("C-x C-b" . ibuffer)
+      :init
+      (add-hook 'ibuffer-hook
+                (lambda ()
+                  (ibuffer-projectile-set-filter-groups)
+                  (unless (eq ibuffer-sorting-mode 'alphabetic)
+                    (ibuffer-do-sort-by-alphabetic))))))
 #+END_SRC
 ** Floobits
 #+BEGIN_SRC emacs-lisp
