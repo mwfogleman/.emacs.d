@@ -435,6 +435,25 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
 #+END_SRC
 * Emacs
 These are helper packages that make Emacs even more awesome.
+** Windows
+*** Fullscreen
+#+BEGIN_SRC emacs-lisp
+  (use-package fullframe
+    :ensure t)
+#+END_SRC
+*** Golden Ratio
+#+BEGIN_SRC emacs-lisp
+  (use-package golden-ratio
+    :ensure t
+    :diminish golden-ratio-mode
+    :init
+    (golden-ratio-mode 1))
+#+END_SRC
+*** Winner Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package winner
+    :init (winner-mode))
+#+END_SRC
 ** God
 #+BEGIN_SRC emacs-lisp
   (use-package god-mode
@@ -760,14 +779,6 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
       (key-chord-define-global "-l" "_")
       (key-chord-define emacs-lisp-mode-map "7f" "&optional ")))
 #+END_SRC
-** Golden Ratio
-#+BEGIN_SRC emacs-lisp
-  (use-package golden-ratio
-    :ensure t
-    :diminish golden-ratio-mode
-    :init
-    (golden-ratio-mode 1))
-#+END_SRC
 ** Regexes
 #+BEGIN_SRC emacs-lisp
   (use-package visual-regexp
@@ -778,11 +789,6 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
   (use-package re-builder
     :init
     (setq reb-re-syntax 'string))
-#+END_SRC
-** Winner Mode
-#+BEGIN_SRC emacs-lisp
-  (use-package winner
-    :init (winner-mode))
 #+END_SRC
 * Networked
 It initially seemed kind of crazy to me to do these things in Emacs, but since they are text-heavy, it ultimately makes a lot of sense.
@@ -1089,21 +1095,11 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (setq magit-use-overlays nil)
     (diminish 'magit-auto-revert-mode)
     (diminish 'magit-backup-mode)
-    (defadvice magit-status (around magit-fullscreen activate)
-      (window-configuration-to-register :magit-fullscreen)
-      ad-do-it
-      (delete-other-windows))
-
-    (defun magit-quit-session ()
-      "Restores the previous window configuration and kills the magit buffer"
-      (interactive)
-      (kill-buffer)
-      (jump-to-register :magit-fullscreen))
-
+    (fullframe magit-status magit-mode-quit-window nil)
+  
     (bind-keys :map magit-status-mode-map
                ("TAB" . magit-section-toggle)
-               ("<C-tab>" . magit-section-cycle)
-               ("q" . magit-quit-session))
+               ("<C-tab>" . magit-section-cycle))
     (bind-keys :map magit-branch-section-map
                ("RET" . magit-checkout)))
 #+END_SRC
@@ -1447,10 +1443,10 @@ This function opens the agenda in full screen.
         (unless (equal (buffer-name (current-buffer)) agenda)
           (switch-to-buffer agenda))
         (org-agenda-redo t)
-        (beginning-of-buffer)))
-    (delete-other-windows))
-  
+        (beginning-of-buffer))))
+
   (bind-key "<f5>" 'open-agenda)
+  (fullframe open-agenda org-agenda-quit)
 #+END_SRC
 *** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
