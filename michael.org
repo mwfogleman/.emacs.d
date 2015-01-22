@@ -336,6 +336,23 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("p u" . paradox-upgrade-packages)
              ("P" . proced))
 #+END_SRC
+** Macros
+[[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
+
+#+BEGIN_SRC emacs-lisp
+  (bind-keys :prefix-map macro-map
+             :prefix "C-c m"
+             ("b" . kmacro-bind-to-key)
+             ("k" . kmacro-end-or-call-macro-repeat)
+             ("n" . kmacro-cycle-ring-next)
+             ("p" . kmacro-cycle-ring-previous)
+             ("a" . kmacro-add-counter)
+             ("i" . kmacro-insert-counter)
+             ("r" . apply-macro-to-region-lines)
+             ("s" . kmacro-set-counter)
+             ("N" . kmacro-name-last-macro)
+             ("I" . insert-kbd-macro))
+#+END_SRC
 * System
 All of my packages for interacting with my laptop.
 ** OS
