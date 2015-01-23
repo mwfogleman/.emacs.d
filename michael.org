@@ -814,6 +814,19 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
     :init
     (setq reb-re-syntax 'string))
 #+END_SRC
+** Smart Scan
+See Mickey's [[http://www.masteringemacs.org/article/effective-editing-movement][explanation]] and the [[https://github.com/mickeynp/smart-scan][readme]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smartscan
+    :ensure t
+    :init (global-smartscan-mode t))
+#+END_SRC
+** [[http://mwolson.org/static/dist/elisp/edit-list.el][Edit List]]
+#+BEGIN_SRC emacs-lisp
+  (use-package edit-list
+    :ensure t)
+#+END_SRC
 * Networked
 It initially seemed kind of crazy to me to do these things in Emacs, but since they are text-heavy, it ultimately makes a lot of sense.
 ** Browsing
