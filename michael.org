@@ -314,6 +314,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
   (define-prefix-command 'toggle-map)
   (bind-key "C-x t" 'toggle-map)
   (bind-keys :map toggle-map
+             ("d" . toggle-debug-on-error)
              ("l" . linum-mode)
              ("o" . org-mode)
              ("t" . text-mode)
@@ -321,6 +322,10 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 #+END_SRC
 ** [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][Launcher Map]]
 #+BEGIN_SRC emacs-lisp
+  (defun scratch ()
+    (interactive)
+    (switch-to-buffer-other-window (get-buffer-create "*scratch*")))
+
   (bind-keys :prefix-map launcher-map
              :prefix "C-x l"
              ("a" . ansi-term)
@@ -334,7 +339,8 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("u" . paradox-upgrade-packages)
              ("p l" . paradox-list-packages)
              ("p u" . paradox-upgrade-packages)
-             ("P" . proced))
+             ("P" . proced)
+             ("s" . scratch))
 #+END_SRC
 ** Macros
 [[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
