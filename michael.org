@@ -1651,21 +1651,23 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
              ("M-<down>" . move-line-down))
 #+END_SRC
 ** Window Management
-Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
+Adapted from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org#make-window-splitting-more-useful][Sacha's config]] and a [[https://www.reddit.com/r/emacs/comments/25v0eo/you_emacs_tips_and_tricks/chldury][reddit comment]].
 
 #+BEGIN_SRC emacs-lisp
-  (defun split-window-below-and-switch ()
+  (defun vsplit-last-buffer ()
     (interactive)
-    (split-window-below)
-    (other-window 1))
+    (split-window-vertically)
+    (other-window 1 nil)
+    (switch-to-next-buffer))
 
-  (defun split-window-right-and-switch ()
+  (defun hsplit-last-buffer ()
     (interactive)
-    (split-window-right)
-    (other-window 1))
+    (split-window-horizontally)
+    (other-window 1 nil)
+    (switch-to-next-buffer))
 
-  (bind-keys ("C-x 2" . split-window-below-and-switch)
-             ("C-x 3" . split-window-right-and-switch))
+  (bind-key "C-x 2" 'vsplit-last-buffer)
+  (bind-key "C-x 3" 'hsplit-last-buffer)
 #+END_SRC
 ** Zap Up To Char
 #+BEGIN_SRC emacs-lisp
