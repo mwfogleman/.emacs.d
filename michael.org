@@ -186,6 +186,7 @@ Some features and settings are disabled by default; this is sane behavior for ne
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
   (put 'erase-buffer 'disabled nil)
+  (put 'set-goal-column 'disabled nil)
 #+END_SRC
 *** Casing
 The following advice makes the upcase/downcase/capitalize-word functions more usable. Thanks, [[http://oremacs.com/2014/12/23/upcase-word-you-silly/][Oleh]]!
