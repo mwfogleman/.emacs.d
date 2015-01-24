@@ -817,10 +817,39 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
 ** Smart Scan
 See Mickey's [[http://www.masteringemacs.org/article/effective-editing-movement][explanation]] and the [[https://github.com/mickeynp/smart-scan][readme]].
 
+Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.org#by-symbol][Wilfred's config]].
+
 #+BEGIN_SRC emacs-lisp
   (use-package smartscan
     :ensure t
-    :init (global-smartscan-mode t))
+    :init
+    (global-smartscan-mode t)
+
+    (defun highlight-symbol-first ()
+      "Jump to the first location of symbol at point."
+      (interactive)
+      (push-mark)
+      (eval
+       `(progn
+          (goto-char (point-min))
+          (search-forward-regexp
+           (rx symbol-start ,(thing-at-point 'symbol) symbol-end)
+           nil t)
+          (beginning-of-thing 'symbol))))
+
+    (defun highlight-symbol-last ()
+      "Jump to the last location of symbol at point."
+      (interactive)
+      (push-mark)
+      (eval
+       `(progn
+          (goto-char (point-max))
+          (search-backward-regexp
+           (rx symbol-start ,(thing-at-point 'symbol) symbol-end)
+           nil t))))
+
+    (bind-keys ("M-P" . highlight-symbol-first)
+               ("M-N" . highlight-symbol-last)))
 #+END_SRC
 ** [[http://mwolson.org/static/dist/elisp/edit-list.el][Edit List]]
 #+BEGIN_SRC emacs-lisp
