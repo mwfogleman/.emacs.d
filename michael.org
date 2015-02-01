@@ -1484,14 +1484,15 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
   (defun keptintouch-backlog ()
     "Create a buffer with Keep In Touch backlog."
     (interactive)
-    (let ((src "~/src/keepintouch/clj/keepintouch")
+    (let ((buf "*Keep In Touch Backlog*")
+          (src "~/src/keepintouch/clj/keepintouch")
           (jar "-jar target/uberjar/keepintouch-0.1.0-SNAPSHOT-standalone.jar")
           (cur default-directory)) 
       (cd src)
       (shell-command
-       (concat "java " jar " " keepintouch-datafile " schedule backlog")
-       "*Keep In Touch Backlog*")
-      (cd cur)))
+       (concat "java " jar " " keepintouch-datafile " schedule backlog") buf)
+      (cd cur)
+      (switch-to-buffer buf)))
 
   (bind-keys ("C-c k" . keptintouch)
              ("C-c K" . keptintouch-backlog))
