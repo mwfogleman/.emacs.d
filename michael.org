@@ -329,7 +329,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 
   (bind-keys :prefix-map launcher-map
              :prefix "C-x l"
-             ("a" . ansi-term)
+             ("A" . ansi-term) ;; save "a" for open-agenda
              ("c" . calc)
              ("C" . calendar)
              ("d" . ediff-buffers)
@@ -1517,6 +1517,8 @@ This function opens the agenda in full screen.
         (beginning-of-buffer))))
 
   (bind-key "<f5>" 'open-agenda)
+  (bind-key "a" 'open-agenda launcher-map)
+
   (fullframe open-agenda org-agenda-quit)
 #+END_SRC
 *** Kill This Buffer
