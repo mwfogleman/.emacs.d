@@ -1247,7 +1247,10 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
                 (lambda ()
                   (ibuffer-projectile-set-filter-groups)
                   (unless (eq ibuffer-sorting-mode 'alphabetic)
-                    (ibuffer-do-sort-by-alphabetic))))))
+                    (ibuffer-do-sort-by-alphabetic))))
+      (bind-keys :map ibuffer-mode-map
+                 ("n" . ibuffer-forward-filter-group)
+                 ("p" . ibuffer-backward-filter-group))))
 #+END_SRC
 ** Floobits
 #+BEGIN_SRC emacs-lisp
