@@ -1353,6 +1353,8 @@ I use the stock package of org-mode as the default major mode.
              "* I am grateful for: \n** %?")
             ("n" "Note" entry (file "~/org/notes.org")
              "* %?\n")
+            ("m" "Meditation Log" entry (file+datetree "~/org/meditation_log.org")
+             "* %?\n")
             ("s" "Spark" entry (file+datetree "~/org/spark.org")
              "* %?")
             ("j" "Journal" entry (file+datetree "~/org/journal.org.gpg")
