@@ -1369,6 +1369,13 @@ I use the stock package of org-mode as the default major mode.
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
     (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-")))
+
+  (defun make-org-scratch ()
+    (interactive)
+    (find-file "~/Dropbox/org/scratch.org"))
+
+  (bind-keys :map launcher-map
+             ("S" . make-org-scratch))
 #+END_SRC
 My settings for capture were some of my first Elisp :) I did need, and still need, the help of the  [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
 
