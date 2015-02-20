@@ -1378,6 +1378,14 @@ I use the stock package of org-mode as the default major mode.
     (interactive)
     (find-file "~/Dropbox/org/scratch.org"))
 
+  (defun org-open-archive ()
+    (interactive)
+    (let* ((cur (buffer-file-name))
+           (target (concat cur "_archive")))
+      (find-file target)))
+
+  (bind-key "C-c o" 'org-open-archive)
+
   (bind-keys :map launcher-map
              ("S" . make-org-scratch))
 #+END_SRC
