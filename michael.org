@@ -306,7 +306,8 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
 
 #+BEGIN_SRC emacs-lisp
   (bind-keys ("M-A" . backward-paragraph)
-             ("M-E" . forward-paragraph))
+             ("M-E" . forward-paragraph)
+             ("M-K" . kill-paragraph))
 #+END_SRC 
 ** [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Toggle Map]]
 Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys on the toggle map are elsewhere in this config.
