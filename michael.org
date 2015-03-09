@@ -474,7 +474,8 @@ These are helper packages that make Emacs even more awesome.
     :ensure t
     :diminish golden-ratio-mode
     :init
-    (golden-ratio-mode 1))
+    (golden-ratio-mode 1)
+    (setq golden-ratio-auto-scale t))
 #+END_SRC
 *** Winner Mode
 #+BEGIN_SRC emacs-lisp
