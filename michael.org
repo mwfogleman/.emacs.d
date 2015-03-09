@@ -409,7 +409,8 @@ All of my packages for interacting with my laptop.
     (put 'dired-find-alternate-file 'disabled nil)
     (setq dired-dwim-target t
           dired-recursive-deletes 'always
-          dired-recursive-copies 'always)
+          dired-recursive-copies 'always
+          dired-isearch-filenames t)
     (bind-keys :map dired-mode-map
                ("<return>" . dired-find-alternate-file)
                ("^" . (lambda () (interactive) (find-alternate-file "..")))
