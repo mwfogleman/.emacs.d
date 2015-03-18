@@ -1401,7 +1401,8 @@ I use org-struct in mu4e. See above.
              ("C-c a" . org-agenda)
              ("C-c b" . org-iswitchb)
              ("C-c >" . org-time-stamp-inactive)
-             ("C-c M-k" . org-cut-subtree))
+             ("C-c M-k" . org-cut-subtree)
+             ("<down>" . org-insert-todo-heading))
 
   (setq org-speed-commands-user
         '(("N" org-narrow-to-subtree)
