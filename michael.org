@@ -1374,7 +1374,12 @@ I use the stock package of org-mode as the default major mode.
             ("\\.pdf\\'" . "evince %s")))
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
-    (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-")))
+    (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
+
+    (use-package org-bullets
+      :ensure t
+      :init
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))))
 
   (defun make-org-scratch ()
     (interactive)
