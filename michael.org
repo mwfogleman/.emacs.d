@@ -74,6 +74,12 @@ When I first copy this set-up into a new machine, I still have to require packag
             (setq mode-name ,new-name))))
     (diminish 'isearch-mode))
 #+END_SRC
+*** Theme
+I still have to do a load-theme -> solarized-dark upon restarting.
+#+BEGIN_SRC emacs-lisp
+  (use-package solarized-theme
+    :ensure t)
+#+END_SRC
 ** Turn off unnecessary graphical features
 *** Tool Bar
 #+BEGIN_SRC emacs-lisp
