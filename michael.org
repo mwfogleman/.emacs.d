@@ -418,7 +418,7 @@ All of my packages for interacting with my laptop.
     (when (eq system-type 'darwin)
       (add-to-list 'dired-omit-extensions ".DS_STORE"))
     (use-package dired-details
-      :ensure t
+      :disabled t
       :init
       (dired-details-install))
     (use-package dired-subtree
@@ -1387,16 +1387,25 @@ I use the stock package of org-mode as the default major mode.
     (interactive)
     (find-file "~/Dropbox/org/scratch.org"))
 
+  (bind-keys :map launcher-map
+             ("S" . make-org-scratch))
+
   (defun org-open-archive ()
     (interactive)
     (let* ((cur (buffer-file-name))
            (target (concat cur "_archive")))
       (find-file target)))
 
-  (bind-key "C-c o" 'org-open-archive)
+  (defun org-buffer-todo ()
+    (interactive)
+    "Creates a todo-list for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), t (todo-list)."
+    (progn
+      (org-agenda-set-restriction-lock)
+      (org-todo-list)))
 
-  (bind-keys :map launcher-map
-             ("S" . make-org-scratch))
+  (bind-keys ("C-c t" . org-buffer-todo)
+             ("C-c L" . org-timeline)
+             ("C-c o" . org-open-archive))
 #+END_SRC
 My settings for capture were some of my first Elisp :) I did need, and still need, the help of the  [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
 
