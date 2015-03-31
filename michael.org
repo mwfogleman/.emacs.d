@@ -557,6 +557,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
   (use-package smex
     :ensure t
     :bind (("C-x C-m" . smex)
+           ("C-x M-m" . smex-major-mode-commands)
            ("C-c C-c M-x" . execute-extended-command))
     :init
     (unbind-key "M-x")
