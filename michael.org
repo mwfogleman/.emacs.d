@@ -944,6 +944,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** IRC (ERC)
 #+BEGIN_SRC emacs-lisp
   (use-package erc
+    :disabled t
     :ensure t
     :config
     (setq erc-autojoin-channels-alist '(("freenode.net"
@@ -956,6 +957,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 ** Jabber
 #+BEGIN_SRC emacs-lisp
   (use-package jabber
+    :disabled t
     :ensure t
     :init
     (setq jabber-show-offline-contacts nil
@@ -1123,6 +1125,7 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 *** Go
 #+BEGIN_SRC emacs-lisp
   (use-package go-mode
+    :disabled t
     :ensure t
     :init
     (use-package go-eldoc
@@ -1477,6 +1480,7 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
 #+BEGIN_SRC emacs-lisp
   (use-package gnuplot
     :if (eq system-type 'gnu/linux)
+    :disabled t
     :load-path "/usr/bin/gnuplot"
     :init
     (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
