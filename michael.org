@@ -564,45 +564,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     (unbind-key "<menu>")
     (smex-initialize))
 #+END_SRC
-** Helm
-#+BEGIN_SRC emacs-lisp
-  (use-package helm
-    :disabled t
-    :ensure t
-    :init
-    (progn
-      (require 'helm-config)
-      ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-      ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-      ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-      (global-set-key (kbd "C-c h") 'helm-command-prefix)
-      (global-unset-key (kbd "C-x c"))
-      ;; From https://gist.github.com/antifuchs/9238468
-      (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
-            helm-input-idle-delay 0.01  ; this actually updates things
-                                          ; reeeelatively quickly.
-            helm-quick-update t
-            helm-M-x-requires-pattern nil
-            helm-ff-skip-boring-files t
-            helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-            helm-buffers-fuzzy-matching           t ; fuzzy matching buffer names when non--nil
-            helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-            helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-            helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-            helm-ff-file-name-history-use-recentf t)
-      (helm-mode))
-    (use-package helm-projectile
-      :ensure t)
-    (use-package helm-ag
-      :ensure t)
-    (use-package helm-descbinds
-      :ensure t
-      :bind ("C-h b" . helm-descbinds))
-    (bind-keys :map helm-command-map
-               ("o" . helm-occur))
-    :bind
-    (("M-y" . helm-show-kill-ring)))
-#+END_SRC
 ** Company Mode
 #+BEGIN_SRC emacs-lisp
   (use-package company
@@ -870,10 +831,8 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
   (use-package edit-list
     :ensure t)
 #+END_SRC
-* Networked
-It initially seemed kind of crazy to me to do these things in Emacs, but since they are text-heavy, it ultimately makes a lot of sense.
-** Browsing
-*** External Browsers
+* Browsing
+** External Browsers
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program (cond ((eq system-type 'darwin) "open") 
@@ -881,7 +840,7 @@ It initially seemed kind of crazy to me to do these things in Emacs, but since t
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
-*** EWW!
+** EWW!
 I've enjoyed using Conkeror on my Arch machine. This package brings one neat feature of Conkeror to eww.
 #+BEGIN_SRC emacs-lisp
   (use-package eww-lnum
@@ -891,111 +850,10 @@ I've enjoyed using Conkeror on my Arch machine. This package brings one neat fea
       '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
               (define-key eww-mode-map "F" 'eww-lnum-universal))))
 #+END_SRC
-** Email (mu4e)
-I am currently using mu4e, which was indeed pretty easy to set up. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
-
-I also have queuing set up, so that I can still "send" emails without Internet access. Once this is enabled, you can see some new options in the main view, to toggle online/offline [m], and to send queued mail [f].
-
-The folder /home/user/Maildir/queue/ needs to be created with the command "mu mkdir." After that, run "touch ~/Maildir/queue/.noindex" to make sure mu doesn't index this folder.
-
-Messages that Emacs cannot read can be read in the browser with the "aV" shortcut.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package mu4e
-    :disabled t
-    :if (eq system-type 'gnu/linux)
-    :load-path "/usr/share/emacs/site-lisp/mu4e/"
-    :init
-    (setq mu4e-maildir "~/Maildir"
-          mu4e-drafts-folder "/Gmail/[Gmail].Drafts"
-          mu4e-sent-folder   "/Gmail/[Gmail].Sent Mail"
-          mu4e-trash-folder  "/Gmail/[Gmail].Trash"
-          mu4e-get-mail-command "offlineimap"
-          mu4e-update-interval 1800
-          mu4e-maildir-shortcuts
-          '( ("/Gmail/INBOX"               . ?i)
-             ("/Gmail/Correspondence"      . ?c)
-             ("/Gmail/[Gmail].Sent Mail"   . ?s)
-             ("/Gmail/[Gmail].Trash"       . ?t)
-             ("/Gmail/[Gmail].All Mail"    . ?a))
-          mu4e-headers-skip-duplicates t
-          mu4e-view-show-images t
-          mu4e-view-image-max-width 800
-          message-signature "MWF"
-          mu4e-sent-messages-behavior 'delete
-          message-kill-buffer-on-exit t
-          mu4e-headers-skip-duplicates t)
-    (use-package smtpmail
-      :init
-      (setq message-send-mail-function 'smtpmail-send-it
-            smtpmail-stream-type 'starttls
-            smtpmail-default-smtp-server "smtp.gmail.com"
-            smtpmail-smtp-server "smtp.gmail.com"
-            smtpmail-smtp-service 587
-            smtpmail-queue-mail  nil
-            smtpmail-queue-dir  "/home/michael/Maildir/queue/cur"))
-    :bind ("C-c m" . mu4e)
-    :config
-    (add-to-list 'mu4e-view-actions
-                 '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-    (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
-    (add-hook 'mu4e-compose-mode-hook 'auto-fill-mode))
-#+END_SRC
-** IRC (ERC)
-#+BEGIN_SRC emacs-lisp
-  (use-package erc
-    :disabled t
-    :ensure t
-    :config
-    (setq erc-autojoin-channels-alist '(("freenode.net"
-                                         "#emacs"
-                                         "#clojure"))
-          erc-server "irc.freenode.net"
-          erc-nick "mwfogleman"
-          erc-fill-function 'erc-fill-static))
-#+END_SRC
-** Jabber
-#+BEGIN_SRC emacs-lisp
-  (use-package jabber
-    :disabled t
-    :ensure t
-    :init
-    (setq jabber-show-offline-contacts nil
-          jabber-account-list
-          '(("michaelwfogleman@gmail.com" 
-             (:network-server . "talk.google.com")
-             (:connection-type . ssl)))))
-#+END_SRC
-** Feeds (Elfeed)
-#+BEGIN_SRC emacs-lisp
-  (use-package elfeed
-    :ensure t
-    :bind ("C-c f" . elfeed)
-    :config
-    (bind-keys :map elfeed-search-mode-map
-               ("?" . describe-mode)
-               ("q" . kill-this-buffer)))
-#+END_SRC
-** Twitter (Twittering)
-#+BEGIN_SRC emacs-lisp
-  (use-package twittering-mode
-    :disabled t
-    :ensure t
-    :bind ("C-c t" . twit)
-    :config
-    (bind-keys :map twittering-mode-map
-               ("?" . describe-mode)
-               ("@" . twittering-reply-to-user)
-               ("F" . twittering-follow))
-    (setq twittering-use-master-password t
-          twittering-icon-mode t
-          twittering-use-icon-storage t))
-#+END_SRC
 * Development
 Here are language-specific (largely Lisps) or development-related packages.
-** Languages
-*** Clojure
-**** Clojure Mode
+** Clojure
+*** Clojure Mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
     :ensure t
@@ -1009,7 +867,7 @@ Here are language-specific (largely Lisps) or development-related packages.
       :ensure t
       :bind ("C-! a a" . align-cljlet)))
 #+END_SRC
-**** Clojure Refactor
+*** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
     :ensure t
@@ -1018,7 +876,7 @@ Here are language-specific (largely Lisps) or development-related packages.
     :config
     (cljr-add-keybindings-with-prefix "C-!"))
 #+END_SRC
-**** CIDER
+*** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
 
 #+BEGIN_SRC emacs-lisp
@@ -1051,7 +909,7 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
     ;; fix cond indenting
     (put 'cond 'clojure-backtracking-indent '(2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4)))
 #+END_SRC
-**** Clojure Cookbook
+*** Clojure Cookbook
 I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs with AsciiDoc mode. 
 
 There are a lot of short chapters, so I whipped up this Elisp to switch between them.
@@ -1086,23 +944,8 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
     (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
     (add-hook 'adoc-mode-hook 'cider-mode))
 #+END_SRC
-*** Common Lisp
-"Take this REPL, brother, and may it serve you well."
-
-#+BEGIN_SRC emacs-lisp
-  (use-package slime-autoloads
-    :disabled t)
-  (use-package slime
-    :disabled t
-    :load-path "/usr/share/emacs/site-lisp/slime/"
-    :init
-    (slime-setup)
-    (setq inferior-lisp-program "/usr/bin/sbcl")
-    (setq common-lisp-hyperspec-root "file:///home/michael/ebooks/docs/HyperSpec/")
-    (add-to-list 'slime-contribs 'slime-fancy))
-#+END_SRC
-*** Emacs Lisp
-**** Elisp-Slime-Nav
+** Emacs Lisp
+*** Elisp-Slime-Nav
 #+BEGIN_SRC emacs-lisp
   (use-package elisp-slime-nav
     :ensure t
@@ -1111,7 +954,7 @@ There are a lot of short chapters, so I whipped up this Elisp to switch between 
     (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
       (add-hook hook 'elisp-slime-nav-mode)))
 #+END_SRC
-**** Eldoc
+*** Eldoc
 When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip and code, Sacha.
 
 #+BEGIN_SRC emacs-lisp
@@ -1121,25 +964,6 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-#+END_SRC
-*** Go
-#+BEGIN_SRC emacs-lisp
-  (use-package go-mode
-    :disabled t
-    :ensure t
-    :init
-    (use-package go-eldoc
-      :ensure t
-      :config
-      (go-eldoc-setup))
-    (use-package company-go
-      :disabled t
-      :ensure t
-      :config
-      (add-hook 'go-mode-hook
-                (lambda () (set (make-local-variable 'company-backends) '(company-go)))))
-    :config
-    (add-hook 'go-mode-hook 'subword-mode))
 #+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
@@ -1270,12 +1094,6 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       (bind-keys :map ibuffer-mode-map
                  ("n" . ibuffer-forward-filter-group)
                  ("p" . ibuffer-backward-filter-group))))
-#+END_SRC
-** Floobits
-#+BEGIN_SRC emacs-lisp
-  (use-package floobits
-    :disabled t
-    :ensure t)
 #+END_SRC
 ** linum-relative
 When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
@@ -1475,17 +1293,6 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
      ("C-c C--" . number/sub)
      ("C-c C-*" . number/multiply)
      ("C-c C-/" . number/divide)))
-#+END_SRC
-** Gnuplot
-#+BEGIN_SRC emacs-lisp
-  (use-package gnuplot
-    :if (eq system-type 'gnu/linux)
-    :disabled t
-    :load-path "/usr/bin/gnuplot"
-    :init
-    (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
-    (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
-    (add-to-list 'auto-mode-alist '("\\.gp$" . gnuplot-mode)))
 #+END_SRC
 * Functions
 ** Emacs Configuration File
