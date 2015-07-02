@@ -986,7 +986,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
-    :load-path "~/.emacs.d/site-lisp/magit"
+    :ensure t
     :bind (("C-x g" . magit-status)
            ("C-c g" . magit-status))
     :init
@@ -1003,7 +1003,21 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (diminish 'magit-auto-revert-mode)
     (diminish 'magit-backup-mode)
     (fullframe magit-status magit-mode-quit-window nil)
-  
+
+    (defun visit-pull-request-url ()
+      "Visit the current branch's PR on Github."
+      (interactive)
+      (browse-url
+       (format "https://github.com/%s/pull/new/%s"
+               (replace-regexp-in-string
+                "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+                (magit-get "remote"
+                           (magit-get-remote)
+                           "url"))
+               (cdr (magit-get-remote-branch)))))
+
+    (bind-key "v" 'visit-pull-request-url magit-mode-map)
+
     (bind-keys :map magit-status-mode-map
                ("TAB" . magit-section-toggle)
                ("<C-tab>" . magit-section-cycle))
