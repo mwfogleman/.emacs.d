@@ -582,36 +582,34 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+END_SRC
 ** Ace Jump Mode
 #+BEGIN_SRC emacs-lisp
-  (use-package ace-jump-mode
+  (use-package ace-window
     :ensure t
-    :bind (("M-SPC" . ace-jump-char-mode)
+    :bind (("C-x o" . ace-window)
            ("M-2" . ace-window))
     :init
-    (use-package ace-jump-buffer
-      :ensure t)
-    (use-package ace-link
-      :ensure t
-      :init
-      (ace-link-setup-default))
-    (use-package ace-jump-zap
-      :ensure t)
-    (use-package ace-window
-      :ensure t
-      :bind ("C-x o" . ace-window)
-      :init
-      (setq aw-background nil)
-      (setq aw-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
-    (bind-keys :prefix-map ace-jump-map
-               :prefix "C-c j"
-               ("c" . ace-jump-char-mode)
-               ("l" . ace-jump-line-mode)
-               ("w" . ace-jump-word-mode)
-               ("W" . ace-window)
-               ("b" . ace-jump-buffer)
-               ("o" . ace-jump-buffer-other-window)
-               ("p" . ace-jump-projectile-buffers)
-               ("z" . ace-jump-zap-to-char)
-               ("Z" . ace-jump-zap-up-to-char)))
+    (setq aw-background nil)
+    (setq aw-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
+
+  (use-package avy
+    :ensure t
+    :bind ("M-SPC" . avy-goto-char))
+
+  (use-package avy-zap
+    :ensure t)
+
+  (bind-keys :prefix-map avy-map
+             :prefix "C-c j"
+             ("c" . avy-goto-char)
+             ("l" . avy-goto-line)
+             ("w" . avy-goto-word-or-subword-1)
+             ("W" . ace-window)
+             ("z" . avy-zap-to-char)
+             ("Z" . avy-zap-up-to-char))
+
+  (use-package ace-link
+    :ensure t
+    :init
+    (ace-link-setup-default))
 
   (bind-key "C-x SPC" 'cycle-spacing)
 #+END_SRC
@@ -757,11 +755,11 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
       (key-chord-define-global ";3"  'split-window-right)
       (key-chord-define-global ",." 'beginning-of-buffer)
       (key-chord-define-global ".p" 'end-of-buffer)
-      (key-chord-define-global "jw" 'ace-jump-word-mode)
-      (key-chord-define-global "jc" 'ace-jump-char-mode)
-      (key-chord-define-global "jl" 'ace-jump-line-mode)
-      (key-chord-define-global "jb" 'ace-jump-buffer)
-      (key-chord-define-global "jo" 'ace-jump-buffer-other-window)
+      (key-chord-define-global "jw" 'avy-goto-word-or-subword-1)
+      (key-chord-define-global "jc" 'avy-goto-char)
+      (key-chord-define-global "jl" 'avy-goto-line)
+      ;; (key-chord-define-global "jb" 'ace-jump-buffer)
+      ;; (key-chord-define-global "jo" 'ace-jump-buffer-other-window)
       (key-chord-define-global "'l" 'ido-switch-buffer)
       (key-chord-define-global "'-" 'smex)
       (key-chord-define-global ",r" 'find-file)
