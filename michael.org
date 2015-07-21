@@ -402,6 +402,7 @@ All of my packages for interacting with my laptop.
                                          ((eq system-type 'gnu/linux) "/usr/bin/bash")))
     (when (eq system-type 'darwin)
       (use-package exec-path-from-shell
+        :ensure t
         :init
         (exec-path-from-shell-initialize))))
 #+END_SRC
