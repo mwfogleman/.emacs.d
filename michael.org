@@ -580,7 +580,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                ("C-d" . company-show-doc-buffer)
                ("<tab>" . company-complete)))
 #+END_SRC
-** Ace Jump Mode
+** Avy
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
     :ensure t
@@ -592,7 +592,9 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 
   (use-package avy
     :ensure t
-    :bind ("M-SPC" . avy-goto-char))
+    :bind ("M-SPC" . avy-goto-char)
+    :config
+    (setq avy-background t))
 
   (use-package avy-zap
     :ensure t)
