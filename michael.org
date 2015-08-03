@@ -1243,7 +1243,7 @@ I use the stock package of org-mode as the default major mode.
     (interactive)
     "Creates a todo-list for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), t (todo-list)."
     (progn
-      (org-agenda-set-restriction-lock)
+      (org-agenda-set-restriction-lock 'file)
       (org-todo-list)))
 
   (bind-keys ("C-c t" . org-buffer-todo)
