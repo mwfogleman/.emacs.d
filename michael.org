@@ -411,7 +411,6 @@ All of my packages for interacting with my laptop.
   (use-package dired
     :bind ("<f2>" . dired)
     :init
-    (use-package dired-x)  ; enables dired-jump, C-x C-j
     :config
     (put 'dired-find-alternate-file 'disabled nil)
     (setq dired-dwim-target t
@@ -424,6 +423,8 @@ All of my packages for interacting with my laptop.
                ("'" . wdired-change-to-wdired-mode))
     (when (eq system-type 'darwin)
       (add-to-list 'dired-omit-extensions ".DS_STORE"))
+    (use-package dired+
+      :ensure t) ;; also automatically calls dired-x, enabling dired-jump, C-x C-j
     (use-package dired-details
       :disabled t
       :init
