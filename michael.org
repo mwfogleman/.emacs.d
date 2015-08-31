@@ -1108,6 +1108,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
                   (unless (eq ibuffer-sorting-mode 'alphabetic)
                     (ibuffer-do-sort-by-alphabetic))))
       (bind-keys :map ibuffer-mode-map
+                 ("c" . clean-buffer-list)
                  ("n" . ibuffer-forward-filter-group)
                  ("p" . ibuffer-backward-filter-group))))
 #+END_SRC
