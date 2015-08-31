@@ -355,6 +355,8 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 [[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
 
 #+BEGIN_SRC emacs-lisp
+  (setq kmacro-ring-max 30)
+
   (bind-keys :prefix-map macro-map
              :prefix "C-c m"
              ("b" . kmacro-bind-to-key)
