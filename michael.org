@@ -181,7 +181,8 @@ Remove the warning if a buffer or file does not exist, so you can create them.
 The default Ediff behavior is confusing and not desirable. This fixes it.
 
 #+BEGIN_SRC emacs-lisp
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain
+        ediff-split-window-function 'split-window-horizontally)
 #+END_SRC
 *** Enable
 Some features and settings are disabled by default; this is sane behavior for new users, but it is expected that we will disable them eventually.
