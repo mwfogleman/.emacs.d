@@ -227,11 +227,7 @@ Although keybindings are also located elsewhere, this section will aim to provid
 #+END_SRC
 ** From [[https://github.com/technomancy/better-defaults][Better Defaults]]
 #+BEGIN_SRC emacs-lisp
-  (bind-keys ("M-/" .  hippie-expand)
-             ("C-s" . isearch-forward-regexp)
-             ("C-r" . isearch-backward-regexp)
-             ("C-M-s" . isearch-forward)
-             ("C-M-r" . isearch-backward))
+  (bind-key "M-/" #'hippie-expand)
 #+END_SRC
 ** Lines
 Enable line indenting automatically. If needed, you can disable on a mode-by-mode basis.
@@ -531,33 +527,36 @@ These are helper packages that make Emacs even more awesome.
                ("i" . god-local-mode))
     (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
 #+END_SRC
+** Ivy and Swiper
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :ensure t
+    :diminish ivy-mode
+    :bind (("C-s" . swiper)
+           ("C-r" . swiper)
+           ("C-c C-r" . ivy-resume))
+    :init
+    (ivy-mode 1)
+    (setq ivy-display-style 'fancy
+          ivy-height 4
+          ivy-use-virtual-buffers t))
+#+END_SRC
 ** IDO
-[[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] lets you interactively do things with files and buffers.
-
-One key component below is ido-vertical-mode, which makes ido much more attractive.
-
+I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex and Ido-Menu. Ido-vertical-mode makes IDO bearable.
 #+BEGIN_SRC emacs-lisp
   (setq ido-enable-flex-matching t
         ido-everywhere t
-        ido-use-faces nil ;; disable ido faces to see flx highlights.
-        ido-create-new-buffer 'always)
-  ;; suppress  "reference to free variable problems"
-  (setq ido-cur-item nil
+        ido-use-faces t ;; disable ido faces to see flx highlights.
+        ido-create-new-buffer 'always
+        ;; suppress  "reference to free variable problems"
+        ido-cur-item nil
         ido-context-switch-command nil
         ido-cur-list nil
         ido-default-item nil)
-  (ido-mode 1)
-  (when (eq system-type 'darwin)
-    (add-to-list 'completion-ignored-extensions "\\.DS_STORE\\'"))
-  (bind-key "C-x C-d" 'ido-dired)
   (use-package ido-vertical-mode
     :ensure t
     :init
     (ido-vertical-mode))
-  (use-package ido-ubiquitous
-    :ensure t
-    :init
-    (ido-ubiquitous-mode 1))
   (use-package flx-ido
     :ensure t
     :init
@@ -567,12 +566,6 @@ One key component below is ido-vertical-mode, which makes ido much more attracti
     :ensure t
     :bind ("M-I" . idomenu))
 #+END_SRC
-
-Note that there are certain program specific settings for IDO, which are not in this section:
-
-- Smex
-- Org-Mode
-- ido-recentf-open function
 *** Smex
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
@@ -709,20 +702,14 @@ The word "kill" might be antiquated, idiosyncratic jargon, but it's great that E
 *** Recent Files
 Recent files is a minor mode that keeps track of which files you're using, and provides it in some handy places.
 
-I also rebind the find-file-read-only with ido-recent-files functionality, which I took from [[http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/][Mastering Emacs]].
+I also rebind the find-file-read-only with ivy-recentf.
 
 #+BEGIN_SRC emacs-lisp
   (use-package recentf
+    :bind ("C-x C-r" . ivy-recentf)
     :init
     (recentf-mode t)
-    (setq recentf-max-saved-items 100)
-    (defun ido-recentf-open ()
-      "Use `ido-completing-read' to \\[find-file] a recent file"
-      (interactive)
-      (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-          (message "Opening file...")
-        (message "Aborting")))
-    :bind ("C-x C-r" . ido-recentf-open))
+    (setq recentf-max-saved-items 100))
 #+END_SRC
 *** Automatic Saving
 This snippet automatically saves buffers in an intelligent way. It was originally mentioned in a post by [[http://batsov.com/articles/2012/03/08/emacs-tip-number-5-save-buffers-automatically-on-buffer-or-window-switch/][Bozhidar Batsov]]; the version below is adapted from his [[https://github.com/bbatsov/prelude/blob/76c2e990709d5c5cd1c48ee1e8df29e4069ed06a/core/prelude-editor.el][Prelude]] distribution and his post on [[http://emacsredux.com/blog/2014/03/22/a-peek-at-emacs-24-dot-4-focus-hooks/][focus hooks]] in Emacs 24.4.
@@ -1033,7 +1020,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       :init
       (setq git-link-open-in-browser t))
     :config
-    (setq magit-use-overlays nil)
+    (setq magit-use-overlays nil
+          magit-completing-read-function 'ivy-completing-read)
     (diminish 'magit-backup-mode)
     (fullframe magit-status magit-mode-quit-window nil)
 
@@ -1128,7 +1116,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     :diminish projectile-mode
     :init
     (projectile-global-mode)
-    (setq projectile-enable-caching t)
+    (setq projectile-enable-caching t
+          projectile-completion-system 'ivy)
     (use-package ibuffer-projectile
       :ensure t
       :bind ("C-x C-b" . ibuffer)
