@@ -420,8 +420,6 @@ All of my packages for interacting with my laptop.
                ("<return>" . dired-find-alternate-file)
                ("^" . (lambda () (interactive) (find-alternate-file "..")))
                ("'" . wdired-change-to-wdired-mode))
-    (when (eq system-type 'darwin)
-      (add-to-list 'dired-omit-extensions ".DS_STORE"))
     (use-package dired+
       :ensure t) ;; also automatically calls dired-x, enabling dired-jump, C-x C-j
     (use-package dired-details
