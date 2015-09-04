@@ -488,7 +488,8 @@ These are helper packages that make Emacs even more awesome.
     (bind-keys ("C-x C-0" . hydra-zoom/body)
                ("C-x C-=" . hydra-zoom/body)
                ("C-x C--" . hydra-zoom/body)
-               ("C-x C-+" . hydra-zoom/body)))
+               ("C-x C-+" . hydra-zoom/body))
+    (setq hydra-lv nil))
 #+END_SRC
 ** Windows
 *** Fullframe
