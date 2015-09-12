@@ -985,6 +985,24 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 #+END_SRC
+** Golang
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode
+    :ensure t
+    :init
+    (use-package go-eldoc
+      :ensure t
+      :config
+      (go-eldoc-setup))
+    (use-package company-go
+      :disabled t
+      :ensure t
+      :config
+      (add-hook 'go-mode-hook
+                (lambda () (set (make-local-variable 'company-backends) '(company-go)))))
+    :config
+    (add-hook 'go-mode-hook 'subword-mode))
+#+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
 #+BEGIN_SRC emacs-lisp
