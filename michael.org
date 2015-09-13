@@ -1001,7 +1001,10 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
       (add-hook 'go-mode-hook
                 (lambda () (set (make-local-variable 'company-backends) '(company-go)))))
     :config
-    (add-hook 'go-mode-hook 'subword-mode))
+    (add-hook 'go-mode-hook 'subword-mode)
+    (add-hook 'before-save-hook 'gofmt-before-save)
+    (bind-keys :map launcher-map
+               ("f" . gofmt)))
 #+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
