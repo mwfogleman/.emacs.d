@@ -1229,7 +1229,8 @@ I use the stock package of org-mode as the default major mode.
           org-default-priority 68
           org-agenda-files (quote ("~/org/tech.org"
                                    "~/org/cml.org"
-                                   "~/org/meditation.org"
+                                   "~/org/awakening.org"
+                                   "~/org/responsibility.org"
                                    "~/org/work.org"
                                    "~/org/money.org"
                                    "~/org/readwrite.org"
