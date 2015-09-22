@@ -247,10 +247,26 @@ Make C-n insert new lines if the point is at the end of the buffer.
 These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
 
 #+BEGIN_SRC emacs-lisp
-  (bind-keys ("C-S-n" . (lambda () (interactive) (ignore-errors (next-line 5))))
-             ("C-S-p" . (lambda () (interactive) (ignore-errors (previous-line 5))))
-             ("C-S-b" . (lambda () (interactive) (ignore-errors (backward-char 5))))
-             ("C-S-f" . (lambda () (interactive) (ignore-errors (forward-char 5)))))
+  (defun super-next-line ()
+    (interactive)
+    (ignore-errors (next-line 5)))
+
+  (defun super-previous-line ()
+    (interactive)
+    (ignore-errors (previous-line 5)))
+
+  (defun super-backward-char ()
+    (interactive)
+    (ignore-errors (backward-char 5)))
+
+  (defun super-forward-char ()
+    (interactive)
+    (ignore-errors (forward-char 5)))
+
+  (bind-keys ("C-S-n" . super-next-line)
+             ("C-S-p" . super-previous-line)
+             ("C-S-b" . super-backward-char)
+             ("C-S-f" . super-forward-char))
 #+END_SRC
 ** Meta Binds
 Since you don't need three ways to do numeric prefixes, you can [[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][make use of]] meta-binds instead:
