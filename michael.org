@@ -1655,11 +1655,9 @@ I work with hashtags pretty frequently for work. Here are some helper functions.
     (interactive)
     "Adds a hashtag at the beginning of the current word or phrase."
     (let (p1 p2 sbstr hashtxt)
-      (search-backward " ")
-      (forward-char)
+      (backward-word)
       (setq p1 (point))
-      (search-forward-regexp "[\ \.\!]")
-      (backward-char)
+      (forward-word)
       (setq p2 (point))
       (setq sbstr (buffer-substring p1 p2))
       (delete-region p1 p2)
@@ -1670,9 +1668,12 @@ I work with hashtags pretty frequently for work. Here are some helper functions.
     "Uses avy to add hashtags interactively."
     (progn
       (avy-goto-word-or-subword-1)
+      (forward-char)
       (add-hashtag-at-point)))
 
   (bind-keys ("s-3" . add-hashtag-at-point)
              ("s-#" . avy-hashtag-word))
+
+  (bind-keys :map avy-map
+             ("h" . avy-hashtag-word))
 #+END_SRC
-** TODO Make Hydras for C-n, C-p, C-S-N etc. 
