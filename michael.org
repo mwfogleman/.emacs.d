@@ -1647,3 +1647,32 @@ Adapted from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org#make-w
     "Kill up to, but not including ARGth occurrence of CHAR.")
   (bind-key "M-Z" 'zap-up-to-char)
 #+END_SRC
+** Hashtags
+I work with hashtags pretty frequently for work. Here are some helper functions.
+
+#+BEGIN_SRC emacs-lisp
+  (defun add-hashtag-at-point ()
+    (interactive)
+    "Adds a hashtag at the beginning of the current word or phrase."
+    (let (p1 p2 sbstr hashtxt)
+      (search-backward " ")
+      (forward-char)
+      (setq p1 (point))
+      (search-forward-regexp "[\ \.\!]")
+      (backward-char)
+      (setq p2 (point))
+      (setq sbstr (buffer-substring p1 p2))
+      (delete-region p1 p2)
+      (insert (concat "#" sbstr))))
+
+  (defun avy-hashtag-word ()
+    (interactive)
+    "Uses avy to add hashtags interactively."
+    (progn
+      (avy-goto-word-or-subword-1)
+      (add-hashtag-at-point)))
+
+  (bind-keys ("s-3" . add-hashtag-at-point)
+             ("s-#" . avy-hashtag-word))
+#+END_SRC
+** TODO Make Hydras for C-n, C-p, C-S-N etc. 
