@@ -865,6 +865,57 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
+** Engine Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package engine-mode
+    :ensure t
+    :init
+    (engine-mode t)
+    (setq engine/browser-function 'eww-browse-url)
+    (engine/set-keymap-prefix (kbd "C-c e"))
+    :config
+    (defengine amazon
+      "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s"
+      :keybinding "a")
+
+    (defengine duckduckgo
+      "https://duckduckgo.com/html/?q=%s"
+      :keybinding "d")
+
+    (defengine github
+      "https://github.com/search?ref=simplesearch&q=%s"
+      :keybinding "g")
+
+    (defengine google-images
+      "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s"
+      :keybinding "i")
+
+    (defengine google-maps
+      "http://maps.google.com/maps?q=%s"
+      :keybinding "m"
+      :docstring "Mappin' it up.")
+
+    (defengine stack-overflow
+      "https://stackoverflow.com/search?q=%s")
+
+    (defengine twitter
+      "https://twitter.com/search?q=%s")
+
+    (defengine wikipedia
+      "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
+      :keybinding "w"
+      :docstring "Searchin' the wikis.")
+
+    (defengine wiktionary
+      "https://www.wikipedia.org/search-redirect.php?family=wiktionary&language=en&go=Go&search=%s")
+
+    (defengine wolfram-alpha
+      "http://www.wolframalpha.com/input/?i=%s")
+
+    (defengine youtube
+      "http://www.youtube.com/results?aq=f&oq=&search_query=%s"
+      :keybinding "y"))
+#+END_SRC
 ** EWW!
 I've enjoyed using Conkeror on my Arch machine. This package brings one neat feature of Conkeror to eww.
 #+BEGIN_SRC emacs-lisp
