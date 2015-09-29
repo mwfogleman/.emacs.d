@@ -1317,6 +1317,7 @@ I use org-struct in mu4e. See above.
           ("d" org-down-element)
           ("k" org-cut-subtree)
           ("x" smex-major-mode-commands)
+          ("s" org-sort)
           ("A" org-archive-subtree)
           ("$" org-archive-subtree)))
 #+END_SRC
