@@ -571,7 +571,8 @@ I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/int
   (use-package ido-vertical-mode
     :ensure t
     :init
-    (ido-vertical-mode))
+    (ido-vertical-mode)
+    (setq ido-vertical-define-keys 'C-n-and-C-p-only))
   (use-package flx-ido
     :ensure t
     :init
