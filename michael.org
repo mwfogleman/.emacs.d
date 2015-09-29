@@ -697,17 +697,6 @@ The word "kill" might be antiquated, idiosyncratic jargon, but it's great that E
   (use-package browse-kill-ring
     :ensure t
     :bind ("C-x C-y" . browse-kill-ring)
-    :init
-    (defhydra hydra-yank-pop ()
-      "yank"
-      ("C-y" yank nil)
-      ("M-y" yank-pop nil)
-      ("n" (yank-pop 1) "next")
-      ("p" (yank-pop -1) "prev")
-      ("q" nil "quit")
-      ("l" browse-kill-ring "list" :color blue))
-    (bind-keys ("M-y" . hydra-yank-pop/yank-pop)
-               ("C-y" . hydra-yank-pop/yank))
     :config
     (setq browse-kill-ring-quit-action 'kill-and-delete-window))
 
