@@ -1047,6 +1047,17 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (use-package go-mode
     :ensure t
     :init
+    (defun my-go-mode-hook ()
+      ;; Call Gofmt before saving
+      (add-hook 'before-save-hook 'gofmt-before-save)
+      ;; Customize compile command to run go build
+      (if (not (string-match "go" compile-command))
+          (set (make-local-variable 'compile-command)
+               "go build -v && go test -v && go vet"))
+      ;; Godef jump key binding
+      (local-set-key (kbd "M-.") 'godef-jump))
+    (bind-keys :map launcher-map
+               ("f" . gofmt))
     (use-package go-eldoc
       :ensure t
       :config
@@ -1055,11 +1066,13 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
       :disabled t
       :ensure t
       :config
+  
       (add-hook 'go-mode-hook
                 (lambda () (set (make-local-variable 'company-backends) '(company-go)))))
     :config
+    (add-hook 'go-mode-hook 'my-go-mode-hook)
     (add-hook 'go-mode-hook 'subword-mode)
-    (add-hook 'before-save-hook 'gofmt-before-save)
+
     (bind-keys :map launcher-map
                ("f" . gofmt)))
 #+END_SRC
