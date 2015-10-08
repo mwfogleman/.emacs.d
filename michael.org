@@ -1307,7 +1307,17 @@ I use the stock package of org-mode as the default major mode.
                                    "~/org/personal.org"
                                    "~/org/todo.org"
                                    "~/org/notes.org"))
-          org-tag-alist '(("@email" . ?e) ("@phone" . ?p) ("@laptop" . ?l))
+          org-tag-alist '(("@work" . ?b)
+                          ("@home" . ?h)
+                          ("@reading" . ?r)
+                          ("@writing" . ?w)
+                          ("@errands" . ?e)
+                          ("@email" . ?e)
+                          ("@coding" . ?c)
+                          ("@phone" . ?p)
+                          ("@computer" . ?l)
+                          ("lowenergy" . ?0)
+                          ("highenergy" . ?1))
           org-capture-templates
           '(("a" "Arch Log" plain (file+datetree "~/org/archlog.org")
              "%?\n")
@@ -1329,10 +1339,14 @@ I use the stock package of org-mode as the default major mode.
           '((auto-mode . emacs)
             ("\\.mm\\'" . default)
             ("\\.x?html?\\'" . "firefox %s")
-            ("\\.pdf\\'" . "evince %s")))
+            ("\\.pdf\\'" . "evince %s"))
+          org-todo-keywords
+          '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c@)")))
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
     (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
+    (add-to-list 'org-global-properties
+                 '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00"))
 
     (use-package org-bullets
       :ensure t
