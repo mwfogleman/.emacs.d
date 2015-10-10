@@ -420,6 +420,9 @@ All of my packages for interacting with my laptop.
         :ensure t
         :init
         (exec-path-from-shell-initialize))))
+
+  (add-hook 'after-save-hook
+            'executable-make-buffer-file-executable-if-script-p)
 #+END_SRC
 ** Dired
 #+BEGIN_SRC emacs-lisp
