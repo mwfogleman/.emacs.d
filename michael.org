@@ -1442,6 +1442,16 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
      ("C-c C-*" . number/multiply)
      ("C-c C-/" . number/divide)))
 #+END_SRC
+** Flyspell
+#+BEGIN_SRC emacs-lisp
+  (use-package flyspell
+    :init
+    (dolist (hook '(text-mode-hook org-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
+    :config
+    (setq ispell-program-name "aspell"
+          ispell-list-command "--list"))
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
