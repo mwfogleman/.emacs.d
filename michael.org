@@ -669,7 +669,7 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
            ("M-o" . change-outer)))
 #+END_SRC
 ** Multiple Cursors
-You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for the [[https://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html#sec-1-3-3-1][code]], Sacha.
+You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks to Magnars, [[https://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html#sec-1-3-3-1][Sacha]], and [[http://endlessparentheses.com/multiple-cursors-keybinds.html][Artur]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
@@ -677,8 +677,23 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks for
     :bind 
     (("C->" . mc/mark-next-like-this)
      ("C-<" . mc/mark-previous-like-this)
-     ("C-*" . mc/mark-all-like-this)))
-#+END_SRC EMACS-LISP
+     ("C-M->" . mc/unmark-next-like-this)
+     ("C-M-<" . mc/unmark-previous-like-this)
+     ("C-*" . mc/mark-all-like-this))
+    :init
+    (bind-keys :prefix-map mc-map
+               :prefix "C-x m"
+               ("C-a" . mc/edit-beginnings-of-lines)
+               ("C-e" . mc/edit-ends-of-lines)
+               ("C-m" mc/mark-all-dwim)
+               ("a" . mc/mark-all-like-this)
+               ("d" . mc/mark-all-symbols-like-this-in-defun)
+               ("h" . mc-hide-unmatched-lines-mode)
+               ("i" . mc/insert-numbers)
+               ("l" . mc/edit-lines)
+               ("r" . mc/reverse-regions)
+               ("s" . mc/sort-regions)))
+#+END_SRC
 ** Deletion
 *** Hungry Delete Mode
 Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endless Parentheses]].
