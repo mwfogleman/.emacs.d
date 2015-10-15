@@ -1460,6 +1460,8 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
 ** Flyspell
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
+    :bind (("C-`" . ispell-word)
+           ("C-~" . ispell-buffer))
     :init
     (dolist (hook '(text-mode-hook org-mode-hook))
       (add-hook hook (lambda () (flyspell-mode 1))))
