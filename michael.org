@@ -1094,6 +1094,12 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
     (bind-keys :map launcher-map
                ("f" . gofmt)))
 #+END_SRC
+** Restclient
+See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
+#+BEGIN_SRC emacs-lisp
+  (use-package restclient
+    :ensure t)
+#+END_SRC
 ** Flycheck
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
 #+BEGIN_SRC emacs-lisp
