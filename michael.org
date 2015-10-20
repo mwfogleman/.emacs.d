@@ -1416,13 +1416,14 @@ I use org-struct in mu4e. See above.
 
   (setq org-speed-commands-user
         '(("N" org-narrow-to-subtree)
+          ("$" org-archive-subtree)
+          ("A" org-archive-subtree)
           ("W" widen)
           ("d" org-down-element)
           ("k" org-cut-subtree)
-          ("x" smex-major-mode-commands)
           ("s" org-sort)
-          ("A" org-archive-subtree)
-          ("$" org-archive-subtree)))
+          ("x" smex-major-mode-commands)
+          ("y" org-todo-yesterday)))
 #+END_SRC
 ** TiddlyWiki
 I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode. I create and bind functions to open the TiddlyWiki in Dired and the browser.
