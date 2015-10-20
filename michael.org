@@ -1343,9 +1343,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
                           ("lowenergy" . ?0)
                           ("highenergy" . ?1))
           org-capture-templates
-          '(("a" "Arch Log" plain (file+datetree "~/org/archlog.org")
-             "%?\n")
-            ("c" "Conversation" entry (file+datetree "~/org/conversations.org")
+          '(("c" "Conversation" entry (file+datetree "~/org/conversations.org")
              "* %?\n")
             ("g" "Gratitude Journal" entry (file+datetree "~/org/gratitude.org")
              "* I am grateful for: \n** %?")
@@ -1353,11 +1351,9 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
              "* %?\n")
             ("m" "Meditation Log" entry (file+datetree "~/org/meditation_log.org")
              "* %?\n")
-            ("s" "Spark" entry (file+datetree "~/org/spark.org")
-             "* %?")
             ("j" "Journal" entry (file+datetree "~/org/journal.org.gpg")
              "* %?")
-            ("t" "Todo" entry (file "~/org/todo.org")
+            ("t" "TODO" entry (file "~/org/todo.org")
              "* TODO %?\n"))
           org-file-apps
           '((auto-mode . emacs)
