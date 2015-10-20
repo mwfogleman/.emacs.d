@@ -1799,3 +1799,13 @@ I work with hashtags pretty frequently for work. Here are some helper functions.
   (bind-keys :map avy-map
              ("h" . avy-hashtag-word))
 #+END_SRC
+** Org-Todo-Done
+I use org-todo-keywords, which makes running org-todo interactively a little more work. This creates a virtually identical bind to quickly mark something done.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-todo-done ()
+    (interactive)
+    (org-todo 'done))
+
+  (bind-key "C-c C-S-t" 'org-todo-done)
+#+END_SRC
