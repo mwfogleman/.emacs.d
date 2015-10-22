@@ -419,7 +419,11 @@ All of my packages for interacting with my laptop.
       (use-package exec-path-from-shell
         :ensure t
         :init
-        (exec-path-from-shell-initialize))))
+        (exec-path-from-shell-initialize)))
+    :config
+    (bind-keys :map shell-mode-map
+               ("<s-up>" . comint-previous-input)
+               ("<s-down>" . comint-next-input)))
 
   (add-hook 'after-save-hook
             'executable-make-buffer-file-executable-if-script-p)
