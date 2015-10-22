@@ -1333,6 +1333,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
                                    "~/org/money.org"
                                    "~/org/readwrite.org"
                                    "~/org/personal.org"
+                                   "~/org/health.org"
                                    "~/org/todo.org"
                                    "~/org/notes.org"))
           org-tag-alist '(("@work" . ?b)
