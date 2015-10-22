@@ -1779,7 +1779,8 @@ Adapted from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org#make-w
     "Kill up to, but not including ARGth occurrence of CHAR.")
   (bind-key "M-Z" 'zap-up-to-char)
 #+END_SRC
-** Hashtags
+** Twitter
+*** Hashtags
 I work with hashtags pretty frequently for work. Here are some helper functions.
 
 #+BEGIN_SRC emacs-lisp
@@ -1808,6 +1809,25 @@ I work with hashtags pretty frequently for work. Here are some helper functions.
 
   (bind-keys :map avy-map
              ("h" . avy-hashtag-word))
+#+END_SRC
+*** Tweetable?
+#+BEGIN_SRC emacs-lisp
+  (defun tweet-check (posBegin posEnd)
+    (interactive "r")
+    "Checks if a string in region has under 140 characters."
+    (message "Counting")
+    (save-excursion
+      (let (charCount boolean)
+        (setq charCount (- posEnd posBegin))
+        (goto-char posBegin)
+        (while (and (< (point) posEnd)
+                    (re-search-forward "\\w+\\W*" posEnd t)))
+        (if (> charCount 140)
+            (setq boolean "Not yet tweetable; there are ")
+          (setq boolean "This is tweetable; there are "))
+        (message "%s%d chars." boolean charCount))))
+
+  (bind-key "s-?" 'tweet-check)
 #+END_SRC
 ** Org-Todo-Done
 I use org-todo-keywords, which makes running org-todo interactively a little more work. This creates a virtually identical bind to quickly mark something done.
