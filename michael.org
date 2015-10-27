@@ -529,6 +529,17 @@ These are helper packages that make Emacs even more awesome.
   (use-package winner
     :init (winner-mode))
 #+END_SRC
+*** Quit Bottom Window
+Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-alist.html][Lunaryorn's post about display-buffer-alist]].
+#+BEGIN_SRC emacs-lisp
+  (defun quit-bottom-side-windows ()
+    "Quit side windows of the current frame."
+    (interactive)
+    (dolist (window (window-at-side-list))
+      (quit-window nil window)))
+
+  (bind-key "C-c q" #'quit-bottom-side-windows)
+#+END_SRC
 ** God
 #+BEGIN_SRC emacs-lisp
   (use-package god-mode
