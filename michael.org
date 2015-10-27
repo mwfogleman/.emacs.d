@@ -1354,7 +1354,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
              "* I am grateful for: \n** %?")
             ("n" "Note" entry (file "~/org/notes.org")
              "* %?\n")
-            ("m" "Meditation Log" entry (file+datetree "~/org/meditation_log.org")
+            ("m" "Meditation Log" entry (file+datetree "~/org/awakening.org")
              "* %?\n")
             ("j" "Journal" entry (file+datetree "~/org/journal.org.gpg")
              "* %?")
