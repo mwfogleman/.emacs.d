@@ -890,6 +890,16 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
   (use-package edit-list
     :ensure t)
 #+END_SRC
+** Beacon
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :ensure t
+    :diminish beacon-mode
+    :init
+    (beacon-mode 1)
+    (setq beacon-push-mark 35)
+    (setq beacon-color "#666600"))
+#+END_SRC
 * Browsing
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
