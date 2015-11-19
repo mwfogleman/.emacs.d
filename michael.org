@@ -1424,7 +1424,10 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
             ("\\.x?html?\\'" . "firefox %s")
             ("\\.pdf\\'" . "evince %s"))
           org-todo-keywords
-          '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c@)")))
+          '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c@)")
+            (sequence "LEARN" "RESEARCH" "TRY" "TEACH" "|" "COMPLETE")
+            (sequence "QUESTION" "|" "ANSWERED")))
+
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
     (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
