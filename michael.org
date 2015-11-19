@@ -916,6 +916,17 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
     :ensure t
     :bind ("C-h C-m" . discover-my-major))
 #+END_SRC
+** Goto-chg
+Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-points/][Move Through Edit Points]]. This works like the mark, except it cycles through edit points. It takes you through your undo history without actually undoing anything.
+
+"C-u 0 C-c ," will give a description of changes made.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package goto-chg
+    :ensure t
+    :bind (("C-c ," . goto-last-change)
+           ("C-c ." . goto-last-change-reverse)))
+#+END_SRC
 * Browsing
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
