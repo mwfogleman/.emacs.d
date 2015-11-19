@@ -900,6 +900,22 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
     (setq beacon-push-mark 35)
     (setq beacon-color "#666600"))
 #+END_SRC
+** Discoverability
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :diminish which-key-mode
+    :init
+    (which-key-mode))
+
+  (use-package help-fns+
+    :ensure t
+    :bind ("C-h M-k" . describe-keymap)) ; For autoloading.
+
+  (use-package discover-my-major
+    :ensure t
+    :bind ("C-h C-m" . discover-my-major))
+#+END_SRC
 * Browsing
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
