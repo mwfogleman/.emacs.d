@@ -1284,6 +1284,11 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (sp-with-modes '(markdown-mode gfm-mode)
       (sp-local-pair "*" "*"))
     (sp-with-modes '(org-mode)
+      (sp-local-pair "=" "=")
+      (sp-local-pair "*" "*")
+      (sp-local-pair "/" "/")
+      (sp-local-pair "_" "_")
+      (sp-local-pair "+" "+")
       (sp-local-pair "<" ">")
       (sp-local-pair "[" "]"))
     (use-package rainbow-delimiters
