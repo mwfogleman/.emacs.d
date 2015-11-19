@@ -1381,6 +1381,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
           org-src-fontify-natively t
           org-lowest-priority 68
           org-default-priority 68
+          org-ellipsis "↴"
           org-agenda-files (quote ("~/org/tech.org"
                                    "~/org/cml.org"
                                    "~/org/awakening.org"
