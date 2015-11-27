@@ -449,16 +449,14 @@ All of my packages for interacting with my laptop.
           dired-recursive-copies 'always
           dired-isearch-filenames t
           dired-listing-switches "-alh")
-    (bind-keys :map dired-mode-map
-               ("<return>" . dired-find-alternate-file)
-               ("^" . (lambda () (interactive) (find-alternate-file "..")))
-               ("'" . wdired-change-to-wdired-mode))
     (use-package dired+
       :ensure t) ;; also automatically calls dired-x, enabling dired-jump, C-x C-j
     (use-package dired-details
       :disabled t
       :init
       (dired-details-install))
+    (use-package dired-filter
+      :ensure t)
     (use-package dired-subtree
       :ensure t
       :init
@@ -478,7 +476,12 @@ All of my packages for interacting with my laptop.
                  ("m" . dired-subtree-mark-subtree)
                  ("u" . dired-subtree-unmark-subtree)
                  ("C-o C-f" . dired-subtree-only-this-file)
-                 ("C-o C-d" . dired-subtree-only-this-directory))))
+                 ("C-o C-d" . dired-subtree-only-this-directory)))
+    (bind-keys :map dired-mode-map
+               ("<return>" . dired-find-alternate-file)
+               ("^" . (lambda () (interactive) (find-alternate-file "..")))
+               ("'" . wdired-change-to-wdired-mode)
+               ("s-/" . dired-filter-mode)))
 #+END_SRC
 
 Some of these suggestions are adapted from Xah Lee's [[http://ergoemacs.org/emacs/emacs_dired_tips.html][article on Dired]]. dired-find-alternate-file, which is bound to a, is disabled by default. <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory. Relatedly, I re-bind 'q' to my kill-this-buffer function below.
