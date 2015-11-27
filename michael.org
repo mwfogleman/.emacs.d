@@ -1401,6 +1401,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
                                    "~/org/awakening.org"
                                    "~/org/responsibility.org"
                                    "~/org/work.org"
+                                   "~/org/daichi.org"
                                    "~/org/money.org"
                                    "~/org/readwrite.org"
                                    "~/org/personal.org"
