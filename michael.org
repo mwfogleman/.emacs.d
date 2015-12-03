@@ -1208,7 +1208,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       (setq git-link-open-in-browser t))
     :config
     (setq magit-use-overlays nil
-          magit-completing-read-function 'ivy-completing-read)
+          magit-completing-read-function 'ivy-completing-read
+          magit-push-always-verify nil)
     (diminish 'magit-backup-mode)
     (fullframe magit-status magit-mode-quit-window nil)
 
