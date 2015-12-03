@@ -1527,6 +1527,7 @@ I use org-struct in mu4e. See above.
           ("k" org-cut-subtree)
           ("s" org-sort)
           ("x" smex-major-mode-commands)
+          ("X" org-todo-done)
           ("y" org-todo-yesterday)))
 #+END_SRC
 ** TiddlyWiki
