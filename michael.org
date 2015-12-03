@@ -1489,15 +1489,26 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
 
   (defun org-buffer-agenda ()
     (interactive)
-    "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), t (todo-list)."
+    "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), a (agenda-list)."
     (progn
       (org-agenda-set-restriction-lock 'file)
       (org-agenda-list)))
 
+  (defun org-buffer-day-agenda ()
+    (interactive)
+    "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), a (agenda-list), d (org-agenda-day-view)."
+    (progn
+      (org-agenda-set-restriction-lock 'file)
+      (org-agenda-list)
+      (org-agenda-day-view))) ;; Maybe I should try writing a Emacs Lisp macro for this kind of thing!
+
   (bind-keys ("C-c A" . org-buffer-agenda)
              ("C-c t" . org-buffer-todo)
+             ("C-c d" . org-buffer-day-agenda)
              ("C-c L" . org-timeline)
              ("C-c o" . org-open-archive))
+
+  (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
 
   (add-hook 'org-mode-hook
             (lambda ()
