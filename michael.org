@@ -723,6 +723,7 @@ Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endles
 #+BEGIN_SRC emacs-lisp
   (use-package hungry-delete
     :ensure t
+    :diminish hungry-delete-mode
     :init
     (global-hungry-delete-mode))
 #+END_SRC
