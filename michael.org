@@ -523,11 +523,6 @@ These are helper packages that make Emacs even more awesome.
     (setq hydra-lv nil))
 #+END_SRC
 ** Windows
-*** Fullframe
-#+BEGIN_SRC emacs-lisp
-  (use-package fullframe
-    :ensure t)
-#+END_SRC
 *** Golden Ratio
 #+BEGIN_SRC emacs-lisp
   (use-package golden-ratio
@@ -1212,7 +1207,6 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
           magit-completing-read-function 'ivy-completing-read
           magit-push-always-verify nil)
     (diminish 'magit-backup-mode)
-    (fullframe magit-status magit-mode-quit-window nil)
 
     (defun visit-pull-request-url ()
       "Visit the current branch's PR on Github."
@@ -1681,8 +1675,6 @@ This function opens the agenda in full screen.
 
   (bind-key "<f5>" 'open-agenda)
   (bind-key "a" 'open-agenda launcher-map)
-
-  (fullframe open-agenda org-agenda-quit)
 #+END_SRC
 *** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
