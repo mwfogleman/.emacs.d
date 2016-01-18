@@ -1462,7 +1462,8 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
       :init
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
     :config
-    (org-load-modules-maybe t))
+    (org-load-modules-maybe t)
+    (diminish 'org-indent-mode))
 
   (defun make-org-scratch ()
     (interactive)
