@@ -1512,6 +1512,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
             (lambda ()
               (push '("TODO"  . ?▲) prettify-symbols-alist)
               (push '("DONE"  . ?✓) prettify-symbols-alist)
+              (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
               (push '("QUESTION"  . ??) prettify-symbols-alist)))
 #+END_SRC
 My settings for capture were some of my first Elisp :) I did need, and still need, the help of the  [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
