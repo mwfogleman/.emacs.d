@@ -953,6 +953,7 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 #+BEGIN_SRC emacs-lisp
   (use-package engine-mode
     :ensure t
+    :disabled t
     :init
     (engine-mode t)
     (setq engine/browser-function 'eww-browse-url)
