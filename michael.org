@@ -1608,6 +1608,14 @@ I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[ht
     (setq ispell-program-name "aspell"
           ispell-list-command "--list"))
 #+END_SRC
+** Pandoc
+#+BEGIN_SRC emacs-lisp
+  (use-package pandoc-mode
+    :ensure t
+    :init
+    (if (eq window-system 'mac)
+        (add-to-list 'exec-path "/usr/local/texlive/2016basic/bin/universal-darwin")))
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
