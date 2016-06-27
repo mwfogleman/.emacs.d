@@ -235,6 +235,12 @@ From Artur's article, "[[http://endlessparentheses.com/faster-pop-to-mark-comman
 
   (setq set-mark-command-repeat-pop t)
 #+END_SRC
+*** Encoding
+#+BEGIN_SRC emacs-lisp
+  (prefer-coding-system 'utf-8)
+  (setq coding-system-for-read 'utf-8)
+  (setq coding-system-for-write 'utf-8)
+#+END_SRC
 * Key Bindings
 Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function. 
 
