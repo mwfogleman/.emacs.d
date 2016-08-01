@@ -1447,9 +1447,11 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
              "* %?\n")
             ("m" "Meditation Log" entry (file+datetree "~/org/awakening.org")
              "* %?\n")
-            ("j" "Journal" entry (file+datetree "~/org/journal.org.gpg")
+	    ("j" "Journal" entry (file+datetree "~/org/journal.org.gpg")
              "* %?")
-            ("t" "TODO" entry (file "~/org/todo.org")
+	    ("r" "Review" entry (file+datetree "~/org/reviews.org")
+             "* What went well this week? \n** \n* What did not go well this week?\n** %?")
+	    ("t" "TODO" entry (file "~/org/todo.org")
              "* TODO %?\n"))
           org-file-apps
           '((auto-mode . emacs)
