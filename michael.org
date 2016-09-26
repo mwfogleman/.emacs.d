@@ -770,7 +770,7 @@ I also rebind the find-file-read-only with ivy-recentf.
 
 #+BEGIN_SRC emacs-lisp
   (use-package recentf
-    :bind ("C-x C-r" . ivy-recentf)
+    :bind ("C-x C-r" . counsel-recentf)
     :init
     (recentf-mode t)
     (setq recentf-max-saved-items 100))
