@@ -53,6 +53,11 @@ When I first copy this set-up into a new machine, I still have to require packag
     (package-install 'use-package))
   (require 'use-package)
 #+END_SRC
+*** Validate
+#+BEGIN_SRC emacs-lisp
+  (use-package validate
+    :ensure t)
+#+END_SRC
 *** Paradox
 #+BEGIN_SRC emacs-lisp
   (use-package async
