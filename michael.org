@@ -962,8 +962,8 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program (cond ((eq system-type 'darwin) "open") 
-                                         ((eq system-type 'gnu/linux) "firefox")))
+	browse-url-generic-program (cond ((eq system-type 'darwin) "open") 
+					 ((eq system-type 'gnu/linux) "chromium")))
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
