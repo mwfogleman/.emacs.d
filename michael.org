@@ -1633,9 +1633,9 @@ I use mwf-init-file rather than user-init-file, because I edit the config file i
   (defun find-init-file ()
     "Edit my init file in another window."
     (interactive)
-    (let ((mwf-init-file "~/src/config/home/.emacs.d/michael.org"))
+    (let ((mwf-init-file "~/src/.emacs.d/michael.org"))
       (find-file mwf-init-file)))
-  
+
   (bind-key "C-c I" 'find-init-file)
 #+END_SRC
 
