@@ -418,7 +418,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 All of my packages for interacting with my laptop.
 ** OS
 *** OS X
-**** Mac Related
+**** Identify Mac
 #+BEGIN_SRC emacs-lisp
   (defun is-mac-p
       ()
@@ -431,12 +431,6 @@ All of my packages for interacting with my laptop.
 #+BEGIN_SRC emacs-lisp
   (when (is-mac-p)
     (set-face-attribute 'default nil :height 165))
-#+END_SRC
-**** Reveal In Finder
-#+BEGIN_SRC emacs-lisp
-  (use-package reveal-in-finder
-    :if osx
-    :ensure t)
 #+END_SRC
 ** Shell
 #+BEGIN_SRC emacs-lisp
