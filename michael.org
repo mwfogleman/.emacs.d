@@ -636,7 +636,9 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
            ("C-c C-c M-x" . execute-extended-command))
     :init
     (unbind-key "<menu>")
-    (smex-initialize))
+    (smex-initialize)
+    (when (eq system-type 'gnu/linux)
+      (bind-key "<menu>" 'smex)))
 #+END_SRC
 ** Company Mode
 #+BEGIN_SRC emacs-lisp
@@ -808,6 +810,9 @@ This snippet automatically saves buffers in an intelligent way. It was originall
   (add-hook 'focus-out-hook 'auto-save-command)
 
   (unbind-key "C-x C-s")
+
+  (when (eq system-type 'gnu/linux)
+    (bind-key "C-x C-s" 'save-buffer))
 #+END_SRC
 *** Auto Revert Mode
 Revert buffers automatically when underlying files are changed externally.
