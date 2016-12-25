@@ -1680,7 +1680,7 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
     (interactive)
     (let ((buf "*Keep In Touch Backlog*")
           (src "~/src/keepintouch/clj/keepintouch")
-          (jar "-jar target/uberjar/keepintouch-0.1.0-SNAPSHOT-standalone.jar")
+          (jar "-jar target/uberjar/keepintouch-0.2.0-SNAPSHOT-standalone.jar")
           (cur default-directory)) 
       (cd src)
       (shell-command
