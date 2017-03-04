@@ -586,6 +586,9 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
 #+END_SRC
 ** Ivy and Swiper
 #+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t)
+
   (use-package swiper
     :ensure t
     :diminish ivy-mode
