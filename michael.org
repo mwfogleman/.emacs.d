@@ -1591,6 +1591,16 @@ I use org-struct in mu4e. See above.
     :init
     (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode)))
 #+END_SRC
+** Feeds (Elfeed)
+#+BEGIN_SRC emacs-lisp
+  (use-package elfeed
+    :ensure t
+    :bind ("C-c f" . elfeed)
+    :config
+    (bind-keys :map elfeed-search-mode-map
+               ("?" . describe-mode)
+               ("q" . kill-this-buffer)))
+#+END_SRC
 ** Pocket
 #+BEGIN_SRC emacs-lisp
   (use-package pocket-mode
