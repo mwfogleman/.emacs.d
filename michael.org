@@ -477,22 +477,26 @@ All of my packages for interacting with my laptop.
       :ensure t
       :init
       (bind-keys :map dired-mode-map
-                 :prefix "C-,"
-                 :prefix-map dired-subtree-map
-                 :prefix-docstring "Dired subtree map."
-                 ("C-i" . dired-subtree-insert)
-                 ("C-/" . dired-subtree-apply-filter)
-                 ("C-k" . dired-subtree-remove)
-                 ("C-n" . dired-subtree-next-sibling)
-                 ("C-p" . dired-subtree-previous-sibling)
-                 ("C-u" . dired-subtree-up)
-                 ("C-d" . dired-subtree-down)
-                 ("C-a" . dired-subtree-beginning)
-                 ("C-e" . dired-subtree-end)
-                 ("m" . dired-subtree-mark-subtree)
-                 ("u" . dired-subtree-unmark-subtree)
-                 ("C-o C-f" . dired-subtree-only-this-file)
-                 ("C-o C-d" . dired-subtree-only-this-directory)))
+		 :prefix "C-,"
+		 :prefix-map dired-subtree-map
+		 :prefix-docstring "Dired subtree map."
+		 ("C-i" . dired-subtree-insert)
+		 ("C-/" . dired-subtree-apply-filter)
+		 ("C-k" . dired-subtree-remove)
+		 ("C-n" . dired-subtree-next-sibling)
+		 ("C-p" . dired-subtree-previous-sibling)
+		 ("C-u" . dired-subtree-up)
+		 ("C-d" . dired-subtree-down)
+		 ("C-a" . dired-subtree-beginning)
+		 ("C-e" . dired-subtree-end)
+		 ("m" . dired-subtree-mark-subtree)
+		 ("u" . dired-subtree-unmark-subtree)
+		 ("C-o C-f" . dired-subtree-only-this-file)
+		 ("C-o C-d" . dired-subtree-only-this-directory)))
+    (use-package dired-quick-sort
+      :ensure t
+      :init
+      (dired-quick-sort-setup))
     (bind-keys :map dired-mode-map
                ("<return>" . dired-find-alternate-file)
                ("^" . (lambda () (interactive) (find-alternate-file "..")))
