@@ -1556,25 +1556,8 @@ I use org-struct in mu4e. See above.
           ("s" org-sort)
           ("x" smex-major-mode-commands)
           ("X" org-todo-done)
+	  ("R" org-done-and-archive)
           ("y" org-todo-yesterday)))
-#+END_SRC
-** TiddlyWiki
-I edit [[http://tiddlywiki.com/][TiddlyWiki]]5 .tid files in Emacs using my [[https://github.com/mwfogleman/tid-mode][tid-mode]] major mode. I create and bind functions to open the TiddlyWiki in Dired and the browser.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package tid-mode
-    :load-path "site-lisp/tid-mode/"
-    :init
-    (defun open-wiki ()
-      "Opens my TiddlyWiki directory."
-      (interactive)
-      (dired "~/Dropbox/wiki/tiddlers/"))
-    (defun browse-wiki ()
-      "Opens my TiddlyWiki in my browser."
-      (interactive)
-      (browse-url "127.0.0.1:8080/"))
-    (bind-keys ("C-c w" . open-wiki)
-               ("C-c W" . browse-wiki)))
 #+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
@@ -1914,37 +1897,6 @@ Adapted from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org#make-w
   (autoload 'zap-up-to-char "misc"
     "Kill up to, but not including ARGth occurrence of CHAR.")
   (bind-key "M-Z" 'zap-up-to-char)
-#+END_SRC
-** Twitter
-*** Hashtags
-I work with hashtags pretty frequently for work. Here are some helper functions.
-
-#+BEGIN_SRC emacs-lisp
-  (defun add-hashtag-at-point ()
-    (interactive)
-    "Adds a hashtag at the beginning of the current word or phrase."
-    (let (p1 p2 sbstr hashtxt)
-      (backward-word)
-      (setq p1 (point))
-      (forward-word)
-      (setq p2 (point))
-      (setq sbstr (buffer-substring p1 p2))
-      (delete-region p1 p2)
-      (insert (concat "#" sbstr))))
-
-  (defun avy-hashtag-word ()
-    (interactive)
-    "Uses avy to add hashtags interactively."
-    (progn
-      (avy-goto-word-or-subword-1)
-      (forward-char)
-      (add-hashtag-at-point)))
-
-  (bind-keys ("s-3" . add-hashtag-at-point)
-             ("s-#" . avy-hashtag-word))
-
-  (bind-keys :map avy-map
-             ("h" . avy-hashtag-word))
 #+END_SRC
 ** Org-Todo-Done
 I use org-todo-keywords, which makes running org-todo interactively a little more work. This creates a virtually identical bind to quickly mark something done.
