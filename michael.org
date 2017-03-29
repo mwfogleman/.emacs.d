@@ -1591,6 +1591,14 @@ I use org-struct in mu4e. See above.
     :init
     (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode)))
 #+END_SRC
+** Pocket
+#+BEGIN_SRC emacs-lisp
+  (use-package pocket-mode
+    :ensure t
+    :defer t
+    :config
+    (setq pocket-items-per-page 30))
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
