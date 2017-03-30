@@ -432,6 +432,10 @@ All of my packages for interacting with my laptop.
   (when (is-mac-p)
     (set-face-attribute 'default nil :height 165))
 #+END_SRC
+*** MobileOrg
+#+BEGIN_SRC emacs-lisp
+   (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+#+END_SRC
 ** Shell
 #+BEGIN_SRC emacs-lisp
   (use-package shell
