@@ -1602,6 +1602,7 @@ I use org-struct in mu4e. See above.
     :bind ("C-c f" . elfeed)
     :config
     (bind-keys :map elfeed-search-mode-map
+	       ("g" . elfeed-update)
                ("?" . describe-mode)
                ("q" . kill-this-buffer)))
 #+END_SRC
