@@ -393,7 +393,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("p u" . paradox-upgrade-packages)
              ("P" . proced)
              ("s" . scratch)
-             ("@" . (lambda () (interactive) (find-file "~/Dropbox/passwords.org.gpg"))))
+             ("@" . (lambda () (interactive) (find-file "~/Documents/passwords.org.gpg"))))
 #+END_SRC
 ** Macros
 [[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
@@ -1469,7 +1469,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
 
   (defun make-org-scratch ()
     (interactive)
-    (find-file "~/Dropbox/org/scratch.org"))
+    (find-file "~/org/scratch.org"))
 
   (bind-keys :map launcher-map
              ("S" . make-org-scratch))
@@ -1640,7 +1640,7 @@ Relatedly, I often want to reload my init-file. This will actually use the syste
 I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of the command line utility's functionality in Elisp.
 
 #+BEGIN_SRC emacs-lisp
-  (setq keepintouch-datafile "~/Dropbox/keepintouch.data")
+  (setq keepintouch-datafile "~/Documents/keepintouch.data")
 
   (defun keptintouch (arg)
     "Request a contact in a keepintouch.data file, and update their last
@@ -1651,16 +1651,16 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
                     (format-time-string "%Y/%m/%d")
                   (read-string "When did you contact them? (year/month/date): "))))
       (save-excursion
-        (find-file keepintouch-datafile)
-        (goto-char (point-min))
-        (search-forward contact)
-        (forward-line -1)
-        (beginning-of-line)
-        (kill-line)
-        (insert date)
-        (save-buffer)
-        (switch-to-buffer (other-buffer))
-        (kill-buffer (other-buffer)))
+	(find-file keepintouch-datafile)
+	(goto-char (point-min))
+	(search-forward contact)
+	(forward-line -1)
+	(beginning-of-line)
+	(kill-line)
+	(insert date)
+	(save-buffer)
+	(switch-to-buffer (other-buffer))
+	(kill-buffer (other-buffer)))
       (message "%s was contacted." contact)))
 
   (defun keptintouch-backlog ()
