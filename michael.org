@@ -1543,6 +1543,20 @@ I use org-struct in mu4e. See above.
 	  ("R" org-done-and-archive)
           ("y" org-todo-yesterday)))
 #+END_SRC
+** Google Calendar
+#+BEGIN_SRC emacs-lisp
+  (use-package org-gcal
+    :ensure t
+    :init
+    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync)))
+    :config
+    (defun org-agenda-refresh ()
+      (interactive)
+      (progn
+	(org-gcal-sync)
+	(org-agenda-redo t)))
+    (bind-key "g" 'org-agenda-refresh org-agenda-mode-map))
+#+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
