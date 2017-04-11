@@ -1527,12 +1527,13 @@ I use org-struct in mu4e. See above.
              ("<down>" . org-insert-todo-heading))
 
   (setq org-speed-commands-user
-        '(("N" org-narrow-to-subtree)
+	'(("N" org-narrow-to-subtree)
           ("$" org-archive-subtree)
           ("A" org-archive-subtree)
           ("W" widen)
           ("d" org-down-element)
           ("k" org-cut-subtree)
+	  ("m" org-mark-subtree)
           ("s" org-sort)
           ("x" smex-major-mode-commands)
           ("X" org-todo-done)
@@ -1917,4 +1918,79 @@ I use org-todo-keywords, which makes running org-todo interactively a little mor
     (org-todo 'done))
 
   (bind-key "C-c C-S-t" 'org-todo-done)
+#+END_SRC
+** Org Agenda Timeline For All Agenda Files
+#+BEGIN_SRC emacs-lisp
+  (defun org-agenda-timeline-all (&optional arg)
+    (interactive "P")
+    (let ((org-agenda-archives-mode t))
+      (with-temp-buffer
+	(dolist (org-agenda-file org-agenda-files)
+	  (insert-file-contents org-agenda-file nil)
+	  (end-of-buffer)
+	  (newline))
+	(write-file "/tmp/timeline.org")
+	(org-agenda arg "L"))))
+#+END_SRC
+** org-teleport
+This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org-teleport-headlines/][John Kitchin]].
+#+BEGIN_SRC emacs-lisp
+  (defun org-teleport (&optional arg)
+    "Teleport the current heading to after a headline selected with avy.
+  With a prefix ARG move the headline to before the selected
+  headline. With a numeric prefix, set the headline level. If ARG
+  is positive, move after, and if negative, move before."
+    (interactive "P")
+    ;; Kill current headline
+    (org-mark-subtree)
+    (kill-region (region-beginning) (region-end))
+    ;; Jump to a visible headline
+    (avy-with avy-goto-line (avy--generic-jump "^\\*+" nil avy-style))
+    (cond
+     ;; Move before  and change headline level
+     ((and (numberp arg) (> 0 arg))
+      (save-excursion
+	(yank))
+      ;; arg is what we want, second is what we have
+      ;; if n is positive, we need to demote (increase level)
+      (let ((n (- (abs arg) (car (org-heading-components)))))
+	(cl-loop for i from 1 to (abs n)
+		 do
+		 (if (> 0 n)
+                     (org-promote-subtree)
+                   (org-demote-subtree)))))
+     ;; Move after and change level
+     ((and (numberp arg) (< 0 arg))
+      (org-mark-subtree)
+      (goto-char (region-end))
+      (when (eobp) (insert "\n"))
+      (save-excursion
+	(yank))
+      ;; n is what we want and second is what we have
+      ;; if n is positive, we need to demote
+      (let ((n (- (abs arg) (car (org-heading-components)))))
+	(cl-loop for i from 1 to (abs n)
+		 do
+		 (if (> 0 n) (org-promote-subtree)
+                   (org-demote-subtree)))))
+
+     ;; move to before selection
+     ((equal arg '(4))
+      (save-excursion
+	(yank)))
+     ;; move to after selection
+     (t
+      (org-mark-subtree)
+      (goto-char (region-end))
+      (when (eobp) (insert "\n"))
+      (save-excursion
+	(yank))))
+    (outline-hide-leaves))
+
+  (add-to-list 'org-speed-commands-user
+               (cons "q" (lambda ()
+                           (avy-with avy-goto-line
+                             (avy--generic-jump "^\\*+" nil avy-style)))))
+
+  (add-to-list 'org-speed-commands-user (cons "T" 'org-teleport))
 #+END_SRC
