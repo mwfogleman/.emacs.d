@@ -587,7 +587,14 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
 ** Ivy and Swiper
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
-    :ensure t)
+    :ensure t
+    :bind (("C-x C-f" . counsel-find-file)
+	   ("C-x C-m" . counsel-M-x)
+	   ("C-x C-f" . counsel-find-file)
+	   ("C-h f" . counsel-describe-function)
+	   ("C-h v" . counsel-describe-variable))
+    :init
+    (bind-key "C-r" 'counsel-expression-history read-expression-map))
 
   (use-package swiper
     :ensure t
@@ -599,7 +606,8 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
     (ivy-mode 1)
     (setq ivy-display-style 'fancy
           ivy-height 4
-          ivy-use-virtual-buffers t))
+          ivy-use-virtual-buffers t
+	  enable-recursive-minibuffers t))
 #+END_SRC
 ** IDO
 I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex and Ido-Menu. Ido-vertical-mode makes IDO bearable.
@@ -633,15 +641,11 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+BEGIN_SRC emacs-lisp
   (use-package smex
     :ensure t
-    :bind (("C-x C-m" . smex)
-           ("C-x M-m" . smex-major-mode-commands)
+    :bind (("C-x M-m" . smex-major-mode-commands)
            ("M-x" . smex-major-mode-commands)
            ("C-c C-c M-x" . execute-extended-command))
     :init
-    (unbind-key "<menu>")
-    (smex-initialize)
-    (when (eq system-type 'gnu/linux)
-      (bind-key "<menu>" 'smex)))
+    (smex-initialize))
 #+END_SRC
 ** Company Mode
 #+BEGIN_SRC emacs-lisp
