@@ -964,6 +964,25 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
     :bind (("C-c ," . goto-last-change)
            ("C-c ." . goto-last-change-reverse)))
 #+END_SRC
+** Selected
+#+BEGIN_SRC emacs-lisp
+  (use-package selected
+    :ensure t
+    :diminish selected-minor-mode
+    :commands selected-minor-mode
+    :init
+    (setq selected-org-mode-map (make-sparse-keymap))
+    (selected-global-mode 1)
+    :bind (:map selected-keymap
+		("q" . selected-off)
+		("i" . indent-region)
+		("u" . upcase-region)
+		("d" . downcase-region)
+		("w" . count-words-region)
+		("m" . apply-macro-to-region-lines)
+		:map selected-org-mode-map
+		("t" . org-table-convert-region)))
+#+END_SRC
 * Browsing
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
@@ -1941,9 +1960,9 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
 #+BEGIN_SRC emacs-lisp
   (defun org-teleport (&optional arg)
     "Teleport the current heading to after a headline selected with avy.
-  With a prefix ARG move the headline to before the selected
-  headline. With a numeric prefix, set the headline level. If ARG
-  is positive, move after, and if negative, move before."
+    With a prefix ARG move the headline to before the selected
+    headline. With a numeric prefix, set the headline level. If ARG
+    is positive, move after, and if negative, move before."
     (interactive "P")
     ;; Kill current headline
     (org-mark-subtree)
@@ -1961,8 +1980,8 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
 	(cl-loop for i from 1 to (abs n)
 		 do
 		 (if (> 0 n)
-                     (org-promote-subtree)
-                   (org-demote-subtree)))))
+		     (org-promote-subtree)
+		   (org-demote-subtree)))))
      ;; Move after and change level
      ((and (numberp arg) (< 0 arg))
       (org-mark-subtree)
@@ -1976,7 +1995,7 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
 	(cl-loop for i from 1 to (abs n)
 		 do
 		 (if (> 0 n) (org-promote-subtree)
-                   (org-demote-subtree)))))
+		   (org-demote-subtree)))))
 
      ;; move to before selection
      ((equal arg '(4))
@@ -1992,9 +2011,11 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
     (outline-hide-leaves))
 
   (add-to-list 'org-speed-commands-user
-               (cons "q" (lambda ()
-                           (avy-with avy-goto-line
-                             (avy--generic-jump "^\\*+" nil avy-style)))))
+	       (cons "q" (lambda ()
+			   (avy-with avy-goto-line
+			     (avy--generic-jump "^\\*+" nil avy-style)))))
 
   (add-to-list 'org-speed-commands-user (cons "T" 'org-teleport))
+
+  (bind-key "T" 'org-teleport selected-org-mode-map)
 #+END_SRC
