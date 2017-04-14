@@ -1942,19 +1942,6 @@ I use org-todo-keywords, which makes running org-todo interactively a little mor
 
   (bind-key "C-c C-S-t" 'org-todo-done)
 #+END_SRC
-** Org Agenda Timeline For All Agenda Files
-#+BEGIN_SRC emacs-lisp
-  (defun org-agenda-timeline-all (&optional arg)
-    (interactive "P")
-    (let ((org-agenda-archives-mode t))
-      (with-temp-buffer
-	(dolist (org-agenda-file org-agenda-files)
-	  (insert-file-contents org-agenda-file nil)
-	  (end-of-buffer)
-	  (newline))
-	(write-file "/tmp/timeline.org")
-	(org-agenda arg "L"))))
-#+END_SRC
 ** org-teleport
 This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org-teleport-headlines/][John Kitchin]].
 #+BEGIN_SRC emacs-lisp
