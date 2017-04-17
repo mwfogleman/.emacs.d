@@ -1071,10 +1071,12 @@ Here are language-specific (largely Lisps) or development-related packages.
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
     :ensure t
-    :init
-    (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
-    (add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
-    (add-to-list 'auto-mode-alist '("\\.cljs$" . clojure-mode))
+    :mode (("\\.boot$"  . clojure-mode)
+           ("\\.clj$"   . clojure-mode)
+           ("\\.cljs$"  . clojure-mode)
+           ("\\.cljx$"  . clojure-mode)
+           ("\\.edn$"   . clojure-mode)
+           ("\\.cljc$"  . clojure-mode))
     :config
     (rename-modeline "clojure-mode" clojure-mode "λ")
     (use-package align-cljlet
@@ -1629,8 +1631,7 @@ I use org-struct in mu4e. See above.
 #+BEGIN_SRC emacs-lisp
   (use-package csv-mode
     :ensure t
-    :init
-    (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode)))
+    :mode ("\\.csv$" . csv-mode))
 #+END_SRC
 ** Feeds (Elfeed)
 #+BEGIN_SRC emacs-lisp
