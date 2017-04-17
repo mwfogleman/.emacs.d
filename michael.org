@@ -428,6 +428,16 @@ All of my packages for interacting with my laptop.
   (when (is-mac-p)
     (set-face-attribute 'default nil :height 165))
 #+END_SRC
+*** Arch Linux
+#+BEGIN_SRC emacs-lisp
+  (use-package arch-packer
+    :if (memq window-system '(x))
+    :ensure t
+    :init
+    (setq arch-packer-default-command "pacaur")
+    (bind-keys :map launcher-map
+	       ("L" . arch-packer-list-packages)))
+#+END_SRC
 ** Shell
 #+BEGIN_SRC emacs-lisp
   (use-package shell
