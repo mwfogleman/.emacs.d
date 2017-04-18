@@ -53,11 +53,6 @@ When I first copy this set-up into a new machine, I still have to require packag
     (package-install 'use-package))
   (require 'use-package)
 #+END_SRC
-*** Validate
-#+BEGIN_SRC emacs-lisp
-  (use-package validate
-    :ensure t)
-#+END_SRC
 *** Paradox
 #+BEGIN_SRC emacs-lisp
   (use-package async
@@ -75,9 +70,8 @@ When I first copy this set-up into a new machine, I still have to require packag
     :init
     (defmacro rename-modeline (package-name mode new-name)
       `(eval-after-load ,package-name
-         '(defadvice ,mode (after rename-modeline activate)
-            (setq mode-name ,new-name))))
-    (diminish 'isearch-mode))
+	 '(defadvice ,mode (after rename-modeline activate)
+            (setq mode-name ,new-name)))))
 #+END_SRC
 *** Theme
 I still have to do a load-theme -> solarized-dark upon restarting.
@@ -136,16 +130,6 @@ Finally, I diminish some built-in minor modes.
   
   (diminish 'isearch-mode)
 #+END_SRC
-** Window handling
-To handle windows intelligently, I use the built-in windmove functionality. I also add some special functionality for Org where windmove is active in locations where Org Mode does not have special functions.
-
-#+BEGIN_SRC emacs-lisp
-  (windmove-default-keybindings)
-  (add-hook 'org-shiftup-final-hook 'windmove-up)
-  (add-hook 'org-shiftleft-final-hook 'windmove-left)
-  (add-hook 'org-shiftdown-final-hook 'windmove-down)
-  (add-hook 'org-shiftright-final-hook 'windmove-right)
-#+END_SRC
 ** Backups
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist
@@ -159,19 +143,11 @@ Make yes or no prompts be y or n prompts.
   (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 ** Other
-*** Apropos
-Let apropos commands perform more extensive searches than default. This also comes from Better Defaults.
-
-#+BEGIN_SRC emacs-lisp
-  (setq apropos-do-all t)
-#+END_SRC
 *** Buffer / File Warnings
-Remove the warning if a buffer or file does not exist, so you can create them.
+Remove the warning if a buffer or file does not exist, so you can create them. ([[https://iqbalansari.github.io/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/][Source]].)
 
 #+BEGIN_SRC emacs-lisp
   (setq confirm-nonexistent-file-or-buffer nil)
-
-  ;; via https://iqbalansari.github.io/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/
 
   (defun create-non-existent-directory ()
     "Check whether a given file's parent directories exist; if they do not, offer to create them."
@@ -359,9 +335,8 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
 Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys on the toggle map are elsewhere in this config.
 
 #+BEGIN_SRC emacs-lisp
-  (define-prefix-command 'toggle-map)
-  (bind-key "C-x t" 'toggle-map)
-  (bind-keys :map toggle-map
+  (bind-keys :prefix-map toggle-map
+	     :prefix "C-x t"
              ("d" . toggle-debug-on-error)
              ("l" . linum-mode)
              ("o" . org-mode)
@@ -558,11 +533,6 @@ These are helper packages that make Emacs even more awesome.
     (golden-ratio-mode 1)
     (setq golden-ratio-auto-scale t))
 #+END_SRC
-*** Winner Mode
-#+BEGIN_SRC emacs-lisp
-  (use-package winner
-    :init (winner-mode))
-#+END_SRC
 *** Quit Bottom Window
 Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-alist.html][Lunaryorn's post about display-buffer-alist]].
 #+BEGIN_SRC emacs-lisp
@@ -573,26 +543,6 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
       (quit-window nil window)))
 
   (bind-key "C-c q" #'quit-bottom-side-windows)
-#+END_SRC
-** God
-#+BEGIN_SRC emacs-lisp
-  (use-package god-mode
-    :ensure t
-    :init
-    (defun update-cursor ()
-      (setq cursor-type (if (or god-local-mode buffer-read-only)
-                            'bar
-                          'box)))
-    (add-hook 'god-mode-enabled-hook 'update-cursor)
-    (add-hook 'god-mode-disabled-hook 'update-cursor)
-    :config
-    (bind-keys :map launcher-map
-               ("g" . god-local-mode))
-    (bind-keys :map god-local-mode-map
-               ("z" . repeat)
-               ("." . repeat)
-               ("i" . god-local-mode))
-    (add-to-list 'god-exempt-major-modes 'org-agenda-mode))
 #+END_SRC
 ** Ivy and Swiper
 #+BEGIN_SRC emacs-lisp
@@ -806,7 +756,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
                       basic)))
       (if proj
           (projectile-save-project-buffers)
-        (when basic
+	(when basic
           (save-buffer)))))
 
   (defmacro advise-commands (advice-name commands class &rest body)
@@ -816,7 +766,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
        ,@(mapcar (lambda (command)
                    `(defadvice ,command (,class ,(intern (concat (symbol-name command) "-" advice-name)) activate)
                       ,@body))
-                 commands)))
+		 commands)))
 
   (advise-commands "auto-save"
                    (ido-switch-buffer ace-window magit-status windmove-up windmove-down windmove-left windmove-right mode-line-other-buffer)
@@ -835,6 +785,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
 Revert buffers automatically when underlying files are changed externally.
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
+  (diminish 'auto-revert-mode)
 #+END_SRC
 *** Save Place
 This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
@@ -844,45 +795,6 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
     :init
     (setq-default save-place t)
     (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
-#+END_SRC
-** Key Chord mode
-#+BEGIN_SRC emacs-lisp
-  (use-package key-chord
-    :ensure t
-    :init
-    (progn 
-      (setq key-chord-two-keys-delay .015
-            key-chord-one-key-delay .020)
-      (key-chord-mode 1)
-      (key-chord-define-global "cg" 'undo)
-      (key-chord-define-global "yp" 'other-window)
-      (key-chord-define-global ";0" 'delete-window)
-      (key-chord-define-global ";1" 'delete-other-windows)
-      (key-chord-define-global ";2" 'split-window-below)
-      (key-chord-define-global ";3"  'split-window-right)
-      (key-chord-define-global ",." 'beginning-of-buffer)
-      (key-chord-define-global ".p" 'end-of-buffer)
-      (key-chord-define-global "jw" 'avy-goto-word-or-subword-1)
-      (key-chord-define-global "jc" 'avy-goto-char)
-      (key-chord-define-global "jl" 'avy-goto-line)
-      ;; (key-chord-define-global "jb" 'ace-jump-buffer)
-      ;; (key-chord-define-global "jo" 'ace-jump-buffer-other-window)
-      (key-chord-define-global "'l" 'ido-switch-buffer)
-      (key-chord-define-global "'-" 'smex)
-      (key-chord-define-global ",r" 'find-file)
-      (key-chord-define-global ".c" 'ido-dired)
-      (key-chord-define-global "0r" ")")
-      (key-chord-define-global "1'" "!")
-      (key-chord-define-global "2," "@")
-      (key-chord-define-global "3." "#")
-      (key-chord-define-global "4p" "$")
-      (key-chord-define-global "5y" "%")
-      (key-chord-define-global "6y" "^")
-      (key-chord-define-global "7f" "&")
-      (key-chord-define-global "8g" "*")
-      (key-chord-define-global "9c" "(")
-      (key-chord-define-global "-l" "_")
-      (key-chord-define emacs-lisp-mode-map "7f" "&optional ")))
 #+END_SRC
 ** Regexes
 #+BEGIN_SRC emacs-lisp
@@ -1002,58 +914,6 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
-** Engine Mode
-#+BEGIN_SRC emacs-lisp
-  (use-package engine-mode
-    :ensure t
-    :disabled t
-    :init
-    (engine-mode t)
-    (setq engine/browser-function 'eww-browse-url)
-    (engine/set-keymap-prefix (kbd "C-c e"))
-    :config
-    (defengine amazon
-      "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=%s"
-      :keybinding "a")
-
-    (defengine duckduckgo
-      "https://duckduckgo.com/html/?q=%s"
-      :keybinding "d")
-
-    (defengine github
-      "https://github.com/search?ref=simplesearch&q=%s"
-      :keybinding "g")
-
-    (defengine google-images
-      "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s"
-      :keybinding "i")
-
-    (defengine google-maps
-      "http://maps.google.com/maps?q=%s"
-      :keybinding "m"
-      :docstring "Mappin' it up.")
-
-    (defengine stack-overflow
-      "https://stackoverflow.com/search?q=%s")
-
-    (defengine twitter
-      "https://twitter.com/search?q=%s")
-
-    (defengine wikipedia
-      "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
-      :keybinding "w"
-      :docstring "Searchin' the wikis.")
-
-    (defengine wiktionary
-      "https://www.wikipedia.org/search-redirect.php?family=wiktionary&language=en&go=Go&search=%s")
-
-    (defengine wolfram-alpha
-      "http://www.wolframalpha.com/input/?i=%s")
-
-    (defengine youtube
-      "http://www.youtube.com/results?aq=f&oq=&search_query=%s"
-      :keybinding "y"))
-#+END_SRC
 ** EWW!
 I've enjoyed using Conkeror on my Arch machine. This package brings one neat feature of Conkeror to eww.
 #+BEGIN_SRC emacs-lisp
@@ -1125,41 +985,6 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
     ;; fix cond indenting
     (put 'cond 'clojure-backtracking-indent '(2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4)))
 #+END_SRC
-*** Clojure Cookbook
-I've been reading the [[https://github.com/clojure-cookbook/clojure-cookbook][Clojure Cookbook]] in Emacs with AsciiDoc mode. 
-
-There are a lot of short chapters, so I whipped up this Elisp to switch between them.
-
-#+BEGIN_SRC emacs-lisp
-  (defun increment-clojure-cookbook ()
-    "When reading the Clojure cookbook, find the next section, and close the buffer."
-    (interactive)
-    (let* ((cur (buffer-name))
-           (split-cur (split-string cur "[-_]"))
-           (chap (car split-cur))
-           (rec (car (cdr split-cur)))
-           (rec-num (string-to-number rec))
-           (next-rec-num (1+ rec-num))
-           (next-rec-s (number-to-string next-rec-num))
-           (next-rec (if (< next-rec-num 10)
-                         (concat "0" next-rec-s)
-                       next-rec-s))
-           (target (file-name-completion (concat chap "-" next-rec) "")))
-      (progn 
-        (if (equal target nil)
-            (dired (file-name-directory (buffer-file-name)))
-          (find-file target))
-        (kill-buffer cur))))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (use-package adoc-mode
-    :ensure t
-    :bind (("M-+" . increment-clojure-cookbook))
-    :init
-    (add-to-list 'auto-mode-alist '("\\.asciidoc\\'" . adoc-mode))
-    (add-hook 'adoc-mode-hook 'cider-mode))
-#+END_SRC
 ** Emacs Lisp
 *** Elisp-Slime-Nav
 #+BEGIN_SRC emacs-lisp
@@ -1180,48 +1005,6 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-#+END_SRC
-** Golang
-#+BEGIN_SRC emacs-lisp
-  (use-package go-mode
-    :ensure t
-    :init
-    (defun my-go-mode-hook ()
-      ;; Call Gofmt before saving
-      (add-hook 'before-save-hook 'gofmt-before-save)
-      ;; Customize compile command to run go build
-      (if (not (string-match "go" compile-command))
-          (set (make-local-variable 'compile-command)
-               "go build -v && go test -v && go vet"))
-      ;; Godef jump key binding
-      (local-set-key (kbd "M-.") 'godef-jump))
-    (bind-keys :map launcher-map
-               ("f" . gofmt))
-    (use-package go-eldoc
-      :ensure t
-      :config
-      (go-eldoc-setup))
-    (use-package company-go
-      :disabled t
-      :ensure t
-      :config
-  
-      (add-hook 'go-mode-hook
-                (lambda () (set (make-local-variable 'company-backends) '(company-go)))))
-    :config
-    (add-hook 'go-mode-hook 'my-go-mode-hook)
-    (add-hook 'go-mode-hook 'subword-mode)
-
-    (bind-keys :map launcher-map
-               ("f" . gofmt)))
-#+END_SRC
-** Elixir
-#+BEGIN_SRC emacs-lisp
-  (use-package elixir-mode
-    :ensure t)
-
-  (use-package alchemist
-    :ensure t)
 #+END_SRC
 ** Restclient
 See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
@@ -1433,6 +1216,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
+    :diminish org-indent-mode
     :init
     (setq default-major-mode 'org-mode
           org-directory "~/org/"
@@ -1495,8 +1279,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
       :init
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
     :config
-    (org-load-modules-maybe t)
-    (diminish 'org-indent-mode))
+    (org-load-modules-maybe t))
 
   (defun make-org-scratch ()
     (interactive)
@@ -1585,7 +1368,6 @@ I use org-struct in mu4e. See above.
     ;; "r" is bound to org-agenda-redo
     (bind-key "g" 'org-gcal-sync org-agenda-mode-map))
 #+END_SRC
-#+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
@@ -1610,14 +1392,15 @@ I use org-struct in mu4e. See above.
 ** Flyspell
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
+    :diminish flyspell-mode
     :bind (("C-`" . ispell-word)
-           ("C-~" . ispell-buffer))
+	   ("C-~" . ispell-buffer))
     :init
     (dolist (hook '(text-mode-hook org-mode-hook))
       (add-hook hook (lambda () (flyspell-mode 1))))
     :config
     (setq ispell-program-name "aspell"
-          ispell-list-command "--list"))
+	  ispell-list-command "--list"))
 #+END_SRC
 ** Pandoc
 #+BEGIN_SRC emacs-lisp
@@ -1795,7 +1578,7 @@ This tip comes from an [[http://emacs-fu.blogspot.kr/2013/03/editing-with-root-p
   (bind-key "C-x F" 'find-file-as-root)
 #+END_SRC
 ** Unfill Paragraph
-This function greedily borrowed from Sacha.
+This function borrowed from Sacha.
 
 #+BEGIN_SRC emacs-lisp
   (defun unfill-paragraph (&optional region)
