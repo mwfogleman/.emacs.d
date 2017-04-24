@@ -1404,7 +1404,7 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
             smtpmail-queue-mail  nil
 	    ;; Use mu mkdir ~/mbsync/queue to set up first
             smtpmail-queue-dir  "/home/michael/mbsync/queue/cur"))
-    :bind ("C-c m" . mu4e)
+    :bind ("C-c e" . mu4e)
     :config
     (add-to-list 'mu4e-view-actions
 		 '("ViewInBrowser" . mu4e-action-view-in-browser) t)
