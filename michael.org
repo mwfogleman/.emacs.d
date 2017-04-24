@@ -1240,17 +1240,19 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
           org-lowest-priority 68
           org-default-priority 68
           org-ellipsis "↴"
-          org-tag-alist '(("@work" . ?b)
-                          ("@home" . ?h)
-                          ("@reading" . ?r)
-                          ("@writing" . ?w)
-                          ("@errands" . ?e)
-                          ("@email" . ?e)
-                          ("@coding" . ?c)
-                          ("@phone" . ?p)
-                          ("@computer" . ?l)
-                          ("lowenergy" . ?0)
-                          ("highenergy" . ?1))
+	  org-expiry-inactive-timestamps t
+	  org-clock-idle-time nil
+	  org-log-done 'time
+	  org-clock-continuously nil
+	  org-clock-persist t
+	  org-clock-in-switch-to-state "STARTED"
+	  org-clock-in-resume nil
+	  org-show-notification-handler 'message
+	  org-clock-report-include-clocking-task t
+	  ;; Too many clock entries clutter up a heading
+	  org-log-into-drawer t
+	  org-clock-into-drawer 1
+
 	  org-file-apps
 	  '((auto-mode . emacs)
 	    ("\\.mm\\'" . default)
@@ -1323,6 +1325,37 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
               (push '("DONE"  . ?✓) prettify-symbols-alist)
               (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
               (push '("QUESTION"  . ??) prettify-symbols-alist)))
+
+  (bind-key "C-c w" 'hydra-org-clock/body)
+  (defhydra hydra-org-clock (:color blue :hint nil)
+    "
+  ^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
+  -^-^-----^-^----------^-^------^-^----------|--^-^------^-^-------------^------
+  (_?_)    _i_n         _e_dit   _g_oto entry | (_z_)     _r_elative      ti_m_e
+  ^ ^     _c_ontinue   _q_uit   _d_isplay    |  ^ ^      cou_n_tdown     i_t_em
+  ^ ^     _o_ut        ^ ^      _r_eport     |  ^ ^      _p_ause toggle
+  ^ ^     ^ ^          ^ ^      ^ ^          |  ^ ^      _s_top
+  "
+     ("i" org-clock-in)
+     ("c" org-clock-in-last)
+     ("o" org-clock-out)
+
+     ("e" org-clock-modify-effort-estimate)
+     ("q" org-clock-cancel)
+
+     ("g" org-clock-goto)
+     ("d" org-clock-display)
+     ("r" org-clock-report)
+     ("?" (org-info "Clocking commands"))
+
+    ("r" org-timer-start)
+    ("n" org-timer-set-timer)
+    ("p" org-timer-pause-or-continue)
+    ("s" org-timer-stop)
+
+    ("m" org-timer)
+    ("t" org-timer-item)
+    ("z" (org-info "Timers")))
 #+END_SRC
 My settings for capture were some of my first Elisp :) I did need, and still need, the help of the  [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
 
