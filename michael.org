@@ -794,10 +794,24 @@ This snippet automatically saves buffers in an intelligent way. It was originall
   (when (eq system-type 'gnu/linux)
     (bind-key "C-x C-s" 'save-buffer))
 #+END_SRC
+
+[[https://ogbe.net/emacsconfig.html][This tweak saves autosave files in one location, rather than in the same directory as the file that is being edited.]]
+
+#+BEGIN_SRC emacs-lisp
+(defvar backup-dir (expand-file-name "~/.emacs.d/emacs_backup/"))
+(defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+(setq backup-directory-alist (list (cons ".*" backup-dir)))
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+(setq tramp-backup-directory-alist backup-directory-alist)
+(setq tramp-auto-save-directory autosave-dir)
+#+END_SRC
 *** Auto Revert Mode
 Revert buffers automatically when underlying files are changed externally.
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
+  (setq global-auto-revert-non-file-buffers t
+	auto-revert-verbose nil)
   (diminish 'auto-revert-mode)
 #+END_SRC
 *** Save Place
