@@ -45,8 +45,9 @@ When I first copy this set-up into a new machine, I still have to require packag
 
 #+BEGIN_SRC emacs-lisp
   (require 'package)
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.org/packages/") t)
+  (setq package-archives
+	'(("gnu" . "https://elpa.gnu.org/packages/")
+          ("melpa" . "https://melpa.org/packages/"))
   (setq load-prefer-newer t)
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
@@ -218,7 +219,13 @@ From Artur's article, "[[http://endlessparentheses.com/faster-pop-to-mark-comman
   (setq coding-system-for-read 'utf-8)
   (setq coding-system-for-write 'utf-8)
 #+END_SRC
-*** Encryption
+*** Security
+**** TLS
+#+BEGIN_SRC emacs-lisp
+  (setq tls-checktrust t
+	gnutls-verify-error t)
+#+END_SRC
+**** Encryption
 [[https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources][This will force Emacs to use its own internal password prompt instead of an external pin entry program.]]
 
 #+BEGIN_SRC emacs-lisp
