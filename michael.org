@@ -1325,10 +1325,16 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
 	  org-habit-graph-column 105)
 
     (add-hook 'org-agenda-finalize-hook (lambda () (delete-other-windows)))
+
     (use-package org-bullets
       :ensure t
       :init
       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+    (use-package org-cliplink
+      :ensure t
+      :bind ("C-x p i" . org-cliplink))
+
     :config
     (org-load-modules-maybe t)
 
