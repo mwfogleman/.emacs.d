@@ -47,7 +47,7 @@ When I first copy this set-up into a new machine, I still have to require packag
   (require 'package)
   (setq package-archives
 	'(("gnu" . "https://elpa.gnu.org/packages/")
-          ("melpa" . "https://melpa.org/packages/"))
+          ("melpa" . "https://melpa.org/packages/")))
   (setq load-prefer-newer t)
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
