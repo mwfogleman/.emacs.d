@@ -471,27 +471,28 @@ All of my packages for interacting with my laptop.
       :ensure t
       :init
       (bind-keys :map dired-mode-map
-		 :prefix "C-,"
-		 :prefix-map dired-subtree-map
-		 :prefix-docstring "Dired subtree map."
-		 ("C-i" . dired-subtree-insert)
-		 ("C-/" . dired-subtree-apply-filter)
-		 ("C-k" . dired-subtree-remove)
-		 ("C-n" . dired-subtree-next-sibling)
-		 ("C-p" . dired-subtree-previous-sibling)
-		 ("C-u" . dired-subtree-up)
-		 ("C-d" . dired-subtree-down)
-		 ("C-a" . dired-subtree-beginning)
-		 ("C-e" . dired-subtree-end)
-		 ("m" . dired-subtree-mark-subtree)
-		 ("u" . dired-subtree-unmark-subtree)
-		 ("C-o C-f" . dired-subtree-only-this-file)
-		 ("C-o C-d" . dired-subtree-only-this-directory)))
+                 :prefix "C-,"
+                 :prefix-map dired-subtree-map
+                 :prefix-docstring "Dired subtree map."
+                 ("C-i" . dired-subtree-insert)
+                 ("C-/" . dired-subtree-apply-filter)
+                 ("C-k" . dired-subtree-remove)
+                 ("C-n" . dired-subtree-next-sibling)
+                 ("C-p" . dired-subtree-previous-sibling)
+                 ("C-u" . dired-subtree-up)
+                 ("C-d" . dired-subtree-down)
+                 ("C-a" . dired-subtree-beginning)
+                 ("C-e" . dired-subtree-end)
+                 ("m" . dired-subtree-mark-subtree)
+                 ("u" . dired-subtree-unmark-subtree)
+                 ("C-o C-f" . dired-subtree-only-this-file)
+                 ("C-o C-d" . dired-subtree-only-this-directory)))
     (use-package dired-quick-sort
       :ensure t
       :init
       (dired-quick-sort-setup))
     (bind-keys :map dired-mode-map
+               ("C-x o" . ace-window)
                ("<return>" . dired-find-alternate-file)
                ("^" . (lambda () (interactive) (find-alternate-file "..")))
                ("'" . wdired-change-to-wdired-mode)
@@ -562,10 +563,11 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
   (use-package counsel
     :ensure t
     :bind (("C-x C-f" . counsel-find-file)
-	   ("C-x C-m" . counsel-M-x)
-	   ("C-x C-f" . counsel-find-file)
-	   ("C-h f" . counsel-describe-function)
-	   ("C-h v" . counsel-describe-variable))
+           ("C-x C-m" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("C-h f" . counsel-describe-function)
+           ("C-h v" . counsel-describe-variable)
+           ("M-i" . counsel-imenu))
     :init
     (bind-key "C-r" 'counsel-expression-history read-expression-map))
 
@@ -580,7 +582,7 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
     (setq ivy-display-style 'fancy
           ivy-height 4
           ivy-use-virtual-buffers t
-	  enable-recursive-minibuffers t))
+          enable-recursive-minibuffers t))
 #+END_SRC
 ** IDO
 I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex and Ido-Menu. Ido-vertical-mode makes IDO bearable.
@@ -681,13 +683,6 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
            ("M-3" . er/expand-region)))
 
   (pending-delete-mode t)
-#+END_SRC
-*** Extension
-#+BEGIN_SRC emacs-lisp
-  (use-package change-inner
-    :ensure t
-    :bind (("M-i" . change-inner)
-           ("M-o" . change-outer)))
 #+END_SRC
 ** Multiple Cursors
 You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks to Magnars, [[https://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html#sec-1-3-3-1][Sacha]], and [[http://endlessparentheses.com/multiple-cursors-keybinds.html][Artur]].
