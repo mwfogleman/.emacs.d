@@ -1535,9 +1535,11 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
     :bind ("C-c f" . elfeed)
     :config
     (bind-keys :map elfeed-search-mode-map
-	       ("g" . elfeed-update)
+               ("g" . elfeed-update)
                ("?" . describe-mode)
-               ("q" . kill-this-buffer)))
+               ("q" . kill-this-buffer))
+    (bind-keys :map elfeed-show-mode-map
+               ("o" . ace-link-eww)))
 #+END_SRC
 ** Pocket
 #+BEGIN_SRC emacs-lisp
