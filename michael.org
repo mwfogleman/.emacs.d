@@ -1023,10 +1023,10 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 #+BEGIN_SRC emacs-lisp
   (autoload 'turn-on-eldoc-mode "eldoc" nil t)
   (diminish 'eldoc-mode)
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook 'eldoc-mode)
+  (add-hook 'ielm-mode-hook 'eldoc-mode)
+  (add-hook 'cider-mode-hook 'eldoc-mode)
 #+END_SRC
 ** Restclient
 See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
