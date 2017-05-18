@@ -426,10 +426,17 @@ All of my packages for interacting with my laptop.
     (bind-keys :map launcher-map
 	       ("L" . arch-packer-list-packages)))
 #+END_SRC
+** Eshell
+#+BEGIN_SRC emacs-lisp
+  (use-package eshell
+    :bind (("<f1>" . eshell))
+    :init
+    (add-hook 'eshell-mode-hook 'with-editor-export-editor)
+    :config)
+#+END_SRC
 ** Shell
 #+BEGIN_SRC emacs-lisp
   (use-package shell
-    :bind ("<f1>" . shell)
     :init
     (dirtrack-mode)
     (setq explicit-shell-file-name (cond ((eq system-type 'darwin) "/bin/bash")
