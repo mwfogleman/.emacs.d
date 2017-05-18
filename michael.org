@@ -988,7 +988,9 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
           cider-repl-display-in-current-window t
           cider-auto-select-error-buffer nil
           cider-repl-pop-to-buffer-on-connect nil
-          cider-show-error-buffer nil)
+          cider-show-error-buffer nil
+          cider-repl-use-pretty-printing t)
+
     (defun cider-use-repl-tools ()
       (interactive)
       (cider-interactive-eval
