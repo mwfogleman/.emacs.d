@@ -431,8 +431,7 @@ All of my packages for interacting with my laptop.
   (use-package eshell
     :bind (("<f1>" . eshell))
     :init
-    (add-hook 'eshell-mode-hook 'with-editor-export-editor)
-    :config)
+    (add-hook 'eshell-mode-hook 'with-editor-export-editor))
 #+END_SRC
 ** Shell
 #+BEGIN_SRC emacs-lisp
@@ -843,6 +842,7 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
 
 #+BEGIN_SRC emacs-lisp
   (use-package smartscan
+    :disabled
     :ensure t
     :init
     (global-smartscan-mode t)
