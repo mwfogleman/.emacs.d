@@ -872,6 +872,12 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
 
     (bind-keys ("M-P" . highlight-symbol-first)
                ("M-N" . highlight-symbol-last)))
+
+  (use-package highlight-symbol
+    :ensure t
+    :bind (("M-p" . highlight-symbol-prev)
+           ("M-n" . highlight-symbol-next)
+           ("M-'" . highlight-symbol-query-replace)))
 #+END_SRC
 ** [[http://mwolson.org/static/dist/elisp/edit-list.el][Edit List]]
 #+BEGIN_SRC emacs-lisp
@@ -1174,7 +1180,6 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :bind ("M-p" . projectile-find-file)
     :diminish projectile-mode
     :init
     (projectile-global-mode)
