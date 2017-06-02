@@ -931,14 +931,15 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
     (setq selected-org-mode-map (make-sparse-keymap))
     (selected-global-mode 1)
     :bind (:map selected-keymap
-		("q" . selected-off)
-		("i" . indent-region)
-		("u" . upcase-region)
-		("d" . downcase-region)
-		("w" . count-words-region)
-		("m" . apply-macro-to-region-lines)
-		:map selected-org-mode-map
-		("t" . org-table-convert-region)))
+                ("d" . downcase-region)
+                ("i" . indent-region)
+                ("m" . apply-macro-to-region-lines)
+                ("q" . selected-off)
+                ("u" . upcase-region)
+                ("w" . count-words-region)
+                ("y" . yank)
+                :map selected-org-mode-map
+                ("t" . org-table-convert-region)))
 #+END_SRC
 * Browsing
 ** External Browsers
