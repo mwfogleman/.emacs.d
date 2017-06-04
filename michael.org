@@ -368,8 +368,8 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("c" . calc)
              ("C" . calendar)
              ("d" . ediff-buffers)
-             ("e" . eshell)
-             ("E" . eww)
+             ("e" . eww)
+             ("E" . eshell)
              ("h" . man)
              ("l" . paradox-list-packages)
              ("u" . paradox-upgrade-packages)
@@ -431,7 +431,8 @@ All of my packages for interacting with my laptop.
   (use-package eshell
     :bind (("<f1>" . eshell))
     :init
-    (add-hook 'eshell-mode-hook 'with-editor-export-editor))
+    (add-hook 'eshell-mode-hook 'with-editor-export-editor)
+    (setq eshell-banner-message ""))
 #+END_SRC
 ** Shell
 #+BEGIN_SRC emacs-lisp
