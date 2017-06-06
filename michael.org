@@ -970,7 +970,7 @@ Here are language-specific (largely Lisps) or development-related packages.
     :ensure t
     :mode (("\\.boot$"  . clojure-mode)
            ("\\.clj$"   . clojure-mode)
-           ("\\.cljs$"  . clojure-mode)
+           ("\\.cljs$"  . clojurescript-mode)
            ("\\.cljx$"  . clojure-mode)
            ("\\.edn$"   . clojure-mode)
            ("\\.cljc$"  . clojure-mode))
@@ -1004,7 +1004,8 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
           cider-auto-select-error-buffer nil
           cider-repl-pop-to-buffer-on-connect nil
           cider-show-error-buffer nil
-          cider-repl-use-pretty-printing t)
+          cider-repl-use-pretty-printing t
+          cider-cljs-lein-repl "(do (use 'figwheel-sidecar.repl-api) (start-figwheel!) (cljs-repl))")
 
     (defun cider-use-repl-tools ()
       (interactive)
@@ -1063,7 +1064,8 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
     (global-flycheck-mode)
     (setq flycheck-indication-mode 'right-fringe)
     :config
-    (flycheck-clojure-setup))
+    (flycheck-clojure-setup)
+    (require 'flycheck-joker))
 #+END_SRC
 ** Git
 I understand that some beardy-folks are worried that the ubiquity of Github will cause people to equate it with Git, and forget that you can use Git without Github. I don't worry about that- I worry about forgetting how to use Git itself (or the CLI, at least). Magit has spoiled me!
