@@ -431,7 +431,11 @@ All of my packages for interacting with my laptop.
     :bind (("<f1>" . eshell))
     :init
     (add-hook 'eshell-mode-hook 'with-editor-export-editor)
-    (setq eshell-banner-message ""))
+    (setq eshell-banner-message "")
+
+    (defun new-eshell ()
+      (interactive)
+      (eshell 'true)))
 #+END_SRC
 ** Shell
 #+BEGIN_SRC emacs-lisp
