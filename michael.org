@@ -1052,6 +1052,16 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'ielm-mode-hook 'eldoc-mode)
   (add-hook 'cider-mode-hook 'eldoc-mode)
 #+END_SRC
+** Haskell
+#+BEGIN_SRC emacs-lisp
+  (use-package haskell-mode
+    :ensure t)
+
+  (use-package intero
+    :ensure t
+    :init
+    (add-hook 'haskell-mode-hook 'intero-mode))
+#+END_SRC
 ** Restclient
 See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
 #+BEGIN_SRC emacs-lisp
