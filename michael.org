@@ -466,7 +466,9 @@ All of my packages for interacting with my laptop.
           dired-isearch-filenames t
           dired-listing-switches "-alh")
     (use-package dired+
-      :ensure t) ;; also automatically calls dired-x, enabling dired-jump, C-x C-j
+      :ensure t
+      :init
+      (setq diredp-hide-details-initially-flag t)) ;; also automatically calls dired-x, enabling dired-jump, C-x C-j
     (use-package dired-details
       :disabled t
       :init
