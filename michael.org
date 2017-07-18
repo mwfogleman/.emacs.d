@@ -503,6 +503,9 @@ All of my packages for interacting with my laptop.
       :ensure t
       :init
       (dired-quick-sort-setup))
+    (use-package dired-collapse
+      :ensure t
+      :config (add-hook 'dired-mode-hook #'dired-collapse-mode))
     (bind-keys :map dired-mode-map
                ("C-x o" . ace-window)
                ("<return>" . dired-find-alternate-file)
