@@ -1,0 +1,11 @@
+alias blog_edit dired ~/src/blog/resources/templates/md/posts
+alias blog_update cp -r ~/src/blog/resources/public/* ~/src/mwfogleman.com/
+alias mba_rsync rsync -avzu -e ssh --exclude .git /home/michael/src/mindbodyattention.com/ mwfogleman_mindbodyattention@ssh.phx.nearlyfreespeech.net:/home/public
+alias mwfogleman_rsync rsync -avzu -e ssh --exclude .git /home/michael/src/mwfogleman.com/ mwfogleman_mwfogleman@ssh.phx.nearlyfreespeech.net:/home/public
+alias mwfogleman_ssh ssh mwfogleman_mwfogleman@ssh.phx.nearlyfreespeech.net
+alias edf ediff-files /home/michael/.emacs.d/michael.org /home/michael/src/.emacs.d/michael.org
+alias ecp cp /home/michael/src/.emacs.d/michael.org /home/michael/.emacs.d/
+alias Yu yaourt -Syua
+alias d dired $1
+alias fc fish --command $1
+alias blog_edit dired ~/src/blog/resources/templates/md/posts
