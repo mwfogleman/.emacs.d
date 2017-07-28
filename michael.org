@@ -482,6 +482,7 @@ All of my packages for interacting with my laptop.
     (use-package dired-subtree
       :ensure t
       :init
+      (unbind-key "M-O" dired-mode-map) ;; to support mode-line-other-buffer in Dired
       (bind-keys :map dired-mode-map
                  :prefix "C-,"
                  :prefix-map dired-subtree-map
