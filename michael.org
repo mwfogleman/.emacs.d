@@ -1031,10 +1031,11 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
     (fset 'cider-eval-last-sexp-and-comment
           "\C-u\C-x\C-e\C-a\260 ;; \C-e")
 
+    (bind-key "C-j" 'cider-eval-last-sexp-and-comment clojure-mode-map)
+
     (bind-keys :map cider-repl-mode-map
                ("M-r" . cider-refresh)
-               ("M-R" . cider-use-repl-tools)
-               ("C-j" . cider-eval-last-sexp-and-comment))
+               ("M-R" . cider-use-repl-tools))
 
     ;; this snippet comes from schmir https://github.com/schmir/.emacs.d/blob/master/lisp/setup-clojure.el
     (defadvice cider-load-buffer (after switch-namespace activate compile)
