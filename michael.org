@@ -1246,6 +1246,8 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
     (setq linum-relative-current-symbol ""))
 #+END_SRC
 ** comment-dwim-2
+Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-command.html][A comment-or-uncomment-sexp command in Emacs · Endless Parentheses]]. Would love a solution integrated into comment-dwim-2.
+
 #+BEGIN_SRC emacs-lisp
   (use-package comment-dwim-2
     :ensure t
