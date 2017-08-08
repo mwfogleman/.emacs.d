@@ -1558,6 +1558,8 @@ The folder /home/user/Maildir/queue/ needs to be created with the command "mu mk
 
 Messages that Emacs cannot read can be read in the browser with the "aV" shortcut.
 
+See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching-files-with-dired.html][Attaching files with dired]].
+
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
     :if (eq system-type 'gnu/linux)
@@ -1565,33 +1567,37 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
     :init
     ;;store org-mode links to messages
     (require 'org-mu4e)
+    (require 'gnus-dired)
+
     (bind-key "C-c o" 'org-mu4e-store-and-capture mu4e-headers-mode-map)
     (bind-key "C-c o" 'org-mu4e-store-and-capture mu4e-view-mode-map)
+
     (setq mu4e-maildir (expand-file-name "~/mbsync")
-	  mu4e-drafts-folder "/[Gmail].Drafts"
-	  mu4e-sent-folder   "/[Gmail].Sent Mail"
-	  mu4e-trash-folder  "/[Gmail].Trash"
-	  mu4e-get-mail-command "mbsync gmail"
-	  mu4e-update-interval 1800
-	  ;; Rename files when moving, NEEDED FOR MBSYNC
-	  mu4e-change-filenames-when-moving t
-	  mu4e-maildir-shortcuts
-	  '( ("/INBOX"               . ?i)
-	     ("/[Gmail].Sent Mail"   . ?s)
-	     ("/[Gmail].Trash"       . ?t)
-	     ("/[Gmail].All Mail"    . ?a))
-	  mu4e-headers-skip-duplicates t
-	  mu4e-view-show-images t
-	  mu4e-view-image-max-width 800
-	  mu4e-compose-signature
-	  (concat
-	   "Michael Fogleman\n"
-	   "http://www.mwfogleman.com\n")
-	  mu4e-sent-messages-behavior 'delete
-	  message-kill-buffer-on-exit t
-	  mu4e-headers-skip-duplicates t
-	  ;;store link to message if in header view, not to header query
-	  org-mu4e-link-query-in-headers-mode nil)
+          mu4e-drafts-folder "/[Gmail].Drafts"
+          mu4e-sent-folder   "/[Gmail].Sent Mail"
+          mu4e-trash-folder  "/[Gmail].Trash"
+          mu4e-get-mail-command "mbsync gmail"
+          mu4e-update-interval 1800
+          ;; Rename files when moving, NEEDED FOR MBSYNC
+          mu4e-change-filenames-when-moving t
+          mu4e-maildir-shortcuts
+          '( ("/INBOX"               . ?i)
+             ("/[Gmail].Sent Mail"   . ?s)
+             ("/[Gmail].Trash"       . ?t)
+             ("/[Gmail].All Mail"    . ?a))
+          mu4e-headers-skip-duplicates t
+          mu4e-view-show-images t
+          mu4e-view-image-max-width 800
+          mu4e-compose-signature
+          (concat
+           "Michael Fogleman\n"
+           "http://www.mwfogleman.com\n")
+          mu4e-sent-messages-behavior 'delete
+          message-kill-buffer-on-exit t
+          mu4e-headers-skip-duplicates t
+          ;;store link to message if in header view, not to header query
+          org-mu4e-link-query-in-headers-mode nil
+          gnus-dired-mail-mode 'mu4e-user-agent)
     (use-package smtpmail
       :init
       (setq message-send-mail-function 'smtpmail-send-it
@@ -1600,12 +1606,27 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
             smtpmail-smtp-server "smtp.gmail.com"
             smtpmail-smtp-service 587
             smtpmail-queue-mail  nil
-	    ;; Use mu mkdir ~/mbsync/queue to set up first
+            ;; Use mu mkdir ~/mbsync/queue to set up first
             smtpmail-queue-dir  "/home/michael/mbsync/queue/cur"))
+
+    ;; make the `gnus-dired-mail-buffers' function also work on
+    ;; message-mode derived modes, such as mu4e-compose-mode
+    (defun gnus-dired-mail-buffers ()
+      "Return a list of active message buffers."
+      (let (buffers)
+        (save-current-buffer
+          (dolist (buffer (buffer-list t))
+            (set-buffer buffer)
+            (when (and (derived-mode-p 'message-mode)
+                       (null message-sent-message-via))
+              (push (buffer-name buffer) buffers))))
+        (nreverse buffers)))
+
+    (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
     :bind ("C-c e" . mu4e)
     :config
     (add-to-list 'mu4e-view-actions
-		 '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+                 '("ViewInBrowser" . mu4e-action-view-in-browser) t)
     (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
     (add-hook 'mu4e-compose-mode-hook 'auto-fill-mode))
 #+END_SRC
