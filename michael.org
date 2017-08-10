@@ -1691,6 +1691,8 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
     :mode ("\\.csv$" . csv-mode))
 #+END_SRC
 ** Feeds (Elfeed)
+Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08/01/elfeed/][Manuel Ubeti]].
+
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
     :ensure t
@@ -1700,12 +1702,22 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
       (progn
         (elfeed)
         (elfeed-update)))
+
+    (defun my-elfeed-mark-all-read ()
+      "Mark all feeds as read."
+      (interactive)
+      (call-interactively 'mark-whole-buffer)
+      (elfeed-search-untag-all-unread))
+
     (bind-key "C-c f" 'my-elfeed)
     :config
+
     (bind-keys :map elfeed-search-mode-map
                ("g" . elfeed-update)
-               ("?" . describe-mode)
-               ("q" . kill-this-buffer))
+               ("q" . kill-this-buffer)
+               ("R" . my-elfeed-mark-all-read)
+               ("?" . describe-mode))
+
     (bind-keys :map elfeed-show-mode-map
                ("o" . ace-link-eww)))
 #+END_SRC
