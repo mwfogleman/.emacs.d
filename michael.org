@@ -74,6 +74,19 @@ When I first copy this set-up into a new machine, I still have to require packag
 	 '(defadvice ,mode (after rename-modeline activate)
             (setq mode-name ,new-name)))))
 #+END_SRC
+*** Blacklist
+#+BEGIN_SRC emacs-lisp
+(use-package rich-minority
+  ensure t
+  :init
+  (defun blacklist-item (string)
+    (add-to-list 'rm-blacklist string)) 
+  (defun blacklist-items (list)
+    (dolist (element list rm-blacklist)
+      (blacklist-item element)))
+  
+  (blacklist-items '(" $" " be" " cljr")))
+#+END_SRC
 *** Theme
 I still have to do a load-theme -> solarized-dark upon restarting.
 #+BEGIN_SRC emacs-lisp
