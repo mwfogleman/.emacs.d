@@ -1707,7 +1707,8 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
       "Mark all feeds as read."
       (interactive)
       (call-interactively 'mark-whole-buffer)
-      (elfeed-search-untag-all-unread))
+      (elfeed-search-untag-all-unread)
+      (kill-this-buffer))
 
     (bind-key "C-c f" 'my-elfeed)
     :config
