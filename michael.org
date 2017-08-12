@@ -955,6 +955,7 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 #+BEGIN_SRC emacs-lisp
   (use-package beginend
     :ensure t
+    :diminish beginend-global-mode
     :init
     (beginend-global-mode))
 #+END_SRC
@@ -1000,6 +1001,7 @@ Here are language-specific (largely Lisps) or development-related packages.
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
     :ensure t
+    :diminish clj-refactor-mode
     :init
     (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
     :config
