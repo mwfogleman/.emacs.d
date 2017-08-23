@@ -598,6 +598,7 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
     (setq ivy-display-style 'fancy
           ivy-height 4
           ivy-use-virtual-buffers t
+          ivy-initial-inputs-alist '((man . "^") (woman . "^")) ;; http://irreal.org/blog/?p=6512
           enable-recursive-minibuffers t))
 #+END_SRC
 ** IDO
