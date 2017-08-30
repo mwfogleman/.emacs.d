@@ -989,9 +989,7 @@ Here are language-specific (largely Lisps) or development-related packages.
     :mode (("\\.boot$"  . clojure-mode)
            ("\\.clj$"   . clojure-mode)
            ("\\.cljs$"  . clojurescript-mode)
-           ("\\.cljx$"  . clojure-mode)
-           ("\\.edn$"   . clojure-mode)
-           ("\\.cljc$"  . clojure-mode))
+           ("\\.edn$"   . clojure-mode))
     :config
     (rename-modeline "clojure-mode" clojure-mode "λ")
     (use-package align-cljlet
