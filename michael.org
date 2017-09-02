@@ -193,6 +193,12 @@ The following advice makes the upcase/downcase/capitalize-word functions more us
     (unless (looking-back "\\b")
       (backward-word)))
 #+END_SRC
+
+Also, unbind downcase region, which has plagued my documents for eons.
+
+#+BEGIN_SRC emacs-lisp
+  (unbind-key "C-x C-l")
+#+END_SRC
 *** Prettify Symbols
 #+BEGIN_SRC emacs-lisp
   (global-prettify-symbols-mode +1)
