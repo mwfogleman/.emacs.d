@@ -1391,70 +1391,71 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
   (use-package org
     :diminish org-indent-mode
     :bind (("C-c l" . org-store-link)
-	   ("C-c c" . org-capture)
-	   ("C-c a" . org-agenda)
-	   ("C-c b" . org-iswitchb)
-	   ("C-c >" . org-time-stamp-inactive)
-	   ("C-c M-k" . org-cut-subtree)
-	   ("<down>" . org-insert-todo-heading))
+           ("C-c c" . org-capture)
+           ("C-c a" . org-agenda)
+           ("C-c b" . org-iswitchb)
+           ("C-c >" . org-time-stamp-inactive)
+           ("C-c M-k" . org-cut-subtree)
+           ("<down>" . org-insert-todo-heading))
     :init
     (setq default-major-mode 'org-mode
-	  org-directory "~/org/"
-	  org-log-done t
-	  org-startup-indented t
-	  org-agenda-inhibit-startup nil
-	  org-startup-truncated nil
-	  org-startup-with-inline-images t
-	  org-completion-use-ido t
-	  org-agenda-start-on-weekday nil
-	  org-refile-targets (quote ((nil :maxlevel . 9)
-				     (org-agenda-files :maxlevel . 9)))
-	  org-refile-use-outline-path t
-	  org-default-notes-file (concat org-directory "notes.org")
-	  org-goto-max-level 10
-	  org-imenu-depth 5
-	  org-goto-interface 'outline-path-completion
-	  org-outline-path-complete-in-steps nil
-	  org-use-speed-commands t
-	  org-src-fontify-natively t
-	  org-lowest-priority 68
-	  org-default-priority 68
-	  org-ellipsis "↴"
-	  org-expiry-inactive-timestamps t
-	  org-clock-idle-time nil
-	  org-log-done 'time
-	  org-clock-continuously nil
-	  org-clock-persist t
-	  org-clock-in-switch-to-state "STARTED"
-	  org-clock-in-resume nil
-	  org-show-notification-handler 'message
-	  org-clock-report-include-clocking-task t
-	  ;; Too many clock entries clutter up a heading
-	  org-log-into-drawer t
-	  org-clock-into-drawer 1
+          org-directory "~/org/"
+          org-log-done t
+          org-startup-indented t
+          org-agenda-inhibit-startup nil
+          org-startup-truncated nil
+          org-startup-with-inline-images t
+          org-completion-use-ido t
+          org-agenda-start-on-weekday nil
+          org-refile-targets (quote ((nil :maxlevel . 9)
+                                     (org-agenda-files :maxlevel . 9)))
+          org-refile-use-cache t
+          org-refile-use-outline-path t
+          org-default-notes-file (concat org-directory "notes.org")
+          org-goto-max-level 10
+          org-imenu-depth 5
+          org-goto-interface 'outline-path-completion
+          org-outline-path-complete-in-steps nil
+          org-use-speed-commands t
+          org-src-fontify-natively t
+          org-lowest-priority 68
+          org-default-priority 68
+          org-ellipsis "↴"
+          org-expiry-inactive-timestamps t
+          org-clock-idle-time nil
+          org-log-done 'time
+          org-clock-continuously nil
+          org-clock-persist t
+          org-clock-in-switch-to-state "STARTED"
+          org-clock-in-resume nil
+          org-show-notification-handler 'message
+          org-clock-report-include-clocking-task t
+          ;; Too many clock entries clutter up a heading
+          org-log-into-drawer t
+          org-clock-into-drawer 1
 
-	  org-file-apps
-	  '((auto-mode . emacs)
-	    ("\\.mm\\'" . default)
-	    ("\\.x?html?\\'" . "chrome %s")
-	    ("\\.pdf\\'" . "evince %s"))
-	  org-todo-keywords
-	  '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c@)")
-	    (sequence "LEARN" "RESEARCH" "TRY" "TEACH" "|" "COMPLETE")
-	    (sequence "QUESTION" "|" "ANSWERED"))
-	  org-speed-commands-user
-	  '(("N" org-narrow-to-subtree)
-	    ("$" org-archive-subtree)
-	    ("A" org-archive-subtree)
-	    ("W" widen)
-	    ("d" org-down-element)
-	    ("k" org-cut-subtree)
-	    ("m" org-mark-subtree)
-	    ("s" org-sort)
-	    ("x" smex-major-mode-commands)
-	    ("X" org-todo-done)
-	    ("R" org-done-and-archive)
-	    ("y" org-todo-yesterday)))
+          org-file-apps
+          '((auto-mode . emacs)
+            ("\\.mm\\'" . default)
+            ("\\.x?html?\\'" . "chrome %s")
+            ("\\.pdf\\'" . "evince %s"))
+          org-todo-keywords
+          '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c@)")
+            (sequence "LEARN" "RESEARCH" "TRY" "TEACH" "|" "COMPLETE")
+            (sequence "QUESTION" "|" "ANSWERED"))
+          org-speed-commands-user
+          '(("N" org-narrow-to-subtree)
+            ("$" org-archive-subtree)
+            ("A" org-archive-subtree)
+            ("W" widen)
+            ("d" org-down-element)
+            ("k" org-cut-subtree)
+            ("m" org-mark-subtree)
+            ("s" org-sort)
+            ("x" smex-major-mode-commands)
+            ("X" org-todo-done)
+            ("R" org-done-and-archive)
+            ("y" org-todo-yesterday)))
 
     (unbind-key "C-c [")
     (unbind-key "C-c ]")
@@ -1462,13 +1463,13 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
     (add-to-list 'org-structure-template-alist '("l" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
 
     (add-to-list 'org-global-properties
-		 '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00"))
+                 '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00"))
 
     ;; Org Modules
     (require 'org-install)
     (setq org-modules
-	  '(org-habit org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)
-	  org-habit-graph-column 105)
+          '(org-habit org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)
+          org-habit-graph-column 105)
 
     (add-hook 'org-agenda-finalize-hook (lambda () (delete-other-windows)))
 
@@ -1489,43 +1490,43 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
       (find-file "~/org/scratch.org"))
 
     (bind-keys :map launcher-map
-	       ("S" . make-org-scratch))
+               ("S" . make-org-scratch))
 
     (defun org-buffer-todo ()
       (interactive)
       "Creates a todo-list for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), t (todo-list)."
       (progn
-	(org-agenda-set-restriction-lock 'file)
-	(org-todo-list)))
+        (org-agenda-set-restriction-lock 'file)
+        (org-todo-list)))
 
     (defun org-buffer-agenda ()
       (interactive)
       "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), a (agenda-list)."
       (progn
-	(org-agenda-set-restriction-lock 'file)
-	(org-agenda-list)))
+        (org-agenda-set-restriction-lock 'file)
+        (org-agenda-list)))
 
     (defun org-buffer-day-agenda ()
       (interactive)
       "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), a (agenda-list), d (org-agenda-day-view)."
       (progn
-	(org-agenda-set-restriction-lock 'file)
-	(org-agenda-list)
-	(org-agenda-day-view))) ;; Maybe I should try writing a Emacs Lisp macro for this kind of thing!
+        (org-agenda-set-restriction-lock 'file)
+        (org-agenda-list)
+        (org-agenda-day-view))) ;; Maybe I should try writing a Emacs Lisp macro for this kind of thing!
 
     (bind-keys ("C-c A" . org-buffer-agenda)
-	       ("C-c t" . org-buffer-todo)
-	       ("C-c d" . org-buffer-day-agenda)
-	       ("C-c L" . org-timeline))
+               ("C-c t" . org-buffer-todo)
+               ("C-c d" . org-buffer-day-agenda)
+               ("C-c L" . org-timeline))
 
     (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
 
     (add-hook 'org-mode-hook
-	      (lambda ()
-		(push '("TODO"  . ?▲) prettify-symbols-alist)
-		(push '("DONE"  . ?✓) prettify-symbols-alist)
-		(push '("CANCELLED"  . ?✘) prettify-symbols-alist)
-		(push '("QUESTION"  . ??) prettify-symbols-alist)))
+              (lambda ()
+                (push '("TODO"  . ?▲) prettify-symbols-alist)
+                (push '("DONE"  . ?✓) prettify-symbols-alist)
+                (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
+                (push '("QUESTION"  . ??) prettify-symbols-alist)))
 
     (bind-key "C-c w" 'hydra-org-clock/body)
     (defhydra hydra-org-clock (:color blue :hint nil)
