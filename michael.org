@@ -970,6 +970,23 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
     :ensure t
     :diminish beginend-global-mode
     :init
+    (defun diminish-all-beginend-modes ()
+      "Diminish all lighters `beginend-global-mode' activates.
+
+      Calling `beginend-global-mode' creates multiple minor modes and
+      automatically enables them when, for example, using Dired or
+      Elfeed, and more.  These individual minor modes define ` be' as
+      the lighter which appears on the mode-line for those modes.
+
+      Diminishing `beginend-global-mode' only affects one situation
+      though, meaning the lighter will remain.  Completely diminishing
+      all instances of ` be' requires us to diminsh each minor mode
+      that `beginend' defines.  This function does exactly that."
+      (interactive)
+      (mapc (lambda (pair)
+              (diminish (cdr pair)))
+            beginend-modes))
+    (add-hook 'beginend-global-mode-hook #'diminish-all-beginend-modes)
     (beginend-global-mode))
 #+END_SRC
 * Browsing
