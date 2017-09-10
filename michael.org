@@ -852,6 +852,12 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
     :init
     (setq reb-re-syntax 'string))
 #+END_SRC
+** Iedit
+#+BEGIN_SRC emacs-lisp
+  (use-package iedit
+    :ensure t
+    :bind ("C-;" . iedit-mode))
+#+END_SRC
 ** Smart Scan
 See Mickey's [[http://www.masteringemacs.org/article/effective-editing-movement][explanation]] and the [[https://github.com/mickeynp/smart-scan][readme]].
 
