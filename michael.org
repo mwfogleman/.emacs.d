@@ -1134,8 +1134,6 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
     (require 'flycheck-joker))
 #+END_SRC
 ** Git
-I understand that some beardy-folks are worried that the ubiquity of Github will cause people to equate it with Git, and forget that you can use Git without Github. I don't worry about that- I worry about forgetting how to use Git itself (or the CLI, at least). Magit has spoiled me!
-
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
 
 #+BEGIN_SRC emacs-lisp
@@ -1152,6 +1150,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       :bind (("C-x v L" . git-link))
       :init
       (setq git-link-open-in-browser t))
+    (use-package pcmpl-git
+      :ensure t)
     :config
     (add-hook 'after-save-hook 'magit-after-save-refresh-status)
     (setq magit-use-overlays nil
