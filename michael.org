@@ -589,7 +589,8 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
            ("C-x C-f" . counsel-find-file)
            ("C-h f" . counsel-describe-function)
            ("C-h v" . counsel-describe-variable)
-           ("M-i" . counsel-imenu))
+           ("M-i" . counsel-imenu)
+           ("C-c i" . counsel-unicode-char))
     :init
     (bind-key "C-r" 'counsel-expression-history read-expression-map))
 
