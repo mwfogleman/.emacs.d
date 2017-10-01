@@ -1387,6 +1387,10 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
     (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
     (unbind-key "C-c C-q" aggressive-indent-mode-map))
 #+END_SRC
+** Whitespace
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'whitespace-cleanup)
+#+END_SRC
 * Words and Numbers
 "GNU Office Suite Pro Edition," coming to a cubicle near you!
 ** Org Mode
