@@ -1538,6 +1538,10 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
         (org-agenda-list)
         (org-agenda-day-view))) ;; Maybe I should try writing a Emacs Lisp macro for this kind of thing!
 
+    (defun org-make-habit ()
+      (interactive)
+      (org-set-property "STYLE" "habit"))
+
     (bind-keys ("C-c A" . org-buffer-agenda)
                ("C-c t" . org-buffer-todo)
                ("C-c d" . org-buffer-day-agenda)
