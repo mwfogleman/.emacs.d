@@ -3,7 +3,7 @@
 * Introduction
 ** Quotations
 *** On Emacs
-#+begin_quote 
+#+begin_quote
 Emacs outshines all other editing software in approximately the same way that the noonday sun does the stars. It is not just bigger and brighter; it simply makes everything else vanish.
 
 -- Neal Stephenson, "[[http://www.cryptonomicon.com/beginning.html][In the Beginning was the Command Line]]"
@@ -15,7 +15,7 @@ On 2 Apr 1992 in the journal Nature the discovery was reported that a giant anci
 -- [[http://www.eskimo.com/~seldon/dotemacs.el][Will Mengarini]]
 #+end_quote
 *** On Literate Programming
-#+begin_quote 
+#+begin_quote
 Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do.
 
 The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author, with thesaurus in hand, chooses the names of variables carefully and explains what each variable means. He or she strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other.
@@ -23,7 +23,7 @@ The practitioner of literate programming can be regarded as an essayist, whose m
 -- Donald Knuth
 #+end_quote
 
-#+begin_quote 
+#+begin_quote
 In my experience, software created with literate programming has turned out to be significantly better than software developed in more traditional ways...
 
 Jon Bentley probably hit the nail on the head when he once was asked why literate programming hasn’t taken the whole world by storm. He observed that a small percentage of the world’s population is good at programming, and a small percentage is good at writing; apparently I am asking everybody to be in both subsets.
@@ -46,7 +46,7 @@ When I first copy this set-up into a new machine, I still have to require packag
 #+BEGIN_SRC emacs-lisp
   (require 'package)
   (setq package-archives
-	'(("gnu" . "https://elpa.gnu.org/packages/")
+        '(("gnu" . "https://elpa.gnu.org/packages/")
           ("melpa" . "https://melpa.org/packages/")))
   (setq load-prefer-newer t)
   (unless (package-installed-p 'use-package)
@@ -71,7 +71,7 @@ When I first copy this set-up into a new machine, I still have to require packag
     :init
     (defmacro rename-modeline (package-name mode new-name)
       `(eval-after-load ,package-name
-	 '(defadvice ,mode (after rename-modeline activate)
+         '(defadvice ,mode (after rename-modeline activate)
             (setq mode-name ,new-name)))))
 #+END_SRC
 *** Theme
@@ -94,7 +94,7 @@ I still have to do a load-theme -> solarized-dark upon restarting.
         inhibit-startup-echo-area-message t)
 #+END_SRC
 *** Mode Line
-[[http://www.lunaryorn.com/2014/07/26/make-your-emacs-mode-line-more-useful.html#understanding-mode-line-format][Sebastian Wiesner]] inspired me to slim down my mode line. 
+[[http://www.lunaryorn.com/2014/07/26/make-your-emacs-mode-line-more-useful.html#understanding-mode-line-format][Sebastian Wiesner]] inspired me to slim down my mode line.
 
 I change the default mode-line-format variable, but comment out any variables that I eliminated, so that I can add them in later if I deem them useful.
 
@@ -123,12 +123,12 @@ Finally, I diminish some built-in minor modes.
                   "   "
                   battery-mode-line-string
                   mode-line-end-spaces))
-  
+
   (display-time-mode 1)
   (setq display-time-format "%a %m/%d%t%R")
   (display-battery-mode 1)
   (setq battery-mode-line-format "%p%%") ; Default: "[%b%p%%]"
-  
+
   (diminish 'isearch-mode)
 #+END_SRC
 ** Backups
@@ -229,7 +229,7 @@ From Artur's article, "[[http://endlessparentheses.com/faster-pop-to-mark-comman
 **** TLS
 #+BEGIN_SRC emacs-lisp
   (setq tls-checktrust t
-	gnutls-verify-error t)
+        gnutls-verify-error t)
 #+END_SRC
 **** Encryption
 [[https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources][This will force Emacs to use its own internal password prompt instead of an external pin entry program.]]
@@ -244,7 +244,7 @@ Adaptive cursor width shows width of character, e.g. TAB. Via [[http://pragmatic
 (setq x-stretch-cursor t)
 #+END_SRC
 * Key Bindings
-Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function. 
+Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function.
 
 ** System-specific
 #+BEGIN_SRC emacs-lisp
@@ -304,7 +304,7 @@ Since you don't need three ways to do numeric prefixes, you can [[http://endless
              ("M-O" . mode-line-other-buffer))
 #+END_SRC
 ** Copying and Killing
-ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-configuration/][snippets post]] recommends giving this advice to kill-ring-save and kill-ring, which, if no region is selected, makes C-w and M-w kill or copy the current line. 
+ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-configuration/][snippets post]] recommends giving this advice to kill-ring-save and kill-ring, which, if no region is selected, makes C-w and M-w kill or copy the current line.
 
 Currently, I just advise kill-region (C-w), as M-w is taken over by easy-kill.
 
@@ -333,17 +333,17 @@ By default, sentence-end-double-space is set to t. That convention may be progra
     "Consider a sentence to have one space at the end."
     (let ((sentence-end-double-space nil))
       ad-do-it))
-  
+
   (defadvice backward-sentence (around real-backward)
     "Consider a sentence to have one space at the end."
     (let ((sentence-end-double-space nil))
       ad-do-it))
-  
+
   (defadvice kill-sentence (around real-kill)
     "Consider a sentence to have one space at the end."
     (let ((sentence-end-double-space nil))
       ad-do-it))
-  
+
   (ad-activate 'forward-sentence)
   (ad-activate 'backward-sentence)
   (ad-activate 'kill-sentence)
@@ -355,13 +355,13 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
   (bind-keys ("M-A" . backward-paragraph)
              ("M-E" . forward-paragraph)
              ("M-K" . kill-paragraph))
-#+END_SRC 
+#+END_SRC
 ** [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Toggle Map]]
 Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys on the toggle map are elsewhere in this config.
 
 #+BEGIN_SRC emacs-lisp
   (bind-keys :prefix-map toggle-map
-	     :prefix "C-x t"
+             :prefix "C-x t"
              ("d" . toggle-debug-on-error)
              ("l" . linum-mode)
              ("o" . org-mode)
@@ -435,7 +435,7 @@ All of my packages for interacting with my laptop.
     :init
     (setq arch-packer-default-command "pacaur")
     (bind-keys :map launcher-map
-	       ("L" . arch-packer-list-packages)))
+               ("L" . arch-packer-list-packages)))
 #+END_SRC
 ** Eshell
 #+BEGIN_SRC emacs-lisp
@@ -720,7 +720,7 @@ You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks to 
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
     :ensure t
-    :bind 
+    :bind
     (("C->" . mc/mark-next-like-this)
      ("C-<" . mc/mark-previous-like-this)
      ("C-M->" . mc/unmark-next-like-this)
@@ -794,7 +794,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
                       basic)))
       (if proj
           (projectile-save-project-buffers)
-	(when basic
+        (when basic
           (save-buffer)))))
 
   (defmacro advise-commands (advice-name commands class &rest body)
@@ -804,7 +804,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
        ,@(mapcar (lambda (command)
                    `(defadvice ,command (,class ,(intern (concat (symbol-name command) "-" advice-name)) activate)
                       ,@body))
-		 commands)))
+                 commands)))
 
   (advise-commands "auto-save"
                    (ido-switch-buffer ace-window magit-status windmove-up windmove-down windmove-left windmove-right mode-line-other-buffer)
@@ -836,7 +836,7 @@ Revert buffers automatically when underlying files are changed externally.
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode t)
   (setq global-auto-revert-non-file-buffers t
-	auto-revert-verbose nil)
+        auto-revert-verbose nil)
   (diminish 'auto-revert-mode)
 #+END_SRC
 *** Save Place
@@ -1000,8 +1000,8 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-	browse-url-generic-program (cond ((eq system-type 'darwin) "open") 
-					 ((eq system-type 'gnu/linux) "chromium")))
+        browse-url-generic-program (cond ((eq system-type 'darwin) "open")
+                                         ((eq system-type 'gnu/linux) "chromium")))
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
@@ -1720,13 +1720,13 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
   (use-package flyspell
     :diminish flyspell-mode
     :bind (("C-`" . ispell-word)
-	   ("C-~" . ispell-buffer))
+           ("C-~" . ispell-buffer))
     :init
     (dolist (hook '(text-mode-hook org-mode-hook))
       (add-hook hook (lambda () (flyspell-mode 1))))
     :config
     (setq ispell-program-name "aspell"
-	  ispell-list-command "--list"))
+          ispell-list-command "--list"))
 #+END_SRC
 ** Pandoc
 #+BEGIN_SRC emacs-lisp
@@ -1805,7 +1805,7 @@ Relatedly, I often want to reload my init-file. This will actually use the syste
     "Reload my init file."
     (interactive)
     (load-file user-init-file))
-  
+
   (bind-key "C-c M-l" 'reload-init-file)
 #+END_SRC
 ** Keep In Touch
@@ -1823,16 +1823,16 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
                     (format-time-string "%Y/%m/%d")
                   (read-string "When did you contact them? (year/month/date): "))))
       (save-excursion
-	(find-file keepintouch-datafile)
-	(goto-char (point-min))
-	(search-forward contact)
-	(forward-line -1)
-	(beginning-of-line)
-	(kill-line)
-	(insert date)
-	(save-buffer)
-	(switch-to-buffer (other-buffer))
-	(kill-buffer (other-buffer)))
+        (find-file keepintouch-datafile)
+        (goto-char (point-min))
+        (search-forward contact)
+        (forward-line -1)
+        (beginning-of-line)
+        (kill-line)
+        (insert date)
+        (save-buffer)
+        (switch-to-buffer (other-buffer))
+        (kill-buffer (other-buffer)))
       (message "%s was contacted." contact)))
 
   (defun keptintouch-backlog ()
@@ -1841,7 +1841,7 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
     (let ((buf "*Keep In Touch Backlog*")
           (src "~/src/keepintouch/clj/keepintouch")
           (jar "-jar target/uberjar/keepintouch-0.2.0-SNAPSHOT-standalone.jar")
-          (cur default-directory)) 
+          (cur default-directory))
       (cd src)
       (shell-command
        (concat "java " jar " " keepintouch-datafile " schedule backlog") buf)
@@ -1875,7 +1875,7 @@ This function opens the agenda in full screen.
   (defun kill-this-buffer ()
     (interactive)
     (kill-buffer (current-buffer)))
-  
+
   (bind-key "C-x C-k" 'kill-this-buffer)
 #+END_SRC
 
@@ -1884,7 +1884,7 @@ By default, pressing 'q' in either Dired or package-menu runs quit-window, which
 #+BEGIN_SRC emacs-lisp
   (bind-keys :map dired-mode-map
              ("q" . kill-this-buffer))
-  
+
   (bind-keys :map package-menu-mode-map
              ("q" . kill-this-buffer))
 #+END_SRC
@@ -1905,7 +1905,7 @@ This code comes from [[http://www.emacswiki.org/emacs/MiniBuffer][EmacsWiki]].
     (if (active-minibuffer-window)
         (select-window (active-minibuffer-window))
       (error "Minibuffer is not active")))
-  
+
   (bind-key "M-m" 'switch-to-minibuffer)
 #+END_SRC
 ** Edit as Root
@@ -1921,7 +1921,7 @@ This tip comes from an [[http://emacs-fu.blogspot.kr/2013/03/editing-with-root-p
       (unless (file-writable-p file)
         (setq file (concat "/sudo:root@localhost:" file)))
       (find-file file)))
-  
+
   (bind-key "C-x F" 'find-file-as-root)
 #+END_SRC
 ** Unfill Paragraph
@@ -1935,7 +1935,7 @@ This function borrowed from Sacha.
                    (list t)))
     (let ((fill-column (point-max)))
       (fill-paragraph nil region)))
-  
+
   (bind-key "M-Q" 'unfill-paragraph)
 #+END_SRC
 ** Org Go To Heading
@@ -1949,7 +1949,7 @@ Speed commands are really useful, but I often want to make use of them when I'm 
       (if (org-at-heading-p)
           (org-beginning-of-line)
         (org-up-element))))
-  
+
   (bind-key "C-c s" 'org-go-speed)
 #+END_SRC
 ** Hide Mode Line
@@ -1957,7 +1957,7 @@ I wonder if Will Mengarini would approve of [[http://bzg.fr/emacs-hide-mode-line
 
 #+BEGIN_SRC emacs-lisp
   (defvar-local hidden-mode-line-mode nil)
-  
+
   (define-minor-mode hidden-mode-line-mode
     "Minor mode to hide the mode-line in the current buffer."
     :init-value nil
@@ -1979,7 +1979,7 @@ I wonder if Will Mengarini would approve of [[http://bzg.fr/emacs-hide-mode-line
        0 nil 'message
        (concat "Hidden Mode Line Mode enabled.  "
                "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
-  
+
   (bind-key "m" 'hidden-mode-line-mode toggle-map)
 #+END_SRC
 ** Narrowing and Widening
@@ -2027,7 +2027,7 @@ A lot of modes let you change from read-only to writeable, or backwards: files, 
       ;; if the mode is Dired, it will make the directory writable
       ;; if it is not, it will just toggle read only, as desired
       (dired-toggle-read-only)))
-  
+
   (bind-key "r" 'read-write-toggle toggle-map)
 #+END_SRC
 ** Move Lines
@@ -2101,47 +2101,47 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
      ;; Move before  and change headline level
      ((and (numberp arg) (> 0 arg))
       (save-excursion
-	(yank))
+        (yank))
       ;; arg is what we want, second is what we have
       ;; if n is positive, we need to demote (increase level)
       (let ((n (- (abs arg) (car (org-heading-components)))))
-	(cl-loop for i from 1 to (abs n)
-		 do
-		 (if (> 0 n)
-		     (org-promote-subtree)
-		   (org-demote-subtree)))))
+        (cl-loop for i from 1 to (abs n)
+                 do
+                 (if (> 0 n)
+                     (org-promote-subtree)
+                   (org-demote-subtree)))))
      ;; Move after and change level
      ((and (numberp arg) (< 0 arg))
       (org-mark-subtree)
       (goto-char (region-end))
       (when (eobp) (insert "\n"))
       (save-excursion
-	(yank))
+        (yank))
       ;; n is what we want and second is what we have
       ;; if n is positive, we need to demote
       (let ((n (- (abs arg) (car (org-heading-components)))))
-	(cl-loop for i from 1 to (abs n)
-		 do
-		 (if (> 0 n) (org-promote-subtree)
-		   (org-demote-subtree)))))
+        (cl-loop for i from 1 to (abs n)
+                 do
+                 (if (> 0 n) (org-promote-subtree)
+                   (org-demote-subtree)))))
 
      ;; move to before selection
      ((equal arg '(4))
       (save-excursion
-	(yank)))
+        (yank)))
      ;; move to after selection
      (t
       (org-mark-subtree)
       (goto-char (region-end))
       (when (eobp) (insert "\n"))
       (save-excursion
-	(yank))))
+        (yank))))
     (outline-hide-leaves))
 
   (add-to-list 'org-speed-commands-user
-	       (cons "q" (lambda ()
-			   (avy-with avy-goto-line
-			     (avy--generic-jump "^\\*+" nil avy-style)))))
+               (cons "q" (lambda ()
+                           (avy-with avy-goto-line
+                             (avy--generic-jump "^\\*+" nil avy-style)))))
 
   (add-to-list 'org-speed-commands-user (cons "T" 'org-teleport))
 
