@@ -1254,14 +1254,76 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
 #+END_SRC
 ** Projectile
+Projectile configuration adapted from [[http://endlessparentheses.com/improving-projectile-with-extra-commands.html][Improving Projectile with extra commands on Endless Parentheses]].
+
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
     :diminish projectile-mode
     :init
     (projectile-global-mode)
+
     (setq projectile-enable-caching t
-          projectile-completion-system 'ivy)
+          projectile-create-missing-test-files t
+          projectile-completion-system 'ivy
+          projectile-switch-project-action #'projectile-commander)
+
+    (def-projectile-commander-method ?s
+      "Open a *shell* buffer for the project."
+      ;; This requires a snapshot version of Projectile.
+      (projectile-run-shell))
+
+    (def-projectile-commander-method ?c
+      "Run `compile' in the project."
+      (projectile-compile-project nil))
+
+    (def-projectile-commander-method ?\C-?
+      "Go back to project selection."
+      (projectile-switch-project))
+
+    (def-projectile-commander-method ?d
+      "Open project root in dired."
+      (projectile-dired))
+
+    (def-projectile-commander-method ?F
+      "Git fetch."
+      (magit-status)
+      (if (fboundp 'magit-fetch-from-upstream)
+          (call-interactively #'magit-fetch-from-upstream)
+        (call-interactively #'magit-fetch-current)))
+
+    (def-projectile-commander-method ?j
+      "Jack in to CLJ."
+      (let* ((opts (projectile-current-project-files))
+             (file (ido-completing-read
+                    "Find file: "
+                    opts
+                    nil nil nil nil
+                    (car (cl-member-if
+                          (lambda (f)
+                            (string-match "core\\.clj\\'" f))
+                          opts)))))
+        (find-file (expand-file-name
+                    file (projectile-project-root)))
+        (run-hooks 'projectile-find-file-hook)
+        (cider-jack-in)))
+
+    (def-projectile-commander-method ?J
+      "Jack in to CLJS."
+      (let* ((opts (projectile-current-project-files))
+             (file (ido-completing-read
+                    "Find file: "
+                    opts
+                    nil nil nil nil
+                    (car (cl-member-if
+                          (lambda (f)
+                            (string-match "core\\.clj\\'" f))
+                          opts)))))
+        (find-file (expand-file-name
+                    file (projectile-project-root)))
+        (run-hooks 'projectile-find-file-hook)
+        (cider-jack-in-clojurescript)))
+
     (use-package ibuffer-projectile
       :ensure t
       :bind ("C-x C-b" . ibuffer)
