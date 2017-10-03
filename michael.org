@@ -1033,6 +1033,8 @@ Here are language-specific (largely Lisps) or development-related packages.
       :bind ("C-! a a" . align-cljlet)))
 #+END_SRC
 *** Clojure Refactor
+Configurations from Endless Parentheses ([[http://endlessparentheses.com/clj-refactor-unleash-your-clojure-wizard.html][clj-refactor: Unleash your Clojure wizard]] and [[http://endlessparentheses.com/a-small-improvement-to-clj-refactor.html][A small improvement to clj-refactor]]).
+
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
     :ensure t
@@ -1043,8 +1045,18 @@ Here are language-specific (largely Lisps) or development-related packages.
       (yas-minor-mode 1)
       (diminish 'yas-minor-mode))
     (add-hook 'clojure-mode-hook #'my-clj-refactor-mode-hook)
+    (setq cljr-clojure-test-declaration "[clojure.test :refer :all]"
+          cljr-cljs-clojure-test-declaration "[cljs.test :refer-macros [deftest is use-fixtures]]")
     :config
-    (cljr-add-keybindings-with-prefix "<menu>"))
+    (cljr-add-keybindings-with-prefix "<menu>")
+
+    (add-to-list 'cljr-magic-require-namespaces
+                 '("S"  . "com.rpl.specter"))
+
+    (advice-add 'cljr-add-require-to-ns :after
+                (lambda (&rest _)
+                  (yas-next-field)
+                  (yas-next-field))))
 #+END_SRC
 *** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
