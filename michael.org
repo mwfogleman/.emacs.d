@@ -996,6 +996,24 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
     (add-hook 'beginend-global-mode-hook #'diminish-all-beginend-modes)
     (beginend-global-mode))
 #+END_SRC
+** Hideshow
+For code folding.
+
+#+BEGIN_SRC
+(use-package hideshow
+  :ensure t
+  :diminish hs-minor-mode
+  :config
+    (add-hook 'prog-mode-hook 'hs-minor-mode))
+
+(defun toggle-fold ()
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (hs-toggle-hiding)))
+
+(bind-key "f" 'toggle-fold toggle-map)
+#+END_SRC
 * Browsing
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
@@ -1033,8 +1051,6 @@ Here are language-specific (largely Lisps) or development-related packages.
       :bind ("C-! a a" . align-cljlet)))
 #+END_SRC
 *** Clojure Refactor
-Configurations from Endless Parentheses ([[http://endlessparentheses.com/clj-refactor-unleash-your-clojure-wizard.html][clj-refactor: Unleash your Clojure wizard]] and [[http://endlessparentheses.com/a-small-improvement-to-clj-refactor.html][A small improvement to clj-refactor]]).
-
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
     :ensure t
@@ -1051,6 +1067,9 @@ Configurations from Endless Parentheses ([[http://endlessparentheses.com/clj-ref
     (cljr-add-keybindings-with-prefix "<menu>")
 
     (add-to-list 'cljr-magic-require-namespaces
+                 '("s"  . "clojure.spec.alpha"))
+
+    (add-to-list 'cljr-magic-require-namespaces
                  '("S"  . "com.rpl.specter"))
 
     (advice-add 'cljr-add-require-to-ns :after
@@ -1058,6 +1077,8 @@ Configurations from Endless Parentheses ([[http://endlessparentheses.com/clj-ref
                   (yas-next-field)
                   (yas-next-field))))
 #+END_SRC
+
+Configurations from Endless Parentheses ([[http://endlessparentheses.com/clj-refactor-unleash-your-clojure-wizard.html][clj-refactor: Unleash your Clojure wizard]] and [[http://endlessparentheses.com/a-small-improvement-to-clj-refactor.html][A small improvement to clj-refactor]]).
 *** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
 
@@ -1305,7 +1326,7 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
         (call-interactively #'magit-fetch-current)))
 
     (def-projectile-commander-method ?j
-      "Jack in to CLJ."
+      "Jack in to CLJ or CLJS depending on context."
       (let* ((opts (projectile-current-project-files))
              (file (ido-completing-read
                     "Find file: "
@@ -1318,23 +1339,9 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
         (find-file (expand-file-name
                     file (projectile-project-root)))
         (run-hooks 'projectile-find-file-hook)
-        (cider-jack-in)))
-
-    (def-projectile-commander-method ?J
-      "Jack in to CLJS."
-      (let* ((opts (projectile-current-project-files))
-             (file (ido-completing-read
-                    "Find file: "
-                    opts
-                    nil nil nil nil
-                    (car (cl-member-if
-                          (lambda (f)
-                            (string-match "core\\.clj\\'" f))
-                          opts)))))
-        (find-file (expand-file-name
-                    file (projectile-project-root)))
-        (run-hooks 'projectile-find-file-hook)
-        (cider-jack-in-clojurescript)))
+        (if (derived-mode-p 'clojurescript-mode)
+            (cider-jack-in-clojurescript)
+          (cider-jack-in))))
 
     (use-package ibuffer-projectile
       :ensure t
