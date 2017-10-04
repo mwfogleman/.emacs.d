@@ -999,20 +999,20 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 ** Hideshow
 For code folding.
 
-#+BEGIN_SRC
-(use-package hideshow
-  :ensure t
-  :diminish hs-minor-mode
-  :config
-    (add-hook 'prog-mode-hook 'hs-minor-mode))
+#+BEGIN_SRC emacs-lisp
+  (use-package hideshow
+    :ensure t
+    :diminish hs-minor-mode
+    :config
+      (add-hook 'prog-mode-hook 'hs-minor-mode))
 
-(defun toggle-fold ()
-  (interactive)
-  (save-excursion
-    (end-of-line)
-    (hs-toggle-hiding)))
+  (defun toggle-fold ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (hs-toggle-hiding)))
 
-(bind-key "f" 'toggle-fold toggle-map)
+  (bind-key "f" 'toggle-fold toggle-map)
 #+END_SRC
 * Browsing
 ** External Browsers
