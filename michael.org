@@ -500,7 +500,9 @@ All of my packages for interacting with my laptop.
                  :prefix-map dired-subtree-map
                  :prefix-docstring "Dired subtree map."
                  ("C-i" . dired-subtree-insert)
+                 ("i" . dired-subtree-insert)
                  ("C-/" . dired-subtree-apply-filter)
+                 (";" . dired-subtree-remove)
                  ("C-k" . dired-subtree-remove)
                  ("C-n" . dired-subtree-next-sibling)
                  ("C-p" . dired-subtree-previous-sibling)
