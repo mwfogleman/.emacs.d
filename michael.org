@@ -568,14 +568,17 @@ These are helper packages that make Emacs even more awesome.
     (setq hydra-lv nil))
 #+END_SRC
 ** Windows
-*** Golden Ratio
+*** Zoom Mode
+This replaces Golden Ratio mode.
+
 #+BEGIN_SRC emacs-lisp
-  (use-package golden-ratio
+  (use-package zoom
     :ensure t
-    :diminish golden-ratio-mode
+    :diminish zoom-mode
     :init
-    (golden-ratio-mode 1)
-    (setq golden-ratio-auto-scale t))
+    (setq zoom-mode t
+          zoom-size '(0.618 . 0.618))
+    (diminish 'zoom-mode))
 #+END_SRC
 *** Quit Bottom Window
 Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-alist.html][Lunaryorn's post about display-buffer-alist]].
