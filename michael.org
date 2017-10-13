@@ -610,6 +610,7 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
            ("C-c C-r" . ivy-resume))
     :init
     (ivy-mode 1)
+    (bind-key "C-SPC" 'ivy-restrict-to-matches ivy-minibuffer-map)
     (setq ivy-display-style 'fancy
           ivy-height 4
           ivy-use-virtual-buffers t
