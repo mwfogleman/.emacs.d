@@ -472,7 +472,8 @@ All of my packages for interacting with my laptop.
 ** Dired
 #+BEGIN_SRC emacs-lisp
   (use-package dired
-    :bind ("<f2>" . dired)
+    :bind (("<f2>" . dired)
+           ("C-x C-d" . dired))
     :init
     :config
     (put 'dired-find-alternate-file 'disabled nil)
