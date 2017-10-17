@@ -1026,7 +1026,7 @@ For code folding.
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program (cond ((eq system-type 'darwin) "open")
-                                         ((eq system-type 'gnu/linux) "chromium")))
+                                         ((eq system-type 'gnu/linux) "firefox-beta")))
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
