@@ -409,6 +409,10 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("N" . kmacro-name-last-macro)
              ("I" . insert-kbd-macro))
 #+END_SRC
+** Cycle Spacing
+#+BEGIN_SRC emacs-lisp
+(bind-key "C-x SPC" 'cycle-spacing)
+#+END_SRC
 * System
 All of my packages for interacting with my laptop.
 ** OS
@@ -431,11 +435,11 @@ All of my packages for interacting with my laptop.
 #+BEGIN_SRC emacs-lisp
   (use-package arch-packer
     :if (memq window-system '(x))
-    :ensure t
+    :bind (:map launcher-map
+                ("L" . arch-packer-list-packages))
+    :disabled
     :init
-    (setq arch-packer-default-command "pacaur")
-    (bind-keys :map launcher-map
-               ("L" . arch-packer-list-packages)))
+    (setq arch-packer-default-command "pacaur"))
 #+END_SRC
 ** Eshell
 #+BEGIN_SRC emacs-lisp
@@ -452,6 +456,9 @@ All of my packages for interacting with my laptop.
 ** Shell
 #+BEGIN_SRC emacs-lisp
   (use-package shell
+    :bind (:map shell-mode-map
+                ("<s-up>" . comint-previous-input)
+                ("<s-down>" . comint-next-input))
     :init
     (dirtrack-mode)
     (setq explicit-shell-file-name (cond ((eq system-type 'darwin) "/bin/bash")
@@ -460,11 +467,7 @@ All of my packages for interacting with my laptop.
       (use-package exec-path-from-shell
         :ensure t
         :init
-        (exec-path-from-shell-initialize)))
-    :config
-    (bind-keys :map shell-mode-map
-               ("<s-up>" . comint-previous-input)
-               ("<s-down>" . comint-next-input)))
+        (exec-path-from-shell-initialize))))
 
   (add-hook 'after-save-hook
             'executable-make-buffer-file-executable-if-script-p)
@@ -473,9 +476,15 @@ All of my packages for interacting with my laptop.
 #+BEGIN_SRC emacs-lisp
   (use-package dired
     :bind (("<f2>" . dired)
-           ("C-x C-d" . dired))
+           ("C-x C-d" . dired)
+           :map dired-mode-map
+           ("C-x o" . ace-window)
+           ("<return>" . dired-find-alternate-file)
+           ("'" . wdired-change-to-wdired-mode)
+           ("s-/" . dired-filter-mode))
     :init
     :config
+    (bind-key "^" (lambda () (interactive) (find-alternate-file "..")) dired-mode-map)
     (put 'dired-find-alternate-file 'disabled nil)
     (setq dired-dwim-target t
           dired-recursive-deletes 'always
@@ -521,13 +530,7 @@ All of my packages for interacting with my laptop.
       (dired-quick-sort-setup))
     (use-package dired-collapse
       :ensure t
-      :config (add-hook 'dired-mode-hook #'dired-collapse-mode))
-    (bind-keys :map dired-mode-map
-               ("C-x o" . ace-window)
-               ("<return>" . dired-find-alternate-file)
-               ("^" . (lambda () (interactive) (find-alternate-file "..")))
-               ("'" . wdired-change-to-wdired-mode)
-               ("s-/" . dired-filter-mode)))
+      :config (add-hook 'dired-mode-hook #'dired-collapse-mode)))
 #+END_SRC
 
 Some of these suggestions are adapted from Xah Lee's [[http://ergoemacs.org/emacs/emacs_dired_tips.html][article on Dired]]. dired-find-alternate-file, which is bound to a, is disabled by default. <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory. Relatedly, I re-bind 'q' to my kill-this-buffer function below.
@@ -537,14 +540,14 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
 #+BEGIN_SRC emacs-lisp
   (use-package ag
     :ensure t
+    :bind (:map ag-mode-map
+                ("q" . kill-this-buffer))
     :init
     (use-package wgrep
       :ensure t)
     (use-package wgrep-ag
       :ensure t)
     :config
-    (bind-keys :map ag-mode-map
-               ("q" . kill-this-buffer))
     (setq ag-highlight-search t))
 #+END_SRC
 * Emacs
@@ -602,19 +605,21 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
            ("C-h f" . counsel-describe-function)
            ("C-h v" . counsel-describe-variable)
            ("M-i" . counsel-imenu)
-           ("C-c i" . counsel-unicode-char))
-    :init
-    (bind-key "C-r" 'counsel-expression-history read-expression-map))
+           ("C-c i" . counsel-unicode-char)
+           :map read-expression-map
+           ("C-r" . counsel-expression-history)))
 
   (use-package swiper
     :ensure t
     :diminish ivy-mode
     :bind (("C-s" . swiper)
            ("C-r" . swiper)
-           ("C-c C-r" . ivy-resume))
+           ("C-c C-r" . ivy-resume)
+           :map ivy-minibuffer-map
+           ("C-SPC" . ivy-restrict-to-matches))
     :init
     (ivy-mode 1)
-    (bind-key "C-SPC" 'ivy-restrict-to-matches ivy-minibuffer-map)
+    :config
     (setq ivy-display-style 'fancy
           ivy-height 4
           ivy-use-virtual-buffers t
@@ -664,15 +669,14 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
   (use-package company
     :ensure t
     :diminish company-mode
-    :bind ("C-." . company-complete)
+    :bind (("C-." . company-complete)
+           :map company-active-map
+           ("C-n" . company-select-next)
+           ("C-p" . company-select-previous)
+           ("C-d" . company-show-doc-buffer)
+           ("<tab>" . company-complete))
     :init
-    (global-company-mode 1)
-    :config
-    (bind-keys :map company-active-map
-               ("C-n" . company-select-next)
-               ("C-p" . company-select-previous)
-               ("C-d" . company-show-doc-buffer)
-               ("<tab>" . company-complete)))
+    (global-company-mode 1))
 #+END_SRC
 ** Avy
 #+BEGIN_SRC emacs-lisp
@@ -706,8 +710,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     :ensure t
     :init
     (ace-link-setup-default))
-
-  (bind-key "C-x SPC" 'cycle-spacing)
 #+END_SRC
 ** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
@@ -863,7 +865,8 @@ This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
            ("M-%" . vr/query-replace)))
 
   (use-package re-builder
-    :init
+    :bind (("C-c R" . re-builder))
+    :config
     (setq reb-re-syntax 'string))
 #+END_SRC
 ** Iedit
@@ -1055,7 +1058,12 @@ Here are language-specific (largely Lisps) or development-related packages.
     (rename-modeline "clojure-mode" clojure-mode "λ")
     (use-package align-cljlet
       :ensure t
-      :bind ("C-! a a" . align-cljlet)))
+      :bind (:map clojure-mode-map
+                  ("C-! a a" . align-cljlet)
+                  :map clojurescript-mode-map
+                  ("C-! a a" . align-cljlet)
+                  :map clojurec-mode-map
+                  ("C-! a a" . align-cljlet))))
 #+END_SRC
 *** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
@@ -1092,6 +1100,9 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
 #+BEGIN_SRC emacs-lisp
   (use-package cider
     :ensure t
+    :bind (:map cider-repl-mode-map
+                ("M-r" . cider-refresh)
+                ("M-R" . cider-use-repl-tools))
     :config
     (setq nrepl-hide-special-buffers t
           nrepl-popup-stacktraces-in-repl t
@@ -1113,10 +1124,6 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
           "\C-u\C-x\C-e\C-a\260 ;; \C-e")
 
     (bind-key "C-j" 'cider-eval-last-sexp-and-comment clojure-mode-map)
-
-    (bind-keys :map cider-repl-mode-map
-               ("M-r" . cider-refresh)
-               ("M-R" . cider-use-repl-tools))
 
     ;; this snippet comes from schmir https://github.com/schmir/.emacs.d/blob/master/lisp/setup-clojure.el
     (defadvice cider-load-buffer (after switch-namespace activate compile)
@@ -1151,7 +1158,8 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 ** Haskell
 #+BEGIN_SRC emacs-lisp
   (use-package haskell-mode
-    :ensure t)
+    :ensure t
+    :config)
 
   (use-package intero
     :ensure t
@@ -1186,8 +1194,18 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
   (use-package magit
     :ensure t
     :bind (("C-x g" . magit-status)
-           ("C-c g" . magit-status))
-    :init
+           ("C-c g" . magit-status)
+           :map magit-status-mode-map
+           ("TAB" . magit-section-toggle)
+           ("<C-tab>" . magit-section-cycle)
+           :map magit-branch-section-map
+           ("RET" . magit-checkout))
+    :config
+    (add-hook 'after-save-hook 'magit-after-save-refresh-status)
+    (setq magit-use-overlays nil
+          magit-completing-read-function 'ivy-completing-read
+          magit-push-always-verify nil)
+    (diminish 'magit-backup-mode)
     (use-package git-timemachine
       :ensure t
       :bind (("C-x v t" . git-timemachine)))
@@ -1198,13 +1216,6 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
       (setq git-link-open-in-browser t))
     (use-package pcmpl-git
       :ensure t)
-    :config
-    (add-hook 'after-save-hook 'magit-after-save-refresh-status)
-    (setq magit-use-overlays nil
-          magit-completing-read-function 'ivy-completing-read
-          magit-push-always-verify nil)
-    (diminish 'magit-backup-mode)
-
     (defun visit-pull-request-url ()
       "Visit the current branch's PR on Github."
       (interactive)
@@ -1217,13 +1228,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
                            "url"))
                (cdr (magit-get-remote-branch)))))
 
-    (bind-key "v" 'visit-pull-request-url magit-mode-map)
-
-    (bind-keys :map magit-status-mode-map
-               ("TAB" . magit-section-toggle)
-               ("<C-tab>" . magit-section-cycle))
-    (bind-keys :map magit-branch-section-map
-               ("RET" . magit-checkout)))
+    (bind-key "v" 'visit-pull-request-url magit-mode-map))
 #+END_SRC
 ** smartparens
 #+BEGIN_SRC emacs-lisp
@@ -1302,7 +1307,20 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
     :diminish projectile-mode
     :init
     (projectile-global-mode)
-
+    (use-package ibuffer-projectile
+      :ensure t
+      :bind (("C-x C-b" . ibuffer)
+             :map ibuffer-mode-map
+             ("c" . clean-buffer-list)
+             ("n" . ibuffer-forward-filter-group)
+             ("p" . ibuffer-backward-filter-group))
+      :init
+      (add-hook 'ibuffer-hook
+                (lambda ()
+                  (ibuffer-projectile-set-filter-groups)
+                  (unless (eq ibuffer-sorting-mode 'alphabetic)
+                    (ibuffer-do-sort-by-alphabetic)))))
+    :config
     (setq projectile-enable-caching t
           projectile-create-missing-test-files t
           projectile-completion-system 'ivy
@@ -1348,21 +1366,7 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
         (run-hooks 'projectile-find-file-hook)
         (if (derived-mode-p 'clojurescript-mode)
             (cider-jack-in-clojurescript)
-          (cider-jack-in))))
-
-    (use-package ibuffer-projectile
-      :ensure t
-      :bind ("C-x C-b" . ibuffer)
-      :init
-      (add-hook 'ibuffer-hook
-                (lambda ()
-                  (ibuffer-projectile-set-filter-groups)
-                  (unless (eq ibuffer-sorting-mode 'alphabetic)
-                    (ibuffer-do-sort-by-alphabetic))))
-      (bind-keys :map ibuffer-mode-map
-                 ("c" . clean-buffer-list)
-                 ("n" . ibuffer-forward-filter-group)
-                 ("p" . ibuffer-backward-filter-group))))
+          (cider-jack-in)))))
 #+END_SRC
 ** linum-relative
 When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
@@ -1655,7 +1659,6 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
                 (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
                 (push '("QUESTION"  . ??) prettify-symbols-alist)))
 
-    (bind-key "C-c w" 'hydra-org-clock/body)
     (defhydra hydra-org-clock (:color blue :hint nil)
       "
   ^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
@@ -1684,7 +1687,9 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
 
     ("m" org-timer)
     ("t" org-timer-item)
-    ("z" (org-info "Timers"))))
+    ("z" (org-info "Timers")))
+
+    (bind-key "C-c w" 'hydra-org-clock/body))
 #+END_SRC
 My settings for capture were some of my first Elisp :) I did need, and still need, the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
 
@@ -1704,13 +1709,15 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
   (use-package mu4e
     :if (eq system-type 'gnu/linux)
     :load-path "/usr/share/emacs/site-lisp/mu4e/"
+    :bind (("C-c e" . mu4e)
+           :map mu4e-headers-mode-map
+           ("C-c o" . org-mu4e-store-and-capture)
+           :map mu4e-view-mode-map
+           ("C-c o" . org-mu4e-store-and-capture))
     :init
     ;;store org-mode links to messages
     (require 'org-mu4e)
     (require 'gnus-dired)
-
-    (bind-key "C-c o" 'org-mu4e-store-and-capture mu4e-headers-mode-map)
-    (bind-key "C-c o" 'org-mu4e-store-and-capture mu4e-view-mode-map)
 
     (setq mu4e-maildir (expand-file-name "~/mbsync")
           mu4e-drafts-folder "/[Gmail].Drafts"
@@ -1763,7 +1770,6 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
         (nreverse buffers)))
 
     (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
-    :bind ("C-c e" . mu4e)
     :config
     (add-to-list 'mu4e-view-actions
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
@@ -1774,11 +1780,11 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
+    :bind (:map org-agenda-mode-map
+                ("g" . org-gcal-sync) ;; "r" is bound to org-agenda-redo
+                )
     :init
-    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync)))
-    :config
-    ;; "r" is bound to org-agenda-redo
-    (bind-key "g" 'org-gcal-sync org-agenda-mode-map))
+    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync))))
 #+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
@@ -1826,7 +1832,15 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
     :ensure t
-    :init
+    :bind (:map elfeed-search-mode-map
+                ("g" . elfeed-update)
+                ("q" . kill-this-buffer)
+                ("R" . my-elfeed-mark-all-read)
+                ("?" . describe-mode)
+
+                :map elfeed-show-mode-map
+                ("o" . ace-link-eww))
+    :config
     (defun my-elfeed ()
       (interactive)
       (progn
@@ -1840,17 +1854,7 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
       (elfeed-search-untag-all-unread)
       (kill-this-buffer))
 
-    (bind-key "C-c f" 'my-elfeed)
-    :config
-
-    (bind-keys :map elfeed-search-mode-map
-               ("g" . elfeed-update)
-               ("q" . kill-this-buffer)
-               ("R" . my-elfeed-mark-all-read)
-               ("?" . describe-mode))
-
-    (bind-keys :map elfeed-show-mode-map
-               ("o" . ace-link-eww)))
+    (bind-key "C-c f" 'my-elfeed))
 #+END_SRC
 ** Pocket
 #+BEGIN_SRC emacs-lisp
