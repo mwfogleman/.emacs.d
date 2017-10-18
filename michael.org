@@ -1793,16 +1793,6 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
     :config
     (setq calc-display-trail ()))
 #+END_SRC
-** Numbers
-#+BEGIN_SRC emacs-lisp
-  (use-package number
-    :ensure t
-    :bind
-    (("C-c C-+" . number/add)
-     ("C-c C--" . number/sub)
-     ("C-c C-*" . number/multiply)
-     ("C-c C-/" . number/divide)))
-#+END_SRC
 ** Flyspell
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
