@@ -128,7 +128,7 @@ Finally, I diminish some built-in minor modes.
                   ;; mode-line-position
                   ;; (vc-mode vc-mode)
                   ;; "  "
-                  mode-line-modes
+                  ;; mode-line-modes
                   "   "
                   ;; mode-line-misc-info
                   ;; battery-mode-line-string
