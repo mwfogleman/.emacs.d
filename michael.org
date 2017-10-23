@@ -118,28 +118,31 @@ Finally, I diminish some built-in minor modes.
   (setq-default mode-line-format
                 '("%e" ; print error message about full memory.
                   mode-line-front-space
-                  ; mode-line-mule-info
-                  ; mode-line-client
-                  ; mode-line-modified
-                  ; mode-line-remote
-                  ; mode-line-frame-identification
+                                          ; mode-line-mule-info
+                                          ; mode-line-client
+                                          ; mode-line-modified
+                                          ; mode-line-remote
+                                          ; mode-line-frame-identification
                   mode-line-buffer-identification
                   "   "
-                  ; mode-line-position
-                  ; (vc-mode vc-mode)
-                  ; "  "
+                                          ; mode-line-position
+                                          ; (vc-mode vc-mode)
+                                          ; "  "
                   mode-line-modes
                   "   "
-                  ; mode-line-misc-info
-                  display-time-string
-                  "   "
+                                          ; mode-line-misc-info
                   battery-mode-line-string
                   mode-line-end-spaces))
 
+  (setq display-time-format "%a %b %e %R"
+        battery-mode-line-format "%p%%"  ; Default: "[%b%p%%]"
+        global-mode-string   (remove 'display-time-string global-mode-string)
+        mode-line-end-spaces (list (propertize " "
+                                               'display '(space :align-to (- right 15)))
+                                   'display-time-string))
   (display-time-mode 1)
-  (setq display-time-format "%a %m/%d%t%R")
   (display-battery-mode 1)
-  (setq battery-mode-line-format "%p%%") ; Default: "[%b%p%%]"
+  (display-time-update)
 
   (diminish 'isearch-mode)
 #+END_SRC
