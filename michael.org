@@ -80,6 +80,18 @@ I still have to do a load-theme -> solarized-dark upon restarting.
   (use-package solarized-theme
     :ensure t)
 #+END_SRC
+** Enable async support
+#+BEGIN_SRC emacs-lisp
+(use-package emacs-async
+  :ensure t
+  :init
+  (autoload 'dired-async-mode "dired-async.el" nil t)
+  (dired-async-mode 1)
+  (async-bytecomp-package-mode 1)
+  (autoload 'dired-async-mode "dired-async.el" nil t)
+  (async-bytecomp-package-mode 1)
+  (dired-async-mode 1))
+#+END_SRC
 ** Turn off unnecessary graphical features
 *** Tool Bar
 #+BEGIN_SRC emacs-lisp
