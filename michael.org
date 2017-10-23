@@ -1384,12 +1384,13 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
       "Open project root in dired."
       (projectile-dired))
 
-    (def-projectile-commander-method ?F
-      "Git fetch."
+    (def-projectile-commander-method ?G
+      "Magit status."
       (magit-status)
-      (if (fboundp 'magit-fetch-from-upstream)
-          (call-interactively #'magit-fetch-from-upstream)
-        (call-interactively #'magit-fetch-current)))
+      ;; (if (fboundp 'magit-fetch-from-upstream)
+      ;;        (call-interactively #'magit-fetch-from-upstream)
+      ;;   (call-interactively #'magit-fetch-current))
+      )
 
     (def-projectile-commander-method ?j
       "Jack in to CLJ or CLJS depending on context."
