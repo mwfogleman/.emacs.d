@@ -82,7 +82,7 @@ I still have to do a load-theme -> solarized-dark upon restarting.
 #+END_SRC
 ** Enable async support
 #+BEGIN_SRC emacs-lisp
-(use-package emacs-async
+(use-package async
   :ensure t
   :init
   (autoload 'dired-async-mode "dired-async.el" nil t)
@@ -138,7 +138,7 @@ Finally, I diminish some built-in minor modes.
         battery-mode-line-format "%p%%"  ; Default: "[%b%p%%]"
         global-mode-string   (remove 'display-time-string global-mode-string)
         mode-line-end-spaces (list (propertize " "
-                                               'display '(space :align-to (- right 24)))
+                                               'display '(space :align-to (- right 25)))
                                    'display-time-string))
   (display-time-mode 1)
   (display-time-update)
