@@ -260,8 +260,14 @@ Also, unbind downcase region, which has plagued my documents for eons.
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
-  (set-default-font "Source Code Pro" nil t)
-  (set-face-attribute 'default nil :height 175)
+  (defun my-fontify ()
+    (interactive)
+    (set-default-font "Source Code Pro" nil t))
+
+  (bind-key "C-|" #'my-fontify)
+
+  (my-fontify)
+  (set-face-attribute 'default nil :height 150)
 #+END_SRC
 *** Working with the Mark
 From Artur's article, "[[http://endlessparentheses.com/faster-pop-to-mark-command.html][Faster Pop to Mark Command]]."
