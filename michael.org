@@ -444,6 +444,10 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("p u" . paradox-upgrade-packages)
              ("P" . proced)
              ("s" . scratch))
+
+  (when (eq system-type 'gnu/linux)
+    (bind-keys :map launcher-map
+               ("." . counsel-linux-app)))
 #+END_SRC
 ** Macros
 [[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
