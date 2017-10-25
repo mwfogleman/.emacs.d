@@ -138,7 +138,7 @@ Finally, I diminish some built-in minor modes.
         battery-mode-line-format "%p%%"  ; Default: "[%b%p%%]"
         global-mode-string   (remove 'display-time-string global-mode-string)
         mode-line-end-spaces (list (propertize " "
-                                               'display '(space :align-to (- right 25)))
+                                               'display '(space :align-to (- right 27)))
                                    'display-time-string))
   (display-time-mode 1)
   (display-time-update)
@@ -260,13 +260,7 @@ Also, unbind downcase region, which has plagued my documents for eons.
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
-  (defun my-fontify ()
-    (interactive)
-    (set-default-font "Source Code Pro" nil t))
-
-  (bind-key "C-|" #'my-fontify)
-
-  (my-fontify)
+  (set-default-font "Source Code Pro" nil t)
   (set-face-attribute 'default nil :height 150)
 #+END_SRC
 *** Working with the Mark
