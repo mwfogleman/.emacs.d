@@ -134,11 +134,11 @@ Finally, I diminish some built-in minor modes.
                   ;; battery-mode-line-string
                   mode-line-end-spaces))
 
-  (setq display-time-format "%A, %B %e %R"
+  (setq display-time-format "%a, %b %e %R"
         battery-mode-line-format "%p%%"  ; Default: "[%b%p%%]"
         global-mode-string   (remove 'display-time-string global-mode-string)
         mode-line-end-spaces (list (propertize " "
-                                               'display '(space :align-to (- right 27)))
+                                               'display '(space :align-to (- right 17)))
                                    'display-time-string))
   (display-time-mode 1)
   (display-time-update)
