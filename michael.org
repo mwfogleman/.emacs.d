@@ -1549,6 +1549,11 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
 #+BEGIN_SRC emacs-lisp
 (add-hook 'before-save-hook 'whitespace-cleanup)
 #+END_SRC
+** Floobits
+#+BEGIN_SRC emacs-lisp
+  (use-package floobits
+    :ensure t)
+#+END_SRC
 * Words and Numbers
 "GNU Office Suite Pro Edition," coming to a cubicle near you!
 ** Org Mode
