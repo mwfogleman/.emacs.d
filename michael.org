@@ -1625,7 +1625,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
           org-file-apps
           '((auto-mode . emacs)
             ("\\.mm\\'" . default)
-            ("\\.x?html?\\'" . "chrome %s")
+            ("\\.x?html?\\'" . "firefox %s")
             ("\\.pdf\\'" . "evince %s"))
           org-todo-keywords
           '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c@)")
