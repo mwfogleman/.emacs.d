@@ -1620,7 +1620,8 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
           ;; Too many clock entries clutter up a heading
           org-log-into-drawer t
           org-clock-into-drawer 1
-
+          org-stuck-projects
+          '("+LEVEL=2/-MAYBE-DONE-SOMEDAY" ("TODO" "STARTED") nil "\\<IGNORE\\>")
           org-file-apps
           '((auto-mode . emacs)
             ("\\.mm\\'" . default)
