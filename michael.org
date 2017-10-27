@@ -2290,3 +2290,10 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
 
   (bind-key "T" 'org-teleport selected-org-mode-map)
 #+END_SRC
+* Tasks
+** TODO Break out Org-Mode section
+SCHEDULED: <2017-10-28 Sat>
+** TODO Use my- prefix consistently for homegrown functions
+** MAYBE Find fix for capitalize/lowercase functions
+*** TODO Document behavior
+*** MAYBE Ping Oleh
