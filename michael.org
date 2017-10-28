@@ -762,7 +762,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+END_SRC
 ** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
-*** Configuration
+
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
     :ensure t
@@ -771,32 +771,6 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
            ("M-3" . er/expand-region)))
 
   (pending-delete-mode t)
-#+END_SRC
-** Multiple Cursors
-You've got to admit, [[http://emacsrocks.com/e13.html][Emacs Rocks]]. Thanks to Magnars, [[https://dl.dropboxusercontent.com/u/3968124/sacha-emacs.html#sec-1-3-3-1][Sacha]], and [[http://endlessparentheses.com/multiple-cursors-keybinds.html][Artur]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package multiple-cursors
-    :ensure t
-    :bind
-    (("C->" . mc/mark-next-like-this)
-     ("C-<" . mc/mark-previous-like-this)
-     ("C-M->" . mc/unmark-next-like-this)
-     ("C-M-<" . mc/unmark-previous-like-this)
-     ("C-*" . mc/mark-all-like-this))
-    :init
-    (bind-keys :prefix-map mc-map
-               :prefix "C-x m"
-               ("C-a" . mc/edit-beginnings-of-lines)
-               ("C-e" . mc/edit-ends-of-lines)
-               ("C-m" mc/mark-all-dwim)
-               ("a" . mc/mark-all-like-this)
-               ("d" . mc/mark-all-symbols-like-this-in-defun)
-               ("h" . mc-hide-unmatched-lines-mode)
-               ("i" . mc/insert-numbers)
-               ("l" . mc/edit-lines)
-               ("r" . mc/reverse-regions)
-               ("s" . mc/sort-regions)))
 #+END_SRC
 ** Deletion
 *** Hungry Delete Mode
