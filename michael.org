@@ -635,7 +635,26 @@ These are helper packages that make Emacs even more awesome.
              ("C-x C--" . hydra-zoom/body)
              ("C-x C-+" . hydra-zoom/body))
 #+END_SRC
-** Window Management (Zoom Mode)
+** Window Management
+Adapted from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org#make-window-splitting-more-useful][Sacha's config]] and a [[https://www.reddit.com/r/emacs/comments/25v0eo/you_emacs_tips_and_tricks/chldury][reddit comment]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun vsplit-last-buffer ()
+    (interactive)
+    (split-window-vertically)
+    (other-window 1 nil)
+    (switch-to-next-buffer))
+
+  (defun hsplit-last-buffer ()
+    (interactive)
+    (split-window-horizontally)
+    (other-window 1 nil)
+    (switch-to-next-buffer))
+
+  (bind-key "C-x 2" 'vsplit-last-buffer)
+  (bind-key "C-x 3" 'hsplit-last-buffer)
+#+END_SRC
+*** Zoom Mode
 This replaces Golden Ratio mode.
 
 #+BEGIN_SRC emacs-lisp
@@ -645,6 +664,7 @@ This replaces Golden Ratio mode.
     (setq zoom-mode t
           zoom-size '(0.618 . 0.618)))
 #+END_SRC
+
 ** Completion (Ivy, Counsel, and Swiper; IDO and Smex)
 I prefer Ivy, Counsel, and Swiper, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex (in particular =smex-major-mode-commands=).
 *** Counsel
@@ -2131,105 +2151,6 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
 
   (bind-keys ("M-<up>" . move-line-up)
              ("M-<down>" . move-line-down))
-#+END_SRC
-** Window Management
-Adapted from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org#make-window-splitting-more-useful][Sacha's config]] and a [[https://www.reddit.com/r/emacs/comments/25v0eo/you_emacs_tips_and_tricks/chldury][reddit comment]].
-
-#+BEGIN_SRC emacs-lisp
-  (defun vsplit-last-buffer ()
-    (interactive)
-    (split-window-vertically)
-    (other-window 1 nil)
-    (switch-to-next-buffer))
-
-  (defun hsplit-last-buffer ()
-    (interactive)
-    (split-window-horizontally)
-    (other-window 1 nil)
-    (switch-to-next-buffer))
-
-  (bind-key "C-x 2" 'vsplit-last-buffer)
-  (bind-key "C-x 3" 'hsplit-last-buffer)
-#+END_SRC
-** Zap Up To Char
-#+BEGIN_SRC emacs-lisp
-  (autoload 'zap-up-to-char "misc"
-    "Kill up to, but not including ARGth occurrence of CHAR.")
-  (bind-key "M-Z" 'zap-up-to-char)
-#+END_SRC
-** Org-Todo-Done
-I use org-todo-keywords, which makes running org-todo interactively a little more work. This creates a virtually identical bind to quickly mark something done.
-
-#+BEGIN_SRC emacs-lisp
-  (defun org-todo-done ()
-    (interactive)
-    (org-todo 'done))
-
-  (bind-key "C-c C-S-t" 'org-todo-done)
-#+END_SRC
-** org-teleport
-This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org-teleport-headlines/][John Kitchin]].
-#+BEGIN_SRC emacs-lisp
-  (defun org-teleport (&optional arg)
-    "Teleport the current heading to after a headline selected with avy.
-    With a prefix ARG move the headline to before the selected
-    headline. With a numeric prefix, set the headline level. If ARG
-    is positive, move after, and if negative, move before."
-    (interactive "P")
-    ;; Kill current headline
-    (org-mark-subtree)
-    (kill-region (region-beginning) (region-end))
-    ;; Jump to a visible headline
-    (avy-with avy-goto-line (avy--generic-jump "^\\*+" nil avy-style))
-    (cond
-     ;; Move before  and change headline level
-     ((and (numberp arg) (> 0 arg))
-      (save-excursion
-        (yank))
-      ;; arg is what we want, second is what we have
-      ;; if n is positive, we need to demote (increase level)
-      (let ((n (- (abs arg) (car (org-heading-components)))))
-        (cl-loop for i from 1 to (abs n)
-                 do
-                 (if (> 0 n)
-                     (org-promote-subtree)
-                   (org-demote-subtree)))))
-     ;; Move after and change level
-     ((and (numberp arg) (< 0 arg))
-      (org-mark-subtree)
-      (goto-char (region-end))
-      (when (eobp) (insert "\n"))
-      (save-excursion
-        (yank))
-      ;; n is what we want and second is what we have
-      ;; if n is positive, we need to demote
-      (let ((n (- (abs arg) (car (org-heading-components)))))
-        (cl-loop for i from 1 to (abs n)
-                 do
-                 (if (> 0 n) (org-promote-subtree)
-                   (org-demote-subtree)))))
-
-     ;; move to before selection
-     ((equal arg '(4))
-      (save-excursion
-        (yank)))
-     ;; move to after selection
-     (t
-      (org-mark-subtree)
-      (goto-char (region-end))
-      (when (eobp) (insert "\n"))
-      (save-excursion
-        (yank))))
-    (outline-hide-leaves))
-
-  (add-to-list 'org-speed-commands-user
-               (cons "q" (lambda ()
-                           (avy-with avy-goto-line
-                             (avy--generic-jump "^\\*+" nil avy-style)))))
-
-  (add-to-list 'org-speed-commands-user (cons "T" 'org-teleport))
-
-  (bind-key "T" 'org-teleport selected-org-mode-map)
 #+END_SRC
 * Tasks
 ** TODO Consolidate Toggle Map and Launcher Map
