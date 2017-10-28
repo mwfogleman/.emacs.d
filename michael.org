@@ -1849,7 +1849,7 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
     :ensure t
     :mode ("\\.csv$" . csv-mode))
 #+END_SRC
-** Feeds (Elfeed)
+** RSS Feeds (Elfeed)
 Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08/01/elfeed/][Manuel Ubeti]].
 
 #+BEGIN_SRC emacs-lisp
