@@ -2124,6 +2124,9 @@ Before this function, I was alternating between C-x n s (org-narrow-to-subtree) 
           (t (error "Please select a region to narrow to"))))
 
   (bind-key "n" 'narrow-or-widen-dwim toggle-map)
+
+  (eval-after-load 'org-src
+    '(bind-key "C-x C-s" 'org-edit-src-exit org-src-mode-map))
 #+END_SRC
 ** Toggle Read Only
 A lot of modes let you change from read-only to writeable, or backwards: files, Dired, and also wgrep-enabled modes. I use [[https://github.com/ggreer/the_silver_searcher][ag, the silver searcher]], instead of grep or ack. Anyways, this function decides which mode I am in and acts accordingly. That way, I need to remember just one key bind, C-x t r.
