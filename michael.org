@@ -646,7 +646,9 @@ This replaces Golden Ratio mode.
     (setq zoom-mode t
           zoom-size '(0.618 . 0.618)))
 #+END_SRC
-** Ivy and Swiper
+** Completion (Ivy, Counsel, and Swiper; IDO and Smex)
+I prefer Ivy, Counsel, and Swiper, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex (in particular =smex-major-mode-commands=).
+*** Ivy and Swiper
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
     :ensure t
@@ -677,8 +679,7 @@ This replaces Golden Ratio mode.
           ivy-initial-inputs-alist '((man . "^") (woman . "^")) ;; http://irreal.org/blog/?p=6512
           enable-recursive-minibuffers t))
 #+END_SRC
-** IDO
-I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex (in particular =smex-major-mode-commands=). Ido-vertical-mode makes IDO bearable.
+*** IDO
 #+BEGIN_SRC emacs-lisp
   (setq ido-enable-flex-matching t
         ido-everywhere t
@@ -702,7 +703,7 @@ I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/int
     (setq flx-ido-threshold 1000)
     (flx-ido-mode 1))
 #+END_SRC
-*** Smex
+**** Smex
 Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+BEGIN_SRC emacs-lisp
