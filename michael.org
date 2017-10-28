@@ -190,6 +190,12 @@ Remove the warning if a buffer or file does not exist, so you can create them. (
   (add-to-list 'find-file-not-found-functions #'create-non-existent-directory)
 #+END_SRC
 ** Other
+*** Macros
+[[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
+
+#+BEGIN_SRC emacs-lisp
+  (setq kmacro-ring-max 30)
+#+END_SRC
 *** Ediff
 The default Ediff behavior is confusing and not desirable. This fixes it.
 
@@ -391,7 +397,12 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
              ("M-E" . forward-paragraph)
              ("M-K" . kill-paragraph))
 #+END_SRC
-** [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Toggle Map]]
+** Cycle Spacing
+#+BEGIN_SRC emacs-lisp
+(bind-key "C-x SPC" 'cycle-spacing)
+#+END_SRC
+** Special Key Maps
+*** [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Toggle Map]]
 Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys on the toggle map are elsewhere in this config.
 
 #+BEGIN_SRC emacs-lisp
@@ -403,7 +414,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("t" . text-mode)
              ("w" . whitespace-mode))
 #+END_SRC
-** [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][Launcher Map]]
+*** [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][Launcher Map]]
 #+BEGIN_SRC emacs-lisp
   (defun scratch ()
     (interactive)
@@ -429,12 +440,8 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
     (bind-keys :map launcher-map
                ("." . counsel-linux-app)))
 #+END_SRC
-** Macros
-[[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
-
+*** Macro Map
 #+BEGIN_SRC emacs-lisp
-  (setq kmacro-ring-max 30)
-
   (bind-keys :prefix-map macro-map
              :prefix "C-c m"
              ("b" . kmacro-bind-to-key)
@@ -447,10 +454,6 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("s" . kmacro-set-counter)
              ("N" . kmacro-name-last-macro)
              ("I" . insert-kbd-macro))
-#+END_SRC
-** Cycle Spacing
-#+BEGIN_SRC emacs-lisp
-(bind-key "C-x SPC" 'cycle-spacing)
 #+END_SRC
 * System
 All of my packages for interacting with my computer.
@@ -2253,6 +2256,7 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
   (bind-key "T" 'org-teleport selected-org-mode-map)
 #+END_SRC
 * Tasks
+** TODO Consolidate Toggle Map and Launcher Map
 ** TODO Use my- prefix consistently for homegrown functions
 ** TODO Break out Org-Mode section
 SCHEDULED: <2017-10-28 Sat>
