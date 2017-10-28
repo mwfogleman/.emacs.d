@@ -949,7 +949,9 @@ Iedit is probably the best tool I've found for editing multiple occurences of th
     :ensure t
     :bind ("C-;" . iedit-mode))
 #+END_SRC
-** [[http://mwolson.org/static/dist/elisp/edit-list.el][Edit List]]
+** Edit List
+Edit List lets you edit a list variable as if it were a buffer.
+
 #+BEGIN_SRC emacs-lisp
   (use-package edit-list
     :ensure t)
@@ -1033,7 +1035,7 @@ For code folding.
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
 ** EWW!
-I've enjoyed using Conkeror on my Arch machine. This package brings one neat feature of Conkeror to eww.
+This package brings one neat feature of Conkeror to eww.
 #+BEGIN_SRC emacs-lisp
   (use-package eww-lnum
     :ensure t
