@@ -85,6 +85,21 @@ I still have to do a load-theme -> solarized-dark upon restarting.
   (use-package solarized-theme
     :ensure t)
 #+END_SRC
+*** Font
+#+BEGIN_SRC emacs-lisp
+  (set-default-font "Source Code Pro" nil t)
+  (set-face-attribute 'default nil :height 150)
+#+END_SRC
+*** Prettify Symbols
+#+BEGIN_SRC emacs-lisp
+  (global-prettify-symbols-mode +1)
+#+END_SRC
+*** Cursor
+Adaptive cursor width shows width of character, e.g. TAB. Via [[http://pragmaticemacs.com/emacs/adaptive-cursor-width/][Pragmatic Emacs]].
+
+#+BEGIN_SRC emacs-lisp
+(setq x-stretch-cursor t)
+#+END_SRC
 *** Turn off unnecessary graphical features
 **** Tool Bar
 #+BEGIN_SRC emacs-lisp
@@ -132,6 +147,18 @@ I commented out any variables that I eliminated from the mode-line, so that I ca
   (display-time-mode 1)
   (display-time-update)
 #+END_SRC
+** Security
+*** TLS
+#+BEGIN_SRC emacs-lisp
+  (setq tls-checktrust t
+        gnutls-verify-error t)
+#+END_SRC
+*** Encryption
+[[https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources][This will force Emacs to use its own internal password prompt instead of an external pin entry program.]]
+
+#+BEGIN_SRC emacs-lisp
+(setenv "GPG_AGENT_INFO" nil)
+#+END_SRC
 ** Backups
 I find Emacs default behavior of saving files relative to the current directory annoying, as it puts backup files everywhere. Instead, this saves backups in one directory, a backup folder within my Emacs directory.
 
@@ -170,7 +197,7 @@ The default Ediff behavior is confusing and not desirable. This fixes it.
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
         ediff-split-window-function 'split-window-horizontally)
 #+END_SRC
-*** Enable
+*** Enable functionality
 Some features and settings are disabled by default; this is sane behavior for new users, but it is expected that we will disable them eventually.
 
 #+BEGIN_SRC emacs-lisp
@@ -244,15 +271,6 @@ Also, unbind downcase region, which has plagued my documents for eons.
 #+BEGIN_SRC emacs-lisp
   (unbind-key "C-x C-l")
 #+END_SRC
-*** Prettify Symbols
-#+BEGIN_SRC emacs-lisp
-  (global-prettify-symbols-mode +1)
-#+END_SRC
-*** Font
-#+BEGIN_SRC emacs-lisp
-  (set-default-font "Source Code Pro" nil t)
-  (set-face-attribute 'default nil :height 150)
-#+END_SRC
 *** Working with the Mark
 From Artur's article, "[[http://endlessparentheses.com/faster-pop-to-mark-command.html][Faster Pop to Mark Command]]."
 
@@ -269,24 +287,6 @@ From Artur's article, "[[http://endlessparentheses.com/faster-pop-to-mark-comman
   (prefer-coding-system 'utf-8)
   (setq coding-system-for-read 'utf-8)
   (setq coding-system-for-write 'utf-8)
-#+END_SRC
-*** Security
-**** TLS
-#+BEGIN_SRC emacs-lisp
-  (setq tls-checktrust t
-        gnutls-verify-error t)
-#+END_SRC
-**** Encryption
-[[https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources][This will force Emacs to use its own internal password prompt instead of an external pin entry program.]]
-
-#+BEGIN_SRC emacs-lisp
-(setenv "GPG_AGENT_INFO" nil)
-#+END_SRC
-*** Cursor
-Adaptive cursor width shows width of character, e.g. TAB. Via [[http://pragmaticemacs.com/emacs/adaptive-cursor-width/][Pragmatic Emacs]].
-
-#+BEGIN_SRC emacs-lisp
-(setq x-stretch-cursor t)
 #+END_SRC
 * Key Bindings
 Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function.
