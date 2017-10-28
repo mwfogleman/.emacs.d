@@ -904,24 +904,17 @@ Regexes are great. Not everyone knows them, and most user interfaces don't expos
       :bind (("M-5" . vr/replace)
              ("M-%" . vr/query-replace)))
 #+END_SRC
-** Iedit
-#+BEGIN_SRC emacs-lisp
-  (use-package iedit
-    :ensure t
-    :bind ("C-;" . iedit-mode))
-#+END_SRC
-** Smart Scan
-See Mickey's [[http://www.masteringemacs.org/article/effective-editing-movement][explanation]] and the [[https://github.com/mickeynp/smart-scan][readme]].
-
-Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.org#by-symbol][Wilfred's config]].
+** Multiple Occurrences
+*** Moving Between Multiple Occurences (Highlight-Symbol)
+I used to use Smart Scan (see Mickey's [[http://www.masteringemacs.org/article/effective-editing-movement][explanation]] and the [[https://github.com/mickeynp/smart-scan][readme]]) but have since replaced Smart Scan with =highlight-symbol= and related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.org#by-symbol][Wilfred's config]].
 
 #+BEGIN_SRC emacs-lisp
-  (use-package smartscan
-    :disabled
+  (use-package highlight-symbol
     :ensure t
+    :bind (("M-p" . highlight-symbol-prev)
+           ("M-n" . highlight-symbol-next)
+           ("M-'" . highlight-symbol-query-replace))
     :init
-    (global-smartscan-mode t)
-
     (defun highlight-symbol-first ()
       "Jump to the first location of symbol at point."
       (interactive)
@@ -947,12 +940,14 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
 
     (bind-keys ("M-P" . highlight-symbol-first)
                ("M-N" . highlight-symbol-last)))
+#+END_SRC
+*** Editing Multiple Occurences (Iedit)
+Iedit is probably the best tool I've found for editing multiple occurences of the same symbol or string.
 
-  (use-package highlight-symbol
+#+BEGIN_SRC emacs-lisp
+  (use-package iedit
     :ensure t
-    :bind (("M-p" . highlight-symbol-prev)
-           ("M-n" . highlight-symbol-next)
-           ("M-'" . highlight-symbol-query-replace)))
+    :bind ("C-;" . iedit-mode))
 #+END_SRC
 ** [[http://mwolson.org/static/dist/elisp/edit-list.el][Edit List]]
 #+BEGIN_SRC emacs-lisp
