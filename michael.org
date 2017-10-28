@@ -888,17 +888,21 @@ I learned about save place from [[http://whattheemacsd.com/init.el-03.html][Magn
 
   (save-place-mode 1)
 #+END_SRC
-** Regexes
+** Regular Expressions
+Regexes are great. Not everyone knows them, and most user interfaces don't expose them, but I think most people who use computers could use them. Luckily, Emacs is great about this. It's easier to use them if you have good tools for noticing if your regular expressions match input.
+*** Build Regexes
 #+BEGIN_SRC emacs-lisp
-  (use-package visual-regexp
-    :ensure t
-    :bind (("M-5" . vr/replace)
-           ("M-%" . vr/query-replace)))
-
   (use-package re-builder
     :bind (("C-c R" . re-builder))
     :config
     (setq reb-re-syntax 'string))
+#+END_SRC
+*** Replace Strings with Regexes
+#+BEGIN_SRC emacs-lisp
+  (use-package visual-regexp
+      :ensure t
+      :bind (("M-5" . vr/replace)
+             ("M-%" . vr/query-replace)))
 #+END_SRC
 ** Iedit
 #+BEGIN_SRC emacs-lisp
