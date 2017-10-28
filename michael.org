@@ -779,7 +779,14 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     (setq aw-background nil)
     (setq aw-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
 #+END_SRC
-*** Zap to Jump
+*** Zapping
+**** Generic Zapping
+#+BEGIN_SRC emacs-lisp
+  (autoload 'zap-up-to-char "misc"
+    "Kill up to, but not including ARGth occurrence of CHAR.")
+  (bind-key "M-Z" 'zap-up-to-char)
+#+END_SRC
+**** Jump to Zap
 #+BEGIN_SRC emacs-lisp
   (use-package avy-zap
       :ensure t)
