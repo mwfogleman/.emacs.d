@@ -729,38 +729,48 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     :init
     (global-company-mode 1))
 #+END_SRC
-** Avy
+** Jumping
+*** Jump to Characters and Words
 #+BEGIN_SRC emacs-lisp
-  (use-package ace-window
+(use-package avy
+    :ensure t
+    :bind ("M-SPC" . avy-goto-char)
+    :config
+    (setq avy-background t)
+    (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
+#+END_SRC
+*** Jump to Windows
+#+BEGIN_SRC emacs-lisp
+(use-package ace-window
     :ensure t
     :bind (("C-x o" . ace-window)
            ("M-2" . ace-window))
     :init
     (setq aw-background nil)
     (setq aw-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
-
-  (use-package avy
-    :ensure t
-    :bind ("M-SPC" . avy-goto-char)
-    :config
-    (setq avy-background t))
-
+#+END_SRC
+*** Zap to Jump
+#+BEGIN_SRC emacs-lisp
   (use-package avy-zap
-    :ensure t)
-
-  (bind-keys :prefix-map avy-map
-             :prefix "C-c j"
-             ("c" . avy-goto-char)
-             ("l" . avy-goto-line)
-             ("w" . avy-goto-word-or-subword-1)
-             ("W" . ace-window)
-             ("z" . avy-zap-to-char)
-             ("Z" . avy-zap-up-to-char))
-
+      :ensure t)
+#+END_SRC
+*** Jump to Links
+#+BEGIN_SRC emacs-lisp
   (use-package ace-link
-    :ensure t
-    :init
-    (ace-link-setup-default))
+      :ensure t
+      :init
+      (ace-link-setup-default))
+#+END_SRC
+*** Jumping Keymap
+#+BEGIN_SRC emacs-lisp
+(bind-keys :prefix-map avy-map
+               :prefix "C-c j"
+               ("c" . avy-goto-char)
+               ("l" . avy-goto-line)
+               ("w" . avy-goto-word-or-subword-1)
+               ("W" . ace-window)
+               ("z" . avy-zap-to-char)
+               ("Z" . avy-zap-up-to-char))
 #+END_SRC
 ** Expand Region
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
