@@ -38,10 +38,12 @@ Yet to me, literate programming is certainly the most important thing that came 
   (setq user-full-name "Michael Fogleman"
         user-mail-address "michaelwfogleman@gmail.com")
 #+END_SRC
-** Enable package support
+** Enable Package Support
 I set up packages, Melpa, and use-package bright and early so that I can make use of use-package's bind-key macro.
 
-When I first copy this set-up into a new machine, I still have to require package, add MELPA, initialize package, and grab use-package, solarized-theme, and a couple of others (including my tid-mode) from the package archives and the internet. This could be improved, but it's not so bad.
+If I recall correctly, when I first copy this set-up into a new machine, I still have to require package, add MELPA, initialize package, and grab use-package, solarized-theme. This could be improved, but it's not so bad.
+*** Use-Package
+Use-package is a handful of things: you can make sure a package is downloaded, efficiently configure it (e.g. after load, or as needed), bind keys in a concise way, and more.
 
 #+BEGIN_SRC emacs-lisp
   (require 'package)
@@ -54,23 +56,9 @@ When I first copy this set-up into a new machine, I still have to require packag
     (package-install 'use-package))
   (require 'use-package)
 #+END_SRC
-*** Paradox
-#+BEGIN_SRC emacs-lisp
-  (use-package async
-    :ensure t)
+*** Async
+Async enables asynchronous processing in Emacs, as well as some basic implementations of asynchronous capabilities (e.g. for dired and packages and so on.
 
-  (use-package paradox
-    :ensure t
-    :config
-    (setq paradox-execute-asynchronously t))
-#+END_SRC
-*** Theme
-I still have to do a load-theme -> solarized-dark upon restarting.
-#+BEGIN_SRC emacs-lisp
-  (use-package solarized-theme
-    :ensure t)
-#+END_SRC
-** Enable async support
 #+BEGIN_SRC emacs-lisp
 (use-package async
   :ensure t
@@ -82,27 +70,38 @@ I still have to do a load-theme -> solarized-dark upon restarting.
   (async-bytecomp-package-mode 1)
   (dired-async-mode 1))
 #+END_SRC
-** Turn off unnecessary graphical features
-*** Tool Bar
+*** Paradox
+I like Paradox - it is an alternative / extension to the built-in package manager.
+#+BEGIN_SRC emacs-lisp
+(use-package paradox
+    :ensure t
+    :config
+    (setq paradox-execute-asynchronously t))
+#+END_SRC
+** Graphical Features
+*** Theme
+I still have to do a load-theme -> solarized-dark upon restarting.
+#+BEGIN_SRC emacs-lisp
+  (use-package solarized-theme
+    :ensure t)
+#+END_SRC
+*** Turn off unnecessary graphical features
+**** Tool Bar
 #+BEGIN_SRC emacs-lisp
   (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
   (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
   (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 #+END_SRC
-*** Startup Messages
+**** Startup Messages
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-message t
         initial-scratch-message ""
         inhibit-startup-echo-area-message t)
 #+END_SRC
-*** Mode Line
-[[http://www.lunaryorn.com/2014/07/26/make-your-emacs-mode-line-more-useful.html#understanding-mode-line-format][Sebastian Wiesner]] inspired me to slim down my mode line.
+**** Mode Line
+[[http://www.lunaryorn.com/2014/07/26/make-your-emacs-mode-line-more-useful.html#understanding-mode-line-format][Sebastian Wiesner]] inspired me to slim down my mode line. I have a very simple mode line that has the name of the file on the left and the date and time on the right. I've found I don't really need the mode information very often - I usually know which modes are active; if I do need the mode information, I can access that with =C-h m=, =describe-mode=. Moreover, that means I don't need to diminish most packages.
 
-I change the default mode-line-format variable, but comment out any variables that I eliminated, so that I can add them in later if I deem them useful.
-
-I add in the date, time, and battery information in formats that I like.
-
-Finally, I diminish some built-in minor modes.
+I commented out any variables that I eliminated from the mode-line, so that I can add them in later if I deem them useful.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default mode-line-format
@@ -161,6 +160,7 @@ Remove the warning if a buffer or file does not exist, so you can create them. (
 
   (add-to-list 'find-file-not-found-functions #'create-non-existent-directory)
 #+END_SRC
+** Other
 *** Ediff
 The default Ediff behavior is confusing and not desirable. This fixes it.
 
