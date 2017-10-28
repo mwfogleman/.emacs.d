@@ -436,7 +436,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
              ("P" . proced)
              ("s" . scratch))
 
-  (when (eq system-type 'gnu/linux)
+  (when (is-linux-p)
     (bind-keys :map launcher-map
                ("." . counsel-linux-app)))
 #+END_SRC
@@ -1029,8 +1029,8 @@ For code folding.
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program (cond ((eq system-type 'darwin) "open")
-                                         ((eq system-type 'gnu/linux) "firefox-beta")))
+        browse-url-generic-program (cond ((is-mac-p) "open")
+                                         ((is-linux-p) "firefox-beta")))
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
@@ -1355,7 +1355,7 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
     (show-smartparens-global-mode t)
     (use-package smartparens-config)
     (bind-key "s" 'smartparens-mode toggle-map)
-    (when (eq system-type 'darwin)
+    (when (is-mac-p)
       (bind-keys ("<s-right>" . sp-forward-slurp-sexp)
                  ("<s-left>" . sp-forward-barf-sexp)))
     (sp-with-modes '(markdown-mode gfm-mode)
@@ -1815,9 +1815,9 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
 #+BEGIN_SRC emacs-lisp
   (use-package pandoc-mode
     :ensure t
-    :init
-    (if (eq window-system 'mac)
-        (add-to-list 'exec-path "/usr/local/texlive/2016basic/bin/universal-darwin")))
+    :config
+    (when (is-mac-p)
+      (add-to-list 'exec-path "/usr/local/texlive/2016basic/bin/universal-darwin")))
 #+END_SRC
 ** CSV
 #+BEGIN_SRC emacs-lisp
