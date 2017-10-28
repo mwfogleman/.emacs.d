@@ -635,8 +635,7 @@ These are helper packages that make Emacs even more awesome.
              ("C-x C--" . hydra-zoom/body)
              ("C-x C-+" . hydra-zoom/body))
 #+END_SRC
-** Windows
-*** Zoom Mode
+** Window Management (Zoom Mode)
 This replaces Golden Ratio mode.
 
 #+BEGIN_SRC emacs-lisp
