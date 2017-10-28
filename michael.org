@@ -133,6 +133,8 @@ I commented out any variables that I eliminated from the mode-line, so that I ca
   (display-time-update)
 #+END_SRC
 ** Backups
+I find Emacs default behavior of saving files relative to the current directory annoying, as it puts backup files everywhere. Instead, this saves backups in one directory, a backup folder within my Emacs directory.
+
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist
         `(("." . ,(expand-file-name
@@ -315,7 +317,7 @@ Make C-n insert new lines if the point is at the end of the buffer.
   (setq next-line-add-newlines t)
 #+END_SRC
 ** Movement
-These keybindings for movement come from [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
+These allow you to move lines and characters with an automatic prefix argument of 5, which accelerates movements. Via [[http://whattheemacsd.com/key-bindings.el-02.html][What the .emacs.d?]].
 
 #+BEGIN_SRC emacs-lisp
   (defun super-next-line ()
@@ -340,16 +342,14 @@ These keybindings for movement come from [[http://whattheemacsd.com/key-bindings
              ("C-S-f" . super-forward-char))
 #+END_SRC
 ** Meta Binds
-Since you don't need three ways to do numeric prefixes, you can [[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][make use of]] meta-binds instead:
+I [[http://endlessparentheses.com/Meta-Binds-Part-1%25253A-Drunk-in-the-Dark.html][make use of]] meta-binds to get additional, easy bindings. Prefix arguments can be invoked with control key or C-u.
 
 #+BEGIN_SRC emacs-lisp
   (bind-keys ("M-1" . delete-other-windows)
              ("M-O" . mode-line-other-buffer))
 #+END_SRC
 ** Copying and Killing
-ejmr's [[http://ericjmritz.name/2013/06/01/snippets-from-my-personal-emacs-configuration/][snippets post]] recommends giving this advice to kill-ring-save and kill-ring, which, if no region is selected, makes C-w and M-w kill or copy the current line.
-
-Currently, I just advise kill-region (C-w), as M-w is taken over by easy-kill.
+This advises kill-region (C-w) so that, if no region is selected, it kills or copies the current line.
 
 #+BEGIN_SRC emacs-lisp
   (defadvice kill-region (before slick-cut activate compile)
@@ -461,7 +461,7 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 (bind-key "C-x SPC" 'cycle-spacing)
 #+END_SRC
 * System
-All of my packages for interacting with my laptop.
+All of my packages for interacting with my computer.
 ** OS
 *** OS X
 **** Identify Mac
