@@ -140,13 +140,13 @@ I find Emacs default behavior of saving files relative to the current directory 
         `(("." . ,(expand-file-name
                    (concat user-emacs-directory "backups")))))
 #+END_SRC
-** Change prompts
+** Prompts
+*** Yes or No
 Make yes or no prompts be y or n prompts.
 
 #+BEGIN_SRC emacs-lisp
   (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-** Other
 *** Buffer / File Warnings
 Remove the warning if a buffer or file does not exist, so you can create them. ([[https://iqbalansari.github.io/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/][Source]].)
 
@@ -291,15 +291,7 @@ Adaptive cursor width shows width of character, e.g. TAB. Via [[http://pragmatic
 * Key Bindings
 Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function.
 
-** System-specific
-#+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta
-          mac-option-modifier 'super
-          mac-control-modifier 'control
-          ns-function-modifier 'hyper))
-#+END_SRC
-** From [[https://github.com/technomancy/better-defaults][Better Defaults]]
+** Text Expansion
 #+BEGIN_SRC emacs-lisp
   (bind-key "M-/" #'hippie-expand)
 #+END_SRC
@@ -463,32 +455,48 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 * System
 All of my packages for interacting with my computer.
 ** OS
-*** OS X
-**** Identify Mac
+*** Identify OS
+These functions identify what operating system is hosting Emacs, which can be handy for system specific configuration. I have run Emacs on Windows, OS X, Linux, and BSD. I currently use Linux most of the time, and OS X some of the time, so my configuration is geared towards those. Still, I may want to run my configuration on Windows or BSD in the future so I include those functions.
+
 #+BEGIN_SRC emacs-lisp
   (defun is-mac-p
       ()
     (eq system-type 'darwin))
 
-  (if (is-mac-p) (setq osx t)
-    (setq osx nil))
+  (defun is-linux-p
+      ()
+    (eq system-type 'gnu/linux))
+
+  (defun is-windows-p
+      ()
+    (or
+     (eq system-type 'ms-dos)
+     (eq system-type 'windows-nt)
+     (eq system-type 'cygwin)))
+
+  (defun is-bsd-p
+      ()
+    (eq system-type 'gnu/kfreebsd))
+
+#+END_SRC
+*** OS X
+**** Key Bindings
+#+BEGIN_SRC emacs-lisp
+  (when (is-mac-p)
+    (setq mac-command-modifier 'meta
+          mac-option-modifier 'super
+          mac-control-modifier 'control
+          ns-function-modifier 'hyper))
 #+END_SRC
 **** Face Attributes
 #+BEGIN_SRC emacs-lisp
   (when (is-mac-p)
     (set-face-attribute 'default nil :height 165))
 #+END_SRC
-*** Arch Linux
-#+BEGIN_SRC emacs-lisp
-  (use-package arch-packer
-    :if (memq window-system '(x))
-    :bind (:map launcher-map
-                ("L" . arch-packer-list-packages))
-    :disabled
-    :init
-    (setq arch-packer-default-command "pacaur"))
-#+END_SRC
-** Eshell
+** Shells
+Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main features I tend to use are setting aliases, executing e-Lisp, and writing command output to a buffer.
+
+*** Eshell
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
     :bind (("<f1>" . eshell))
@@ -500,7 +508,7 @@ All of my packages for interacting with my computer.
       (interactive)
       (eshell 'true)))
 #+END_SRC
-** Shell
+*** Shell Mode
 #+BEGIN_SRC emacs-lisp
   (use-package shell
     :bind (:map shell-mode-map
@@ -508,9 +516,9 @@ All of my packages for interacting with my computer.
                 ("<s-down>" . comint-next-input))
     :init
     (dirtrack-mode)
-    (setq explicit-shell-file-name (cond ((eq system-type 'darwin) "/bin/bash")
-                                         ((eq system-type 'gnu/linux) "/usr/bin/bash")))
-    (when (eq system-type 'darwin)
+    (setq explicit-shell-file-name (cond ((is-linux-p) "/bin/bash")
+                                         ((is-mac-p) "/usr/bin/bash")))
+    (when (is-mac-p)
       (use-package exec-path-from-shell
         :ensure t
         :init
@@ -867,7 +875,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
 
   (unbind-key "C-x C-s")
 
-  (when (eq system-type 'gnu/linux)
+  (when (is-linux-p)
     (bind-key "C-x C-s" 'save-buffer))
 #+END_SRC
 
@@ -1723,7 +1731,7 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
 
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
-    :if (eq system-type 'gnu/linux)
+    :if (is-linux-p)
     :load-path "/usr/share/emacs/site-lisp/mu4e/"
     :bind (("C-c e" . mu4e)
            :map mu4e-headers-mode-map
@@ -2245,9 +2253,9 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
   (bind-key "T" 'org-teleport selected-org-mode-map)
 #+END_SRC
 * Tasks
+** TODO Use my- prefix consistently for homegrown functions
 ** TODO Break out Org-Mode section
 SCHEDULED: <2017-10-28 Sat>
-** TODO Use my- prefix consistently for homegrown functions
 ** MAYBE Find fix for capitalize/lowercase functions
 *** TODO Document behavior
 *** MAYBE Ping Oleh
