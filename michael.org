@@ -1079,10 +1079,11 @@ I've enjoyed using Conkeror on my Arch machine. This package brings one neat fea
       '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
               (define-key eww-mode-map "F" 'eww-lnum-universal))))
 #+END_SRC
-* Development
+* Programming and Development
 Here are language-specific (largely Lisps) or development-related packages.
-** Clojure
-*** Clojure Mode
+** Programming Languages
+*** Clojure
+**** Clojure Mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
     :ensure t
@@ -1100,7 +1101,7 @@ Here are language-specific (largely Lisps) or development-related packages.
                   :map clojurec-mode-map
                   ("C-! a a" . align-cljlet))))
 #+END_SRC
-*** Clojure Refactor
+**** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
     :ensure t
@@ -1127,7 +1128,7 @@ Here are language-specific (largely Lisps) or development-related packages.
 #+END_SRC
 
 Configurations from Endless Parentheses ([[http://endlessparentheses.com/clj-refactor-unleash-your-clojure-wizard.html][clj-refactor: Unleash your Clojure wizard]] and [[http://endlessparentheses.com/a-small-improvement-to-clj-refactor.html][A small improvement to clj-refactor]]).
-*** CIDER
+**** CIDER
 The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013/12/a-cider-excursion.html][A CIDER Excursion]].
 
 #+BEGIN_SRC emacs-lisp
@@ -1167,8 +1168,8 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
     ;; fix cond indenting
     (put 'cond 'clojure-backtracking-indent '(2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4 2 4)))
 #+END_SRC
-** Emacs Lisp
-*** Elisp-Slime-Nav
+*** Emacs Lisp
+**** Elisp-Slime-Nav
 #+BEGIN_SRC emacs-lisp
   (use-package elisp-slime-nav
     :ensure t
@@ -1176,7 +1177,7 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
     (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
       (add-hook hook 'elisp-slime-nav-mode)))
 #+END_SRC
-*** Eldoc
+**** Eldoc
 When in emacs-lisp-mode, display the argument list for the current function. I liked this functionality in SLIME; glad Emacs has it too. Thanks for the tip and code, Sacha.
 
 #+BEGIN_SRC emacs-lisp
@@ -1186,38 +1187,18 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'ielm-mode-hook 'eldoc-mode)
   (add-hook 'cider-mode-hook 'eldoc-mode)
 #+END_SRC
-** Haskell
+*** Haskell
 #+BEGIN_SRC emacs-lisp
   (use-package haskell-mode
-    :ensure t
-    :config)
+    :ensure t)
 
   (use-package intero
     :ensure t
     :init
     (add-hook 'haskell-mode-hook 'intero-mode))
 #+END_SRC
-** Restclient
-See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
-#+BEGIN_SRC emacs-lisp
-  (use-package restclient
-    :ensure t)
-#+END_SRC
-** Flycheck
-Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :ensure t
-    :init
-    (use-package flycheck-clojure
-      :ensure t)
-    (global-flycheck-mode)
-    (setq flycheck-indication-mode 'right-fringe)
-    :config
-    (flycheck-clojure-setup)
-    (require 'flycheck-joker))
-#+END_SRC
-** Git
+** Development Tools
+*** Version Control (Git)
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
 
 #+BEGIN_SRC emacs-lisp
@@ -1259,74 +1240,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 
     (bind-key "v" 'visit-pull-request-url magit-mode-map))
 #+END_SRC
-** smartparens
-#+BEGIN_SRC emacs-lisp
-  (use-package smartparens
-    :ensure t
-    :bind
-    (("C-M-f" . sp-forward-sexp)
-     ("C-M-b" . sp-backward-sexp)
-     ("C-M-d" . sp-down-sexp)
-     ("C-M-a" . sp-backward-down-sexp)
-     ("C-S-a" . sp-beginning-of-sexp)
-     ("C-S-d" . sp-end-of-sexp)
-     ("C-M-e" . sp-up-sexp)
-     ("C-M-u" . sp-backward-up-sexp)
-     ("C-M-t" . sp-transpose-sexp)
-     ("C-M-n" . sp-next-sexp)
-     ("C-M-p" . sp-previous-sexp)
-     ("C-M-k" . sp-kill-sexp)
-     ("C-M-w" . sp-copy-sexp)
-     ("M-<delete>" . sp-unwrap-sexp)
-     ("M-S-<backspace>" . sp-backward-unwrap-sexp)
-     ("C-<right>" . sp-forward-slurp-sexp)
-     ("C-<left>" . sp-forward-barf-sexp)
-     ("C-M-<left>" . sp-backward-slurp-sexp)
-     ("C-M-<right>" . sp-backward-barf-sexp)
-     ("M-D" . sp-splice-sexp)
-     ("C-M-<delete>" . sp-splice-sexp-killing-forward)
-     ("C-M-<backspace>" . sp-splice-sexp-killing-backward)
-     ("C-M-S-<backspace>" . sp-splice-sexp-killing-around)
-     ("C-]" . sp-select-next-thing-exchange)
-     ("C-<left_bracket>" . sp-select-previous-thing)
-     ("C-M-]" . sp-select-next-thing)
-     ("M-F" . sp-forward-symbol)
-     ("M-B" . sp-backward-symbol)
-     ("H-t" . sp-prefix-tag-object)
-     ("H-p" . sp-prefix-pair-object)
-     ("H-s c" . sp-convolute-sexp)
-     ("H-s a" . sp-absorb-sexp)
-     ("H-s e" . sp-emit-sexp)
-     ("H-s p" . sp-add-to-previous-sexp)
-     ("H-s n" . sp-add-to-next-sexp)
-     ("H-s j" . sp-join-sexp)
-     ("H-s s" . sp-split-sexp)
-     ("M-9" . sp-backward-sexp)
-     ("M-0" . sp-forward-sexp))
-    :init
-    (smartparens-global-mode t)
-    (show-smartparens-global-mode t)
-    (use-package smartparens-config)
-    (bind-key "s" 'smartparens-mode toggle-map)
-    (when (eq system-type 'darwin)
-      (bind-keys ("<s-right>" . sp-forward-slurp-sexp)
-                 ("<s-left>" . sp-forward-barf-sexp)))
-    (sp-with-modes '(markdown-mode gfm-mode)
-      (sp-local-pair "*" "*"))
-    (sp-with-modes '(org-mode)
-      (sp-local-pair "=" "=")
-      (sp-local-pair "*" "*")
-      (sp-local-pair "/" "/")
-      (sp-local-pair "_" "_")
-      (sp-local-pair "+" "+")
-      (sp-local-pair "<" ">")
-      (sp-local-pair "[" "]"))
-    (use-package rainbow-delimiters
-      :ensure t
-      :init
-      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
-#+END_SRC
-** Projectile
+*** Project Management (Projectile)
+
 Projectile configuration adapted from [[http://endlessparentheses.com/improving-projectile-with-extra-commands.html][Improving Projectile with extra commands on Endless Parentheses]].
 
 #+BEGIN_SRC emacs-lisp
@@ -1396,7 +1311,104 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
             (cider-jack-in-clojurescript)
           (cider-jack-in)))))
 #+END_SRC
-** linum-relative
+*** Style Checking (Checkdoc with Flycheck)
+Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init
+    (use-package flycheck-clojure
+      :ensure t)
+    (global-flycheck-mode)
+    (setq flycheck-indication-mode 'right-fringe)
+    :config
+    (flycheck-clojure-setup)
+    (require 'flycheck-joker))
+#+END_SRC
+*** REST Exploring (Restclient)
+See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
+#+BEGIN_SRC emacs-lisp
+  (use-package restclient
+    :ensure t)
+#+END_SRC
+*** Remote Pairing (Floobits)
+#+BEGIN_SRC emacs-lisp
+  (use-package floobits
+    :ensure t)
+#+END_SRC
+** Developing in Emacs
+*** Whitespace
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'whitespace-cleanup)
+#+END_SRC
+*** Managing Parentheses (Smartparens)
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :ensure t
+    :bind
+    (("C-M-f" . sp-forward-sexp)
+     ("C-M-b" . sp-backward-sexp)
+     ("C-M-d" . sp-down-sexp)
+     ("C-M-a" . sp-backward-down-sexp)
+     ("C-S-a" . sp-beginning-of-sexp)
+     ("C-S-d" . sp-end-of-sexp)
+     ("C-M-e" . sp-up-sexp)
+     ("C-M-u" . sp-backward-up-sexp)
+     ("C-M-t" . sp-transpose-sexp)
+     ("C-M-n" . sp-next-sexp)
+     ("C-M-p" . sp-previous-sexp)
+     ("C-M-k" . sp-kill-sexp)
+     ("C-M-w" . sp-copy-sexp)
+     ("M-<delete>" . sp-unwrap-sexp)
+     ("M-S-<backspace>" . sp-backward-unwrap-sexp)
+     ("C-<right>" . sp-forward-slurp-sexp)
+     ("C-<left>" . sp-forward-barf-sexp)
+     ("C-M-<left>" . sp-backward-slurp-sexp)
+     ("C-M-<right>" . sp-backward-barf-sexp)
+     ("M-D" . sp-splice-sexp)
+     ("C-M-<delete>" . sp-splice-sexp-killing-forward)
+     ("C-M-<backspace>" . sp-splice-sexp-killing-backward)
+     ("C-M-S-<backspace>" . sp-splice-sexp-killing-around)
+     ("C-]" . sp-select-next-thing-exchange)
+     ("C-<left_bracket>" . sp-select-previous-thing)
+     ("C-M-]" . sp-select-next-thing)
+     ("M-F" . sp-forward-symbol)
+     ("M-B" . sp-backward-symbol)
+     ("H-t" . sp-prefix-tag-object)
+     ("H-p" . sp-prefix-pair-object)
+     ("H-s c" . sp-convolute-sexp)
+     ("H-s a" . sp-absorb-sexp)
+     ("H-s e" . sp-emit-sexp)
+     ("H-s p" . sp-add-to-previous-sexp)
+     ("H-s n" . sp-add-to-next-sexp)
+     ("H-s j" . sp-join-sexp)
+     ("H-s s" . sp-split-sexp)
+     ("M-9" . sp-backward-sexp)
+     ("M-0" . sp-forward-sexp))
+    :init
+    (smartparens-global-mode t)
+    (show-smartparens-global-mode t)
+    (use-package smartparens-config)
+    (bind-key "s" 'smartparens-mode toggle-map)
+    (when (eq system-type 'darwin)
+      (bind-keys ("<s-right>" . sp-forward-slurp-sexp)
+                 ("<s-left>" . sp-forward-barf-sexp)))
+    (sp-with-modes '(markdown-mode gfm-mode)
+      (sp-local-pair "*" "*"))
+    (sp-with-modes '(org-mode)
+      (sp-local-pair "=" "=")
+      (sp-local-pair "*" "*")
+      (sp-local-pair "/" "/")
+      (sp-local-pair "_" "_")
+      (sp-local-pair "+" "+")
+      (sp-local-pair "<" ">")
+      (sp-local-pair "[" "]"))
+    (use-package rainbow-delimiters
+      :ensure t
+      :init
+      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
+#+END_SRC
+*** Line Numbering (linum-relative)
 When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
 
 #+BEGIN_SRC emacs-lisp
@@ -1407,7 +1419,7 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
     :config
     (setq linum-relative-current-symbol ""))
 #+END_SRC
-** comment-dwim-2
+*** Commenting (comment-dwim-2)
 Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-command.html][A comment-or-uncomment-sexp command in Emacs · Endless Parentheses]]. Would love a solution integrated into comment-dwim-2.
 
 #+BEGIN_SRC emacs-lisp
@@ -1503,7 +1515,7 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
         (dotimes (_ (or n 1))
           (comment-sexp--raw)))))
 #+END_SRC
-** aggressive-indent
+*** Indenting (aggressive-indent)
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
     :ensure t
@@ -1511,15 +1523,6 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
     (global-aggressive-indent-mode 1)
     (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
     (unbind-key "C-c C-q" aggressive-indent-mode-map))
-#+END_SRC
-** Whitespace
-#+BEGIN_SRC emacs-lisp
-(add-hook 'before-save-hook 'whitespace-cleanup)
-#+END_SRC
-** Floobits
-#+BEGIN_SRC emacs-lisp
-  (use-package floobits
-    :ensure t)
 #+END_SRC
 * Words and Numbers
 "GNU Office Suite Pro Edition," coming to a cubicle near you!
