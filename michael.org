@@ -647,22 +647,24 @@ This replaces Golden Ratio mode.
 #+END_SRC
 ** Completion (Ivy, Counsel, and Swiper; IDO and Smex)
 I prefer Ivy, Counsel, and Swiper, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex (in particular =smex-major-mode-commands=).
-*** Ivy and Swiper
+*** Counsel
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
-    :ensure t
-    :bind (("C-x C-f" . counsel-find-file)
-           ("C-x C-m" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)
-           ("C-h f" . counsel-describe-function)
-           ("C-h v" . counsel-describe-variable)
-           ("M-i" . counsel-imenu)
-           ("M-I" . counsel-imenu)
-           ("C-c i" . counsel-unicode-char)
-           :map read-expression-map
-           ("C-r" . counsel-expression-history)))
-
-  (use-package swiper
+      :ensure t
+      :bind (("C-x C-f" . counsel-find-file)
+             ("C-x C-m" . counsel-M-x)
+             ("C-x C-f" . counsel-find-file)
+             ("C-h f" . counsel-describe-function)
+             ("C-h v" . counsel-describe-variable)
+             ("M-i" . counsel-imenu)
+             ("M-I" . counsel-imenu)
+             ("C-c i" . counsel-unicode-char)
+             :map read-expression-map
+             ("C-r" . counsel-expression-history)))
+#+END_SRC
+*** Ivy and Swiper
+#+BEGIN_SRC emacs-lisp
+(use-package swiper
     :ensure t
     :bind (("C-s" . swiper)
            ("C-r" . swiper)
@@ -714,7 +716,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     :init
     (smex-initialize))
 #+END_SRC
-** Company Mode
+*** Company Mode
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
