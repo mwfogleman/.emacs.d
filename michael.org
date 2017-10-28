@@ -1793,13 +1793,13 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
     :init
     (add-hook 'markdown-mode-hook 'turn-on-orgstruct))
 #+END_SRC
-** Calc
+** Calculator (Calc)
 #+BEGIN_SRC emacs-lisp
   (use-package calc
     :config
     (setq calc-display-trail ()))
 #+END_SRC
-** Flyspell
+** Spell Checking (Flyspell)
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
     :bind (("C-`" . ispell-word)
@@ -1811,7 +1811,7 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
     (setq ispell-program-name "aspell"
           ispell-list-command "--list"))
 #+END_SRC
-** Pandoc
+** Document Conversions (Pandoc)
 #+BEGIN_SRC emacs-lisp
   (use-package pandoc-mode
     :ensure t
@@ -1855,7 +1855,7 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
 
     (bind-key "C-c f" 'my-elfeed))
 #+END_SRC
-** Pocket
+** Read It Later (Pocket)
 #+BEGIN_SRC emacs-lisp
   (use-package pocket-mode
     :ensure t
