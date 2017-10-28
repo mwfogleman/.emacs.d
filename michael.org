@@ -1538,7 +1538,11 @@ If I hated everything about Emacs, I would still use it for org-mode.
 -- [[http://article.gmane.org/gmane.emacs.orgmode/6224][Carsten Dominik]]
 #+end_quote
 *** Configuration
-I use the stock package of org-mode as the default major mode. I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] module.
+I use the stock package of org-mode as the default major mode.
+
+My settings for capture were some of my first Elisp :) I did need, and still need, the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
+
+I use org-struct in mu4e. See above.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
@@ -1620,24 +1624,13 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
                  '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00"))
 
     ;; Org Modules
-    (require 'org-install)
-    (setq org-modules
-          '(org-habit org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)
-          org-habit-graph-column 105)
 
     (add-hook 'org-agenda-finalize-hook (lambda () (delete-other-windows)))
 
-    (use-package org-bullets
-      :ensure t
-      :init
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-    (use-package org-cliplink
-      :ensure t
-      :bind ("C-x p i" . org-cliplink))
 
     :config
-    (org-load-modules-maybe t)
+
 
     (defun make-org-scratch ()
       (interactive)
@@ -1668,9 +1661,7 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
         (org-agenda-list)
         (org-agenda-day-view))) ;; Maybe I should try writing a Emacs Lisp macro for this kind of thing!
 
-    (defun org-make-habit ()
-      (interactive)
-      (org-set-property "STYLE" "habit"))
+
 
     (bind-keys ("C-c A" . org-buffer-agenda)
                ("C-c t" . org-buffer-todo)
@@ -1684,28 +1675,64 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
                 (push '("TODO"  . ?▲) prettify-symbols-alist)
                 (push '("DONE"  . ?✓) prettify-symbols-alist)
                 (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
-                (push '("QUESTION"  . ??) prettify-symbols-alist)))
+                (push '("QUESTION"  . ??) prettify-symbols-alist))))
+#+END_SRC
+**** Packages
+***** org-modules
+#+BEGIN_SRC emacs-lisp
+  (require 'org-install)
+  (setq org-modules '(org-habit org-info))
+  (org-load-modules-maybe t)
+#+END_SRC
+****** org-habits
+I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] module.
 
-    (defhydra hydra-org-clock (:color blue :hint nil)
-      "
-  ^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
-  -^-^-----^-^----------^-^------^-^----------|--^-^------^-^-------------^------
-  (_?_)    _i_n         _e_dit   _g_oto entry | (_z_)     _r_elative      ti_m_e
-  ^ ^     _c_ontinue   _q_uit   _d_isplay    |  ^ ^      cou_n_tdown     i_t_em
-  ^ ^     _o_ut        ^ ^      _r_eport     |  ^ ^      _p_ause toggle
-  ^ ^     ^ ^          ^ ^      ^ ^          |  ^ ^      _s_top
-  "
-     ("i" org-clock-in)
-     ("c" org-clock-in-last)
-     ("o" org-clock-out)
+#+BEGIN_SRC emacs-lisp
+  (setq org-habit-graph-column 105)
 
-     ("e" org-clock-modify-effort-estimate)
-     ("q" org-clock-cancel)
+  (defun org-make-habit ()
+    (interactive)
+    (org-set-property "STYLE" "habit"))
+#+END_SRC
+***** org-cliplink
+=org-cliplink= lets you insert a link from your clipboard with a title that is fetched from the page's metadata.
 
-     ("g" org-clock-goto)
-     ("d" org-clock-display)
-     ("r" org-clock-report)
-     ("?" (org-info "Clocking commands"))
+#+BEGIN_SRC emacs-lisp
+  (use-package org-cliplink
+    :ensure t
+    :bind ("C-x p i" . org-cliplink))
+#+END_SRC
+***** org-bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+END_SRC
+**** Clocking
+I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks. However, there are a *lot* of commands; this is a perfect instance for a Hydra.
+
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-org-clock (:color blue :hint nil)
+    "
+    ^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
+    -^-^-----^-^----------^-^------^-^----------|--^-^------^-^-------------^------
+    (_?_)    _i_n         _e_dit   _g_oto entry | (_z_)     _r_elative      ti_m_e
+    ^ ^     _c_ontinue   _q_uit   _d_isplay    |  ^ ^      cou_n_tdown     i_t_em
+    ^ ^     _o_ut        ^ ^      _r_eport     |  ^ ^      _p_ause toggle
+    ^ ^     ^ ^          ^ ^      ^ ^          |  ^ ^      _s_top
+    "
+    ("i" org-clock-in)
+    ("c" org-clock-in-last)
+    ("o" org-clock-out)
+
+    ("e" org-clock-modify-effort-estimate)
+    ("q" org-clock-cancel)
+
+    ("g" org-clock-goto)
+    ("d" org-clock-display)
+    ("r" org-clock-report)
+    ("?" (org-info "Clocking commands"))
 
     ("r" org-timer-start)
     ("n" org-timer-set-timer)
@@ -1716,11 +1743,88 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
     ("t" org-timer-item)
     ("z" (org-info "Timers")))
 
-    (bind-key "C-c w" 'hydra-org-clock/body))
+  (bind-key "C-c w" 'hydra-org-clock/body)
 #+END_SRC
-My settings for capture were some of my first Elisp :) I did need, and still need, the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
+**** Movement
+***** Jumping (Go To Org Heading)
+Speed commands are really useful, but I often want to make use of them when I'm not at the beginning of a header. This command brings you back to the beginning of an item's header, so that you can do speed commands.
 
-I use org-struct in mu4e. See above.
+#+BEGIN_SRC emacs-lisp
+  (defun org-go-speed ()
+    "Goes to the beginning of an element's header, so that you can execute speed commands."
+    (interactive)
+    (when (equal major-mode 'org-mode)
+      (if (org-at-heading-p)
+          (org-beginning-of-line)
+        (org-up-element))))
+
+  (bind-key "C-c s" 'org-go-speed)
+#+END_SRC
+***** Moving (org-teleport)
+This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org-teleport-headlines/][John Kitchin]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-teleport (&optional arg)
+    "Teleport the current heading to after a headline selected with avy.
+    With a prefix ARG move the headline to before the selected
+    headline. With a numeric prefix, set the headline level. If ARG
+    is positive, move after, and if negative, move before."
+    (interactive "P")
+    ;; Kill current headline
+    (org-mark-subtree)
+    (kill-region (region-beginning) (region-end))
+    ;; Jump to a visible headline
+    (avy-with avy-goto-line (avy--generic-jump "^\\*+" nil avy-style))
+    (cond
+     ;; Move before  and change headline level
+     ((and (numberp arg) (> 0 arg))
+      (save-excursion
+        (yank))
+      ;; arg is what we want, second is what we have
+      ;; if n is positive, we need to demote (increase level)
+      (let ((n (- (abs arg) (car (org-heading-components)))))
+        (cl-loop for i from 1 to (abs n)
+                 do
+                 (if (> 0 n)
+                     (org-promote-subtree)
+                   (org-demote-subtree)))))
+     ;; Move after and change level
+     ((and (numberp arg) (< 0 arg))
+      (org-mark-subtree)
+      (goto-char (region-end))
+      (when (eobp) (insert "\n"))
+      (save-excursion
+        (yank))
+      ;; n is what we want and second is what we have
+      ;; if n is positive, we need to demote
+      (let ((n (- (abs arg) (car (org-heading-components)))))
+        (cl-loop for i from 1 to (abs n)
+                 do
+                 (if (> 0 n) (org-promote-subtree)
+                   (org-demote-subtree)))))
+
+     ;; move to before selection
+     ((equal arg '(4))
+      (save-excursion
+        (yank)))
+     ;; move to after selection
+     (t
+      (org-mark-subtree)
+      (goto-char (region-end))
+      (when (eobp) (insert "\n"))
+      (save-excursion
+        (yank))))
+    (outline-hide-leaves))
+
+  (add-to-list 'org-speed-commands-user
+               (cons "q" (lambda ()
+                           (avy-with avy-goto-line
+                             (avy--generic-jump "^\\*+" nil avy-style)))))
+
+  (add-to-list 'org-speed-commands-user (cons "T" 'org-teleport))
+
+  (bind-key "T" 'org-teleport selected-org-mode-map)
+#+END_SRC
 ** Email (mu4e)
 I am currently using mu4e, which was indeed pretty easy to set up. For receiving mail, I use mbsync, not offlineimap. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
 
@@ -2045,20 +2149,6 @@ This function borrowed from Sacha.
       (fill-paragraph nil region)))
 
   (bind-key "M-Q" 'unfill-paragraph)
-#+END_SRC
-** Org Go To Heading
-Speed commands are really useful, but I often want to make use of them when I'm not at the beginning of a header. This command brings you back to the beginning of an item's header, so that you can do speed commands.
-
-#+BEGIN_SRC emacs-lisp
-  (defun org-go-speed ()
-    "Goes to the beginning of an element's header, so that you can execute speed commands."
-    (interactive)
-    (when (equal major-mode 'org-mode)
-      (if (org-at-heading-p)
-          (org-beginning-of-line)
-        (org-up-element))))
-
-  (bind-key "C-c s" 'org-go-speed)
 #+END_SRC
 ** Hide Mode Line
 I wonder if Will Mengarini would approve of [[http://bzg.fr/emacs-hide-mode-line.html][Bastien's post]]... I know I need all the space I can get on this laptop!
