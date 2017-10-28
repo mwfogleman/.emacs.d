@@ -656,6 +656,7 @@ This replaces Golden Ratio mode.
            ("C-h f" . counsel-describe-function)
            ("C-h v" . counsel-describe-variable)
            ("M-i" . counsel-imenu)
+           ("M-I" . counsel-imenu)
            ("C-c i" . counsel-unicode-char)
            :map read-expression-map
            ("C-r" . counsel-expression-history)))
@@ -677,7 +678,7 @@ This replaces Golden Ratio mode.
           enable-recursive-minibuffers t))
 #+END_SRC
 ** IDO
-I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex and Ido-Menu. Ido-vertical-mode makes IDO bearable.
+I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/introduction-to-ido-mode/][IDO]] around for Smex (in particular =smex-major-mode-commands=). Ido-vertical-mode makes IDO bearable.
 #+BEGIN_SRC emacs-lisp
   (setq ido-enable-flex-matching t
         ido-everywhere t
@@ -688,19 +689,18 @@ I prefer Ivy, but I keep [[http://www.masteringemacs.org/articles/2010/10/10/int
         ido-context-switch-command nil
         ido-cur-list nil
         ido-default-item nil)
+
   (use-package ido-vertical-mode
     :ensure t
     :init
     (ido-vertical-mode)
     (setq ido-vertical-define-keys 'C-n-and-C-p-only))
+
   (use-package flx-ido
     :ensure t
     :init
     (setq flx-ido-threshold 1000)
     (flx-ido-mode 1))
-  (use-package idomenu
-    :ensure t
-    :bind ("M-I" . idomenu))
 #+END_SRC
 *** Smex
 Smex (Smart M-X) implements IDO functionality for the M-X window.
