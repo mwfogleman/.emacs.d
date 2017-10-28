@@ -729,7 +729,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
     :init
     (global-company-mode 1))
 #+END_SRC
-** Jumping
+** Jumping (Avy, Ace-Window and Friends)
 *** Jump to Characters and Words
 #+BEGIN_SRC emacs-lisp
 (use-package avy
@@ -772,7 +772,7 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
                ("z" . avy-zap-to-char)
                ("Z" . avy-zap-up-to-char))
 #+END_SRC
-** Expand Region
+** Selection (Expand Region)
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
 
 #+BEGIN_SRC emacs-lisp
@@ -785,20 +785,6 @@ Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episod
   (pending-delete-mode t)
 #+END_SRC
 ** Deletion
-*** Hungry Delete Mode
-Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endless Parentheses]].
-#+BEGIN_SRC emacs-lisp
-  (use-package hungry-delete
-    :ensure t
-    :init
-    (global-hungry-delete-mode))
-#+END_SRC
-*** easy-kill
-#+BEGIN_SRC emacs-lisp
-  (use-package easy-kill
-    :ensure t
-    :bind ("M-w" . easy-kill))
-#+END_SRC
 *** Kill Ring
 The word "kill" might be antiquated, idiosyncratic jargon, but it's great that Emacs keeps track of what's been killed. The package "Browse Kill Ring" is crucial to making that functionality visible and usable.
 
@@ -810,6 +796,20 @@ The word "kill" might be antiquated, idiosyncratic jargon, but it's great that E
     (setq browse-kill-ring-quit-action 'kill-and-delete-window))
 
   (setq save-interprogram-paste-before-kill t)
+#+END_SRC
+*** easy-kill
+#+BEGIN_SRC emacs-lisp
+  (use-package easy-kill
+    :ensure t
+    :bind ("M-w" . easy-kill))
+#+END_SRC
+*** Hungry Delete Mode
+I learned about this package via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endless Parentheses]]. This is the first Emacs package that I contributed to!
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+    :ensure t
+    :init
+    (global-hungry-delete-mode))
 #+END_SRC
 ** Files
 *** Recent Files
