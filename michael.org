@@ -954,15 +954,6 @@ Iedit is probably the best tool I've found for editing multiple occurences of th
   (use-package edit-list
     :ensure t)
 #+END_SRC
-** Beacon
-#+BEGIN_SRC emacs-lisp
-  (use-package beacon
-    :ensure t
-    :init
-    (beacon-mode 1)
-    (setq beacon-push-mark 35)
-    (setq beacon-color "#666600"))
-#+END_SRC
 ** Discoverability
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
