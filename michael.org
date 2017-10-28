@@ -880,13 +880,13 @@ Revert buffers automatically when underlying files are changed externally.
         auto-revert-verbose nil)
 #+END_SRC
 *** Save Place
-This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
+I learned about save place from [[http://whattheemacsd.com/init.el-03.html][Magnars]]; if you close a buffer, it remembers where you were in the file, so that when you re-open that file the buffer goes straight to that place. The configuration of this mode is very simple as of Emacs 25.1.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package saveplace
-    :init
-    (setq-default save-place t)
-    (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
+  (setq-default save-place t)
+  (setq save-place-file (expand-file-name ".places" user-emacs-directory))
+
+  (save-place-mode 1)
 #+END_SRC
 ** Regexes
 #+BEGIN_SRC emacs-lisp
