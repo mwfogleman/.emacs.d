@@ -78,6 +78,29 @@ I like Paradox - it is an alternative / extension to the built-in package manage
     :config
     (setq paradox-execute-asynchronously t))
 #+END_SRC
+** Detect Operating System
+These functions identify what operating system is hosting Emacs, which can be handy for system specific configuration. I have run Emacs on Windows, OS X, Linux, and BSD. I currently use Linux most of the time, and OS X some of the time, so my configuration is geared towards those. Still, I may want to run my configuration on Windows or BSD in the future so I include those functions.
+
+#+BEGIN_SRC emacs-lisp
+  (defun is-mac-p
+      ()
+    (eq system-type 'darwin))
+
+  (defun is-linux-p
+      ()
+    (eq system-type 'gnu/linux))
+
+  (defun is-windows-p
+      ()
+    (or
+     (eq system-type 'ms-dos)
+     (eq system-type 'windows-nt)
+     (eq system-type 'cygwin)))
+
+  (defun is-bsd-p
+      ()
+    (eq system-type 'gnu/kfreebsd))
+#+END_SRC
 ** Graphical Features
 *** Theme
 I still have to do a load-theme -> solarized-dark upon restarting.
@@ -458,30 +481,6 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 * System
 All of my packages for interacting with my computer.
 ** OS
-*** Identify OS
-These functions identify what operating system is hosting Emacs, which can be handy for system specific configuration. I have run Emacs on Windows, OS X, Linux, and BSD. I currently use Linux most of the time, and OS X some of the time, so my configuration is geared towards those. Still, I may want to run my configuration on Windows or BSD in the future so I include those functions.
-
-#+BEGIN_SRC emacs-lisp
-  (defun is-mac-p
-      ()
-    (eq system-type 'darwin))
-
-  (defun is-linux-p
-      ()
-    (eq system-type 'gnu/linux))
-
-  (defun is-windows-p
-      ()
-    (or
-     (eq system-type 'ms-dos)
-     (eq system-type 'windows-nt)
-     (eq system-type 'cygwin)))
-
-  (defun is-bsd-p
-      ()
-    (eq system-type 'gnu/kfreebsd))
-
-#+END_SRC
 *** OS X
 **** Key Bindings
 #+BEGIN_SRC emacs-lisp
