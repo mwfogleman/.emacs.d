@@ -1693,6 +1693,16 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
     (interactive)
     (org-set-property "STYLE" "habit"))
 #+END_SRC
+***** org-gcal
+#+BEGIN_SRC emacs-lisp
+  (use-package org-gcal
+    :ensure t
+    :bind (:map org-agenda-mode-map
+                ("g" . org-gcal-sync) ;; "r" is bound to org-agenda-redo
+                )
+    :init
+    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync))))
+#+END_SRC
 ***** org-cliplink
 =org-cliplink= lets you insert a link from your clipboard with a title that is fetched from the page's metadata.
 
@@ -1905,16 +1915,6 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
     (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
     (add-hook 'mu4e-compose-mode-hook 'auto-fill-mode))
-#+END_SRC
-** Google Calendar
-#+BEGIN_SRC emacs-lisp
-  (use-package org-gcal
-    :ensure t
-    :bind (:map org-agenda-mode-map
-                ("g" . org-gcal-sync) ;; "r" is bound to org-agenda-redo
-                )
-    :init
-    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync))))
 #+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
