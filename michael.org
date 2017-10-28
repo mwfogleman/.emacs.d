@@ -1034,15 +1034,15 @@ For code folding.
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
-** EWW!
+** EWW
 This package brings one neat feature of Conkeror to eww.
 #+BEGIN_SRC emacs-lisp
   (use-package eww-lnum
     :ensure t
-    :init
-    (eval-after-load "eww"
-      '(progn (define-key eww-mode-map "f" 'eww-lnum-follow)
-              (define-key eww-mode-map "F" 'eww-lnum-universal))))
+    :after eww
+    :bind (:map eww-mode-map
+                ("f" . eww-lnum-follow)
+                ("F" . eww-lnum-universal)))
 #+END_SRC
 * Programming and Development
 Here are language-specific (largely Lisps) or development-related packages.
