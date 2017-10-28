@@ -64,16 +64,6 @@ When I first copy this set-up into a new machine, I still have to require packag
     :config
     (setq paradox-execute-asynchronously t))
 #+END_SRC
-*** Diminish
-#+BEGIN_SRC emacs-lisp
-  (use-package diminish
-    :ensure t
-    :init
-    (defmacro rename-modeline (package-name mode new-name)
-      `(eval-after-load ,package-name
-         '(defadvice ,mode (after rename-modeline activate)
-            (setq mode-name ,new-name)))))
-#+END_SRC
 *** Theme
 I still have to do a load-theme -> solarized-dark upon restarting.
 #+BEGIN_SRC emacs-lisp
@@ -142,8 +132,6 @@ Finally, I diminish some built-in minor modes.
                                    'display-time-string))
   (display-time-mode 1)
   (display-time-update)
-
-  (diminish 'isearch-mode)
 #+END_SRC
 ** Backups
 #+BEGIN_SRC emacs-lisp
@@ -637,11 +625,9 @@ This replaces Golden Ratio mode.
 #+BEGIN_SRC emacs-lisp
   (use-package zoom
     :ensure t
-    :diminish zoom-mode
     :init
     (setq zoom-mode t
-          zoom-size '(0.618 . 0.618))
-    (diminish 'zoom-mode))
+          zoom-size '(0.618 . 0.618)))
 #+END_SRC
 *** Quit Bottom Window
 Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-alist.html][Lunaryorn's post about display-buffer-alist]].
@@ -670,7 +656,6 @@ Swiped from [[http://www.lunaryorn.com/2015/04/29/the-power-of-display-buffer-al
 
   (use-package swiper
     :ensure t
-    :diminish ivy-mode
     :bind (("C-s" . swiper)
            ("C-r" . swiper)
            ("C-c C-r" . ivy-resume)
@@ -727,7 +712,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
-    :diminish company-mode
     :bind (("C-." . company-complete)
            :map company-active-map
            ("C-n" . company-select-next)
@@ -814,7 +798,6 @@ Via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endles
 #+BEGIN_SRC emacs-lisp
   (use-package hungry-delete
     :ensure t
-    :diminish hungry-delete-mode
     :init
     (global-hungry-delete-mode))
 #+END_SRC
@@ -905,7 +888,6 @@ Revert buffers automatically when underlying files are changed externally.
   (global-auto-revert-mode t)
   (setq global-auto-revert-non-file-buffers t
         auto-revert-verbose nil)
-  (diminish 'auto-revert-mode)
 #+END_SRC
 *** Save Place
 This comes from [[http://whattheemacsd.com/init.el-03.html][Magnars]].
@@ -987,7 +969,6 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
     :ensure t
-    :diminish beacon-mode
     :init
     (beacon-mode 1)
     (setq beacon-push-mark 35)
@@ -997,7 +978,6 @@ Related functions from [[https://github.com/Wilfred/.emacs.d/blob/gh-pages/init.
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
-    :diminish which-key-mode
     :init
     (which-key-mode))
 
@@ -1024,7 +1004,6 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 #+BEGIN_SRC emacs-lisp
   (use-package selected
     :ensure t
-    :diminish selected-minor-mode
     :commands selected-minor-mode
     :init
     (setq selected-org-mode-map (make-sparse-keymap))
@@ -1044,25 +1023,7 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 #+BEGIN_SRC emacs-lisp
   (use-package beginend
     :ensure t
-    :diminish beginend-global-mode
     :init
-    (defun diminish-all-beginend-modes ()
-      "Diminish all lighters `beginend-global-mode' activates.
-
-      Calling `beginend-global-mode' creates multiple minor modes and
-      automatically enables them when, for example, using Dired or
-      Elfeed, and more.  These individual minor modes define ` be' as
-      the lighter which appears on the mode-line for those modes.
-
-      Diminishing `beginend-global-mode' only affects one situation
-      though, meaning the lighter will remain.  Completely diminishing
-      all instances of ` be' requires us to diminsh each minor mode
-      that `beginend' defines.  This function does exactly that."
-      (interactive)
-      (mapc (lambda (pair)
-              (diminish (cdr pair)))
-            beginend-modes))
-    (add-hook 'beginend-global-mode-hook #'diminish-all-beginend-modes)
     (beginend-global-mode))
 #+END_SRC
 ** Hideshow
@@ -1071,7 +1032,6 @@ For code folding.
 #+BEGIN_SRC emacs-lisp
   (use-package hideshow
     :ensure t
-    :diminish hs-minor-mode
     :config
       (add-hook 'prog-mode-hook 'hs-minor-mode))
 
@@ -1128,12 +1088,10 @@ Here are language-specific (largely Lisps) or development-related packages.
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
     :ensure t
-    :diminish clj-refactor-mode
     :init
     (defun my-clj-refactor-mode-hook ()
       (clj-refactor-mode 1)
-      (yas-minor-mode 1)
-      (diminish 'yas-minor-mode))
+      (yas-minor-mode 1))
     (add-hook 'clojure-mode-hook #'my-clj-refactor-mode-hook)
     (setq cljr-clojure-test-declaration "[clojure.test :refer :all]"
           cljr-cljs-clojure-test-declaration "[cljs.test :refer-macros [deftest is use-fixtures]]")
@@ -1198,7 +1156,6 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
 #+BEGIN_SRC emacs-lisp
   (use-package elisp-slime-nav
     :ensure t
-    :diminish elisp-slime-nav-mode
     :init
     (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
       (add-hook hook 'elisp-slime-nav-mode)))
@@ -1208,7 +1165,6 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 
 #+BEGIN_SRC emacs-lisp
   (autoload 'turn-on-eldoc-mode "eldoc" nil t)
-  (diminish 'eldoc-mode)
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
   (add-hook 'lisp-interaction-mode-hook 'eldoc-mode)
   (add-hook 'ielm-mode-hook 'eldoc-mode)
@@ -1236,7 +1192,6 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t
-    :diminish flycheck-mode
     :init
     (use-package flycheck-clojure
       :ensure t)
@@ -1264,7 +1219,6 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (setq magit-use-overlays nil
           magit-completing-read-function 'ivy-completing-read
           magit-push-always-verify nil)
-    (diminish 'magit-backup-mode)
     (use-package git-timemachine
       :ensure t
       :bind (("C-x v t" . git-timemachine)))
@@ -1293,7 +1247,6 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
     :ensure t
-    :diminish smartparens-mode
     :bind
     (("C-M-f" . sp-forward-sexp)
      ("C-M-b" . sp-backward-sexp)
@@ -1363,7 +1316,6 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :diminish projectile-mode
     :init
     (projectile-global-mode)
     (use-package ibuffer-projectile
@@ -1539,7 +1491,6 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
     :ensure t
-    :diminish aggressive-indent-mode
     :init
     (global-aggressive-indent-mode 1)
     (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
@@ -1580,7 +1531,6 @@ I use the stock package of org-mode as the default major mode. I use the [[http:
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
-    :diminish org-indent-mode
     :bind (("C-c l" . org-store-link)
            ("C-c c" . org-capture)
            ("C-c a" . org-agenda)
@@ -1868,7 +1818,6 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
 ** Flyspell
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
-    :diminish flyspell-mode
     :bind (("C-`" . ispell-word)
            ("C-~" . ispell-buffer))
     :init
