@@ -1695,6 +1695,7 @@ Here are some hand-made agenda files.
 
   (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
 #+END_SRC
+
 ****** Refiling
 #+BEGIN_SRC emacs-lisp
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
@@ -2007,9 +2008,8 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
     :ensure t
     :bind (:map elfeed-search-mode-map
                 ("g" . elfeed-update)
-                ("q" . kill-this-buffer)
                 ("R" . my-elfeed-mark-all-read)
-                ("?" . describe-mode)
+                ("?" . discover-my-major)
 
                 :map elfeed-show-mode-map
                 ("o" . ace-link-eww))
@@ -2116,13 +2116,16 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
   (bind-key "C-x C-k" 'kill-this-buffer)
 #+END_SRC
 
-By default, pressing 'q' in either Dired or package-menu runs quit-window, which quits the window and buries its buffer. I'd prefer the buffer to close.
+By default, pressing 'q' in Dired, the packages menu, or Elfeed runs quit-window, which quits the window and buries its buffer. I'd prefer the buffer to close.
 
 #+BEGIN_SRC emacs-lisp
   (bind-keys :map dired-mode-map
              ("q" . kill-this-buffer))
 
   (bind-keys :map package-menu-mode-map
+             ("q" . kill-this-buffer))
+
+  (bind-keys :map elfeed-search-mode-map
              ("q" . kill-this-buffer))
 #+END_SRC
 *** Kill All Other Buffers
