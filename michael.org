@@ -1640,6 +1640,24 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
   (unbind-key "C-c [")
   (unbind-key "C-c ]")
 #+END_SRC
+******* Open Org Agenda
+This function opens the agenda in full screen.
+
+#+BEGIN_SRC emacs-lisp
+  (defun open-agenda ()
+    "Opens the org-agenda."
+    (interactive)
+    (let ((agenda "*Org Agenda*"))
+      (if (equal (get-buffer agenda) nil)
+          (org-agenda-list)
+        (unless (equal (buffer-name (current-buffer)) agenda)
+          (switch-to-buffer agenda))
+        (org-agenda-redo t)
+        (beginning-of-buffer))))
+
+  (bind-key "<f5>" 'open-agenda)
+  (bind-key "a" 'open-agenda launcher-map)
+#+END_SRC
 ******* Close Other Windows
 Agendas should be full screen!
 #+BEGIN_SRC emacs-lisp
@@ -2089,24 +2107,6 @@ I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benp
              ("C-c K" . keptintouch-backlog))
 #+END_SRC
 ** Buffer Management
-*** Open Org Agenda
-This function opens the agenda in full screen.
-
-#+BEGIN_SRC emacs-lisp
-  (defun open-agenda ()
-    "Opens the org-agenda."
-    (interactive)
-    (let ((agenda "*Org Agenda*"))
-      (if (equal (get-buffer agenda) nil)
-          (org-agenda-list)
-        (unless (equal (buffer-name (current-buffer)) agenda)
-          (switch-to-buffer agenda))
-        (org-agenda-redo t)
-        (beginning-of-buffer))))
-
-  (bind-key "<f5>" 'open-agenda)
-  (bind-key "a" 'open-agenda launcher-map)
-#+END_SRC
 *** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
   (defun kill-this-buffer ()
