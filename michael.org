@@ -2278,8 +2278,6 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
 ** TODO Find replacement for org-timeline
 ** TODO Consolidate Toggle Map and Launcher Map
 ** TODO Use my- prefix consistently for homegrown functions
-** TODO Break out Org-Mode section
-SCHEDULED: <2017-10-28 Sat>
 ** MAYBE Find fix for capitalize/lowercase functions
 *** TODO Document behavior
 *** MAYBE Ping Oleh
