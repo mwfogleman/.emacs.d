@@ -1557,16 +1557,9 @@ I use org-struct in mu4e. See above.
           org-directory "~/org/"
           org-log-done t
           org-startup-indented t
-          org-agenda-inhibit-startup nil
-          org-agenda-show-future-repeats nil
           org-startup-truncated nil
           org-startup-with-inline-images t
           org-completion-use-ido t
-          org-agenda-start-on-weekday nil
-          org-refile-targets (quote ((nil :maxlevel . 9)
-                                     (org-agenda-files :maxlevel . 9)))
-          org-refile-use-cache t
-          org-refile-use-outline-path t
           org-default-notes-file (concat org-directory "notes.org")
           org-goto-max-level 10
           org-imenu-depth 5
@@ -1578,17 +1571,7 @@ I use org-struct in mu4e. See above.
           org-default-priority 68
           org-ellipsis "↴"
           org-expiry-inactive-timestamps t
-          org-clock-idle-time nil
-          org-log-done 'time
-          org-clock-continuously nil
-          org-clock-persist t
-          org-clock-in-switch-to-state "STARTED"
-          org-clock-in-resume nil
           org-show-notification-handler 'message
-          org-clock-report-include-clocking-task t
-          ;; Too many clock entries clutter up a heading
-          org-log-into-drawer t
-          org-clock-into-drawer 1
           org-stuck-projects
           '("+LEVEL=2/-MAYBE-DONE-SOMEDAY-CANCELLED" ("TODO" "STARTED") nil "\\<IGNORE\\>")
           org-file-apps
@@ -1620,61 +1603,7 @@ I use org-struct in mu4e. See above.
     (add-to-list 'org-structure-template-alist '("l" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
 
     (add-to-list 'org-global-properties
-                 '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00"))
-
-    ;; Org Modules
-
-    (add-hook 'org-agenda-finalize-hook (lambda () (delete-other-windows)))
-
-
-
-    :config
-
-
-    (defun make-org-scratch ()
-      (interactive)
-      (find-file "~/org/scratch.org"))
-
-    (bind-keys :map launcher-map
-               ("S" . make-org-scratch))
-
-    (defun org-buffer-todo ()
-      (interactive)
-      "Creates a todo-list for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), t (todo-list)."
-      (progn
-        (org-agenda-set-restriction-lock 'file)
-        (org-todo-list)))
-
-    (defun org-buffer-agenda ()
-      (interactive)
-      "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), a (agenda-list)."
-      (progn
-        (org-agenda-set-restriction-lock 'file)
-        (org-agenda-list)))
-
-    (defun org-buffer-day-agenda ()
-      (interactive)
-      "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), a (agenda-list), d (org-agenda-day-view)."
-      (progn
-        (org-agenda-set-restriction-lock 'file)
-        (org-agenda-list)
-        (org-agenda-day-view))) ;; Maybe I should try writing a Emacs Lisp macro for this kind of thing!
-
-
-
-    (bind-keys ("C-c A" . org-buffer-agenda)
-               ("C-c t" . org-buffer-todo)
-               ("C-c d" . org-buffer-day-agenda)
-               ("C-c L" . org-timeline))
-
-    (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
-
-    (add-hook 'org-mode-hook
-              (lambda ()
-                (push '("TODO"  . ?▲) prettify-symbols-alist)
-                (push '("DONE"  . ?✓) prettify-symbols-alist)
-                (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
-                (push '("QUESTION"  . ??) prettify-symbols-alist))))
+                 '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00")))
 #+END_SRC
 **** Packages
 ***** org-modules
@@ -1718,8 +1647,85 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
     :init
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
-**** Clocking
-I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks. However, there are a *lot* of commands; this is a perfect instance for a Hydra.
+**** Configuration
+***** Prettify Symbols
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook
+              (lambda ()
+                (push '("TODO"  . ?▲) prettify-symbols-alist)
+                (push '("DONE"  . ?✓) prettify-symbols-alist)
+                (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
+                (push '("QUESTION"  . ??) prettify-symbols-alist)))
+#+END_SRC
+**** Functionality
+***** Agendas
+****** Configuration
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-inhibit-startup nil
+        org-agenda-show-future-repeats nil
+        org-agenda-start-on-weekday nil)
+#+END_SRC
+****** Close Other Windows
+Agendas should be full screen!
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-agenda-finalize-hook (lambda () (delete-other-windows)))
+#+END_SRC
+****** Custom Agendas
+Here are some hand-made agenda files.
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-buffer-todo ()
+    (interactive)
+    "Creates a todo-list for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), t (todo-list)."
+    (progn
+      (org-agenda-set-restriction-lock 'file)
+      (org-todo-list)))
+
+  (defun org-buffer-agenda ()
+    (interactive)
+    "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), a (agenda-list)."
+    (progn
+      (org-agenda-set-restriction-lock 'file)
+      (org-agenda-list)))
+
+  (defun org-buffer-day-agenda ()
+    (interactive)
+    "Creates an agenda for the current buffer. Equivalent to the sequence: org-agenda, < (restrict to current buffer), a (agenda-list), d (org-agenda-day-view)."
+    (progn
+      (org-agenda-set-restriction-lock 'file)
+      (org-agenda-list)
+      (org-agenda-day-view))) ;; Maybe I should try writing a Emacs Lisp macro for this kind of thing!
+
+  (bind-keys ("C-c A" . org-buffer-agenda)
+             ("C-c t" . org-buffer-todo)
+             ("C-c d" . org-buffer-day-agenda))
+
+  (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
+#+END_SRC
+***** Refiling
+#+BEGIN_SRC emacs-lisp
+  (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                   (org-agenda-files :maxlevel . 9)))
+        org-refile-use-cache t
+        org-refile-use-outline-path t)
+#+END_SRC
+***** Clocking
+I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks.
+****** Configuration
+#+BEGIN_SRC emacs-lisp
+  (setq org-log-done 'time
+        org-clock-idle-time nil
+        org-clock-continuously nil
+        org-clock-persist t
+        org-clock-in-switch-to-state "STARTED"
+        org-clock-in-resume nil
+        org-clock-report-include-clocking-task t
+        ;; Too many clock entries clutter up a heading
+        org-log-into-drawer t
+        org-clock-into-drawer 1)
+#+END_SRC
+****** Key Bindings
+However, there are a *lot* of commands for clocking; this is a perfect instance for a Hydra.
 
 #+BEGIN_SRC emacs-lisp
   (defhydra hydra-org-clock (:color blue :hint nil)
@@ -1754,8 +1760,19 @@ I really like Org-mode's clocking functionality. I mostly use it for keeping tim
 
   (bind-key "C-c w" 'hydra-org-clock/body)
 #+END_SRC
-**** Movement
-***** Jumping (Go To Org Heading)
+**** Functions
+***** Scratch
+The default scratch buffer in Emacs uses =lisp-interaction-mode=, which is great, but it's useful to have one that uses Org-Mode.
+#+BEGIN_SRC emacs-lisp
+  (defun make-org-scratch ()
+    (interactive)
+    (find-file "~/org/scratch.org"))
+
+  (bind-keys :map launcher-map
+             ("S" . make-org-scratch))
+#+END_SRC
+***** Movement
+****** Jumping (Go To Org Heading)
 Speed commands are really useful, but I often want to make use of them when I'm not at the beginning of a header. This command brings you back to the beginning of an item's header, so that you can do speed commands.
 
 #+BEGIN_SRC emacs-lisp
@@ -1769,7 +1786,7 @@ Speed commands are really useful, but I often want to make use of them when I'm 
 
   (bind-key "C-c s" 'org-go-speed)
 #+END_SRC
-***** Moving (org-teleport)
+****** Moving (org-teleport)
 This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org-teleport-headlines/][John Kitchin]].
 
 #+BEGIN_SRC emacs-lisp
