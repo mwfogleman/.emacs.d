@@ -467,16 +467,17 @@ Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys o
 #+BEGIN_SRC emacs-lisp
   (bind-keys :prefix-map macro-map
              :prefix "C-c m"
+             ("a" . kmacro-add-counter)
              ("b" . kmacro-bind-to-key)
+             ("e" . kmacro-edit-macro)
+             ("i" . kmacro-insert-counter)
+             ("I" . insert-kbd-macro)
              ("k" . kmacro-end-or-call-macro-repeat)
              ("n" . kmacro-cycle-ring-next)
-             ("p" . kmacro-cycle-ring-previous)
-             ("a" . kmacro-add-counter)
-             ("i" . kmacro-insert-counter)
-             ("r" . apply-macro-to-region-lines)
-             ("s" . kmacro-set-counter)
              ("N" . kmacro-name-last-macro)
-             ("I" . insert-kbd-macro))
+             ("p" . kmacro-cycle-ring-previous)
+             ("r" . apply-macro-to-region-lines)
+             ("s" . kmacro-set-counter))
 #+END_SRC
 * System
 All of my packages for interacting with my computer.
