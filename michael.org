@@ -983,19 +983,39 @@ Edit List lets you edit a list variable as if it were a buffer.
     :ensure t)
 #+END_SRC
 ** Discoverability
+*** which-key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
     :init
     (which-key-mode))
-
+#+END_SRC
+*** help-fns+
+#+BEGIN_SRC emacs-lisp
   (use-package help-fns+
     :ensure t
     :bind ("C-h M-k" . describe-keymap)) ; For autoloading.
-
+#+END_SRC
+*** discover-my-major
+#+BEGIN_SRC emacs-lisp
   (use-package discover-my-major
     :ensure t
     :bind ("C-h C-m" . discover-my-major))
+#+END_SRC
+*** Interaction Log
+Interaction Log is like =view-lossage= (=C-h l=) or =kmacro-edit-macro= but it is live-updating and not tied to macros. It's useful for when you type an (awesome? terrible?) Emacs command and want to figure out which function you used so you can use it again or destroy it forever. For a long time I was plagued by accidentally hitting =downcase-region= and didn't know what the function was - this would have been so useful!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package interaction-log
+    :ensure t
+    :init
+    (interaction-log-mode +1)
+
+    (defun open-interaction-log ()
+      (interactive)
+      (display-buffer ilog-buffer-name))
+
+    (bind-key "C-h C-l" 'open-interaction-log))
 #+END_SRC
 ** Goto-chg
 Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-points/][Move Through Edit Points]]. This works like the mark, except it cycles through edit points. It takes you through your undo history without actually undoing anything.
@@ -2284,7 +2304,6 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
 ** MAYBE Find fix for capitalize/lowercase functions
 *** TODO Document behavior
 *** MAYBE Ping Oleh
-** TODO Install Emacs Interaction Log
 ** TODO Set up org-capture with Firefox
 [[https://addons.mozilla.org/en-US/firefox/addon/org-capture/][Org Capture :: Add-ons for Firefox]]
 [[http://oremacs.com/2017/10/28/orca/][Orca - new package to improve org-capture from browser · (or emacs]]
