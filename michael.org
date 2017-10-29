@@ -504,11 +504,22 @@ A lot of modes let you change from read-only to writeable, or backwards: files, 
              ("w" . whitespace-mode))
 #+END_SRC
 *** [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][Launcher Map]]
+**** Scratch
 #+BEGIN_SRC emacs-lisp
   (defun scratch ()
-    (interactive)
-    (switch-to-buffer-other-window (get-buffer-create "*scratch*")))
+      (interactive)
+      (switch-to-buffer-other-window (get-buffer-create "*scratch*")))
+#+END_SRC
 
+The default scratch buffer in Emacs uses =lisp-interaction-mode=, which is great, but it's useful to have one that uses Org-Mode.
+
+#+BEGIN_SRC emacs-lisp
+  (defun make-org-scratch ()
+    (interactive)
+    (find-file "~/org/scratch.org"))
+#+END_SRC
+**** Keymap
+#+BEGIN_SRC emacs-lisp
   (bind-keys :prefix-map launcher-map
              :prefix "C-x l"
              ("A" . ansi-term) ;; save "a" for open-agenda
@@ -523,7 +534,8 @@ A lot of modes let you change from read-only to writeable, or backwards: files, 
              ("p l" . paradox-list-packages)
              ("p u" . paradox-upgrade-packages)
              ("P" . proced)
-             ("s" . scratch))
+             ("s" . scratch)
+             ("S" . make-org-scratch))
 
   (when (is-linux-p)
     (bind-keys :map launcher-map
@@ -1863,17 +1875,6 @@ Speed commands are really useful, but I often want to make use of them when I'm 
 
   (bind-key "C-c s" 'org-go-speed)
 #+END_SRC
-***** Functions
-****** Scratch
-The default scratch buffer in Emacs uses =lisp-interaction-mode=, which is great, but it's useful to have one that uses Org-Mode.
-#+BEGIN_SRC emacs-lisp
-  (defun make-org-scratch ()
-    (interactive)
-    (find-file "~/org/scratch.org"))
-
-  (bind-keys :map launcher-map
-             ("S" . make-org-scratch))
-#+END_SRC
 ****** Movement (org-teleport)
 This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org-teleport-headlines/][John Kitchin]].
 
@@ -2268,8 +2269,6 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
 #+END_SRC
 * Tasks
 ** TODO Find replacement for org-timeline
-** TODO Consolidate Toggle Map and Launcher Map
-** TODO Use my- prefix consistently for homegrown functions
 ** MAYBE Find fix for capitalize/lowercase functions
 *** TODO Document behavior
 *** MAYBE Ping Oleh
