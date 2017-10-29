@@ -427,13 +427,79 @@ A slightly less tricky matter is the default binding of backward- and forward-pa
 ** Special Key Maps
 *** [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][Toggle Map]]
 Augmented by a post on [[http://irreal.org/blog/?p%3D2830][Irreal]]. Some keys on the toggle map are elsewhere in this config.
+**** Narrowing and Widening
+Before this function, I was alternating between C-x n s (org-narrow-to-subtree) and C-x n w (widen) in Org files. I originally implemented this to [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][toggle]] between those two cases as well as the region. [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][Artur Malabarba and Sacha Chua]] have made successive improvements: a prefix argument to narrow no matter what, and increasing features for Org.
 
+#+BEGIN_SRC emacs-lisp
+  (defun narrow-or-widen-dwim (p)
+    "If the buffer is narrowed, it widens. Otherwise, it narrows
+  intelligently.  Intelligently means: region, org-src-block,
+  org-subtree, or defun, whichever applies first.  Narrowing to
+  org-src-block actually calls `org-edit-src-code'.
+
+  With prefix P, don't widen, just narrow even if buffer is already
+  narrowed."
+    (interactive "P")
+    (declare (interactive-only))
+    (cond ((and (buffer-narrowed-p) (not p)) (widen))
+          ((and (boundp 'org-src-mode) org-src-mode (not p))
+           (org-edit-src-exit))
+          ((region-active-p)
+           (narrow-to-region (region-beginning) (region-end)))
+          ((derived-mode-p 'org-mode)
+           (cond ((ignore-errors (org-edit-src-code))
+                  (delete-other-windows))
+                 ((org-at-block-p)
+                  (org-narrow-to-block))
+                 (t (org-narrow-to-subtree))))
+          ((derived-mode-p 'prog-mode) (narrow-to-defun))
+          (t (error "Please select a region to narrow to"))))
+
+  (eval-after-load 'org-src
+    '(bind-key "C-x C-s" 'org-edit-src-exit org-src-mode-map))
+#+END_SRC
+**** Cold Folding
+For code folding, which is similar to narrowing and widening but different.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hideshow
+    :ensure t
+    :config
+      (add-hook 'prog-mode-hook 'hs-minor-mode))
+
+  (defun toggle-fold ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (hs-toggle-hiding)))
+
+#+END_SRC
+**** Toggle Read Only
+A lot of modes let you change from read-only to writeable, or backwards: files, Dired, and also wgrep-enabled modes. I use [[https://github.com/ggreer/the_silver_searcher][ag, the silver searcher]], instead of grep or ack. Anyways, this function decides which mode I am in and acts accordingly. That way, I need to remember just one key bind, C-x t r.
+
+#+BEGIN_SRC emacs-lisp
+  (defun read-write-toggle ()
+    "Toggles read-only in any relevant mode: ag-mode, Dired, or
+  just any file at all."
+    (interactive)
+    (if (equal major-mode 'ag-mode)
+        ;; wgrep-ag can support ag-mode
+        (wgrep-change-to-wgrep-mode)
+      ;; dired-toggle-read-only has its own conditional:
+      ;; if the mode is Dired, it will make the directory writable
+      ;; if it is not, it will just toggle read only, as desired
+      (dired-toggle-read-only)))
+#+END_SRC
+**** Keymap
 #+BEGIN_SRC emacs-lisp
   (bind-keys :prefix-map toggle-map
              :prefix "C-x t"
              ("d" . toggle-debug-on-error)
+             ("f" . toggle-fold)
              ("l" . linum-mode)
+             ("n" . narrow-or-widen-dwim)
              ("o" . org-mode)
+             ("r" . read-write-toggle)
              ("t" . text-mode)
              ("w" . whitespace-mode))
 #+END_SRC
@@ -1054,23 +1120,6 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
     :ensure t
     :init
     (beginend-global-mode))
-#+END_SRC
-** Hideshow
-For code folding.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package hideshow
-    :ensure t
-    :config
-      (add-hook 'prog-mode-hook 'hs-minor-mode))
-
-  (defun toggle-fold ()
-    (interactive)
-    (save-excursion
-      (end-of-line)
-      (hs-toggle-hiding)))
-
-  (bind-key "f" 'toggle-fold toggle-map)
 #+END_SRC
 * Browsing
 ** External Browsers
@@ -2198,87 +2247,6 @@ This function borrowed from Sacha.
       (fill-paragraph nil region)))
 
   (bind-key "M-Q" 'unfill-paragraph)
-#+END_SRC
-** Hide Mode Line
-I wonder if Will Mengarini would approve of [[http://bzg.fr/emacs-hide-mode-line.html][Bastien's post]]... I know I need all the space I can get on this laptop!
-
-#+BEGIN_SRC emacs-lisp
-  (defvar-local hidden-mode-line-mode nil)
-
-  (define-minor-mode hidden-mode-line-mode
-    "Minor mode to hide the mode-line in the current buffer."
-    :init-value nil
-    :global t
-    :variable hidden-mode-line-mode
-    :group 'editing-basics
-    (if hidden-mode-line-mode
-        (setq hide-mode-line mode-line-format
-              mode-line-format nil)
-      (setq mode-line-format hide-mode-line
-            hide-mode-line nil))
-    (force-mode-line-update)
-    ;; Apparently force-mode-line-update is not always enough to
-    ;; redisplay the mode-line
-    (redraw-display)
-    (when (and (called-interactively-p 'interactive)
-               hidden-mode-line-mode)
-      (run-with-idle-timer
-       0 nil 'message
-       (concat "Hidden Mode Line Mode enabled.  "
-               "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
-
-  (bind-key "m" 'hidden-mode-line-mode toggle-map)
-#+END_SRC
-** Narrowing and Widening
-Before this function, I was alternating between C-x n s (org-narrow-to-subtree) and C-x n w (widen) in Org files. I originally implemented this to [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][toggle]] between those two cases as well as the region. [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][Artur Malabarba and Sacha Chua]] have made successive improvements: a prefix argument to narrow no matter what, and increasing features for Org.
-
-#+BEGIN_SRC emacs-lisp
-  (defun narrow-or-widen-dwim (p)
-    "If the buffer is narrowed, it widens. Otherwise, it narrows
-  intelligently.  Intelligently means: region, org-src-block,
-  org-subtree, or defun, whichever applies first.  Narrowing to
-  org-src-block actually calls `org-edit-src-code'.
-
-  With prefix P, don't widen, just narrow even if buffer is already
-  narrowed."
-    (interactive "P")
-    (declare (interactive-only))
-    (cond ((and (buffer-narrowed-p) (not p)) (widen))
-          ((and (boundp 'org-src-mode) org-src-mode (not p))
-           (org-edit-src-exit))
-          ((region-active-p)
-           (narrow-to-region (region-beginning) (region-end)))
-          ((derived-mode-p 'org-mode)
-           (cond ((ignore-errors (org-edit-src-code))
-                  (delete-other-windows))
-                 ((org-at-block-p)
-                  (org-narrow-to-block))
-                 (t (org-narrow-to-subtree))))
-          ((derived-mode-p 'prog-mode) (narrow-to-defun))
-          (t (error "Please select a region to narrow to"))))
-
-  (bind-key "n" 'narrow-or-widen-dwim toggle-map)
-
-  (eval-after-load 'org-src
-    '(bind-key "C-x C-s" 'org-edit-src-exit org-src-mode-map))
-#+END_SRC
-** Toggle Read Only
-A lot of modes let you change from read-only to writeable, or backwards: files, Dired, and also wgrep-enabled modes. I use [[https://github.com/ggreer/the_silver_searcher][ag, the silver searcher]], instead of grep or ack. Anyways, this function decides which mode I am in and acts accordingly. That way, I need to remember just one key bind, C-x t r.
-
-#+BEGIN_SRC emacs-lisp
-  (defun read-write-toggle ()
-    "Toggles read-only in any relevant mode: ag-mode, Dired, or
-  just any file at all."
-    (interactive)
-    (if (equal major-mode 'ag-mode)
-        ;; wgrep-ag can support ag-mode
-        (wgrep-change-to-wgrep-mode)
-      ;; dired-toggle-read-only has its own conditional:
-      ;; if the mode is Dired, it will make the directory writable
-      ;; if it is not, it will just toggle read only, as desired
-      (dired-toggle-read-only)))
-
-  (bind-key "r" 'read-write-toggle toggle-map)
 #+END_SRC
 ** Move Lines
 Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
