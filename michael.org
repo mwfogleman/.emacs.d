@@ -1074,15 +1074,15 @@ Interaction Log is like =view-lossage= (=C-h l=) or =kmacro-edit-macro= but it i
 
 #+BEGIN_SRC emacs-lisp
   (use-package interaction-log
-    :ensure t
-    :init
-    (interaction-log-mode +1)
+    :ensure t)
 
-    (defun open-interaction-log ()
-      (interactive)
-      (display-buffer ilog-buffer-name))
+  (interaction-log-mode +1)
 
-    (bind-key "C-h C-l" 'open-interaction-log))
+  (defun open-interaction-log ()
+    (interactive)
+    (display-buffer ilog-buffer-name))
+
+  (bind-key "C-h C-l" 'open-interaction-log)
 #+END_SRC
 ** Goto-chg
 Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-points/][Move Through Edit Points]]. This works like the mark, except it cycles through edit points. It takes you through your undo history without actually undoing anything.
