@@ -840,22 +840,22 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 ** Jumping (Avy, Ace-Window and Friends)
 *** Jump to Characters and Words
 #+BEGIN_SRC emacs-lisp
-(use-package avy
+  (use-package avy
     :ensure t
     :bind ("M-SPC" . avy-goto-char)
     :config
-    (setq avy-background t)
-    (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
+    (setq avy-background t
+          avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
 #+END_SRC
 *** Jump to Windows
 #+BEGIN_SRC emacs-lisp
-(use-package ace-window
+  (use-package ace-window
     :ensure t
     :bind (("C-x o" . ace-window)
            ("M-2" . ace-window))
     :init
-    (setq aw-background nil)
-    (setq aw-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
+    (setq aw-background nil
+          aw-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)))
 #+END_SRC
 *** Zapping
 **** Generic Zapping
