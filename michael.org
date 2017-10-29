@@ -1565,7 +1565,6 @@ I use org-struct in mu4e. See above.
           org-imenu-depth 5
           org-goto-interface 'outline-path-completion
           org-outline-path-complete-in-steps nil
-          org-use-speed-commands t
           org-src-fontify-natively t
           org-lowest-priority 68
           org-default-priority 68
@@ -1582,25 +1581,7 @@ I use org-struct in mu4e. See above.
           org-todo-keywords
           '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c@)")
             (sequence "LEARN" "RESEARCH" "TRY" "TEACH" "|" "COMPLETE")
-            (sequence "QUESTION" "|" "ANSWERED"))
-          org-speed-commands-user
-          '(("N" org-narrow-to-subtree)
-            ("$" org-archive-subtree)
-            ("A" org-archive-subtree)
-            ("W" widen)
-            ("d" org-down-element)
-            ("k" org-cut-subtree)
-            ("m" org-mark-subtree)
-            ("s" org-sort)
-            ("x" smex-major-mode-commands)
-            ("X" org-todo-done)
-            ("R" org-done-and-archive)
-            ("y" org-todo-yesterday)))
-
-    (unbind-key "C-c [")
-    (unbind-key "C-c ]")
-    (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
-    (add-to-list 'org-structure-template-alist '("l" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
+            (sequence "QUESTION" "|" "ANSWERED")))
 
     (add-to-list 'org-global-properties
                  '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00")))
@@ -1648,29 +1629,23 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 **** Configuration
-***** Prettify Symbols
-#+BEGIN_SRC emacs-lisp
-(add-hook 'org-mode-hook
-              (lambda ()
-                (push '("TODO"  . ?▲) prettify-symbols-alist)
-                (push '("DONE"  . ?✓) prettify-symbols-alist)
-                (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
-                (push '("QUESTION"  . ??) prettify-symbols-alist)))
-#+END_SRC
-**** Functionality
-***** Agendas
-****** Configuration
+***** Functionality
+****** Agendas
+******* Configuration
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-inhibit-startup nil
         org-agenda-show-future-repeats nil
         org-agenda-start-on-weekday nil)
+
+  (unbind-key "C-c [")
+  (unbind-key "C-c ]")
 #+END_SRC
-****** Close Other Windows
+******* Close Other Windows
 Agendas should be full screen!
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-agenda-finalize-hook (lambda () (delete-other-windows)))
 #+END_SRC
-****** Custom Agendas
+******* Custom Agendas
 Here are some hand-made agenda files.
 
 #+BEGIN_SRC emacs-lisp
@@ -1702,16 +1677,16 @@ Here are some hand-made agenda files.
 
   (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
 #+END_SRC
-***** Refiling
+****** Refiling
 #+BEGIN_SRC emacs-lisp
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9)))
         org-refile-use-cache t
         org-refile-use-outline-path t)
 #+END_SRC
-***** Clocking
+****** Clocking
 I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks.
-****** Configuration
+******* Configuration
 #+BEGIN_SRC emacs-lisp
   (setq org-log-done 'time
         org-clock-idle-time nil
@@ -1724,7 +1699,7 @@ I really like Org-mode's clocking functionality. I mostly use it for keeping tim
         org-log-into-drawer t
         org-clock-into-drawer 1)
 #+END_SRC
-****** Key Bindings
+******* Key Bindings
 However, there are a *lot* of commands for clocking; this is a perfect instance for a Hydra.
 
 #+BEGIN_SRC emacs-lisp
@@ -1760,19 +1735,32 @@ However, there are a *lot* of commands for clocking; this is a perfect instance 
 
   (bind-key "C-c w" 'hydra-org-clock/body)
 #+END_SRC
-**** Functions
-***** Scratch
-The default scratch buffer in Emacs uses =lisp-interaction-mode=, which is great, but it's useful to have one that uses Org-Mode.
+****** Speed Commands
+******* Set User Speed Commands
 #+BEGIN_SRC emacs-lisp
-  (defun make-org-scratch ()
-    (interactive)
-    (find-file "~/org/scratch.org"))
-
-  (bind-keys :map launcher-map
-             ("S" . make-org-scratch))
+  (setq org-use-speed-commands t
+        org-speed-commands-user
+        '(("N" org-narrow-to-subtree)
+          ("$" org-archive-subtree)
+          ("A" org-archive-subtree)
+          ("W" widen)
+          ("d" org-down-element)
+          ("k" org-cut-subtree)
+          ("m" org-mark-subtree)
+          ("s" org-sort)
+          ("x" smex-major-mode-commands)
+          ("X" org-todo-done)
+          ("R" org-done-and-archive)
+          ("y" org-todo-yesterday)))
 #+END_SRC
-***** Movement
-****** Jumping (Go To Org Heading)
+****** Structure Templates
+Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
+  (add-to-list 'org-structure-template-alist '("l" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
+#+END_SRC
+****** Jumping to Speed: org-go-speed
 Speed commands are really useful, but I often want to make use of them when I'm not at the beginning of a header. This command brings you back to the beginning of an item's header, so that you can do speed commands.
 
 #+BEGIN_SRC emacs-lisp
@@ -1786,7 +1774,18 @@ Speed commands are really useful, but I often want to make use of them when I'm 
 
   (bind-key "C-c s" 'org-go-speed)
 #+END_SRC
-****** Moving (org-teleport)
+***** Functions
+****** Scratch
+The default scratch buffer in Emacs uses =lisp-interaction-mode=, which is great, but it's useful to have one that uses Org-Mode.
+#+BEGIN_SRC emacs-lisp
+  (defun make-org-scratch ()
+    (interactive)
+    (find-file "~/org/scratch.org"))
+
+  (bind-keys :map launcher-map
+             ("S" . make-org-scratch))
+#+END_SRC
+****** Movement (org-teleport)
 This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org-teleport-headlines/][John Kitchin]].
 
 #+BEGIN_SRC emacs-lisp
@@ -1850,6 +1849,16 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
   (add-to-list 'org-speed-commands-user (cons "T" 'org-teleport))
 
   (bind-key "T" 'org-teleport selected-org-mode-map)
+#+END_SRC
+***** Other
+****** Prettify Symbols
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook
+              (lambda ()
+                (push '("TODO"  . ?▲) prettify-symbols-alist)
+                (push '("DONE"  . ?✓) prettify-symbols-alist)
+                (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
+                (push '("QUESTION"  . ??) prettify-symbols-alist)))
 #+END_SRC
 ** Email (mu4e)
 I am currently using mu4e, which was indeed pretty easy to set up. For receiving mail, I use mbsync, not offlineimap. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
