@@ -55,6 +55,7 @@ Use-package is a handful of things: you can make sure a package is downloaded, e
     (package-refresh-contents)
     (package-install 'use-package))
   (require 'use-package)
+  (setq use-package-always-ensure t)
 #+END_SRC
 *** Async
 Async enables asynchronous processing in Emacs, as well as some basic implementations of asynchronous capabilities (e.g. for dired and packages and so on.
