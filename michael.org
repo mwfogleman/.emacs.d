@@ -61,21 +61,19 @@ Use-package is a handful of things: you can make sure a package is downloaded, e
 Async enables asynchronous processing in Emacs, as well as some basic implementations of asynchronous capabilities (e.g. for dired and packages and so on.
 
 #+BEGIN_SRC emacs-lisp
-(use-package async
-  :ensure t
-  :init
-  (autoload 'dired-async-mode "dired-async.el" nil t)
-  (dired-async-mode 1)
-  (async-bytecomp-package-mode 1)
-  (autoload 'dired-async-mode "dired-async.el" nil t)
-  (async-bytecomp-package-mode 1)
-  (dired-async-mode 1))
+  (use-package async
+    :init
+    (autoload 'dired-async-mode "dired-async.el" nil t)
+    (dired-async-mode 1)
+    (async-bytecomp-package-mode 1)
+    (autoload 'dired-async-mode "dired-async.el" nil t)
+    (async-bytecomp-package-mode 1)
+    (dired-async-mode 1))
 #+END_SRC
 *** Paradox
 I like Paradox - it is an alternative / extension to the built-in package manager.
 #+BEGIN_SRC emacs-lisp
-(use-package paradox
-    :ensure t
+  (use-package paradox
     :config
     (setq paradox-execute-asynchronously t))
 #+END_SRC
@@ -106,8 +104,7 @@ These functions identify what operating system is hosting Emacs, which can be ha
 *** Theme
 I still have to do a load-theme -> solarized-dark upon restarting.
 #+BEGIN_SRC emacs-lisp
-  (use-package solarized-theme
-    :ensure t)
+  (use-package solarized-theme)
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
@@ -464,9 +461,8 @@ For code folding, which is similar to narrowing and widening but different.
 
 #+BEGIN_SRC emacs-lisp
   (use-package hideshow
-    :ensure t
     :config
-      (add-hook 'prog-mode-hook 'hs-minor-mode))
+    (add-hook 'prog-mode-hook 'hs-minor-mode))
 
   (defun toggle-fold ()
     (interactive)
@@ -602,7 +598,6 @@ Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main fea
                                          ((is-mac-p) "/usr/bin/bash")))
     (when (is-mac-p)
       (use-package exec-path-from-shell
-        :ensure t
         :init
         (exec-path-from-shell-initialize))))
 
@@ -631,17 +626,14 @@ For me, Dired is one of Emacs' (less-heralded) killer apps, along with Org-Mode 
           dired-isearch-filenames t
           dired-listing-switches "-alh")
     (use-package dired+
-      :ensure t
       :init
       (setq diredp-hide-details-initially-flag t)) ;; also automatically calls dired-x, enabling dired-jump, C-x C-j
     (use-package dired-details
       :disabled t
       :init
       (dired-details-install))
-    (use-package dired-filter
-      :ensure t)
+    (use-package dired-filter)
     (use-package dired-subtree
-      :ensure t
       :init
       (unbind-key "M-O" dired-mode-map) ;; to support mode-line-other-buffer in Dired
       (bind-keys :map dired-mode-map
@@ -664,11 +656,9 @@ For me, Dired is one of Emacs' (less-heralded) killer apps, along with Org-Mode 
                  ("C-o C-f" . dired-subtree-only-this-file)
                  ("C-o C-d" . dired-subtree-only-this-directory)))
     (use-package dired-quick-sort
-      :ensure t
       :init
       (dired-quick-sort-setup))
     (use-package dired-collapse
-      :ensure t
       :config (add-hook 'dired-mode-hook #'dired-collapse-mode)))
 #+END_SRC
 
@@ -678,14 +668,11 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
 ** Searching (Ag)
 #+BEGIN_SRC emacs-lisp
   (use-package ag
-    :ensure t
     :bind (:map ag-mode-map
                 ("q" . kill-this-buffer))
     :init
-    (use-package wgrep
-      :ensure t)
-    (use-package wgrep-ag
-      :ensure t)
+    (use-package wgrep)
+    (use-package wgrep-ag)
     :config
     (setq ag-highlight-search t))
 #+END_SRC
@@ -694,7 +681,6 @@ These are helper packages that make Emacs even more awesome.
 ** Hydra
 #+BEGIN_SRC emacs-lisp
   (use-package hydra
-    :ensure t
     :config
     (setq hydra-lv nil))
 #+END_SRC
@@ -738,7 +724,6 @@ This replaces Golden Ratio mode.
 
 #+BEGIN_SRC emacs-lisp
   (use-package zoom
-    :ensure t
     :init
     (setq zoom-mode t
           zoom-size '(0.618 . 0.618)))
@@ -749,7 +734,6 @@ I prefer Ivy, Counsel, and Swiper, but I keep [[http://www.masteringemacs.org/ar
 *** Counsel
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
-      :ensure t
       :bind (("C-x C-f" . counsel-find-file)
              ("C-x C-m" . counsel-M-x)
              ("C-x C-f" . counsel-find-file)
@@ -773,21 +757,20 @@ Recent files keeps track of which files you're using; I access it by rebinding f
 #+END_SRC
 *** Ivy and Swiper
 #+BEGIN_SRC emacs-lisp
-(use-package swiper
-    :ensure t
-    :bind (("C-s" . swiper)
-           ("C-r" . swiper)
-           ("C-c C-r" . ivy-resume)
-           :map ivy-minibuffer-map
-           ("C-SPC" . ivy-restrict-to-matches))
-    :init
-    (ivy-mode 1)
-    :config
-    (setq ivy-display-style 'fancy
-          ivy-height 4
-          ivy-use-virtual-buffers t
-          ivy-initial-inputs-alist '((man . "^") (woman . "^")) ;; http://irreal.org/blog/?p=6512
-          enable-recursive-minibuffers t))
+  (use-package swiper
+      :bind (("C-s" . swiper)
+             ("C-r" . swiper)
+             ("C-c C-r" . ivy-resume)
+             :map ivy-minibuffer-map
+             ("C-SPC" . ivy-restrict-to-matches))
+      :init
+      (ivy-mode 1)
+      :config
+      (setq ivy-display-style 'fancy
+            ivy-height 4
+            ivy-use-virtual-buffers t
+            ivy-initial-inputs-alist '((man . "^") (woman . "^")) ;; http://irreal.org/blog/?p=6512
+            enable-recursive-minibuffers t))
 #+END_SRC
 *** IDO
 #+BEGIN_SRC emacs-lisp
@@ -802,13 +785,11 @@ Recent files keeps track of which files you're using; I access it by rebinding f
         ido-default-item nil)
 
   (use-package ido-vertical-mode
-    :ensure t
     :init
     (ido-vertical-mode)
     (setq ido-vertical-define-keys 'C-n-and-C-p-only))
 
   (use-package flx-ido
-    :ensure t
     :init
     (setq flx-ido-threshold 1000)
     (flx-ido-mode 1))
@@ -818,7 +799,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 
 #+BEGIN_SRC emacs-lisp
   (use-package smex
-    :ensure t
     :bind (("C-x M-m" . smex-major-mode-commands)
            ("M-x" . smex-major-mode-commands)
            ("C-c C-c M-x" . execute-extended-command))
@@ -828,7 +808,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 *** Company Mode
 #+BEGIN_SRC emacs-lisp
   (use-package company
-    :ensure t
     :bind (("C-." . company-complete)
            :map company-active-map
            ("C-n" . company-select-next)
@@ -842,7 +821,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 *** Jump to Characters and Words
 #+BEGIN_SRC emacs-lisp
   (use-package avy
-    :ensure t
     :bind ("M-SPC" . avy-goto-char)
     :config
     (setq avy-background t
@@ -851,7 +829,6 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 *** Jump to Windows
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
-    :ensure t
     :bind (("C-x o" . ace-window)
            ("M-2" . ace-window))
     :init
@@ -867,33 +844,30 @@ Smex (Smart M-X) implements IDO functionality for the M-X window.
 #+END_SRC
 **** Jump to Zap
 #+BEGIN_SRC emacs-lisp
-  (use-package avy-zap
-      :ensure t)
+  (use-package avy-zap)
 #+END_SRC
 *** Jump to Links
 #+BEGIN_SRC emacs-lisp
   (use-package ace-link
-      :ensure t
       :init
       (ace-link-setup-default))
 #+END_SRC
 *** Jumping Keymap
 #+BEGIN_SRC emacs-lisp
-(bind-keys :prefix-map avy-map
-               :prefix "C-c j"
-               ("c" . avy-goto-char)
-               ("l" . avy-goto-line)
-               ("w" . avy-goto-word-or-subword-1)
-               ("W" . ace-window)
-               ("z" . avy-zap-to-char)
-               ("Z" . avy-zap-up-to-char))
+  (bind-keys :prefix-map avy-map
+             :prefix "C-c j"
+             ("c" . avy-goto-char)
+             ("l" . avy-goto-line)
+             ("w" . avy-goto-word-or-subword-1)
+             ("W" . ace-window)
+             ("z" . avy-zap-to-char)
+             ("Z" . avy-zap-up-to-char))
 #+END_SRC
 ** Selection (Expand Region)
 Configured like Magnars in Emacs Rocks, [[http://emacsrocks.com/e09.html][Episode 09]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
-    :ensure t
     :bind (("C-@" . er/expand-region)
            ("C-=" . er/expand-region)
            ("M-3" . er/expand-region)))
@@ -906,7 +880,6 @@ The word "kill" might be antiquated, idiosyncratic jargon, but it's great that E
 
 #+BEGIN_SRC emacs-lisp
   (use-package browse-kill-ring
-    :ensure t
     :bind ("C-x C-y" . browse-kill-ring)
     :config
     (setq browse-kill-ring-quit-action 'kill-and-delete-window))
@@ -916,14 +889,12 @@ The word "kill" might be antiquated, idiosyncratic jargon, but it's great that E
 *** easy-kill
 #+BEGIN_SRC emacs-lisp
   (use-package easy-kill
-    :ensure t
     :bind ("M-w" . easy-kill))
 #+END_SRC
 *** Hungry Delete Mode
 I learned about this package via [[http://endlessparentheses.com/hungry-delete-mode.html?source%3Drss][Endless Parentheses]]. This is the first Emacs package that I contributed to!
 #+BEGIN_SRC emacs-lisp
   (use-package hungry-delete
-    :ensure t
     :init
     (global-hungry-delete-mode))
 #+END_SRC
@@ -1006,7 +977,6 @@ Regexes are great. Not everyone knows them, and most user interfaces don't expos
 *** Replace Strings with Regexes
 #+BEGIN_SRC emacs-lisp
   (use-package visual-regexp
-      :ensure t
       :bind (("M-5" . vr/replace)
              ("M-%" . vr/query-replace)))
 #+END_SRC
@@ -1016,7 +986,6 @@ I used to use Smart Scan (see Mickey's [[http://www.masteringemacs.org/article/e
 
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-symbol
-    :ensure t
     :bind (("M-p" . highlight-symbol-prev)
            ("M-n" . highlight-symbol-next)
            ("M-'" . highlight-symbol-query-replace))
@@ -1052,42 +1021,36 @@ Iedit is probably the best tool I've found for editing multiple occurences of th
 
 #+BEGIN_SRC emacs-lisp
   (use-package iedit
-    :ensure t
     :bind ("C-;" . iedit-mode))
 #+END_SRC
 ** Edit List
 Edit List lets you edit a list variable as if it were a buffer.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package edit-list
-    :ensure t)
+  (use-package edit-list)
 #+END_SRC
 ** Discoverability
 *** which-key
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
-    :ensure t
     :init
     (which-key-mode))
 #+END_SRC
 *** help-fns+
 #+BEGIN_SRC emacs-lisp
   (use-package help-fns+
-    :ensure t
     :bind ("C-h M-k" . describe-keymap)) ; For autoloading.
 #+END_SRC
 *** discover-my-major
 #+BEGIN_SRC emacs-lisp
   (use-package discover-my-major
-    :ensure t
     :bind ("C-h C-m" . discover-my-major))
 #+END_SRC
 *** Interaction Log
 Interaction Log is like =view-lossage= (=C-h l=) or =kmacro-edit-macro= but it is live-updating and not tied to macros. It's useful for when you type an (awesome? terrible?) Emacs command and want to figure out which function you used so you can use it again or destroy it forever. For a long time I was plagued by accidentally hitting =downcase-region= and didn't know what the function was - this would have been so useful!
 
 #+BEGIN_SRC emacs-lisp
-  (use-package interaction-log
-    :ensure t)
+  (use-package interaction-log)
 
   (interaction-log-mode +1)
 
@@ -1104,14 +1067,12 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 
 #+BEGIN_SRC emacs-lisp
   (use-package goto-chg
-    :ensure t
     :bind (("C-c ," . goto-last-change)
            ("C-c ." . goto-last-change-reverse)))
 #+END_SRC
 ** Selected
 #+BEGIN_SRC emacs-lisp
   (use-package selected
-    :ensure t
     :commands selected-minor-mode
     :init
     (setq selected-org-mode-map (make-sparse-keymap))
@@ -1130,7 +1091,6 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 ** Beginend
 #+BEGIN_SRC emacs-lisp
   (use-package beginend
-    :ensure t
     :init
     (beginend-global-mode))
 #+END_SRC
@@ -1147,7 +1107,6 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 This package brings one neat feature of Conkeror to eww.
 #+BEGIN_SRC emacs-lisp
   (use-package eww-lnum
-    :ensure t
     :after eww
     :bind (:map eww-mode-map
                 ("f" . eww-lnum-follow)
@@ -1160,14 +1119,12 @@ Here are language-specific (largely Lisps) or development-related packages.
 **** Clojure Mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
-    :ensure t
     :mode (("\\.boot$"  . clojure-mode)
            ("\\.clj$"   . clojure-mode)
            ("\\.cljs$"  . clojurescript-mode)
            ("\\.edn$"   . clojure-mode))
     :config
     (use-package align-cljlet
-      :ensure t
       :bind (:map clojure-mode-map
                   ("C-! a a" . align-cljlet)
                   :map clojurescript-mode-map
@@ -1178,7 +1135,6 @@ Here are language-specific (largely Lisps) or development-related packages.
 **** Clojure Refactor
 #+BEGIN_SRC emacs-lisp
   (use-package clj-refactor
-    :ensure t
     :init
     (defun my-clj-refactor-mode-hook ()
       (clj-refactor-mode 1)
@@ -1207,7 +1163,6 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
 
 #+BEGIN_SRC emacs-lisp
   (use-package cider
-    :ensure t
     :bind (:map cider-repl-mode-map
                 ("M-r" . cider-refresh)
                 ("M-R" . cider-use-repl-tools))
@@ -1246,7 +1201,6 @@ The function "cider-interactive-eval" comes from [[http://blog.jenkster.com/2013
 **** Elisp-Slime-Nav
 #+BEGIN_SRC emacs-lisp
   (use-package elisp-slime-nav
-    :ensure t
     :init
     (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
       (add-hook hook 'elisp-slime-nav-mode)))
@@ -1263,11 +1217,9 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 #+END_SRC
 *** Haskell
 #+BEGIN_SRC emacs-lisp
-  (use-package haskell-mode
-    :ensure t)
+  (use-package haskell-mode)
 
   (use-package intero
-    :ensure t
     :init
     (add-hook 'haskell-mode-hook 'intero-mode))
 #+END_SRC
@@ -1277,7 +1229,6 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit
-    :ensure t
     :bind (("C-x g" . magit-status)
            ("C-c g" . magit-status)
            :map magit-status-mode-map
@@ -1291,15 +1242,12 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
           magit-completing-read-function 'ivy-completing-read
           magit-push-always-verify nil)
     (use-package git-timemachine
-      :ensure t
       :bind (("C-x v t" . git-timemachine)))
     (use-package git-link
-      :ensure t
       :bind (("C-x v L" . git-link))
       :init
       (setq git-link-open-in-browser t))
-    (use-package pcmpl-git
-      :ensure t)
+    (use-package pcmpl-git)
     (defun visit-pull-request-url ()
       "Visit the current branch's PR on Github."
       (interactive)
@@ -1320,11 +1268,9 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
 
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :ensure t
     :init
     (projectile-global-mode)
     (use-package ibuffer-projectile
-      :ensure t
       :bind (("C-x C-b" . ibuffer)
              :map ibuffer-mode-map
              ("c" . clean-buffer-list)
@@ -1389,10 +1335,8 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :ensure t
     :init
-    (use-package flycheck-clojure
-      :ensure t)
+    (use-package flycheck-clojure)
     (global-flycheck-mode)
     (setq flycheck-indication-mode 'right-fringe)
     :config
@@ -1402,13 +1346,11 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
 *** REST Exploring (Restclient)
 See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
 #+BEGIN_SRC emacs-lisp
-  (use-package restclient
-    :ensure t)
+  (use-package restclient)
 #+END_SRC
 *** Remote Pairing (Floobits)
 #+BEGIN_SRC emacs-lisp
-  (use-package floobits
-    :ensure t)
+  (use-package floobits)
 #+END_SRC
 ** Developing in Emacs
 *** Whitespace
@@ -1418,7 +1360,6 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
 *** Managing Parentheses (Smartparens)
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
-    :ensure t
     :bind
     (("C-M-f" . sp-forward-sexp)
      ("C-M-b" . sp-backward-sexp)
@@ -1478,7 +1419,6 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
       (sp-local-pair "<" ">")
       (sp-local-pair "[" "]"))
     (use-package rainbow-delimiters
-      :ensure t
       :init
       (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
 #+END_SRC
@@ -1487,7 +1427,6 @@ When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben
 
 #+BEGIN_SRC emacs-lisp
   (use-package linum-relative
-    :ensure t
     :init
     (setq linum-format 'linum-relative)
     :config
@@ -1498,7 +1437,6 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
 
 #+BEGIN_SRC emacs-lisp
   (use-package comment-dwim-2
-    :ensure t
     :bind
     (("M-;" . comment-dwim-2)
      ("C-M-;" . comment-or-uncomment-sexp))
@@ -1592,7 +1530,6 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
 *** Indenting (aggressive-indent)
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
-    :ensure t
     :init
     (global-aggressive-indent-mode 1)
     (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
@@ -1689,10 +1626,9 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
 ***** org-gcal
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
-    :ensure t
     :bind (:map org-agenda-mode-map
-                ("g" . org-gcal-sync) ;; "r" is bound to org-agenda-redo
-                )
+                ;; "r" is bound to org-agenda-redo
+                ("g" . org-gcal-sync))
     :init
     (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync))))
 #+END_SRC
@@ -1701,13 +1637,11 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-cliplink
-    :ensure t
     :bind ("C-x p i" . org-cliplink))
 #+END_SRC
 ***** org-bullets
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
-    :ensure t
     :init
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
@@ -2036,7 +1970,6 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
 ** Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
-    :ensure t
     :init
     (add-hook 'markdown-mode-hook 'turn-on-orgstruct))
 #+END_SRC
@@ -2061,7 +1994,6 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
 ** Document Conversions (Pandoc)
 #+BEGIN_SRC emacs-lisp
   (use-package pandoc-mode
-    :ensure t
     :config
     (when (is-mac-p)
       (add-to-list 'exec-path "/usr/local/texlive/2016basic/bin/universal-darwin")))
@@ -2069,7 +2001,6 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
 ** CSV
 #+BEGIN_SRC emacs-lisp
   (use-package csv-mode
-    :ensure t
     :mode ("\\.csv$" . csv-mode))
 #+END_SRC
 ** RSS Feeds (Elfeed)
@@ -2077,7 +2008,6 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
 
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
-    :ensure t
     :bind (:map elfeed-search-mode-map
                 ("g" . elfeed-update)
                 ("R" . my-elfeed-mark-all-read)
@@ -2104,7 +2034,6 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
 ** Read It Later (Pocket)
 #+BEGIN_SRC emacs-lisp
   (use-package pocket-mode
-    :ensure t
     :defer t
     :config
     (setq pocket-items-per-page 30))
