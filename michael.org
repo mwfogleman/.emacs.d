@@ -2267,6 +2267,12 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
   (bind-keys ("M-<up>" . move-line-up)
              ("M-<down>" . move-line-down))
 #+END_SRC
+** Flush Empty Lines
+#+BEGIN_SRC emacs-lisp
+  (defun flush-empty-lines ()
+    (interactive)
+    (flush-lines "^$"))
+#+END_SRC
 * Tasks
 ** TODO Find replacement for org-timeline
 ** MAYBE Find fix for capitalize/lowercase functions
