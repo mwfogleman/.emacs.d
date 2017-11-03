@@ -1961,6 +1961,14 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
         (nreverse buffers)))
 
     (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+
+    (defun mu4e-open-email-inbox ()
+      "Update and open my email inbox. For interactive use in workflows."
+      (interactive)
+      (progn
+        (mu4e-update-mail-and-index t)
+        (mu4e~headers-jump-to-maildir "/INBOX")))
+
     :config
     (add-to-list 'mu4e-view-actions
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
