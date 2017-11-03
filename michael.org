@@ -1261,7 +1261,14 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
                            "url"))
                (cdr (magit-get-remote-branch)))))
 
-    (bind-key "v" 'visit-pull-request-url magit-mode-map))
+    (bind-key "v" 'visit-pull-request-url magit-mode-map)
+
+    ;; Do Not Show Recent Commits in status window
+    ;; https://github.com/magit/magit/issues/3230#issuecomment-339900039
+    (magit-add-section-hook 'magit-status-sections-hook
+                            'magit-insert-unpushed-to-upstream
+                            'magit-insert-unpushed-to-upstream-or-recent
+                            'replace))
 #+END_SRC
 *** Project Management (Projectile)
 
