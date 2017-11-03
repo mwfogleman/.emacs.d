@@ -609,6 +609,7 @@ For me, Dired is one of Emacs' (less-heralded) killer apps, along with Org-Mode 
 
 #+BEGIN_SRC emacs-lisp
   (use-package dired
+    :ensure f
     :bind (("<f2>" . dired)
            ("C-x C-d" . dired)
            :map dired-mode-map
@@ -1403,7 +1404,8 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
     :init
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
-    (use-package smartparens-config)
+    (use-package smartparens-config
+      :ensure f)
     (bind-key "s" 'smartparens-mode toggle-map)
     (when (is-mac-p)
       (bind-keys ("<s-right>" . sp-forward-slurp-sexp)
@@ -1900,6 +1902,7 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
   (use-package mu4e
     :if (is-linux-p)
     :load-path "/usr/share/emacs/site-lisp/mu4e/"
+    :ensure f
     :bind (("C-c e" . mu4e)
            :map mu4e-headers-mode-map
            ("C-c o" . org-mu4e-store-and-capture)
