@@ -1219,10 +1219,6 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 *** Haskell
 #+BEGIN_SRC emacs-lisp
   (use-package haskell-mode)
-
-  (use-package intero
-    :init
-    (add-hook 'haskell-mode-hook 'intero-mode))
 #+END_SRC
 ** Development Tools
 *** Version Control (Git)
