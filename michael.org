@@ -1910,8 +1910,7 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
     :if (is-linux-p)
     :load-path "/usr/share/emacs/site-lisp/mu4e/"
     :ensure f
-    :bind (("C-c e" . mu4e)
-           :map mu4e-headers-mode-map
+    :bind (:map mu4e-headers-mode-map
            ("C-c o" . org-mu4e-store-and-capture)
            :map mu4e-view-mode-map
            ("C-c o" . org-mu4e-store-and-capture))
@@ -1978,6 +1977,8 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
       (progn
         (mu4e-update-mail-and-index t)
         (mu4e~headers-jump-to-maildir "/INBOX")))
+
+    (bind-key "C-c e" 'mu4e-open-email-inbox)
 
     :config
     (add-to-list 'mu4e-view-actions
