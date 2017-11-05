@@ -1635,6 +1635,9 @@ I use org-struct in mu4e. See above.
           org-ellipsis "↴"
           org-expiry-inactive-timestamps t
           org-show-notification-handler 'message
+          org-special-ctrl-a/e t
+          org-special-ctrl-k t
+          org-yank-adjusted-subtrees t
           org-stuck-projects
           '("+LEVEL=2/-MAYBE-DONE-SOMEDAY-CANCELLED" ("TODO" "STARTED") nil "\\<IGNORE\\>")
           org-file-apps
@@ -1775,6 +1778,7 @@ I really like Org-mode's clocking functionality. I mostly use it for keeping tim
         org-clock-in-switch-to-state "STARTED"
         org-clock-in-resume nil
         org-clock-report-include-clocking-task t
+        org-clock-out-remove-zero-time-clocks t
         ;; Too many clock entries clutter up a heading
         org-log-into-drawer t
         org-clock-into-drawer 1)
