@@ -1290,33 +1290,60 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
     (setq projectile-enable-caching t
           projectile-create-missing-test-files t
           projectile-completion-system 'ivy
-          projectile-switch-project-action #'projectile-commander)
+          projectile-use-git-grep t
+          projectile-switch-project-action #'projectile-commander
+          ;; I'm redefining a lot of bindings, so unset pre-defined methods
+          ;; and define everyting here.
+          projectile-commander-methods nil)
 
-    (def-projectile-commander-method ?s
-      "Open a *shell* buffer for the project."
-      ;; This requires a snapshot version of Projectile.
-      (projectile-run-shell))
 
+    (def-projectile-commander-method ?? "Commander help buffer."
+      (ignore-errors (kill-buffer projectile-commander-help-buffer))
+      (with-current-buffer (get-buffer-create projectile-commander-help-buffer)
+        (insert "Projectile Commander Methods:\n\n")
+        (dolist (met projectile-commander-methods)
+          (insert (format "%c:\t%s\n" (car met) (cadr met))))
+        (goto-char (point-min))
+        (help-mode)
+        (display-buffer (current-buffer) t))
+      (projectile-commander))
+    (def-projectile-commander-method ?a
+      "Run ag on project."
+      (counsel-projectile-ag))
+    (def-projectile-commander-method ?b
+      "Open an IBuffer window showing all buffers in the current project."
+      (counsel-projectile-switch-to-buffer))
+    (def-projectile-commander-method ?B
+      "Display a project buffer in other window."
+      (projectile-display-buffer))
     (def-projectile-commander-method ?c
       "Run `compile' in the project."
       (projectile-compile-project nil))
-
-    (def-projectile-commander-method ?\C-?
-      "Go back to project selection."
-      (projectile-switch-project))
-
     (def-projectile-commander-method ?d
       "Open project root in dired."
       (projectile-dired))
-
+    (def-projectile-commander-method ?D
+      "Find a project directory in other window."
+      (projectile-find-dir-other-window))
+    (def-projectile-commander-method ?e
+      "Open an eshell buffer for the project."
+      ;; This requires a snapshot version of Projectile.
+      (projectile-run-eshell))
+    (def-projectile-commander-method ?f
+      "Find a project directory in other window."
+      (counsel-projectile-find-file))
+    (def-projectile-commander-method ?F
+      "Find project file in other window."
+      (projectile-find-file-other-window))
+    (def-projectile-commander-method ?g
+      "Open project root in vc-dir or magit."
+      (projectile-vc))
     (def-projectile-commander-method ?G
-      "Magit status."
-      (magit-status)
-      ;; (if (fboundp 'magit-fetch-from-upstream)
-      ;;        (call-interactively #'magit-fetch-from-upstream)
-      ;;   (call-interactively #'magit-fetch-current))
-      )
-
+      "Run grep on project."
+      (projectile-grep))
+    (def-projectile-commander-method ?i
+      "Open an IBuffer window showing all buffers in the current project."
+      (projectile-ibuffer))
     (def-projectile-commander-method ?j
       "Jack in to CLJ or CLJS depending on context."
       (let* ((opts (projectile-current-project-files))
@@ -1333,7 +1360,19 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
         (run-hooks 'projectile-find-file-hook)
         (if (derived-mode-p 'clojurescript-mode)
             (cider-jack-in-clojurescript)
-          (cider-jack-in)))))
+          (cider-jack-in))))
+    (def-projectile-commander-method ?r
+      "Find recently visited file in project."
+      (projectile-recentf))
+    (def-projectile-commander-method ?s
+      "Switch project."
+      (counsel-projectile-switch-project))
+    (def-projectile-commander-method ?t
+      "Find test file in project."
+      (projectile-find-test-file))
+    (def-projectile-commander-method ?\C-?
+      "Go back to project selection."
+      (projectile-switch-project)))
 #+END_SRC
 *** Style Checking (Checkdoc with Flycheck)
 Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
