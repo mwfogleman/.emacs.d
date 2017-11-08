@@ -1819,6 +1819,10 @@ However, there are a *lot* of commands for clocking; this is a perfect instance 
 
   (bind-key "C-c w" 'hydra-org-clock/body)
 #+END_SRC
+****** Drag and Drop
+#+BEGIN_SRC emacs-lisp
+(use-package org-download)
+#+END_SRC
 ****** ID's
 By using unique ID's for links in Org-mode, links will work even if you move them across files.
 
