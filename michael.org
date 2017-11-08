@@ -68,7 +68,9 @@ Async enables asynchronous processing in Emacs, as well as some basic implementa
     (async-bytecomp-package-mode 1)
     (autoload 'dired-async-mode "dired-async.el" nil t)
     (async-bytecomp-package-mode 1)
-    (dired-async-mode 1))
+    (dired-async-mode 1)
+    (require 'smtpmail-async)
+    (setq send-mail-function 'async-smtpmail-send-it))
 #+END_SRC
 *** Paradox
 I like Paradox - it is an alternative / extension to the built-in package manager.
