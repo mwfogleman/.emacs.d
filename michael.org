@@ -1,5 +1,5 @@
 #+TITLE: Michael Fogleman's Emacs configuration
-#+OPTIONS: toc:4
+#+OPTIONS: toc:4 h:4
 * Introduction
 ** Quotations
 *** On Emacs
