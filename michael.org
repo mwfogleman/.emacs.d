@@ -2344,7 +2344,6 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
     (flush-lines "^$"))
 #+END_SRC
 * Tasks
-** TODO Figure out workflow for exporting from Org-mode into Evernote
 ** TODO Try [[http://pragmaticemacs.com/emacs/view-and-annotate-pdfs-in-emacs-with-pdf-tools/][pdf-tools]]
 ** TODO Find replacement for org-timeline
 ** MAYBE Find fix for capitalize/lowercase functions
