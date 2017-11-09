@@ -1856,6 +1856,15 @@ However, there are a *lot* of commands for clocking; this is a perfect instance 
 #+BEGIN_SRC emacs-lisp
 (use-package org-download)
 #+END_SRC
+****** Exporting
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-with-section-numbers nil
+        org-export-with-toc nil)
+
+  ;; To override, add to #+OPTIONS: org header for a particular file:
+  ;; To show the section numbers, set num:t
+  ;; To add in a table of contents: toc:4 (to a particular depth) or toc:t (to all depths)
+#+END_SRC
 ****** ID's
 By using unique ID's for links in Org-mode, links will work even if you move them across files.
 
