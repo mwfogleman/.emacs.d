@@ -1890,7 +1890,7 @@ Once in the eww buffer, hit =&= (=eww-browse-with-external-browser=) to view the
     :after org
     :config
     (defun ox-clip-dwim ()
-      "If the buffer is narrowed, call ox-clip on whole buffer (or what's visible, if narrowed)."
+      "If the region is active, call ox-clip as normal. Otherwise, call ox-clip on whole buffer (or visible / narrowed section, if applicable)."
       (interactive)
       (if (region-active-p)
           (ox-clip-formatted-copy (region-beginning) (region-end))
