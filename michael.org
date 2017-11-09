@@ -1892,9 +1892,10 @@ Once in the eww buffer, hit =&= (=eww-browse-with-external-browser=) to view the
     (defun ox-clip-dwim ()
       "If the buffer is narrowed, call ox-clip on whole buffer (or what's visible, if narrowed)."
       (interactive)
-      (cond ((buffer-narrowed-p) (ox-clip-formatted-copy (point-min) (point-max)))
-            ((region-active-p) (ox-clip-formatted-copy (region-beginning) (region-end)))
-            (t (ox-clip-formatted-copy))))
+      (if (region-active-p)
+          (ox-clip-formatted-copy (region-beginning) (region-end))
+        ;; if buffer is narrowed, this will work on visible; if not, it will capture whole buffer
+        (ox-clip-formatted-copy (point-min) (point-max))))
 
     (bind-key "C-c x" 'ox-clip-dwim))
 #+END_SRC
