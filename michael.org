@@ -1857,13 +1857,38 @@ However, there are a *lot* of commands for clocking; this is a perfect instance 
 (use-package org-download)
 #+END_SRC
 ****** Exporting
-#+BEGIN_SRC emacs-lisp
-  (setq org-export-with-section-numbers nil
-        org-export-with-toc nil)
+I often want to export Org-Mode documents into other formats. This section contains some defaults and packages that have made that workflow easier for me.
 
-  ;; To override, add to #+OPTIONS: org header for a particular file:
-  ;; To show the section numbers, set num:t
-  ;; To add in a table of contents: toc:4 (to a particular depth) or toc:t (to all depths)
+******* Export Defaults
+Org's export defaults to inserting a TOC and using section numbers, but usually I don't want or need those things. (It can make delieverables more attractive, though, so I make sure to put a hint in here to remind me about how to change that on a file-by-file basis.)
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-with-toc nil
+        org-export-with-section-numbers nil)
+#+END_SRC
+
+To override, add to the #+OPTIONS: org header for a particular file:
+- To add in a table of contents: =toc:4= (to a particular depth) or =toc:t= (to all depths)
+- To show the section numbers, set =num:t=
+******* Preview Org Exported HTML
+I don't much like Markdown, but many Markdown programs (ando other text formats and editors) have a feature where you can preview your formatting. This package adds this functionality for org-mode, using eww, the plain text browser built into Emacs.
+
+Once in the eww buffer, hit =&= (=eww-browse-with-external-browser=) to view the buffer in your external browser of choice.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-preview-html
+    :commands org-preview-html/preview
+    :after org)
+#+END_SRC
+******* Formatted copy commands for org-mode
+=ox-clip= lets you select a part of an Org-Mode buffer, run =ox-clip-formatted-copy=. I needed to install =xclip= on Arch Linux to get this to work; it looks like you don't need to install packages to get this to run on Windows or OS X. You also need to bind ox-clip; I chose =C-c x=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package htmlize
+    :after org)
+  (use-package ox-clip
+    :after org
+    :bind ("C-c x" . ox-clip-formatted-copy))
 #+END_SRC
 ****** ID's
 By using unique ID's for links in Org-mode, links will work even if you move them across files.
