@@ -1888,7 +1888,15 @@ Once in the eww buffer, hit =&= (=eww-browse-with-external-browser=) to view the
     :after org)
   (use-package ox-clip
     :after org
-    :bind ("C-c x" . ox-clip-formatted-copy))
+    :config
+    (defun ox-clip-dwim ()
+      "If the buffer is narrowed, call ox-clip on whole buffer (or what's visible, if narrowed)."
+      (interactive)
+      (cond ((buffer-narrowed-p) (ox-clip-formatted-copy (point-min) (point-max)))
+            ((region-active-p) (ox-clip-formatted-copy (region-beginning) (region-end)))
+            (t (ox-clip-formatted-copy))))
+
+    (bind-key "C-c x" 'ox-clip-dwim))
 #+END_SRC
 ****** ID's
 By using unique ID's for links in Org-mode, links will work even if you move them across files.
