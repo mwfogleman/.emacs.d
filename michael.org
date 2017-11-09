@@ -1986,14 +1986,6 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
                 (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
                 (push '("QUESTION"  . ??) prettify-symbols-alist)))
 #+END_SRC
-****** Remove Org-Ascii Export
-#+BEGIN_SRC emacs-lisp
-(defun remove-superfluous-org-ascii-export ()
-  (interactive)
-  (replace-regexp "[0-9\.]+\ +" "")
-  (replace-regexp "^\ +.+" "")
-  (flush-lines "^[_-~=]+$"))
-#+END_SRC
 ** Email (mu4e)
 I am currently using mu4e, which was indeed pretty easy to set up. For receiving mail, I use mbsync, not offlineimap. I use a stock Emacs package, smptmail, to send mail. It plugs into the gnutls command line utilities, which my Arch machine has installed already.
 
