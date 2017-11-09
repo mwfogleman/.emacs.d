@@ -1766,6 +1766,33 @@ Here are some hand-made agenda files.
   (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
 #+END_SRC
 
+****** Capture Templates
+The first Emacs Lisp that I ever wrote was to configure my capture templates!
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
+        '(("p" "Process Email as TODO item" entry (file+headline "~/org/todo.org" "Inbox")
+           "* TODO %? %a\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
+          ("t" "TODO" entry (file+headline "~/org/todo.org" "Inbox")
+           "* TODO %?\n")
+          ("u" "Ultraworking Session" entry (file+olp+datetree "~/org/ultraworking.org")
+           (file "~/org/templates/ultraworkingtemplate.org"))
+          ("w" "Review: Weekly Review" entry (file+olp+datetree "~/org/reviews.org")
+           (file "~/org/templates/weeklyreviewtemplate.org"))))
+#+END_SRC
+******* New Weekly Review
+#+BEGIN_SRC emacs-lisp
+  (defun my-new-weekly-review ()
+    (interactive)
+    (progn
+      (org-capture nil "w")
+      (org-capture-finalize t)
+      (org-speed-move-safe 'outline-up-heading)
+      (org-narrow-to-subtree)))
+
+  (bind-keys :map launcher-map
+             ("w" . my-new-weekly-review))
+#+END_SRC
 ****** Refiling
 #+BEGIN_SRC emacs-lisp
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
