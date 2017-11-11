@@ -1712,8 +1712,8 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
 #+END_SRC
 ******* Agenda Files
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (quote ("~/org/calendar/gcal.org"
-                                 "~/org/car.org"
+  (setq org-agenda-files (quote ("~/org/gcal.org"
+                                 "~/Dropbox/2 Areas/Car/car.org"
                                  "~/org/refile-beorg.org"
                                  "~/org/todo.org"
                                  "~/src/.emacs.d/michael.org"
@@ -2240,7 +2240,7 @@ Relatedly, I often want to reload my init-file. This will actually use the syste
 I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of the command line utility's functionality in Elisp.
 
 #+BEGIN_SRC emacs-lisp
-  (setq keepintouch-datafile "~/Documents/keepintouch.data")
+  (setq keepintouch-datafile "~/Dropbox/2 Areas/Relationships/keepintouch.data")
 
   (defun keptintouch (arg)
     "Request a contact in a keepintouch.data file, and update their last
