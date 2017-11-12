@@ -1712,7 +1712,7 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
 #+END_SRC
 ******* Agenda Files
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (quote ("~/org/gcal.org"
+  (setq org-agenda-files (quote ("~/org/calendar/gcal.org"
                                  "~/Dropbox/2 Areas/Car/car.org"
                                  "~/org/refile-beorg.org"
                                  "~/org/todo.org"
@@ -1720,7 +1720,6 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
                                  "~/src/playground/laboratory.org"
                                  "~/src/playground/playground.org")))
 #+END_SRC
-
 ******* Open Org Agenda
 This function opens the agenda in full screen.
 
