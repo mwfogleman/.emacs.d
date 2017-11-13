@@ -543,6 +543,13 @@ The default scratch buffer in Emacs uses =lisp-interaction-mode=, which is great
   (when (is-linux-p)
     (bind-keys :map launcher-map
                ("." . counsel-linux-app)))
+
+  (when (is-mac-p)
+    (use-package counsel-osx-app
+      :bind (:map launcher-map
+                  ("." . counsel-osx-app))))
+
+  (use-package counsel-osx-app)
 #+END_SRC
 *** Macro Map
 #+BEGIN_SRC emacs-lisp
