@@ -939,10 +939,7 @@ This snippet automatically saves buffers in an intelligent way. It was originall
   (add-hook 'mouse-leave-buffer-hook 'auto-save-command)
   (add-hook 'focus-out-hook 'auto-save-command)
 
-  (unbind-key "C-x C-s")
-
-  (when (is-linux-p)
-    (bind-key "C-x C-s" 'save-buffer))
+  (bind-key "C-x C-s" 'save-buffer)
 #+END_SRC
 
 [[https://ogbe.net/emacsconfig.html][This tweak saves autosave files in one location, rather than in the same directory as the file that is being edited.]]
