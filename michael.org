@@ -1720,7 +1720,6 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
                                  "~/Dropbox/2 Areas/Car/car.org"
                                  "~/org/refile-beorg.org"
                                  "~/org/todo.org"
-                                 "~/src/.emacs.d/michael.org"
                                  "~/src/playground/laboratory.org"
                                  "~/src/playground/playground.org")))
 #+END_SRC
@@ -2378,12 +2377,3 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
     (interactive)
     (flush-lines "^$"))
 #+END_SRC
-* Tasks
-** TODO Try [[http://pragmaticemacs.com/emacs/view-and-annotate-pdfs-in-emacs-with-pdf-tools/][pdf-tools]]
-** TODO Find replacement for org-timeline
-** MAYBE Find fix for capitalize/lowercase functions
-*** TODO Document behavior
-*** MAYBE Ping Oleh
-** TODO Set up org-capture with Firefox
-[[https://addons.mozilla.org/en-US/firefox/addon/org-capture/][Org Capture :: Add-ons for Firefox]]
-[[http://oremacs.com/2017/10/28/orca/][Orca - new package to improve org-capture from browser · (or emacs]]
