@@ -1994,7 +1994,6 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
         org-refile-use-outline-path t)
 #+END_SRC
 ****** Speed Commands
-******* Set User Speed Commands
 #+BEGIN_SRC emacs-lisp
   (setq org-use-speed-commands t
         org-speed-commands-user
@@ -2011,7 +2010,7 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
           ("R" org-done-and-archive)
           ("y" org-todo-yesterday)))
 #+END_SRC
-******* Jumping to Speed: org-go-speed
+
 Speed commands are really useful, but I often want to make use of them when I'm not at the beginning of a header. This command brings you back to the beginning of an item's header, so that you can do speed commands.
 
 #+BEGIN_SRC emacs-lisp
@@ -2020,8 +2019,8 @@ Speed commands are really useful, but I often want to make use of them when I'm 
     (interactive)
     (when (equal major-mode 'org-mode)
       (if (org-at-heading-p)
-          (org-beginning-of-line)
-        (org-up-element))))
+          (beginning-of-line)
+        (outline-previous-heading))))
 
   (bind-key "C-c s" 'org-go-speed)
 #+END_SRC
