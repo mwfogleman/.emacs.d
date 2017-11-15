@@ -1919,6 +1919,15 @@ By using unique ID's for links in Org-mode, links will work even if you move the
   (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
         org-clone-delete-id t)
 #+END_SRC
+****** Random Note
+#+BEGIN_SRC emacs-lisp
+(use-package org-randomnote
+  :if (is-linux-p)
+  :load-path "~/src/org-randomnote/"
+  :ensure f
+  :init
+  (setq org-randomnote-candidates (delete "~/org/calendar/gcal.org" org-agenda-files)))
+#+END_SRC
 ****** Speed Commands
 ******* Set User Speed Commands
 #+BEGIN_SRC emacs-lisp
