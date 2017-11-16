@@ -1230,6 +1230,14 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 #+BEGIN_SRC emacs-lisp
   (use-package haskell-mode)
 #+END_SRC
+**** package-lint and flycheck-package
+#+BEGIN_SRC emacs-lisp
+  (use-package package-lint)
+
+  (use-package flycheck-package
+    :config
+    (flycheck-package-setup))
+#+END_SRC
 ** Development Tools
 *** Version Control (Git)
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
