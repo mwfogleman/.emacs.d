@@ -2007,7 +2007,6 @@ Stuck Projects is a concept that comes from David Allen's GTD. A stuck project i
 
 Org-Mode has the ability to tell you which subtrees don't have tasks associated with them. You can also configure what it recognizes as a stuck project. Unfortunately, by default, this functionality picks up a lot of noise.
 
-
 This function creates an agenda of stuck projects that is restricted to my "Projects" subtree.
 #+BEGIN_SRC emacs-lisp
   (defun my-org-agenda-list-stuck-projects ()
