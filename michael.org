@@ -1722,10 +1722,11 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
 #+END_SRC
 ****** Agenda Files
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (quote ("~/org/calendar/gcal.org"
-                                 "~/Dropbox/2 Areas/Car/car.org"
-                                 "~/org/refile-beorg.org"
+  (setq org-agenda-files (quote ("~/org/goals.org"
                                  "~/org/todo.org"
+                                 "~/org/refile-beorg.org"
+                                 "~/org/calendar/gcal.org"
+                                 "~/Dropbox/2 Areas/Car/car.org"
                                  "~/src/playground/laboratory.org"
                                  "~/src/playground/playground.org")))
 #+END_SRC
