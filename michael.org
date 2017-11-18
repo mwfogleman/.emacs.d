@@ -2242,7 +2242,6 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
   (use-package pdf-tools
     :pin manual
     :ensure f
-    :if (is-mac-p)
     :config
     (pdf-tools-install))
 #+END_SRC
