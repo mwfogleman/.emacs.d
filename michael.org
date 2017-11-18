@@ -2093,7 +2093,6 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
 ****** Random Note
 #+BEGIN_SRC emacs-lisp
   (use-package org-randomnote
-    :if (is-linux-p)
     :bind (:map launcher-map
                 ("r" . org-randomnote))
     :init
