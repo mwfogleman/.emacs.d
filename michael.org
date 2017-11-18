@@ -2234,6 +2234,18 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
     (when (is-mac-p)
       (add-to-list 'exec-path "/usr/local/texlive/2016basic/bin/universal-darwin")))
 #+END_SRC
+** PDF (pdf-tools)
+#+BEGIN_SRC emacs-lisp
+  (use-package let-alist)
+  (use-package tablist)
+
+  (use-package pdf-tools
+    :pin manual
+    :ensure f
+    :if (is-mac-p)
+    :config
+    (pdf-tools-install))
+#+END_SRC
 ** CSV
 #+BEGIN_SRC emacs-lisp
   (use-package csv-mode
