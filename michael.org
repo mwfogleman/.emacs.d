@@ -1983,49 +1983,7 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
 
   (bind-key "T" 'org-teleport selected-org-mode-map)
 #+END_SRC
-***** Projects
-A project is "any outcome that will take more than one action step to complete." As a result of implementing Tiago Forte's "PARA" system, I can ensure that I always have an up to date project list.
-****** Go To Projects
-#+BEGIN_SRC emacs-lisp
-  (defun go-to-projects ()
-    (interactive)
-    (find-file "~/org/todo.org")
-    (widen)
-    (beginning-of-buffer)
-    (re-search-forward "* 1 Projects")
-    (beginning-of-line))
-#+END_SRC
-****** Project Overview
-#+BEGIN_SRC emacs-lisp
-  (defun project-overview ()
-    (interactive)
-    (go-to-projects)
-    (org-narrow-to-subtree)
-    (org-columns))
-#+END_SRC
-****** Stuck Projects
-Stuck Projects is a concept that comes from David Allen's GTD. A stuck project is a project without any action steps or tasks associated with it.
 
-Org-Mode has the ability to tell you which subtrees don't have tasks associated with them. You can also configure what it recognizes as a stuck project. Unfortunately, by default, this functionality picks up a lot of noise.
-
-This function creates an agenda of stuck projects that is restricted to my "Projects" subtree.
-#+BEGIN_SRC emacs-lisp
-  (defun my-org-agenda-list-stuck-projects ()
-    (interactive)
-    (go-to-projects)
-    (org-agenda nil "#" 'subtree))
-#+END_SRC
-***** Random Note
-#+BEGIN_SRC emacs-lisp
-  (use-package org-randomnote
-    :if (is-linux-p)
-    :bind (:map launcher-map
-                ("r" . org-randomnote))
-    :load-path "~/src/org-randomnote/"
-    :ensure f
-    :init
-    (setq org-randomnote-candidates '("~/org/todo.org")))
-#+END_SRC
 ***** Refiling
 #+BEGIN_SRC emacs-lisp
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
@@ -2083,6 +2041,65 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
                         ("highenergy" . ?1)))
 #+END_SRC
 **** Other
+***** PARA
+****** Projects
+A project is "any outcome that will take more than one action step to complete." As a result of implementing Tiago Forte's "PARA" system, I can ensure that I always have an up to date project list.
+
+#+BEGIN_SRC emacs-lisp
+  (defun go-to-projects ()
+    (interactive)
+    (find-file "~/org/todo.org")
+    (widen)
+    (beginning-of-buffer)
+    (re-search-forward "* 1 Projects")
+    (beginning-of-line))
+
+  (defun project-overview ()
+    (interactive)
+    (go-to-projects)
+    (org-narrow-to-subtree)
+    (org-columns))
+#+END_SRC
+
+The concept of Stuck Projects comes from David Allen's GTD. A stuck project is a project without any action steps or tasks associated with it.
+
+Org-Mode has the ability to tell you which subtrees don't have tasks associated with them. You can also configure what it recognizes as a stuck project. Unfortunately, by default, this functionality picks up a lot of noise.
+
+This function creates an agenda of stuck projects that is restricted to my "Projects" subtree.
+#+BEGIN_SRC emacs-lisp
+  (defun my-org-agenda-list-stuck-projects ()
+    (interactive)
+    (go-to-projects)
+    (org-agenda nil "#" 'subtree))
+#+END_SRC
+****** Areas
+#+BEGIN_SRC emacs-lisp
+  (defun go-to-areas ()
+      (interactive)
+      (find-file "~/org/todo.org")
+      (widen)
+      (beginning-of-buffer)
+      (re-search-forward "* 2 Areas")
+      (beginning-of-line))
+
+  (defun areas-overview ()
+      (interactive)
+      (go-to-areas)
+      (org-narrow-to-subtree)
+      (org-columns))
+#+END_SRC
+
+****** Random Note
+#+BEGIN_SRC emacs-lisp
+  (use-package org-randomnote
+    :if (is-linux-p)
+    :bind (:map launcher-map
+                ("r" . org-randomnote))
+    :load-path "~/src/org-randomnote/"
+    :ensure f
+    :init
+    (setq org-randomnote-candidates '("~/org/todo.org")))
+#+END_SRC
 ***** Prettify Symbols
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
