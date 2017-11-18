@@ -2239,11 +2239,20 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
   (use-package let-alist)
   (use-package tablist)
 
+  (use-package interleave)
+
   (use-package pdf-tools
     :pin manual
     :ensure f
+    :bind (:map pdf-view-mode-map
+                ("C-s" . isearch-forward)
+                ("h" . pdf-annot-add-highlight-markup-annotation)
+                ("t" . pdf-annot-add-text-annotation)
+                ("D" . pdf-annot-delete))
     :config
-    (pdf-tools-install))
+    (pdf-tools-install)
+    (setq-default pdf-view-display-size 'fit-page)
+    (setq pdf-view-resize-factor 1.1))
 #+END_SRC
 ** CSV
 #+BEGIN_SRC emacs-lisp
