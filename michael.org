@@ -2096,8 +2096,6 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
     :if (is-linux-p)
     :bind (:map launcher-map
                 ("r" . org-randomnote))
-    :load-path "~/src/org-randomnote/"
-    :ensure f
     :init
     (setq org-randomnote-candidates '("~/org/todo.org")))
 #+END_SRC
