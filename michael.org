@@ -2023,14 +2023,18 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
 #+END_SRC
 ***** Tagging
 #+BEGIN_SRC emacs-lisp
-  (setq org-tag-alist '(("@work" . ?b)
+  (setq org-tag-alist '(;; Context
+                        ("@work" . ?b)
                         ("@home" . ?h)
-                        ("@email" . ?e)
-                        ("@phone" . ?p)
-                        ("@computer" . ?l)
-                        ("@offline" .?o)
-                        ("lowenergy" . ?0)
-                        ("highenergy" . ?1)))
+                        ("@errand" . ?e)
+                        ;; Time
+                        ("15min" . ?<)
+                        ("30min" . ?=)
+                        ("1h" . ?>)
+                        ;; Energy
+                        ("Challenge" . ?0)
+                        ("Average" . ?0)
+                        ("Easy" . ?0)))
 #+END_SRC
 **** Other
 ***** Prettify Symbols
