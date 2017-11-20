@@ -1694,7 +1694,7 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
                 ;; "r" is bound to org-agenda-redo
                 ("g" . org-gcal-sync))
     :init
-    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync))))
+    (add-hook 'emacs-startup-hook #'org-gcal-sync))
 #+END_SRC
 ***** org-cliplink
 =org-cliplink= lets you insert a link from your clipboard with a title that is fetched from the page's metadata.
