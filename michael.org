@@ -1796,21 +1796,12 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
            "* TODO %?\n")
           ("u" "Ultraworking Session" entry (file+olp+datetree "~/org/ultraworking.org")
            (file "~/org/templates/ultraworkingtemplate.org"))
+          ("d" "Review: Daily Review" entry (file+olp+datetree "~/Dropbox/2 Areas/Journal/reviews.org")
+           (file "~/org/templates/dailyreviewtemplate.org"))
           ("w" "Review: Weekly Review" entry (file+olp+datetree "~/Dropbox/2 Areas/Journal/reviews.org")
-           (file "~/org/templates/weeklyreviewtemplate.org"))))
-#+END_SRC
-****** New Weekly Review
-#+BEGIN_SRC emacs-lisp
-  (defun my-new-weekly-review ()
-    (interactive)
-    (progn
-      (org-capture nil "w")
-      (org-capture-finalize t)
-      (org-speed-move-safe 'outline-up-heading)
-      (org-narrow-to-subtree)))
-
-  (bind-keys :map launcher-map
-             ("w" . my-new-weekly-review))
+           (file "~/org/templates/weeklyreviewtemplate.org"))
+          ("m" "Review: Monthly Review" entry (file+olp+datetree "~/Dropbox/2 Areas/Journal/reviews.org")
+           (file "~/org/templates/monthlyreviewtemplate.org"))))
 #+END_SRC
 ***** Clocking
 I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks.
@@ -2042,62 +2033,6 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
                         ("highenergy" . ?1)))
 #+END_SRC
 **** Other
-***** PARA
-****** Projects
-A project is "any outcome that will take more than one action step to complete." As a result of implementing Tiago Forte's "PARA" system, I can ensure that I always have an up to date project list.
-
-#+BEGIN_SRC emacs-lisp
-  (defun go-to-projects ()
-    (interactive)
-    (find-file "~/org/todo.org")
-    (widen)
-    (beginning-of-buffer)
-    (re-search-forward "* 1 Projects")
-    (beginning-of-line))
-
-  (defun project-overview ()
-    (interactive)
-    (go-to-projects)
-    (org-narrow-to-subtree)
-    (org-columns))
-#+END_SRC
-
-The concept of Stuck Projects comes from David Allen's GTD. A stuck project is a project without any action steps or tasks associated with it.
-
-Org-Mode has the ability to tell you which subtrees don't have tasks associated with them. You can also configure what it recognizes as a stuck project. Unfortunately, by default, this functionality picks up a lot of noise.
-
-This function creates an agenda of stuck projects that is restricted to my "Projects" subtree.
-#+BEGIN_SRC emacs-lisp
-  (defun my-org-agenda-list-stuck-projects ()
-    (interactive)
-    (go-to-projects)
-    (org-agenda nil "#" 'subtree))
-#+END_SRC
-****** Areas
-#+BEGIN_SRC emacs-lisp
-  (defun go-to-areas ()
-      (interactive)
-      (find-file "~/org/todo.org")
-      (widen)
-      (beginning-of-buffer)
-      (re-search-forward "* 2 Areas")
-      (beginning-of-line))
-
-  (defun areas-overview ()
-      (interactive)
-      (go-to-areas)
-      (org-narrow-to-subtree)
-      (org-columns))
-#+END_SRC
-
-****** Random Note
-#+BEGIN_SRC emacs-lisp
-  (use-package org-randomnote
-    :bind (:map launcher-map
-                ("r" . org-randomnote))
-    :init
-    (setq org-randomnote-candidates '("~/org/todo.org")))
-#+END_SRC
 ***** Prettify Symbols
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
@@ -2294,6 +2229,96 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
     :config
     (setq pocket-items-per-page 30))
 #+END_SRC
+* Organization (GTD and PARA)
+** Projects
+A project is "any outcome that will take more than one action step to complete." As a result of implementing Tiago Forte's "PARA" system, I can ensure that I always have an up to date project list.
+
+#+BEGIN_SRC emacs-lisp
+  (defun go-to-projects ()
+    (interactive)
+    (find-file "~/org/todo.org")
+    (widen)
+    (beginning-of-buffer)
+    (re-search-forward "* 1 Projects")
+    (beginning-of-line))
+
+  (defun project-overview ()
+    (interactive)
+    (go-to-projects)
+    (org-narrow-to-subtree)
+    (org-columns))
+#+END_SRC
+
+The concept of Stuck Projects comes from David Allen's GTD. A stuck project is a project without any action steps or tasks associated with it.
+
+Org-Mode has the ability to tell you which subtrees don't have tasks associated with them. You can also configure what it recognizes as a stuck project. Unfortunately, by default, this functionality picks up a lot of noise.
+
+This function creates an agenda of stuck projects that is restricted to my "Projects" subtree.
+#+BEGIN_SRC emacs-lisp
+  (defun my-org-agenda-list-stuck-projects ()
+    (interactive)
+    (go-to-projects)
+    (org-agenda nil "#" 'subtree))
+#+END_SRC
+** Areas
+#+BEGIN_SRC emacs-lisp
+  (defun go-to-areas ()
+      (interactive)
+      (find-file "~/org/todo.org")
+      (widen)
+      (beginning-of-buffer)
+      (re-search-forward "* 2 Areas")
+      (beginning-of-line))
+
+  (defun areas-overview ()
+      (interactive)
+      (go-to-areas)
+      (org-narrow-to-subtree)
+      (org-columns))
+#+END_SRC
+** Reviews
+#+BEGIN_SRC emacs-lisp
+  (defun my-new-daily-review ()
+    (interactive)
+    (progn
+      (org-capture nil "d")
+      (org-capture-finalize t)
+      (org-speed-move-safe 'outline-up-heading)
+      (org-narrow-to-subtree)))
+
+  (defun my-new-weekly-review ()
+    (interactive)
+    (progn
+      (org-capture nil "w")
+      (org-capture-finalize t)
+      (org-speed-move-safe 'outline-up-heading)
+      (org-narrow-to-subtree)))
+
+  (defun my-new-monthly-review ()
+    (interactive)
+    (progn
+      (org-capture nil "m")
+      (org-capture-finalize t)
+      (org-speed-move-safe 'outline-up-heading)
+      (org-narrow-to-subtree)))
+
+  (bind-keys :prefix-map review-map
+             :prefix "C-c r"
+             ("d" . my-new-daily-review)
+             ("w" . my-new-weekly-review)
+             ("m" . my-new-monthly-review))
+
+  (add-hook 'emacs-startup-hook #'my-new-daily-review)
+#+END_SRC
+** Random Note
+#+BEGIN_SRC emacs-lisp
+  (use-package org-randomnote
+    :bind (:map launcher-map
+                ("r" . org-randomnote))
+    :init
+    (setq org-randomnote-candidates '("~/org/todo.org")))
+#+END_SRC
+
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
