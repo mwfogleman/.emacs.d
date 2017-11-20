@@ -1649,8 +1649,8 @@ I use org-struct in mu4e. See above.
           org-goto-interface 'outline-path-completion
           org-outline-path-complete-in-steps nil
           org-src-fontify-natively t
-          org-lowest-priority 68
-          org-default-priority 68
+          org-lowest-priority ?C
+          org-default-priority ?B
           org-ellipsis "↴"
           org-expiry-inactive-timestamps t
           org-show-notification-handler 'message
