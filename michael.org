@@ -2330,6 +2330,30 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
     (setq org-randomnote-candidates '("~/org/todo.org")))
 #+END_SRC
 
+** Progressive Summarization
+Progressive Summarization is the key methodology used for capturing reference materials in a useful way. The idea is that you annotate and recreate your notes with optional layers, added as needed. Layer 1 is the raw note; Layer 2 is bolding; Layer 3 is highlighting.
+
+I use sp-local-pairs to implement an easy bolding process for Layer 2.
+
+For layer 3, highlighting, things get a bit more involved.
+
+Org-mode can have [inline literal HTML tags](http://orgmode.org/manual/Quoting-HTML-tags.html#Quoting-HTML-tags), like this:
+
+```@@html:<b>@@bold text@@html:</b>@@```
+
+I can use this to highlight text on export with the ~<mark>~ tag:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package wrap-region
+    :init
+    (wrap-region-mode t)
+    :config
+    (wrap-region-add-wrapper "@@html:<mark>@@" "@@html:</mark>@@" "~" 'org-mode))
+#+END_SRC
+
+In the future, I'd like to:
+- Hide or clean this markup when displayed in Emacs, a la prettify symbols mode
+- Automatically highlight the wrapped region in Emacs
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
