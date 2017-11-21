@@ -2020,7 +2020,7 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
 ***** Tagging
 #+BEGIN_SRC emacs-lisp
   (setq org-tag-alist '(;; Context
-                        ("@work" . ?b)
+                        ("@work" . ?w)
                         ("@home" . ?h)
                         ("@errand" . ?e)
                         ;; Time
@@ -2028,9 +2028,9 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
                         ("30min" . ?=)
                         ("1h" . ?>)
                         ;; Energy
-                        ("Challenge" . ?0)
-                        ("Average" . ?0)
-                        ("Easy" . ?0)))
+                        ("Challenge" . ?1)
+                        ("Average" . ?2)
+                        ("Easy" . ?3)))
 #+END_SRC
 **** Other
 ***** Easy Bind To Open Todos
