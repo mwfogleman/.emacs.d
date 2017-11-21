@@ -2331,15 +2331,21 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
 #+END_SRC
 
 ** Progressive Summarization
-Progressive Summarization is the key methodology used for capturing reference materials in a useful way. The idea is that you annotate and recreate your notes with optional layers, added as needed. Layer 1 is the raw note; Layer 2 is bolding; Layer 3 is highlighting.
+Progressive Summarization is the key methodology used for capturing reference materials in a useful way. The idea is that you annotate and recreate your notes with optional layers, added as needed:
 
-I use sp-local-pairs to implement an easy bolding process for Layer 2.
+- Layer 1: the raw note
+- Layer 2: bolding
+- Layer 3: highlighting
+- Layer 4 is re-summarization
+- Layer 5 is "remixing" the content
 
-For layer 3, highlighting, things get a bit more involved.
+Layers 1, 4, and 5 are easy or obvious enough as to how to do them in Org-Mode. Layer 2 might be less obvious for others, but I already use sp-local-pairs to implement an easy bolding process, which is bolded in Emacs and also when exported.
+
+Layer 3 is the tricky part. Ideally, I want to easily highlight a region so that it is *persistently* and *cleanly* highlighted in Emacs, and highlighted in HTML exports. You can highlight HTML with the ~mark~ tag. I've figured out part of this, but not everything.
 
 Org-mode can have [inline literal HTML tags](http://orgmode.org/manual/Quoting-HTML-tags.html#Quoting-HTML-tags), like this:
 
-```@@html:<b>@@bold text@@html:</b>@@```
+~@@html:<b>@@bold text@@html:</b>@@~
 
 I can use this to highlight text on export with the ~<mark>~ tag:
 
@@ -2353,7 +2359,15 @@ I can use this to highlight text on export with the ~<mark>~ tag:
 
 In the future, I'd like to:
 - Hide or clean this markup when displayed in Emacs, a la prettify symbols mode
-- Automatically highlight the wrapped region in Emacs
+- Automatically highlight the wrapped region *in Emacs*
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ov)
+
+  (use-package ov-highlight
+    :ensure f
+    :load-path "~/src/ov-highlight/")
+#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
