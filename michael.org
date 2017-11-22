@@ -2395,49 +2395,6 @@ Relatedly, I often want to reload my init-file. This will actually use the syste
 
   (bind-key "C-c M-l" 'reload-init-file)
 #+END_SRC
-** Keep In Touch
-I use mi amigo [[https://github.com/benpence/][Ben]]'s [[https://github.com/benpence/keepintouch][Keep In Touch]] program. This re-implements some of the command line utility's functionality in Elisp.
-
-#+BEGIN_SRC emacs-lisp
-  (setq keepintouch-datafile "~/Dropbox/2 Areas/Relationships/keepintouch.data")
-
-  (defun keptintouch (arg)
-    "Request a contact in a keepintouch.data file, and update their last
-    contacted date (either today, or, if a prefix is supplied, a user-supplied date.)"
-    (interactive "P")
-    (let ((contact (read-string "Who did you contact? "))
-          (date (if (equal arg nil)
-                    (format-time-string "%Y/%m/%d")
-                  (read-string "When did you contact them? (year/month/date): "))))
-      (save-excursion
-        (find-file keepintouch-datafile)
-        (goto-char (point-min))
-        (search-forward contact)
-        (forward-line -1)
-        (beginning-of-line)
-        (kill-line)
-        (insert date)
-        (save-buffer)
-        (switch-to-buffer (other-buffer))
-        (kill-buffer (other-buffer)))
-      (message "%s was contacted." contact)))
-
-  (defun keptintouch-backlog ()
-    "Create a buffer with Keep In Touch backlog."
-    (interactive)
-    (let ((buf "*Keep In Touch Backlog*")
-          (src "~/src/keepintouch/clj/keepintouch")
-          (jar "-jar target/uberjar/keepintouch-0.2.0-SNAPSHOT-standalone.jar")
-          (cur default-directory))
-      (cd src)
-      (shell-command
-       (concat "java " jar " " keepintouch-datafile " schedule backlog") buf)
-      (cd cur)
-      (switch-to-buffer buf)))
-
-  (bind-keys ("C-c k" . keptintouch)
-             ("C-c K" . keptintouch-backlog))
-#+END_SRC
 ** Buffer Management
 *** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
