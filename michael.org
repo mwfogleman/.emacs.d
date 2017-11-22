@@ -2295,7 +2295,8 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
       (org-capture nil "d")
       (org-capture-finalize t)
       (org-speed-move-safe 'outline-up-heading)
-      (org-narrow-to-subtree)))
+      (org-narrow-to-subtree)
+      (mu4e-update-mail-and-index t)))
 
   (defun my-new-weekly-review ()
     (interactive)
