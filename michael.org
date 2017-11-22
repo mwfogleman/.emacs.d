@@ -2353,7 +2353,7 @@ I can use this to highlight text on export with the ~<mark>~ tag:
 #+BEGIN_SRC emacs-lisp
   (use-package wrap-region
     :init
-    (add-hook 'org-mode-hook (wrap-region-mode t))
+    (wrap-region-global-mode)
     :config
     (wrap-region-add-wrapper "@@html:<mark>@@" "@@html:</mark>@@" "~" 'org-mode))
 #+END_SRC
