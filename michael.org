@@ -2256,13 +2256,6 @@ Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08
 
     (bind-key "C-c f" 'my-elfeed))
 #+END_SRC
-** Read It Later (Pocket)
-#+BEGIN_SRC emacs-lisp
-  (use-package pocket-mode
-    :defer t
-    :config
-    (setq pocket-items-per-page 30))
-#+END_SRC
 * Organization (GTD and PARA)
 ** Projects
 A project is "any outcome that will take more than one action step to complete." As a result of implementing Tiago Forte's "PARA" system, I can ensure that I always have an up to date project list.
