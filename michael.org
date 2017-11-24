@@ -212,6 +212,10 @@ Remove the warning if a buffer or file does not exist, so you can create them. (
 
   (add-to-list 'find-file-not-found-functions #'create-non-existent-directory)
 #+END_SRC
+** Start Server
+#+BEGIN_SRC emacs-lisp
+(server-start)
+#+END_SRC
 ** Other
 *** Macros
 [[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
@@ -2144,6 +2148,19 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
     (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
     (add-hook 'mu4e-compose-mode-hook 'auto-fill-mode))
+#+END_SRC
+** Notes and Reference (Evernote)
+#+BEGIN_SRC emacs-lisp
+  (use-package geeknote)
+
+  (bind-keys :prefix-map geeknote-map
+             :prefix "C-c n"
+             ("c" . geeknote-create)
+             ("e" . geeknote-edit)
+             ("f" . geeknote-find)
+             ("s" . geeknote-show)
+             ("r" . geeknote-remove)
+             ("m" . geeknote-move))
 #+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
