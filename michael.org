@@ -2157,6 +2157,12 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
     :config
     (setq calc-display-trail ()))
 #+END_SRC
+** Numbers at Point
+#+BEGIN_SRC emacs-lisp
+(use-package shift-number
+  :bind (("M-+" . shift-number-up)
+         ("M-_" . shift-number-down)))
+#+END_SRC
 ** Spell Checking (Flyspell)
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
