@@ -1732,10 +1732,7 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
                                  "~/org/somedaymaybe.org"
                                  "~/org/goals.org"
                                  ;; Specific Projects or Areas
-                                 "~/Dropbox/2 Areas/Car/car.org"
-                                 "~/src/playground/laboratory.org"
-                                 "~/src/playground/playground.org"
-                                 )))
+                                 "~/Dropbox/2 Areas/Car/car.org")))
 #+END_SRC
 ****** Open Org Agenda
 This function opens the agenda in full screen.
