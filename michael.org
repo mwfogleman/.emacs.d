@@ -601,7 +601,16 @@ Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main fea
 
     (defun new-eshell ()
       (interactive)
-      (eshell 'true)))
+      (eshell 'true))
+
+    (use-package company-eshell-autosuggest
+      :init
+      (defun setup-company-eshell-autosuggest ()
+        (with-eval-after-load 'company
+          (setq-local company-backends '(company-eshell-autosuggest))
+          (setq-local company-frontends '(company-preview-frontend))))
+
+      (add-hook 'eshell-mode-hook 'setup-company-eshell-autosuggest)))
 #+END_SRC
 *** Shell Mode
 #+BEGIN_SRC emacs-lisp
