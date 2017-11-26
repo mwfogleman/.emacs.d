@@ -212,10 +212,6 @@ Remove the warning if a buffer or file does not exist, so you can create them. (
 
   (add-to-list 'find-file-not-found-functions #'create-non-existent-directory)
 #+END_SRC
-** Start Server
-#+BEGIN_SRC emacs-lisp
-(server-start)
-#+END_SRC
 ** Other
 *** Macros
 [[https://www.youtube.com/watch?v=67dE1lfDs9k][Think about]] macros! [[http://emacsnyc.org/assets/documents/keyboard-macro-workshop-exercises.zip][Play with]] macros!
