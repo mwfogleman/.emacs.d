@@ -79,7 +79,8 @@ I like Paradox - it is an alternative / extension to the built-in package manage
     :config
     (setq paradox-execute-asynchronously t))
 #+END_SRC
-** Detect Operating System
+** Detection
+*** Detect Operating System
 These functions identify what operating system is hosting Emacs, which can be handy for system specific configuration. I have run Emacs on Windows, OS X, Linux, and BSD. I currently use Linux most of the time, and OS X some of the time, so my configuration is geared towards those. Still, I may want to run my configuration on Windows or BSD in the future so I include those functions.
 
 #+BEGIN_SRC emacs-lisp
@@ -101,6 +102,12 @@ These functions identify what operating system is hosting Emacs, which can be ha
   (defun is-bsd-p
       ()
     (eq system-type 'gnu/kfreebsd))
+#+END_SRC
+*** Detect Internet Connection
+#+BEGIN_SRC emacs-lisp
+  (defun internet-up-p (&optional host)
+    (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
+                       (if host host "www.google.com"))))
 #+END_SRC
 ** Graphical Features
 *** Theme
@@ -2308,6 +2315,12 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
 #+END_SRC
 ** Reviews
 #+BEGIN_SRC emacs-lisp
+  (defun fetch-email-and-calendar ()
+    (when (internet-up-p)
+      (progn
+        (mu4e-update-mail-and-index t)
+        (org-gcal-sync))))
+
   (defun my-new-daily-review ()
     (interactive)
     (progn
@@ -2315,7 +2328,7 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
       (org-capture-finalize t)
       (org-speed-move-safe 'outline-up-heading)
       (org-narrow-to-subtree)
-      (mu4e-update-mail-and-index t)))
+      (fetch-email-and-calendar)))
 
   (defun my-new-weekly-review ()
     (interactive)
