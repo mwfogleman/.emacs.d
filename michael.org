@@ -1126,7 +1126,7 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program (cond ((is-mac-p) "open")
-                                         ((is-linux-p) "firefox-beta")))
+                                         ((is-linux-p) "firefox")))
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
