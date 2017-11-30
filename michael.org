@@ -474,15 +474,13 @@ For code folding, which is similar to narrowing and widening but different.
 
 #+BEGIN_SRC emacs-lisp
   (use-package hideshow
-    :config
-    (add-hook 'prog-mode-hook 'hs-minor-mode))
+    :hook ((prog-mode . hs-minor-mode)))
 
   (defun toggle-fold ()
     (interactive)
     (save-excursion
       (end-of-line)
       (hs-toggle-hiding)))
-
 #+END_SRC
 **** Toggle Read Only
 A lot of modes let you change from read-only to writeable, or backwards: files, Dired, and also wgrep-enabled modes. I use [[https://github.com/ggreer/the_silver_searcher][ag, the silver searcher]], instead of grep or ack. Anyways, this function decides which mode I am in and acts accordingly. That way, I need to remember just one key bind, C-x t r.
@@ -598,8 +596,9 @@ Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main fea
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
     :bind (("<f1>" . eshell))
+    :hook ((eshell-mode . with-editor-export-editor)
+           (eshell-mode . setup-company-eshell-autosuggest))
     :init
-    (add-hook 'eshell-mode-hook 'with-editor-export-editor)
     (setq eshell-banner-message "")
 
     (defun new-eshell ()
@@ -611,9 +610,7 @@ Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main fea
       (defun setup-company-eshell-autosuggest ()
         (with-eval-after-load 'company
           (setq-local company-backends '(company-eshell-autosuggest))
-          (setq-local company-frontends '(company-preview-frontend))))
-
-      (add-hook 'eshell-mode-hook 'setup-company-eshell-autosuggest)))
+          (setq-local company-frontends '(company-preview-frontend))))))
 #+END_SRC
 *** Shell Mode
 #+BEGIN_SRC emacs-lisp
@@ -689,7 +686,7 @@ For me, Dired is one of Emacs' (less-heralded) killer apps, along with Org-Mode 
       :init
       (dired-quick-sort-setup))
     (use-package dired-collapse
-      :config (add-hook 'dired-mode-hook #'dired-collapse-mode)))
+      :hook dired-mode))
 #+END_SRC
 
 Some of these suggestions are adapted from Xah Lee's [[http://ergoemacs.org/emacs/emacs_dired_tips.html][article on Dired]]. dired-find-alternate-file, which is bound to a, is disabled by default. <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory. Relatedly, I re-bind 'q' to my kill-this-buffer function below.
@@ -1498,8 +1495,8 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
       (sp-local-pair "<" ">")
       (sp-local-pair "[" "]"))
     (use-package rainbow-delimiters
-      :init
-      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
+      :hook prog-mode
+      :init))
 #+END_SRC
 *** Line Numbering (linum-relative)
 When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
