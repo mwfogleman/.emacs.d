@@ -1723,6 +1723,34 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
     :init
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
+***** org-autosort
+I wanted to be able to add a sort property to files or subtrees and get automatic autosorting. A user of /r/orgmode/ delivered [[https://www.reddit.com/r/orgmode/comments/7gqsif/is_it_possible_to_auto_sort_a_file_or_subtree_by/][a solution]].
+
+#+BEGIN_SRC emacs-lisp
+  (defun yant/org-entry-has-subentries ()
+    "Any entry with subheadings."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (save-excursion
+        (org-back-to-heading)
+        (forward-line 1)
+        (when (< (point) subtree-end)
+          (re-search-forward "^\*+ " subtree-end t)))))
+
+  (defun yant/org-entry-sort-by-property nil
+    "Apply property sort on current entry. The sorting is done using property with the name from value of :SORT: property.
+        For example, :SORT: DEADLINE will apply org-sort-entries by DEADLINE property on current entry."
+    (let ((property (org-entry-get (point) "SORT" 'INHERIT)))
+      (when (and (not (seq-empty-p property))
+                 (yant/org-entry-has-subentries))
+        (funcall #'org-sort-entries nil ?r nil nil property))))
+
+  (defun yant/org-buffer-sort-by-property (&optional MATCH)
+    "Sort all subtrees in buffer by the property, which is the value of their :SORT: property.
+          Only subtrees, matching MATCH are selected"
+    (org-map-entries #'yant/org-entry-sort-by-property MATCH 'file))
+
+  (add-hook 'org-mode-hook #'yant/org-buffer-sort-by-property)
+#+END_SRC
 **** Functionality
 ***** Agendas
 ****** Configuration
