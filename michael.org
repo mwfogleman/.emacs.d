@@ -1823,6 +1823,17 @@ Here are some hand-made agenda files.
 
   (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
 #+END_SRC
+******* Agenda Files
+The org-timeline functionality was recently removed. This code, adapted from [[https://www.reddit.com/r/orgmode/comments/7hps9j/rip_orgtimeline/dqt4pfs/][a comment on Reddit]], adds similar functionality back.
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-agenda-custom-commands
+             '("L" "Timeline"
+               ((agenda
+                 ""
+                 ((org-agenda-span 7)
+                  (org-agenda-prefix-format '((agenda . " %1c %?-12t% s"))))))))
+#+END_SRC
 ***** Capture Templates
 The first Emacs Lisp that I ever wrote was to configure my capture templates!
 
