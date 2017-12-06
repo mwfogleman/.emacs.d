@@ -2390,6 +2390,8 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
              ("w" . my-new-weekly-review)
              ("m" . my-new-monthly-review))
 
+  (f-touch "/tmp/reviews.org")
+
   (add-hook 'emacs-startup-hook #'my-new-daily-review)
 #+END_SRC
 ** Random Note
