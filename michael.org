@@ -1839,10 +1839,14 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
 
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
-        '(("p" "Process Email as TODO item" entry (file+headline "~/org/todo.org" "Inbox")
-           "* TODO %? %a\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
-          ("t" "TODO" entry (file+headline "~/org/todo.org" "Inbox")
+        '(("t" "TODO" entry (file+headline "~/org/todo.org" "Inbox")
            "* TODO %?\n")
+          ("p" "TODO: Process Email Message as Task" entry (file+headline "~/org/todo.org" "Inbox")
+           "* TODO %? %a\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
+          ("k" "Project Kickoff" entry (file+headline "~/org/todo.org" "Inbox")
+           (file "~/org/templates/projectkickoffchecklist.org"))
+          ("c" "Project Completion" entry (file+headline "~/org/todo.org" "Inbox")
+           (file "~/org/templates/projectcompletionchecklist.org"))
           ("u" "Ultraworking Session" entry (file+olp+datetree "~/org/ultraworking.org")
            (file "~/org/templates/ultraworkingtemplate.org"))
           ("d" "Review: Daily Review" entry (file+olp+datetree "/tmp/reviews.org")
