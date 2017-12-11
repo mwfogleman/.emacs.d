@@ -796,7 +796,7 @@ Recent files keeps track of which files you're using; I access it by rebinding f
       (setq ivy-display-style 'fancy
             ivy-height 4
             ivy-use-virtual-buffers t
-            ivy-initial-inputs-alist '((man . "^") (woman . "^")) ;; http://irreal.org/blog/?p=6512
+            ivy-initial-inputs-alist '() ;; http://irreal.org/blog/?p=6512
             enable-recursive-minibuffers t))
 #+END_SRC
 *** IDO
