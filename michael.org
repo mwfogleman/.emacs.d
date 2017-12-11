@@ -2260,7 +2260,9 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
   (use-package let-alist)
   (use-package tablist)
 
-  (use-package interleave)
+  (use-package interleave
+    :bind (:map launcher-map
+                ("i" . interleave-mode)))
 
   (use-package pdf-tools
     :pin manual
