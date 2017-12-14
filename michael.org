@@ -1648,7 +1648,9 @@ I use org-struct in mu4e. See above.
            ("C-c M-k" . org-cut-subtree)
            ("<down>" . org-insert-todo-heading)
            :map org-mode-map
-           ("C-c >" . org-time-stamp-inactive))
+           ("C-c >" . org-time-stamp-inactive)
+           :map org-agenda-mode-map
+           ("<menu>" . org-agenda-set-tags))
     :init
     (setq default-major-mode 'org-mode
           org-directory "~/org/"
