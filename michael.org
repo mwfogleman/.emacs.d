@@ -1102,10 +1102,11 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
     (setq selected-org-mode-map (make-sparse-keymap))
     (selected-global-mode 1)
     :bind (:map selected-keymap
-                ("d" . downcase-region)
                 ("i" . indent-region)
+                ("l" . downcase-region)
                 ("m" . apply-macro-to-region-lines)
                 ("q" . selected-off)
+                ("s" . sort-lines)
                 ("u" . upcase-region)
                 ("w" . count-words-region)
                 ("y" . yank)
