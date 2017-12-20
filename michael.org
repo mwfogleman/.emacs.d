@@ -1845,11 +1845,21 @@ The org-timeline functionality was recently removed. This code, adapted from [[h
 Thanks Sacha for this custom code! :)
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-agenda-custom-commands
-               '("o" "Open loops" agenda ""
-                 ((org-agenda-start-day "-2d")
-                  (org-agenda-span 4)
-                  (org-agenda-start-with-log-mode t))))
+  (defun my-org-agenda-recent-open-loops ()
+    (interactive)
+    (let ((org-agenda-start-with-log-mode t)
+          (org-agenda-use-time-grid nil))
+      (find-file "~/org/calendar/gcal.org")
+      (org-agenda-list nil (org-read-date nil nil "-2d") 4)
+      (beginend-org-agenda-mode-goto-beginning)))
+
+  (defun my-org-agenda-longer-open-loops ()
+    (interactive)
+    (let ((org-agenda-start-with-log-mode t)
+          (org-agenda-use-time-grid nil))
+      (find-file "~/org/calendar/gcal.org")
+      (org-agenda-list nil (org-read-date nil nil "-14d") 28)
+      (beginend-org-agenda-mode-goto-beginning)))
 #+END_SRC
 ***** Capture Templates
 The first Emacs Lisp that I ever wrote was to configure my capture templates!
