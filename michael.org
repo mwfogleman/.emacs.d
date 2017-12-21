@@ -1888,10 +1888,6 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
            "* TODO %?\n")
           ("e" "TODO: Process Email Message as Task" entry (file+headline "~/org/todo.org" "Inbox")
            "* TODO %? %a\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))")
-          ("k" "Project Kickoff" entry (file+headline "~/org/todo.org" "Inbox")
-           (file "~/org/templates/projectkickoffchecklist.org"))
-          ("c" "Project Completion" entry (file+headline "~/org/todo.org" "Inbox")
-           (file "~/org/templates/projectcompletionchecklist.org"))
           ("d" "Review: Daily Review" entry (file+olp+datetree "/tmp/reviews.org")
            (file "~/org/templates/dailyreviewtemplate.org"))
           ("w" "Review: Weekly Review" entry (file+olp+datetree "/tmp/reviews.org")
@@ -1903,9 +1899,7 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
           ("p" "5 Minute Journal: Evening" entry (file+olp+datetree "~/Dropbox/2 Areas/Journal/5minutejournal.org")
            (file "~/org/templates/5minjournal_evening.org"))
           ("s" "Someday / Maybe Idea" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
-           "* SOMEDAY %?\n")
-          ("u" "Ultraworking Session" entry (file+olp+datetree "~/org/ultraworking.org")
-           (file "~/org/templates/ultraworkingtemplate.org"))))
+           "* SOMEDAY %?\n")))
 #+END_SRC
 **** Clocking
 I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks.
