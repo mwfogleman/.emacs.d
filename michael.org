@@ -1686,14 +1686,14 @@ I use org-struct in mu4e. See above.
     (add-to-list 'org-global-properties
                  '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00")))
 #+END_SRC
-**** Packages
-***** org-modules
+*** Packages
+**** org-modules
 #+BEGIN_SRC emacs-lisp
   (require 'org-install)
   (setq org-modules '(org-habit org-info))
   (org-load-modules-maybe t)
 #+END_SRC
-****** org-habits
+***** org-habits
 I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] module.
 
 #+BEGIN_SRC emacs-lisp
@@ -1703,7 +1703,7 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
     (interactive)
     (org-set-property "STYLE" "habit"))
 #+END_SRC
-***** org-gcal
+**** org-gcal
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :bind (:map org-agenda-mode-map
@@ -1712,20 +1712,20 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
     :init
     (add-hook 'emacs-startup-hook #'org-gcal-sync))
 #+END_SRC
-***** org-cliplink
+**** org-cliplink
 =org-cliplink= lets you insert a link from your clipboard with a title that is fetched from the page's metadata.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-cliplink
     :bind ("C-x p i" . org-cliplink))
 #+END_SRC
-***** org-bullets
+**** org-bullets
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :init
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
-***** org-autosort
+**** org-autosort
 I wanted to be able to add a sort property to files or subtrees and get automatic autosorting. A user of /r/orgmode/ delivered [[https://www.reddit.com/r/orgmode/comments/7gqsif/is_it_possible_to_auto_sort_a_file_or_subtree_by/][a solution]].
 
 #+BEGIN_SRC emacs-lisp
@@ -1753,14 +1753,14 @@ I wanted to be able to add a sort property to files or subtrees and get automati
 
   (add-hook 'org-mode-hook #'yant/org-buffer-sort-by-property)
 #+END_SRC
-***** helm-org-rifle
+**** helm-org-rifle
 #+BEGIN_SRC emacs-lisp
   (use-package helm-org-rifle
     :bind ("C-c o" . helm-org-rifle))
 #+END_SRC
-**** Functionality
-***** Agendas
-****** Configuration
+*** Functionality
+**** Agendas
+***** Configuration
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-inhibit-startup nil
         org-agenda-show-future-repeats nil
@@ -1769,7 +1769,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
   (unbind-key "C-c [")
   (unbind-key "C-c ]")
 #+END_SRC
-****** Agenda Files
+***** Agenda Files
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files (quote ("~/org/todo.org"
                                  "~/org/refile-beorg.org"
@@ -1779,7 +1779,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
                                  ;; Specific Projects or Areas
                                  "~/Dropbox/2 Areas/Car/car.org")))
 #+END_SRC
-****** Open Org Agenda
+***** Open Org Agenda
 This function opens the agenda in full screen.
 
 #+BEGIN_SRC emacs-lisp
@@ -1797,12 +1797,12 @@ This function opens the agenda in full screen.
   (bind-key "<f5>" 'open-agenda)
   (bind-key "a" 'open-agenda launcher-map)
 #+END_SRC
-****** Close Other Windows
+***** Close Other Windows
 Agendas should be full screen!
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-agenda-finalize-hook (lambda () (delete-other-windows)))
 #+END_SRC
-****** Custom Agendas
+***** Custom Agendas
 Here are some hand-made agenda files.
 
 #+BEGIN_SRC emacs-lisp
@@ -1830,7 +1830,7 @@ Here are some hand-made agenda files.
 
   (bind-key "y" 'org-agenda-todo-yesterday org-agenda-mode-map)
 #+END_SRC
-******* Timeline
+****** Timeline
 The org-timeline functionality was recently removed. This code, adapted from [[https://www.reddit.com/r/orgmode/comments/7hps9j/rip_orgtimeline/dqt4pfs/][a comment on Reddit]], adds similar functionality back.
 
 #+BEGIN_SRC emacs-lisp
@@ -1841,7 +1841,7 @@ The org-timeline functionality was recently removed. This code, adapted from [[h
                  ((org-agenda-span 7)
                   (org-agenda-prefix-format '((agenda . " %1c %?-12t% s"))))))))
 #+END_SRC
-******* [[https://www.reddit.com/r/orgmode/comments/7kddjq/org_agenda_view_for_scheduled_events_t_2/][Open Loops]]
+****** [[https://www.reddit.com/r/orgmode/comments/7kddjq/org_agenda_view_for_scheduled_events_t_2/][Open Loops]]
 Thanks Sacha for this custom code! :)
 
 #+BEGIN_SRC emacs-lisp
@@ -1861,7 +1861,7 @@ Thanks Sacha for this custom code! :)
       (org-agenda-list 'file (org-read-date nil nil "-14d") 28)
       (beginend-org-agenda-mode-goto-beginning)))
 #+END_SRC
-***** Capture Templates
+**** Capture Templates
 The first Emacs Lisp that I ever wrote was to configure my capture templates!
 
 #+BEGIN_SRC emacs-lisp
@@ -1889,9 +1889,9 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
           ("u" "Ultraworking Session" entry (file+olp+datetree "~/org/ultraworking.org")
            (file "~/org/templates/ultraworkingtemplate.org"))))
 #+END_SRC
-***** Clocking
+**** Clocking
 I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks.
-****** Configuration
+***** Configuration
 #+BEGIN_SRC emacs-lisp
   (setq org-log-done 'time
         org-clock-idle-time nil
@@ -1905,7 +1905,7 @@ I really like Org-mode's clocking functionality. I mostly use it for keeping tim
         org-log-into-drawer t
         org-clock-into-drawer 1)
 #+END_SRC
-****** Key Bindings
+***** Key Bindings
 However, there are a *lot* of commands for clocking; this is a perfect instance for a Hydra.
 
 #+BEGIN_SRC emacs-lisp
@@ -1941,14 +1941,14 @@ However, there are a *lot* of commands for clocking; this is a perfect instance 
 
   (bind-key "C-c w" 'hydra-org-clock/body)
 #+END_SRC
-***** Drag and Drop
+**** Drag and Drop
 #+BEGIN_SRC emacs-lisp
 (use-package org-download)
 #+END_SRC
-***** Exporting
+**** Exporting
 I often want to export Org-Mode documents into other formats. This section contains some defaults and packages that have made that workflow easier for me.
 
-****** Export Defaults
+***** Export Defaults
 Org's export defaults to inserting a TOC and using section numbers, but usually I don't want or need those things. (It can make delieverables more attractive, though, so I make sure to put a hint in here to remind me about how to change that on a file-by-file basis.)
 
 #+BEGIN_SRC emacs-lisp
@@ -1959,7 +1959,7 @@ Org's export defaults to inserting a TOC and using section numbers, but usually 
 To override, add to the #+OPTIONS: org header for a particular file:
 - To add in a table of contents: =toc:4= (to a particular depth) or =toc:t= (to all depths)
 - To show the section numbers, set =num:t=
-****** Preview Org Exported HTML
+***** Preview Org Exported HTML
 I don't much like Markdown, but many Markdown programs (ando other text formats and editors) have a feature where you can preview your formatting. This package adds this functionality for org-mode, using eww, the plain text browser built into Emacs.
 
 Once in the eww buffer, hit =&= (=eww-browse-with-external-browser=) to view the buffer in your external browser of choice.
@@ -1969,7 +1969,7 @@ Once in the eww buffer, hit =&= (=eww-browse-with-external-browser=) to view the
     :commands org-preview-html/preview
     :after org)
 #+END_SRC
-****** Formatted copy commands for org-mode
+***** Formatted copy commands for org-mode
 =ox-clip= lets you select a part of an Org-Mode buffer, run =ox-clip-formatted-copy=. I needed to install =xclip= on Arch Linux to get this to work; it looks like you don't need to install packages to get this to run on Windows or OS X. You also need to bind ox-clip; I chose =C-c x=.
 
 #+BEGIN_SRC emacs-lisp
@@ -1989,14 +1989,14 @@ Once in the eww buffer, hit =&= (=eww-browse-with-external-browser=) to view the
                :map selected-org-mode-map
                ("x" . ox-clip-dwim)))
 #+END_SRC
-***** ID's
+**** ID's
 By using unique ID's for links in Org-mode, links will work even if you move them across files.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id
         org-clone-delete-id t)
 #+END_SRC
-***** Movement (org-teleport)
+**** Movement (org-teleport)
 This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org-teleport-headlines/][John Kitchin]].
 
 #+BEGIN_SRC emacs-lisp
@@ -2062,14 +2062,14 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
   (bind-key "T" 'org-teleport selected-org-mode-map)
 #+END_SRC
 
-***** Refiling
+**** Refiling
 #+BEGIN_SRC emacs-lisp
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9)))
         org-refile-use-cache t
         org-refile-use-outline-path t)
 #+END_SRC
-***** Speed Commands
+**** Speed Commands
 #+BEGIN_SRC emacs-lisp
   (setq org-use-speed-commands t
         org-speed-commands-user
@@ -2100,14 +2100,14 @@ Speed commands are really useful, but I often want to make use of them when I'm 
 
   (bind-key "C-c s" 'org-go-speed)
 #+END_SRC
-***** Structure Templates
+**** Structure Templates
 Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-structure-template-alist '("g" "# -*- mode:org; epa-file-encrypt-to: (\"michaelwfogleman@gmail.com\") -*-"))
   (add-to-list 'org-structure-template-alist '("l" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC" "<src lang=\"emacs-lisp\">\n?\n</src>"))
 #+END_SRC
-***** Tagging
+**** Tagging
 #+BEGIN_SRC emacs-lisp
   (setq org-tag-alist '(;; Context
                         ("@work" . ?w)
@@ -2122,8 +2122,8 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
                         ("Average" . ?2)
                         ("Easy" . ?3)))
 #+END_SRC
-**** Other
-***** Easy Bind To Open Todos
+*** Other
+**** Easy Bind To Open Todos
 #+BEGIN_SRC emacs-lisp
   (defun open-todo-file ()
     (interactive)
@@ -2131,7 +2131,7 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
 
   (bind-key "C-c t" 'open-todo-file)
 #+END_SRC
-***** Prettify Symbols
+**** Prettify Symbols
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook
               (lambda ()
