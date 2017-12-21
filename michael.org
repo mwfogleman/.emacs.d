@@ -1758,6 +1758,24 @@ I wanted to be able to add a sort property to files or subtrees and get automati
   (use-package helm-org-rifle
     :bind ("C-c o" . helm-org-rifle))
 #+END_SRC
+**** yankpad
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet)
+
+  (use-package yankpad
+    :init
+    (setq yankpad-file "~/org/templates/yankpad.org")
+    (bind-keys :prefix-map yank-map
+               :prefix "C-c y"
+               ("c" . yankpad-set-category)
+               ("e" . yankpad-edit)
+               ("i" . yankpad-insert)
+               ("m" . yankpad-map)
+               ("r" . yankpad-reload)
+               ("x" . yankpad-expand))
+    :config
+    (add-to-list 'company-backends #'company-yankpad))
+#+END_SRC
 *** Functionality
 **** Agendas
 ***** Configuration
