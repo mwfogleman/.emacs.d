@@ -2164,85 +2164,88 @@ Messages that Emacs cannot read can be read in the browser with the "aV" shortcu
 See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching-files-with-dired.html][Attaching files with dired]].
 
 #+BEGIN_SRC emacs-lisp
-  (use-package mu4e
-    :if (is-linux-p)
-    :load-path "/usr/share/emacs/site-lisp/mu4e/"
-    :ensure f
-    :bind (:map mu4e-headers-mode-map
-           ("C-c o" . org-mu4e-store-and-capture)
-           :map mu4e-view-mode-map
-           ("C-c o" . org-mu4e-store-and-capture))
-    :init
-    ;;store org-mode links to messages
-    (require 'org-mu4e)
-    (require 'gnus-dired)
+    (defvar my-mu4e-dir (cond
+                         ((is-mac-p) "/usr/local/Cellar/mu/0.9.18_1/share/emacs/site-lisp/mu/mu4e") ;; brew install mu --with-emacs
+                         ((is-linux-p) "/usr/share/emacs/site-lisp/mu4e/")))
 
-    (setq mu4e-maildir (expand-file-name "~/mbsync")
-          mu4e-drafts-folder "/[Gmail].Drafts"
-          mu4e-sent-folder   "/[Gmail].Sent Mail"
-          mu4e-trash-folder  "/[Gmail].Trash"
-          mu4e-get-mail-command "mbsync gmail"
-          mu4e-update-interval 1800
-          ;; Rename files when moving, NEEDED FOR MBSYNC
-          mu4e-change-filenames-when-moving t
-          mu4e-maildir-shortcuts
-          '( ("/INBOX"               . ?i)
-             ("/[Gmail].Sent Mail"   . ?s)
-             ("/[Gmail].Trash"       . ?t)
-             ("/[Gmail].All Mail"    . ?a))
-          mu4e-headers-skip-duplicates t
-          mu4e-view-show-images t
-          mu4e-view-image-max-width 800
-          mu4e-compose-signature
-          (concat
-           "Michael Fogleman\n"
-           "http://www.mwfogleman.com\n")
-          mu4e-sent-messages-behavior 'delete
-          message-kill-buffer-on-exit t
-          mu4e-headers-skip-duplicates t
-          ;;store link to message if in header view, not to header query
-          org-mu4e-link-query-in-headers-mode nil
-          gnus-dired-mail-mode 'mu4e-user-agent)
-    (use-package smtpmail
+    (use-package mu4e
+      :load-path my-mu4e-dir
+      :ensure f
+      :bind (:map mu4e-headers-mode-map
+                  ("C-c o" . org-mu4e-store-and-capture)
+                  :map mu4e-view-mode-map
+                  ("C-c o" . org-mu4e-store-and-capture))
       :init
-      (setq message-send-mail-function 'smtpmail-send-it
-            smtpmail-stream-type 'starttls
-            smtpmail-default-smtp-server "smtp.gmail.com"
-            smtpmail-smtp-server "smtp.gmail.com"
-            smtpmail-smtp-service 587
-            smtpmail-queue-mail  nil
-            ;; Use mu mkdir ~/mbsync/queue to set up first
-            smtpmail-queue-dir  "/home/michael/mbsync/queue/cur"))
+      ;; store org-mode links to messages
+      (require 'org-mu4e)
+      (require 'gnus-dired)
 
-    ;; make the `gnus-dired-mail-buffers' function also work on
-    ;; message-mode derived modes, such as mu4e-compose-mode
-    (defun gnus-dired-mail-buffers ()
-      "Return a list of active message buffers."
-      (let (buffers)
-        (save-current-buffer
-          (dolist (buffer (buffer-list t))
-            (set-buffer buffer)
-            (when (and (derived-mode-p 'message-mode)
-                       (null message-sent-message-via))
-              (push (buffer-name buffer) buffers))))
-        (nreverse buffers)))
+      (setq mu4e-maildir (expand-file-name "~/mbsync")
+            mu4e-drafts-folder "/[Gmail].Drafts"
+            mu4e-sent-folder   "/[Gmail].Sent Mail"
+            mu4e-trash-folder  "/[Gmail].Trash"
+            mu4e-get-mail-command "mbsync gmail"
+            mu4e-update-interval 1800
+            ;; Rename files when moving, NEEDED FOR MBSYNC
+            mu4e-change-filenames-when-moving t
+            mu4e-maildir-shortcuts
+            '( ("/INBOX"               . ?i)
+               ("/[Gmail].Sent Mail"   . ?s)
+               ("/[Gmail].Trash"       . ?t)
+               ("/[Gmail].All Mail"    . ?a))
+            mu4e-headers-skip-duplicates t
+            mu4e-view-show-images t
+            mu4e-view-image-max-width 800
+            mu4e-compose-signature
+            (concat
+             "Michael Fogleman\n"
+             "http://www.mwfogleman.com\n")
+            mu4e-sent-messages-behavior 'delete
+            message-kill-buffer-on-exit t
+            mu4e-headers-skip-duplicates t
+            ;;store link to message if in header view, not to header query
+            org-mu4e-link-query-in-headers-mode nil
+            gnus-dired-mail-mode 'mu4e-user-agent)
+      (use-package smtpmail
+        :init
+        (setq message-send-mail-function 'smtpmail-send-it
+              smtpmail-stream-type 'starttls
+              smtpmail-default-smtp-server "smtp.gmail.com"
+              smtpmail-smtp-server "smtp.gmail.com"
+              smtpmail-smtp-service 587
+              smtpmail-queue-mail  nil
+              ;; Use mu mkdir ~/mbsync/queue to set up first
+              smtpmail-queue-dir  "/home/michael/mbsync/queue/cur"))
 
-    (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+      ;; make the `gnus-dired-mail-buffers' function also work on
+      ;; message-mode derived modes, such as mu4e-compose-mode
+      (defun gnus-dired-mail-buffers ()
+        "Return a list of active message buffers."
+        (let (buffers)
+          (save-current-buffer
+            (dolist (buffer (buffer-list t))
+              (set-buffer buffer)
+              (when (and (derived-mode-p 'message-mode)
+                         (null message-sent-message-via))
+                (push (buffer-name buffer) buffers))))
+          (nreverse buffers)))
 
-    (defun mu4e-open-email-inbox ()
-      "Update and open my email inbox. For interactive use in workflows."
-      (interactive)
-      (progn
-        (mu4e-update-mail-and-index t)
-        (mu4e~headers-jump-to-maildir "/INBOX")))
+      (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 
-    (bind-key "C-c e" 'mu4e-open-email-inbox)
+      (defun mu4e-open-email-inbox ()
+        "Update and open my email inbox. For interactive use in workflows."
+        (interactive)
+        (progn
+          (mu4e-update-mail-and-index t)
+          (mu4e~headers-jump-to-maildir "/INBOX")))
 
-    :config
-    (add-to-list 'mu4e-view-actions
-                 '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-    (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
-    (add-hook 'mu4e-compose-mode-hook 'auto-fill-mode))
+      (bind-key "C-c e" 'mu4e-open-email-inbox)
+
+      :config
+      (add-to-list 'mu4e-view-actions
+                   '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+      (add-hook 'mu4e-compose-mode-hook 'turn-on-orgstruct)
+      (add-hook 'mu4e-compose-mode-hook 'auto-fill-mode))
 #+END_SRC
 ** Notes and Reference (Evernote)
 #+BEGIN_SRC emacs-lisp
