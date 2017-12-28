@@ -1496,8 +1496,7 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
       (sp-local-pair "<" ">")
       (sp-local-pair "[" "]"))
     (use-package rainbow-delimiters
-      :hook prog-mode
-      :init))
+      :hook (prog-mode . rainbow-delimiters-mode)))
 #+END_SRC
 *** Line Numbering (linum-relative)
 When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
