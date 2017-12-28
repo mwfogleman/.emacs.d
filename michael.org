@@ -1771,9 +1771,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
                ("i" . yankpad-insert)
                ("m" . yankpad-map)
                ("r" . yankpad-reload)
-               ("x" . yankpad-expand))
-    :config
-    (add-to-list 'company-backends #'company-yankpad))
+               ("x" . yankpad-expand)))
 #+END_SRC
 *** Functionality
 **** Agendas
