@@ -643,7 +643,6 @@ For me, Dired is one of Emacs' (less-heralded) killer apps, along with Org-Mode 
            ("<return>" . dired-find-alternate-file)
            ("'" . wdired-change-to-wdired-mode)
            ("s-/" . dired-filter-mode))
-    :init
     :config
     (bind-key "^" (lambda () (interactive) (find-alternate-file "..")) dired-mode-map)
     (put 'dired-find-alternate-file 'disabled nil)
