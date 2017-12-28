@@ -2074,7 +2074,7 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
 #+BEGIN_SRC emacs-lisp
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9)))
-        org-refile-use-cache t
+        ;; org-refile-use-cache t
         org-refile-use-outline-path t)
 #+END_SRC
 **** Speed Commands
