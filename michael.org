@@ -1394,7 +1394,7 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
       (projectile-run-eshell))
     (def-projectile-commander-method ?f
       "Find a project directory in other window."
-      (counsel-projectile-find-file))
+      (projectile-find-file))
     (def-projectile-commander-method ?F
       "Find project file in other window."
       (projectile-find-file-other-window))
