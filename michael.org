@@ -565,12 +565,14 @@ The default scratch buffer in Emacs uses =lisp-interaction-mode=, which is great
              ("e" . kmacro-edit-macro)
              ("i" . kmacro-insert-counter)
              ("I" . insert-kbd-macro)
-             ("k" . kmacro-end-or-call-macro-repeat)
+             ("K" . kmacro-end-or-call-macro-repeat)
              ("n" . kmacro-cycle-ring-next)
              ("N" . kmacro-name-last-macro)
              ("p" . kmacro-cycle-ring-previous)
              ("r" . apply-macro-to-region-lines)
-             ("s" . kmacro-set-counter))
+             ("c" . kmacro-set-counter)
+             ("s" . kmacro-start-macro)
+             ("t" . kmacro-end-or-call-macro))
 #+END_SRC
 * System
 All of my packages for interacting with my computer.
