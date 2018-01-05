@@ -2488,11 +2488,14 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
 #+BEGIN_SRC emacs-lisp
   (use-package org-randomnote
     :bind (:map launcher-map
-                ("r" . org-randomnote))
+                ("R" . org-randomnote))
     :init
-    (setq org-randomnote-candidates '("~/org/todo.org")))
+    (setq org-randomnote-candidates '("~/org/todo.org"))
+    (defun randomnote-osx ()
+      (interactive)
+      (when (is-mac-p) (shell-command "open -a randomnote.app")))
+    (bind-key "r" 'randomnote-osx 'launcher-map))
 #+END_SRC
-
 ** Progressive Summarization
 Progressive Summarization is the key methodology used for capturing reference materials in a useful way. The idea is that you annotate and recreate your notes with optional layers, added as needed:
 
