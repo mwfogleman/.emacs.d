@@ -2295,6 +2295,10 @@ See the mu4e user manual re: [[http://www.djcbsoftware.nl/code/mu/mu4e/Attaching
              ("s" . geeknote-show)
              ("r" . geeknote-remove)
              ("m" . geeknote-move))
+
+  (defun open-evernote-osx ()
+    (interactive)
+    (when (is-mac-p) (shell-command "open -a evernote.app")))
 #+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
