@@ -1928,7 +1928,7 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
            (file "~/org/templates/dailyreviewtemplate.org"))
           ("w" "Review: Weekly Review" entry (file+olp+datetree "/tmp/reviews.org")
            (file "~/org/templates/weeklyreviewtemplate.org"))
-          ("m" "Review: Monthly Review" entry (file+olp+datetree "~/Dropbox/2 Areas/Journal/reviews.org")
+          ("m" "Review: Monthly Review" entry (file+olp+datetree "/tmp/reviews.org")
            (file "~/org/templates/monthlyreviewtemplate.org"))
           ("a" "5 Minute Journal: Morning" entry (file+olp+datetree "~/Dropbox/2 Areas/Journal/5minutejournal.org")
            (file "~/org/templates/5minjournal_morning.org"))
