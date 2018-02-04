@@ -2419,6 +2419,14 @@ A project is "any outcome that will take more than one action step to complete."
     (interactive)
     (go-to-projects)
     (org-narrow-to-subtree)
+    (org-sort-entries t ?p)
+    (org-columns))
+
+  (defun project-deadline-overview ()
+    (interactive)
+    (go-to-projects)
+    (org-narrow-to-subtree)
+    (org-sort-entries t ?d)
     (org-columns))
 #+END_SRC
 
