@@ -1930,8 +1930,10 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
            (file "~/org/templates/weeklyreviewtemplate.org"))
           ("m" "Review: Monthly Review" entry (file+olp+datetree "/tmp/reviews.org")
            (file "~/org/templates/monthlyreviewtemplate.org"))
-          ("j" "Journal" entry (file+datetree "~/org/journal.org.gpg")
+          ("j" "Journal" entry (file+datetree "~/Dropbox/2 Areas/Journal/journal.org.gpg")
            "* %?")
+          ("c" "Decision Journal" entry (file+datetree "~/Dropbox/2 Areas/Journal/decisionjournal.org")
+           (file "~/org/templates/decisionjournal.org"))
           ("s" "Someday / Maybe Idea" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
            "* SOMEDAY %?\n")))
 #+END_SRC
