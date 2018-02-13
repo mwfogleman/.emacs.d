@@ -245,6 +245,22 @@ Some features and settings are disabled by default; this is sane behavior for ne
   (put 'set-goal-column 'disabled nil)
 #+END_SRC
 *** Casing
+The following advice makes the upcase/downcase/capitalize-word functions more usable. Thanks, [[http://oremacs.com/2014/12/23/upcase-word-you-silly/][Oleh]]!
+
+#+BEGIN_SRC emacs-lisp
+  (defadvice upcase-word (before upcase-word-advice activate)
+    (unless (looking-back "\\b")
+      (backward-word)))
+
+  (defadvice downcase-word (before downcase-word-advice activate)
+    (unless (looking-back "\\b")
+      (backward-word)))
+
+  (defadvice capitalize-word (before capitalize-word-advice activate)
+    (unless (looking-back "\\b")
+      (backward-word)))
+#+END_SRC
+
 Also, unbind downcase region, which has plagued my documents for eons.
 
 #+BEGIN_SRC emacs-lisp
