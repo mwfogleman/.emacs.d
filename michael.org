@@ -745,19 +745,19 @@ Recent files keeps track of which files you're using; I access it by rebinding f
 *** Ivy and Swiper
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
-      :bind (("C-s" . swiper)
-             ("C-r" . swiper)
-             ("C-c C-r" . ivy-resume)
-             :map ivy-minibuffer-map
-             ("C-SPC" . ivy-restrict-to-matches))
-      :init
-      (ivy-mode 1)
-      :config
-      (setq ivy-display-style 'fancy
-            ivy-height 4
-            ivy-use-virtual-buffers t
-            ivy-initial-inputs-alist '() ;; http://irreal.org/blog/?p=6512
-            enable-recursive-minibuffers t))
+    :bind (("C-s" . swiper)
+           ("C-r" . swiper)
+           ("C-c C-r" . ivy-resume)
+           :map ivy-minibuffer-map
+           ("C-SPC" . ivy-restrict-to-matches))
+    :init
+    (ivy-mode 1)
+    :config
+    (setq ivy-display-style 'fancy
+          ivy-height 4
+          ivy-use-virtual-buffers t
+          ivy-initial-inputs-alist () ;; http://irreal.org/blog/?p=6512
+          enable-recursive-minibuffers t))
 #+END_SRC
 *** IDO
 #+BEGIN_SRC emacs-lisp
