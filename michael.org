@@ -245,63 +245,6 @@ Some features and settings are disabled by default; this is sane behavior for ne
   (put 'set-goal-column 'disabled nil)
 #+END_SRC
 *** Casing
-The following makes the upcase/downcase/capitalize-word functions more usable. This was originally based on [[http://oremacs.com/2014/12/23/upcase-word-you-silly/][this article]] by Oleh (abo-abo). I found that his code snippets threw errors, as looking-back is supposed to be called with multiple arguments. He seems to have found that problem, and replaced it with the following [[https://github.com/abo-abo/oremacs][in his configuration]] (although I have different binds).
-
-#+BEGIN_SRC emacs-lisp
-  (defun char-upcasep (letter)
-    (eq letter (upcase letter)))
-
-  ;;;###autoload
-  (defun capitalize-word-toggle ()
-    (interactive)
-    (let ((start
-           (car
-            (save-excursion
-              (backward-word)
-              (bounds-of-thing-at-point 'symbol)))))
-      (if start
-          (save-excursion
-            (goto-char start)
-            (funcall
-             (if (char-upcasep (char-after))
-                 'downcase-region
-               'upcase-region)
-             start (1+ start)))
-        (capitalize-word -1))))
-
-  ;;;###autoload
-  (defun upcase-word-toggle ()
-    (interactive)
-    (let ((bounds (bounds-of-thing-at-point 'symbol))
-          (regionp
-           (if (eq this-command last-command)
-               (get this-command 'regionp)
-             (put this-command 'regionp nil)))
-          beg end)
-      (cond
-       ((or (region-active-p) regionp)
-        (setq beg (region-beginning)
-              end (region-end))
-        (put this-command 'regionp t))
-       (bounds
-        (setq beg (car bounds)
-              end (cdr bounds)))
-       (t
-        (setq beg (point)
-              end (1+ beg))))
-      (save-excursion
-        (goto-char (1- beg))
-        (and (re-search-forward "[A-Za-z]" end t)
-             (funcall (if (char-upcasep (char-before))
-                          'downcase-region
-                        'upcase-region)
-                      beg end)))))
-
-  (bind-keys ("M-c" . capitalize-word-toggle)
-             ("M-l" . upcase-word-toggle)
-             ("M-u" . upcase-word-toggle))
-#+END_SRC
-
 Also, unbind downcase region, which has plagued my documents for eons.
 
 #+BEGIN_SRC emacs-lisp
