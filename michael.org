@@ -806,7 +806,8 @@ Configurations via [[https://oremacs.com/2017/12/27/company-numbers/][Using digi
     :init
     (global-company-mode 1)
     :config
-    (setq company-show-numbers t)
+    (setq company-show-numbers t
+          company-tooltip-align-annotations t)
 
     (let ((map company-active-map))
       (mapc
@@ -1240,6 +1241,20 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (use-package flycheck-package
     :config
     (flycheck-package-setup))
+#+END_SRC
+*** Rust
+#+BEGIN_SRC emacs-lisp
+  (use-package rust-mode)
+
+
+  (use-package racer
+    :hook ((rust-mode . racer-mode)
+           (racer-mode . eldoc-mode)
+           (racer-mode . company-mode))
+    :bind (:map rust-mode-map
+                ("TAB" . company-indent-or-complete-common)))
+
+  (use-package toml-mode)
 #+END_SRC
 ** Development Tools
 *** Version Control (Git)
