@@ -1617,6 +1617,10 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
 #+END_SRC
 * Words and Numbers
 "GNU Office Suite Pro Edition," coming to a cubicle near you!
+** Text
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+#+END_SRC
 ** Org Mode
 *** Quotations
 #+begin_quote
