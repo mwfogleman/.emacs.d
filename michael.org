@@ -2230,28 +2230,6 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
     (when (is-mac-p)
       (add-to-list 'exec-path "/usr/local/texlive/2016basic/bin/universal-darwin")))
 #+END_SRC
-** PDF (pdf-tools)
-#+BEGIN_SRC emacs-lisp
-  (use-package let-alist)
-  (use-package tablist)
-
-  (use-package interleave
-    :bind (:map launcher-map
-                ("i" . interleave-mode)))
-
-  (use-package pdf-tools
-    :pin manual
-    :ensure f
-    :bind (:map pdf-view-mode-map
-                ("C-s" . isearch-forward)
-                ("h" . pdf-annot-add-highlight-markup-annotation)
-                ("t" . pdf-annot-add-text-annotation)
-                ("D" . pdf-annot-delete))
-    :config
-    (pdf-tools-install)
-    (setq-default pdf-view-display-size 'fit-page)
-    (setq pdf-view-resize-factor 1.1))
-#+END_SRC
 ** CSV
 #+BEGIN_SRC emacs-lisp
   (use-package csv-mode
