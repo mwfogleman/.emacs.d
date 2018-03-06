@@ -2322,11 +2322,8 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
 #+END_SRC
 ** Reviews
 #+BEGIN_SRC emacs-lisp
-  (defun fetch-email-and-calendar ()
-    (when (internet-up-p)
-      (progn
-        (mu4e-update-mail-and-index t)
-        (org-gcal-fetch))))
+  (defun fetch-calendar ()
+    (when (internet-up-p) (org-gcal-fetch)))
 
   (defun my-new-daily-review ()
     (interactive)
@@ -2335,7 +2332,8 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
       (org-capture-finalize t)
       (org-speed-move-safe 'outline-up-heading)
       (org-narrow-to-subtree)
-      (fetch-email-and-calendar)))
+      (fetch-calendar)
+      (org-clock-in)))
 
   (defun my-new-weekly-review ()
     (interactive)
@@ -2343,7 +2341,8 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
       (org-capture nil "w")
       (org-capture-finalize t)
       (org-speed-move-safe 'outline-up-heading)
-      (org-narrow-to-subtree)))
+      (org-narrow-to-subtree)
+      (org-clock-in)))
 
   (defun my-new-monthly-review ()
     (interactive)
@@ -2351,7 +2350,8 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
       (org-capture nil "m")
       (org-capture-finalize t)
       (org-speed-move-safe 'outline-up-heading)
-      (org-narrow-to-subtree)))
+      (org-narrow-to-subtree)
+      (org-clock-in)))
 
   (bind-keys :prefix-map review-map
              :prefix "C-c r"
