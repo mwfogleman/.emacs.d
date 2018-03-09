@@ -1617,11 +1617,7 @@ Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-comman
 #+END_SRC
 * Words and Numbers
 "GNU Office Suite Pro Edition," coming to a cubicle near you!
-** Text
-#+BEGIN_SRC emacs-lisp
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-#+END_SRC
-** Org Mode
+** Writing (Org Mode)
 *** Quotations
 #+begin_quote
 Org-mode does outlining, note-taking, hyperlinks, spreadsheets, TODO lists, project planning, GTD, HTML and LaTeX authoring, all with plain text files in Emacs.
@@ -2173,6 +2169,28 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
                 (push '("DONE"  . ?✓) prettify-symbols-alist)
                 (push '("CANCELLED"  . ?✘) prettify-symbols-alist)
                 (push '("QUESTION"  . ??) prettify-symbols-alist)))
+#+END_SRC
+**** Visual Line Mode
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+#+END_SRC
+**** Repeated Words
+From an appendix in Intro to Emacs Lisp.
+#+BEGIN_SRC emacs-lisp
+  (defun the-the ()
+    "Search forward for for a duplicated word."
+    (interactive)
+    (message "Searching for for duplicated words ...")
+    (push-mark)
+    ;; This regexp is not perfect
+    ;; but is fairly good over all:
+    (if (re-search-forward
+         "\\b\\([^@ \n\t]+\\)[ \n\t]+\\1\\b" nil 'move)
+        (message "Found duplicated word.")
+      (message "End of buffer")))
+
+  ;; Bind 'the-the' to  C-c \
+  (bind-key "C-c \\" 'the-the)
 #+END_SRC
 ** Notes and Reference (Evernote)
 #+BEGIN_SRC emacs-lisp
