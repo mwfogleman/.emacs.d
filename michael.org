@@ -2360,6 +2360,7 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
       (org-capture-finalize t)
       (org-speed-move-safe 'outline-up-heading)
       (org-narrow-to-subtree)
+      (fetch-calendar)
       (org-clock-in)))
 
   (defun my-new-monthly-review ()
@@ -2369,6 +2370,7 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
       (org-capture-finalize t)
       (org-speed-move-safe 'outline-up-heading)
       (org-narrow-to-subtree)
+      (fetch-calendar)
       (org-clock-in)))
 
   (bind-keys :prefix-map review-map
