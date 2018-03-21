@@ -1256,6 +1256,10 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 
   (use-package toml-mode)
 #+END_SRC
+*** HTML
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c C-l" 'html-href-anchor html-mode-map)
+#+END_SRC
 ** Development Tools
 *** Version Control (Git)
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
