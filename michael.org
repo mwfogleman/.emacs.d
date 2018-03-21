@@ -2208,6 +2208,14 @@ From an appendix in Intro to Emacs Lisp.
   (defun open-evernote-osx ()
     (interactive)
     (when (is-mac-p) (shell-command "open -a evernote.app")))
+
+  (defun my-insert-space ()
+    (interactive)
+    (progn
+      (call-interactively 'avy-goto-char)
+      (insert-char ?\s)))
+
+  (bind-key "M-`" 'my-insert-space)
 #+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
