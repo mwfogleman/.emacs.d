@@ -1096,6 +1096,7 @@ Adapted from the article [[http://pragmaticemacs.com/emacs/move-through-edit-poi
                 ("l" . downcase-region)
                 ("m" . apply-macro-to-region-lines)
                 ("q" . selected-off)
+                ("r" . reverse-region)
                 ("s" . sort-lines)
                 ("u" . upcase-region)
                 ("w" . count-words-region)
