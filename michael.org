@@ -249,15 +249,15 @@ The following advice makes the upcase/downcase/capitalize-word functions more us
 
 #+BEGIN_SRC emacs-lisp
   (defadvice upcase-word (before upcase-word-advice activate)
-    (unless (looking-back "\\b")
+    (unless (looking-back "\\b" nil)
       (backward-word)))
 
   (defadvice downcase-word (before downcase-word-advice activate)
-    (unless (looking-back "\\b")
+    (unless (looking-back "\\b" nil)
       (backward-word)))
 
   (defadvice capitalize-word (before capitalize-word-advice activate)
-    (unless (looking-back "\\b")
+    (unless (looking-back "\\b" nil)
       (backward-word)))
 #+END_SRC
 
