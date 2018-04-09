@@ -2162,6 +2162,10 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
                         ))
 #+END_SRC
 *** Other
+**** Sentence-End
+#+BEGIN_SRC emacs-lisp
+(setq sentence-end-double-space nil)
+#+END_SRC
 **** Easy Bind To Open Todos
 #+BEGIN_SRC emacs-lisp
   (defun open-todo-file ()
