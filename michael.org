@@ -2276,34 +2276,6 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
   (use-package csv-mode
     :mode ("\\.csv$" . csv-mode))
 #+END_SRC
-** RSS Feeds (Elfeed)
-Mark all feeds as read from [[http://manuel-uberti.github.io/programming/2017/08/01/elfeed/][Manuel Ubeti]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package elfeed
-    :bind (:map elfeed-search-mode-map
-                ("g" . elfeed-update)
-                ("R" . my-elfeed-mark-all-read)
-                ("?" . discover-my-major)
-
-                :map elfeed-show-mode-map
-                ("o" . ace-link-eww))
-    :config
-    (defun my-elfeed ()
-      (interactive)
-      (progn
-        (elfeed)
-        (elfeed-update)))
-
-    (defun my-elfeed-mark-all-read ()
-      "Mark all feeds as read."
-      (interactive)
-      (call-interactively 'mark-whole-buffer)
-      (elfeed-search-untag-all-unread)
-      (kill-this-buffer))
-
-    (bind-key "C-c f" 'my-elfeed))
-#+END_SRC
 * Organization (GTD and PARA)
 ** Projects
 A project is "any outcome that will take more than one action step to complete." As a result of implementing Tiago Forte's "PARA" system, I can ensure that I always have an up to date project list.
