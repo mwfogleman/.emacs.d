@@ -1715,7 +1715,10 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
                 ;; "r" is bound to org-agenda-redo
                 ("g" . org-gcal-fetch))
     :init
-    (add-hook 'emacs-startup-hook #'org-gcal-fetch))
+    (add-hook 'emacs-startup-hook #'org-gcal-fetch)
+
+    (defun fetch-calendar ()
+      (when (internet-up-p) (org-gcal-fetch))))
 #+END_SRC
 **** org-cliplink
 =org-cliplink= lets you insert a link from your clipboard with a title that is fetched from the page's metadata.
@@ -1870,6 +1873,7 @@ Thanks Sacha for this custom code! :)
     (let ((org-agenda-start-with-log-mode t)
           (org-agenda-use-time-grid nil)
           (org-agenda-files '("~/org/calendar/gcal.org")))
+      (fetch-calendar)
       (org-agenda-list nil (org-read-date nil nil "-2d") 4)
       (beginend-org-agenda-mode-goto-beginning)))
 
@@ -1878,6 +1882,7 @@ Thanks Sacha for this custom code! :)
     (let ((org-agenda-start-with-log-mode t)
           (org-agenda-use-time-grid nil)
           (org-agenda-files '("~/org/calendar/gcal.org")))
+      (fetch-calendar)
       (org-agenda-list 'file (org-read-date nil nil "-14d") 28)
       (beginend-org-agenda-mode-goto-beginning)))
 #+END_SRC
@@ -2329,9 +2334,6 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
 #+END_SRC
 ** Reviews
 #+BEGIN_SRC emacs-lisp
-  (defun fetch-calendar ()
-    (when (internet-up-p) (org-gcal-fetch)))
-
   (defun my-new-daily-review ()
     (interactive)
     (progn
