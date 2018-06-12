@@ -2108,6 +2108,15 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
         ;; org-refile-use-cache t
         org-refile-use-outline-path t)
 #+END_SRC
+
+Exclude completed tasks from refile targets, from [[https://michael.englehorn.com/config.html][Michael Englehorn's Emacs Configuration]].
+#+BEGIN_SRC emacs-lisp
+  (defun bh/verify-refile-target ()
+    "Exclude todo keywords with a done state from refile targets"
+    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+  (setq org-refile-target-verify-function 'bh/verify-refile-target)
+#+END_SRC
 **** Speed Commands
 #+BEGIN_SRC emacs-lisp
   (setq org-use-speed-commands t
