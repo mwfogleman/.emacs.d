@@ -1788,7 +1788,9 @@ I wanted to be able to add a sort property to files or subtrees and get automati
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-inhibit-startup nil
         org-agenda-show-future-repeats nil
-        org-agenda-start-on-weekday nil)
+        org-agenda-start-on-weekday nil
+        org-agenda-skip-deadline-if-done t
+        org-agenda-skip-scheduled-if-done t)
 
   (unbind-key "C-c [")
   (unbind-key "C-c ]")
