@@ -1936,16 +1936,16 @@ I really like Org-mode's clocking functionality. I mostly use it for keeping tim
         org-clock-into-drawer 1)
 #+END_SRC
 ***** Remove Empty Logbook Drawers
-Remove empty LOGBOOK drawers on clock out, from [[https://michael.englehorn.com/config.html][Michael Englehorn's Emacs Configuration]].
+Remove empty LOGBOOK drawers on clock out, from [[https://michael.englehorn.com/config.html][Michael Englehorn's Emacs Configuration]]. This [[https://stackoverflow.com/questions/21767471/org-capture-and-time-clocking-misbehaving#21797427][Stack Overflow post]] shows the fix to the bug in the original function (remove the "LOGBOOK" specification).
 
 #+BEGIN_SRC emacs-lisp
-(defun bh/remove-empty-drawer-on-clock-out ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line 0)
-    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+  (defun bh/remove-empty-drawer-on-clock-out ()
+    (interactive)
+    (save-excursion
+      (beginning-of-line 0)
+      (org-remove-empty-drawer-at (point))))
 
-(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+  (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 #+END_SRC
 ***** Key Bindings
 However, there are a *lot* of commands for clocking; this is a perfect instance for a Hydra.
