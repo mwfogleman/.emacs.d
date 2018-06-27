@@ -2179,6 +2179,11 @@ Add structure templates for editing Emacs Lisp and encrypting an org-mode file.
                         ))
 #+END_SRC
 *** Other
+**** Shell in Org Source Blocks
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((shell . t)))
+#+END_SRC
 **** Sentence-End
 #+BEGIN_SRC emacs-lisp
 (setq sentence-end-double-space nil)
