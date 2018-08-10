@@ -1801,6 +1801,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
   (use-package org-super-agenda
     :init
     (org-super-agenda-mode)
+
     (defun my-org-super-agenda ()
       (interactive)
       (let ((org-super-agenda-groups
@@ -1816,6 +1817,13 @@ I wanted to be able to add a sort property to files or subtrees and get automati
                ;; (:discard (:anything t))
                )))
         (org-agenda nil "a")))
+
+    (defun my-org-super-agenda-today ()
+      (interactive)
+      (progn
+        (my-org-super-agenda)
+        (org-agenda-day-view)))
+
     :config
     ;; Enable folding
     (use-package origami
