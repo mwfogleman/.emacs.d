@@ -1260,7 +1260,7 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 #+END_SRC
 *** HTML
 #+BEGIN_SRC emacs-lisp
-  (bind-key "C-c C-l" 'html-href-anchor html-mode-map)
+;  (bind-key "C-c C-l" 'html-href-anchor html-mode-map)
 #+END_SRC
 ** Development Tools
 *** Version Control (Git)
