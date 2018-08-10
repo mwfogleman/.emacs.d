@@ -1796,6 +1796,33 @@ I wanted to be able to add a sort property to files or subtrees and get automati
   (unbind-key "C-c [")
   (unbind-key "C-c ]")
 #+END_SRC
+***** Org-Super-Agenda
+#+BEGIN_SRC emacs-lisp
+  (use-package org-super-agenda
+    :init
+    (org-super-agenda-mode)
+    (defun my-org-super-agenda ()
+      (interactive)
+      (let ((org-super-agenda-groups
+             '((:name "Schedule"
+                      :time-grid t)
+               (:name "CEDAR" ;; monastery work
+                      :tag "cedar")
+               (:name "Forte Labs" ;; work with Forte Labs
+                      :tag "fl")
+               ;; After the last group, the agenda will display items that didn't
+               ;; match any of these groups, with the default order position of 99
+               ;; To prevent this, add this code:
+               ;; (:discard (:anything t))
+               )))
+        (org-agenda nil "a")))
+    :config
+    ;; Enable folding
+    (use-package origami
+      :bind (:map org-super-agenda-header-map
+                  ("TAB" . origami-toggle-node))
+      :hook ((org-agenda-mode . origami-mode))))
+#+END_SRC
 ***** Agenda Files
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files (quote ("~/org/todo.org"
