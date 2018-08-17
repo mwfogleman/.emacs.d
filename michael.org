@@ -111,9 +111,13 @@ These functions identify what operating system is hosting Emacs, which can be ha
 #+END_SRC
 ** Graphical Features
 *** Theme
-I still have to do a load-theme -> solarized-dark upon restarting.
+This should load your theme automagically on startup.
 #+BEGIN_SRC emacs-lisp
-  (use-package solarized-theme)
+  (use-package solarized-theme
+  :ensure t
+  :load-path "themes"
+  :config
+  (load-theme 'solarized-dark t))
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
