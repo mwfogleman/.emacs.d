@@ -1983,16 +1983,18 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
            "* TODO %?\n")
           ("p" "Project" entry (file+headline "~/org/todo.org" "1 Projects")
            (file "~/org/templates/newprojecttemplate.org"))
+          ("g" "Goal" entry (file+headline "~/org/goals.org" "Current Goals")
+           (file "~/org/templates/newgoaltemplate.org"))
+          ("s" "Someday / Maybe Idea" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
+           "* SOMEDAY %?\n")
           ("d" "Review: Daily Review" entry (file+olp+datetree "/tmp/reviews.org")
            (file "~/org/templates/dailyreviewtemplate.org"))
           ("w" "Review: Weekly Review" entry (file+olp+datetree "/tmp/reviews.org")
            (file "~/org/templates/weeklyreviewtemplate.org"))
           ("m" "Review: Monthly Review" entry (file+olp+datetree "/tmp/reviews.org")
            (file "~/org/templates/monthlyreviewtemplate.org"))
-          ("j" "Journal" entry (file+datetree "~/Dropbox/2 Areas/Journal/journal.org.gpg")
-           "* %?")
-          ("s" "Someday / Maybe Idea" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
-           "* SOMEDAY %?\n")))
+          ("j" "Journal" entry (file+datetree "~/Dropbox/2 Areas/Journal/journal.org")
+           "* %?")))
 #+END_SRC
 **** Clocking
 I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks.
