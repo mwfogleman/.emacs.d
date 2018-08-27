@@ -1127,6 +1127,11 @@ Actionable URLs in Emacs buffers via [[http://xenodium.com/#actionable-urls-in-e
     :commands (goto-address-prog-mode
                goto-address-mode))
 #+END_SRC
+** Emojis
+#+BEGIN_SRC emacs-lisp
+  (use-package emojify
+    :init (global-emojify-mode))
+#+END_SRC
 * Browsing
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
