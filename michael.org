@@ -1708,7 +1708,7 @@ I use org-struct in mu4e. See above.
           '((auto-mode . emacs)
             ("\\.mm\\'" . default)
             ("\\.x?html?\\'" . "firefox %s")
-            ("\\.pdf\\'" . "evince %s"))
+            ("\\.pdf\\'" . "open %s"))
           org-todo-keywords
           '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c)")))
 
