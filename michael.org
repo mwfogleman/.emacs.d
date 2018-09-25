@@ -1337,6 +1337,7 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
 
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
+    :bind ("C-c p" . projectile-switch-project)
     :init
     (projectile-global-mode)
     (use-package ibuffer-projectile
