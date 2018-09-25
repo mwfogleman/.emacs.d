@@ -1900,6 +1900,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
                                  "~/org/agendas.org"
                                  "~/org/inbox.org"
                                  "~/org/calendar/gcal.org"
+                                 "~/org/calendar/cedarwest.org"
                                  "~/org/somedaymaybe.org"
                                  "~/org/goals.org")))
 #+END_SRC
