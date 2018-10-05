@@ -2073,6 +2073,14 @@ However, there are a *lot* of commands for clocking; this is a perfect instance 
     ("?" (org-info "Clocking commands")))
 
   (defhydra hydra-org-agenda-clock (:color blue :hint nil)
+    "
+  Clock   In/out^
+  -----------------------------------------
+          _i_n
+          _g_oto entry
+          _o_ut
+          _q_uit
+        "
     ("i" org-agenda-clock-in)
     ("o" org-agenda-clock-out)
     ("q" org-agenda-clock-cancel)
