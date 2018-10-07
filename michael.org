@@ -113,10 +113,11 @@ These functions identify what operating system is hosting Emacs, which can be ha
 *** Theme
 Load solarized-theme automatically on startup.
 #+BEGIN_SRC emacs-lisp
-  (use-package solarized-theme
+  (use-package spacemacs-theme
     :load-path "themes"
-    :config
-    (load-theme 'solarized-dark t))
+    :defer t
+    :init
+    (load-theme 'spacemacs-light t))
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
