@@ -618,8 +618,9 @@ For me, Dired is one of Emacs' (less-heralded) killer apps, along with Org-Mode 
           dired-recursive-copies 'always
           dired-isearch-filenames t
           dired-listing-switches "-alh"
-          dired-omit-files-p t
-          dired-omit-files "\\|^.DS_STORE$\\|^.projectile$")
+          ;; dired-omit-files-p t
+          ;; dired-omit-files "\\|^.DS_STORE$\\|^.projectile$"
+          )
     (use-package dired+
       :init
       (setq diredp-hide-details-initially-flag t)) ;; also automatically calls dired-x, enabling dired-jump, C-x C-j
