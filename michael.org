@@ -666,7 +666,10 @@ Dired-details lets me show or hide the details with ) and (, respectively. If, f
     :bind (:map ag-mode-map
                 ("q" . kill-this-buffer))
     :init
-    (use-package wgrep)
+    (use-package wgrep
+      :commands
+      wgrep-change-to-wgrep-mode
+      ivy-wgrep-change-to-wgrep-mode)
     (use-package wgrep-ag)
     :config
     (setq ag-highlight-search t))
