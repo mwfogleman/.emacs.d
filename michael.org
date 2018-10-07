@@ -111,7 +111,8 @@ These functions identify what operating system is hosting Emacs, which can be ha
 #+END_SRC
 ** Graphical Features
 *** Theme
-Load solarized-theme automatically on startup.
+Load spacemacs-light automatically on startup.
+
 #+BEGIN_SRC emacs-lisp
   (use-package spacemacs-theme
     :load-path "themes"
@@ -1674,7 +1675,7 @@ I use the stock package of org-mode as the default major mode.
 
 My settings for capture were some of my first Elisp :) I did need, and still need, the help of the [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][Org-Mode manual]], of course.
 
-I use org-struct in mu4e. See above.
+The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/ricing-org-mode/][Ricing up Org Mode]] with help from folks on [[https://www.reddit.com/r/emacs/comments/9m22lw/ricing_org_mode_with_spacemacs/][Reddit]]. Be sure to download the fonts [[https://github.com/edwardtufte/et-book/tree/gh-pages/et-book][here]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
@@ -1686,6 +1687,15 @@ I use org-struct in mu4e. See above.
            ("<down>" . org-insert-todo-heading)
            :map org-mode-map
            ("C-c >" . org-time-stamp-inactive))
+    :custom-face
+    (variable-pitch ((t (:family "ETBembo"))))
+    (org-document-title ((t (:foreground "#171717" :weight bold :height 1.5))))
+    (org-done ((t (:background "#E8E8E8" :foreground "#0E0E0E" :strike-through t :weight bold))))
+    (org-headline-done ((t (:foreground "#171717" :strike-through t))))
+    (org-level-1 ((t (:foreground "#090909" :weight bold :height 1.3))))
+    (org-level-2 ((t (:foreground "#090909" :weight normal :height 1.2))))
+    (org-level-3 ((t (:foreground "#090909" :weight normal :height 1.1))))
+    (org-image-actual-width '(600))
     :init
     (setq default-major-mode 'org-mode
           org-directory "~/org/"
@@ -1702,7 +1712,6 @@ I use org-struct in mu4e. See above.
           org-src-fontify-natively t
           org-lowest-priority ?C
           org-default-priority ?B
-          org-ellipsis "↴"
           org-expiry-inactive-timestamps t
           org-show-notification-handler 'message
           org-special-ctrl-a/e t
@@ -1714,10 +1723,35 @@ I use org-struct in mu4e. See above.
             ("\\.x?html?\\'" . "firefox %s")
             ("\\.pdf\\'" . "open %s"))
           org-todo-keywords
-          '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c)")))
+          '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c)"))
+          ;; Theming
+          org-ellipsis "  " ;; folding symbol
+          org-pretty-entities t
+          org-hide-emphasis-markers t ;; show actually italicized text instead of /italicized text/
+          org-agenda-block-separator ""
+          org-fontify-whole-heading-line t
+          org-fontify-done-headline t
+          org-fontify-quote-and-verse-blocks t)
 
     (add-to-list 'org-global-properties
-                 '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00")))
+                 '("Effort_ALL". "0:05 0:15 0:30 1:00 2:00 3:00 4:00"))
+
+    (add-hook 'org-mode-hook
+              '(lambda ()
+                 (setq line-spacing 0.2) ;; Add more line padding for readability
+                 (variable-pitch-mode 1) ;; All fonts with variable pitch.
+                 (mapc
+                  (lambda (face) ;; Other fonts with fixed-pitch.
+                    (set-face-attribute face nil :inherit 'fixed-pitch))
+                  (list 'org-code
+                        'org-link
+                        'org-block
+                        'org-table
+                        'org-verbatim
+                        'org-block-begin-line
+                        'org-block-end-line
+                        'org-meta-line
+                        'org-document-info-keyword)))))
 #+END_SRC
 *** Packages
 **** org-modules
