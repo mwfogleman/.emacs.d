@@ -1755,7 +1755,12 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
                         'org-block-begin-line
                         'org-block-end-line
                         'org-meta-line
-                        'org-document-info-keyword)))))
+                        'org-document-info-keyword))))
+
+                        (custom-theme-set-faces
+                        'spacemacs-light
+                        `(org-block-begin-line ((t (:background "#fbf8ef"))))
+                        `(org-block-end-line ((t (:background "#fbf8ef"))))))
 #+END_SRC
 *** Packages
 **** org-modules
