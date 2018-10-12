@@ -1877,8 +1877,8 @@ I wanted to be able to add a sort property to files or subtrees and get automati
       (let ((org-super-agenda-groups
              '((:name "Schedule"
                       :time-grid t)
-               (:name "CEDAR" ;; monastery work
-                      :tag "cedar")
+               (:name "OAK" ;; monastery work
+                      :tag "oak")
                (:name "Forte Labs" ;; work with Forte Labs
                       :tag "fl")
                ;; After the last group, the agenda will display items that didn't
@@ -1907,8 +1907,8 @@ I wanted to be able to add a sort property to files or subtrees and get automati
     (defun my-monastery-agenda ()
       (interactive)
       (let ((org-super-agenda-groups
-             '((:name "CEDAR" ;; monastery work
-                      :tag "cedar")
+             '((:name "OAK" ;; monastery work
+                      :tag "oak")
                ;; After the last group, the agenda will display items that didn't
                ;; match any of these groups, with the default order position of 99
                ;; To prevent this, add this code:
