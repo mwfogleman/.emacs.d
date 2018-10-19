@@ -1709,6 +1709,7 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
           org-startup-with-inline-images t
           org-completion-use-ido t
           org-default-notes-file (concat org-directory "notes.org")
+          org-image-actual-width '(300)
           org-goto-max-level 10
           org-imenu-depth 5
           org-goto-interface 'outline-path-completion
@@ -1757,10 +1758,10 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
                         'org-meta-line
                         'org-document-info-keyword))))
 
-                        (custom-theme-set-faces
-                        'spacemacs-light
-                        `(org-block-begin-line ((t (:background "#fbf8ef"))))
-                        `(org-block-end-line ((t (:background "#fbf8ef"))))))
+    (custom-theme-set-faces
+     'spacemacs-light
+     `(org-block-begin-line ((t (:background "#fbf8ef"))))
+     `(org-block-end-line ((t (:background "#fbf8ef"))))))
 #+END_SRC
 *** Packages
 **** org-modules
