@@ -35,8 +35,8 @@ Yet to me, literate programming is certainly the most important thing that came 
 * Settings
 ** Personal information
 #+BEGIN_SRC emacs-lisp
-  (setq user-full-name "Michael Fogleman"
-        user-mail-address "michaelwfogleman@gmail.com")
+  (setq user-full-name "Tasshin Fogleman"
+        user-mail-address "tasshinfogleman@gmail.com")
 #+END_SRC
 ** Enable Package Support
 I set up packages, Melpa, and use-package bright and early so that I can make use of use-package's bind-key macro.
