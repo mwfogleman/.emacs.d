@@ -1881,8 +1881,6 @@ I wanted to be able to add a sort property to files or subtrees and get automati
                       :time-grid t)
                (:name "OAK" ;; monastery work
                       :tag "oak")
-               (:name "Forte Labs" ;; work with Forte Labs
-                      :tag "fl")
                ;; After the last group, the agenda will display items that didn't
                ;; match any of these groups, with the default order position of 99
                ;; To prevent this, add this code:
@@ -1902,7 +1900,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
              '(;; After the last group, the agenda will display items that didn't
                ;; match any of these groups, with the default order position of 99
                ;; To prevent this, add this code:
-               (:discard (:tag ("cedar" "fl"))))))
+               (:discard (:tag ("cedar"))))))
         (org-agenda nil "a")
         (org-agenda-day-view)))
 
@@ -1918,22 +1916,9 @@ I wanted to be able to add a sort property to files or subtrees and get automati
         (org-agenda nil "a")
         (org-agenda-day-view)))
 
-    (defun my-fl-agenda ()
-      (interactive)
-      (let ((org-super-agenda-groups
-             '((:name "Forte Labs" ;; Forte Labs
-                      :tag "fl")
-               ;; After the last group, the agenda will display items that didn't
-               ;; match any of these groups, with the default order position of 99
-               ;; To prevent this, add this code:
-               (:discard (:anything t)))))
-        (org-agenda nil "a")
-        (org-agenda-day-view)))
-
     (bind-keys ("C-c `" . my-org-super-agenda-today)
                ("C-c 1" . my-personal-agenda)
                ("C-c 2" . my-monastery-agenda)
-               ("C-c 3" . my-fl-agenda)
                ("C-c 0" . my-org-super-agenda))
 
     :config
