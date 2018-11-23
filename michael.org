@@ -2039,7 +2039,7 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
   (setq org-capture-templates
         '(("t" "Task" entry (file "~/org/inbox.org")
            "* TODO %?\n")
-          ("p" "Project" entry (file+headline "~/org/todo.org" "1 Projects")
+          ("p" "Project" entry (file+headline "~/org/todo.org" "Projects")
            (file "~/org/templates/newprojecttemplate.org"))
           ("g" "Goal" entry (file+headline "~/org/goals.org" "Current Goals")
            (file "~/org/templates/newgoaltemplate.org"))
@@ -2451,7 +2451,7 @@ A project is "any outcome that will take more than one action step to complete."
     (find-file "~/org/todo.org")
     (widen)
     (beginning-of-buffer)
-    (re-search-forward "* 1 Projects")
+    (re-search-forward "* Projects")
     (beginning-of-line))
 
   (defun project-overview ()
@@ -2487,7 +2487,7 @@ This function creates an agenda of stuck projects that is restricted to my "Proj
       (find-file "~/org/todo.org")
       (widen)
       (beginning-of-buffer)
-      (re-search-forward "* 2 Areas")
+      (re-search-forward "* Areas")
       (beginning-of-line))
 
   (defun areas-overview ()
