@@ -1900,7 +1900,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
              '(;; After the last group, the agenda will display items that didn't
                ;; match any of these groups, with the default order position of 99
                ;; To prevent this, add this code:
-               (:discard (:tag ("cedar"))))))
+               (:discard (:tag ("oak"))))))
         (org-agenda nil "a")
         (org-agenda-day-view)))
 
@@ -1999,6 +1999,14 @@ The org-timeline functionality was recently removed. This code, adapted from [[h
                  ""
                  ((org-agenda-span 7)
                   (org-agenda-prefix-format '((agenda . " %1c %?-12t% s"))))))))
+#+END_SRC
+****** Unscheduled Tasks
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-agenda-custom-commands
+               '("u" "Unscheduled TODOs"
+                 ((todo ""
+                        ((org-agenda-overriding-header "\nUnscheduled TODO")
+                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'todo '("DONE" "CANCELLED" "MAYBE" "WAITING" "SOMEDAY"))))))) t)
 #+END_SRC
 ****** [[https://www.reddit.com/r/orgmode/comments/7kddjq/org_agenda_view_for_scheduled_events_t_2/][Open Loops]]
 Thanks Sacha for this custom code! :)
