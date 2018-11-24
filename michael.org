@@ -2259,8 +2259,7 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
 
 **** Refiling
 #+BEGIN_SRC emacs-lisp
-  (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                   (org-agenda-files :maxlevel . 9)))
+  (setq org-refile-targets '((("~/org/todo.org" "~/org/somedaymaybe.org" "~/org/goals.org") :maxlevel . 3))
         ;; org-refile-use-cache t
         org-refile-use-outline-path t)
 #+END_SRC
