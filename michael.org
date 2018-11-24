@@ -661,19 +661,13 @@ For me, Dired is one of Emacs' (less-heralded) killer apps, along with Org-Mode 
 Some of these suggestions are adapted from Xah Lee's [[http://ergoemacs.org/emacs/emacs_dired_tips.html][article on Dired]]. dired-find-alternate-file, which is bound to a, is disabled by default. <return> was previously dired-advertised-find-file, and ^ was previously dired-up-directory. Relatedly, I re-bind 'q' to my kill-this-buffer function below.
 
 Dired-details lets me show or hide the details with ) and (, respectively. If, for some reason, it becomes hard to remember this, dired-details+ makes the parentheses interchangeable.
-** Searching (Ag)
+** Searching (rg)
 #+BEGIN_SRC emacs-lisp
-  (use-package ag
-    :bind (:map ag-mode-map
-                ("q" . kill-this-buffer))
-    :init
-    (use-package wgrep
-      :commands
-      wgrep-change-to-wgrep-mode
-      ivy-wgrep-change-to-wgrep-mode)
-    (use-package wgrep-ag)
-    :config
-    (setq ag-highlight-search t))
+  (use-package deadgrep
+    :bind (("C-c d" . deadgrep)
+           ("C-c D" . counsel-rg)
+           (:map deadgrep-mode-map
+                 ("q" . kill-this-buffer))))
 #+END_SRC
 * Emacs
 These are helper packages that make Emacs even more awesome.
