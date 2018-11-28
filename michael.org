@@ -1265,7 +1265,7 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
 ** Development Tools
 *** Version Control (Git)
 This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] opens magit-status in one frame, and then restores the old window configuration when you quit.
-
+**** Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :bind (("C-x g" . magit-status)
@@ -1308,6 +1308,11 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
                             'magit-insert-unpushed-to-upstream
                             'magit-insert-unpushed-to-upstream-or-recent
                             'replace))
+#+END_SRC
+**** Git Auto Commit Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package git-auto-commit-mode
+    :delight)
 #+END_SRC
 *** Project Management (Projectile)
 
