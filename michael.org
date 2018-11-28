@@ -1258,32 +1258,6 @@ When in emacs-lisp-mode, display the argument list for the current function. I l
   (add-hook 'ielm-mode-hook 'eldoc-mode)
   (add-hook 'cider-mode-hook 'eldoc-mode)
 #+END_SRC
-*** Haskell
-#+BEGIN_SRC emacs-lisp
-  (use-package haskell-mode)
-#+END_SRC
-**** package-lint and flycheck-package
-#+BEGIN_SRC emacs-lisp
-  (use-package package-lint)
-
-  (use-package flycheck-package
-    :config
-    (flycheck-package-setup))
-#+END_SRC
-*** Rust
-#+BEGIN_SRC emacs-lisp
-  (use-package rust-mode)
-
-
-  (use-package racer
-    :hook ((rust-mode . racer-mode)
-           (racer-mode . eldoc-mode)
-           (racer-mode . company-mode))
-    :bind (:map rust-mode-map
-                ("TAB" . company-indent-or-complete-common)))
-
-  (use-package toml-mode)
-#+END_SRC
 *** HTML
 #+BEGIN_SRC emacs-lisp
 ;  (bind-key "C-c C-l" 'html-href-anchor html-mode-map)
@@ -1460,10 +1434,6 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
 See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
 #+BEGIN_SRC emacs-lisp
   (use-package restclient)
-#+END_SRC
-*** Remote Pairing (Floobits)
-#+BEGIN_SRC emacs-lisp
-  (use-package floobits)
 #+END_SRC
 ** Developing in Emacs
 *** Whitespace
