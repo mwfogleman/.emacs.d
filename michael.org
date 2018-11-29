@@ -2419,9 +2419,15 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
 #+END_SRC
 ** Epubs
 #+BEGIN_SRC emacs-lisp
+  (defun copy-whole-buffer ()
+    (interactive)
+    (copy-region-as-kill (point-min) (point-max)))
+
   (use-package nov
-               :init
-               (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+    :bind (:map nov-mode-map
+                ("c" . copy-whole-buffer))
+    :init
+    (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
 #+END_SRC
 * Organization (GTD and PARA)
 ** Projects
