@@ -2417,6 +2417,12 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
   (use-package csv-mode
     :mode ("\\.csv$" . csv-mode))
 #+END_SRC
+** Epubs
+#+BEGIN_SRC emacs-lisp
+  (use-package nov
+               :init
+               (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+#+END_SRC
 * Organization (GTD and PARA)
 ** Projects
 A project is "any outcome that will take more than one action step to complete." As a result of implementing Tiago Forte's "PARA" system, I can ensure that I always have an up to date project list.
