@@ -1978,7 +1978,7 @@ The org-timeline functionality was recently removed. This code, adapted from [[h
                          (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'todo '("DONE" "CANCELLED" "MAYBE" "WAITING" "SOMEDAY"))))))) t)
 #+END_SRC
 ****** [[https://www.reddit.com/r/orgmode/comments/7kddjq/org_agenda_view_for_scheduled_events_t_2/][Open Loops]]
-Thanks Sacha for this custom code! :)
+Thanks Sacha for this custom code!
 
 #+BEGIN_SRC emacs-lisp
   (defun my-org-agenda-recent-open-loops ()
