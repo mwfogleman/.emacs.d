@@ -1278,6 +1278,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     :config
     (add-hook 'after-save-hook 'magit-after-save-refresh-status)
     (setq magit-use-overlays nil
+          magit-section-visibility-indicator nil
           magit-completing-read-function 'ivy-completing-read
           magit-push-always-verify nil
           magit-repository-directories '("~/src/"))
