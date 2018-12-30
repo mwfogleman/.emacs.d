@@ -1738,7 +1738,7 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
 **** org-modules
 #+BEGIN_SRC emacs-lisp
   (require 'org-install)
-  (setq org-modules '(org-habit org-info))
+  (setq org-modules '(org-habit org-info org-tempo))
   (org-load-modules-maybe t)
 #+END_SRC
 ***** org-habits
@@ -2366,9 +2366,7 @@ The first function comes from a [[https://stackoverflow.com/questions/9991597/ho
 #+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode
-    :init
-    (add-hook 'markdown-mode-hook 'turn-on-orgstruct))
+  (use-package markdown-mode)
 #+END_SRC
 ** Calculator (Calc)
 #+BEGIN_SRC emacs-lisp
