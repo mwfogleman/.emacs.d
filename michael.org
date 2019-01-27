@@ -1140,9 +1140,8 @@ Actionable URLs in Emacs buffers via [[http://xenodium.com/#actionable-urls-in-e
 * Browsing
 ** External Browsers
 #+BEGIN_SRC emacs-lisp
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program (cond ((is-mac-p) "open")
-                                         ((is-linux-p) "firefox")))
+  (setq browse-url-browser-function (cond ((is-mac-p) 'browse-url-default-macosx-browser)
+                                          ((is-linux-p) 'browse-url-default-browser)))
 
   (bind-key "C-c B" 'browse-url-at-point)
 #+END_SRC
