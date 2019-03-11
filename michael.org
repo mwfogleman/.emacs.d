@@ -2024,7 +2024,9 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
           ("s" "Someday" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
            "* SOMEDAY %?\n")
           ("m" "Maybe" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
-           "* MAYBE %?\n")))
+           "* MAYBE %?\n")
+          ("l" "Log" entry (file+olp+datetree "~/org/log.org" "Log")
+           "** %<%R>\n%?")))
 #+END_SRC
 **** Clocking
 I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks.
