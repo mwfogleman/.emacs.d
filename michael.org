@@ -2681,3 +2681,16 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
     (interactive)
     (flush-lines "^$"))
 #+END_SRC
+** Processing Liner notes
+#+BEGIN_SRC emacs-lisp
+  (fset 'liner-spacing
+        (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([5 return 14] 0 "%d")) arg)))
+
+  (defun clean-liner-evernote-notes ()
+    "Cleans notes exported from Liner into Evernote."
+    (interactive)
+    (beginning-of-buffer)
+    (replace-regexp "^\“" "")
+    (beginning-of-buffer)
+    (replace-regexp "\”$" ""))
+#+END_SRC
