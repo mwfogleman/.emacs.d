@@ -1905,8 +1905,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
                                  "~/org/inbox.org"
                                  "~/org/calendar/gcal.org"
                                  "~/org/calendar/oak.org"
-                                 "~/org/somedaymaybe.org"
-                                 "~/org/goals.org")))
+                                 "~/org/somedaymaybe.org")))
 #+END_SRC
 ***** Open Org Agenda
 This function opens the agenda in full screen.
@@ -2019,8 +2018,6 @@ The first Emacs Lisp that I ever wrote was to configure my capture templates!
            "* TODO %?\n")
           ("p" "Project" entry (file+headline "~/org/todo.org" "Projects")
            (file "~/org/templates/newprojecttemplate.org"))
-          ("g" "Goal" entry (file+headline "~/org/goals.org" "Current Goals")
-           (file "~/org/templates/newgoaltemplate.org"))
           ("s" "Someday" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
            "* SOMEDAY %?\n")
           ("m" "Maybe" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
@@ -2223,7 +2220,7 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
 
 **** Refiling
 #+BEGIN_SRC emacs-lisp
-  (setq org-refile-targets '((("~/org/todo.org" "~/org/somedaymaybe.org" "~/org/goals.org") :maxlevel . 3))
+  (setq org-refile-targets '((("~/org/todo.org" "~/org/somedaymaybe.org") :maxlevel . 3))
         ;; org-refile-use-cache t
         org-refile-use-outline-path t)
 #+END_SRC
