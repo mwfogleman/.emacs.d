@@ -766,6 +766,38 @@ Recent files keeps track of which files you're using; I access it by rebinding f
           ivy-use-virtual-buffers t
           ivy-initial-inputs-alist () ;; http://irreal.org/blog/?p=6512
           enable-recursive-minibuffers t))
+
+  (use-package all-the-icons)
+
+  (use-package ivy-rich
+    :after ivy
+    :config
+    ;; All the icon support to ivy-rich
+    (defun ivy-rich-switch-buffer-icon (candidate)
+      (with-current-buffer
+          (get-buffer candidate)
+        (all-the-icons-icon-for-mode major-mode)))
+
+    (setq ivy-rich--display-transformers-list
+          '(ivy-switch-buffer
+            (:columns
+             ((ivy-rich-switch-buffer-icon (:width 2))
+              (ivy-rich-candidate (:width 30))
+              (ivy-rich-switch-buffer-size (:width 7))
+              (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+              (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+              (ivy-rich-switch-buffer-project (:width 15 :face success))
+              (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))
+             :predicate
+             (lambda (cand) (get-buffer cand)))))
+
+    ;; Add custom icons for various modes that can break ivy-rich
+    (add-to-list 'all-the-icons-mode-icon-alist '(dashboard-mode all-the-icons-fileicon "elisp" :height 1.0 :v-adjust -0.2 :face all-the-icons-dsilver))
+    (add-to-list 'all-the-icons-mode-icon-alist '(ess-mode all-the-icons-fileicon "R" :face all-the-icons-lblue))
+
+    (ivy-rich-mode 1))
+
+
 #+END_SRC
 *** IDO
 #+BEGIN_SRC emacs-lisp
