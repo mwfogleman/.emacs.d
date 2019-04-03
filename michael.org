@@ -2713,16 +2713,39 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
     (interactive)
     (flush-lines "^$"))
 #+END_SRC
-** Processing Liner notes
+** Processing imported notes
 #+BEGIN_SRC emacs-lisp
-  (fset 'liner-spacing
-        (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([5 return 14] 0 "%d")) arg)))
+  (defun add-newlines-between-paragraphs ()
+    (interactive)
+    (save-excursion
+      (beginning-of-buffer)
+      (while (< (point) (point-max))
+        (move-end-of-line nil)
+        (newline)
+        (next-line))))
 
-  (defun clean-liner-evernote-notes ()
-    "Cleans notes exported from Liner into Evernote."
+  (defun clean-instapaper-evernote-notes ()
+    "Cleans notes exported from Instapaper into Evernote. Copies processed buffer to clipboard."
     (interactive)
     (beginning-of-buffer)
     (replace-regexp "^\“" "")
     (beginning-of-buffer)
-    (replace-regexp "\”$" ""))
+    (replace-regexp "\”$" "")
+    (beginning-of-buffer)
+    (add-newlines-between-paragraphs)
+    (copy-buffer))
+
+  (defun clean-liner-evernote-notes ()
+    "Cleans notes exported from Liner into Evernote. Copies processed buffer to clipboard."
+    (interactive)
+    (beginning-of-buffer)
+    (hungry-delete-forward 0)
+    (kill-line)
+    (hungry-delete-forward 0)
+    (replace-regexp "Source \:" "Source:")
+    (beginning-of-buffer)
+    (replace-regexp "___" "")
+    (beginning-of-buffer)
+    (flush-lines "This note was created with LINER")
+    (copy-buffer))
 #+END_SRC
