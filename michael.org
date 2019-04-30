@@ -2733,19 +2733,14 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
     (replace-regexp "\”$" "")
     (beginning-of-buffer)
     (add-newlines-between-paragraphs)
-    (copy-buffer))
+    (copy-whole-buffer))
 
   (defun clean-liner-evernote-notes ()
     "Cleans notes exported from Liner into Evernote. Copies processed buffer to clipboard."
     (interactive)
     (beginning-of-buffer)
-    (hungry-delete-forward 0)
-    (kill-line)
-    (hungry-delete-forward 0)
     (replace-regexp "Source \:" "Source:")
     (beginning-of-buffer)
-    (replace-regexp "___" "")
-    (beginning-of-buffer)
-    (flush-lines "This note was created with LINER")
-    (copy-buffer))
+    (replace-regexp "^- " "")
+    (copy-whole-buffer))
 #+END_SRC
