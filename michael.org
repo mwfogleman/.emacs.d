@@ -1881,8 +1881,8 @@ I wanted to be able to add a sort property to files or subtrees and get automati
       (let ((org-super-agenda-groups
              '((:name "Schedule"
                       :time-grid t)
-               (:name "OAK" ;; monastery work
-                      :tag "oak")
+               (:name "MAPLE" ;; monastery work
+                      :tag "maple")
                ;; After the last group, the agenda will display items that didn't
                ;; match any of these groups, with the default order position of 99
                ;; To prevent this, add this code:
@@ -1902,15 +1902,15 @@ I wanted to be able to add a sort property to files or subtrees and get automati
              '(;; After the last group, the agenda will display items that didn't
                ;; match any of these groups, with the default order position of 99
                ;; To prevent this, add this code:
-               (:discard (:tag ("oak"))))))
+               (:discard (:tag ("maple"))))))
         (org-agenda nil "a")
         (org-agenda-day-view)))
 
     (defun my-monastery-agenda ()
       (interactive)
       (let ((org-super-agenda-groups
-             '((:name "OAK" ;; monastery work
-                      :tag "oak")
+             '((:name "MAPLE" ;; monastery work
+                      :tag "maple")
                ;; After the last group, the agenda will display items that didn't
                ;; match any of these groups, with the default order position of 99
                ;; To prevent this, add this code:
@@ -1936,7 +1936,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
                                  "~/org/agendas.org"
                                  "~/org/inbox.org"
                                  "~/org/calendar/gcal.org"
-                                 "~/org/calendar/oak.org"
+                                 "~/org/calendar/maple.org"
                                  "~/org/somedaymaybe.org")))
 #+END_SRC
 ***** Open Org Agenda
@@ -2017,7 +2017,7 @@ Thanks Sacha for this custom code!
     (interactive)
     (let ((org-agenda-start-with-log-mode t)
           (org-agenda-use-time-grid nil)
-          (org-agenda-files '("~/org/calendar/gcal.org" "~/org/calendar/oak.org")))
+          (org-agenda-files '("~/org/calendar/gcal.org" "~/org/calendar/maple.org")))
       (fetch-calendar)
       (org-agenda-list nil (org-read-date nil nil "-2d") 4)
       (beginend-org-agenda-mode-goto-beginning)))
@@ -2026,7 +2026,7 @@ Thanks Sacha for this custom code!
     (interactive)
     (let ((org-agenda-start-with-log-mode t)
           (org-agenda-use-time-grid nil)
-          (org-agenda-files '("~/org/calendar/gcal.org" "~/org/calendar/oak.org")))
+          (org-agenda-files '("~/org/calendar/gcal.org" "~/org/calendar/maple.org")))
       (fetch-calendar)
       (org-agenda-list 'file (org-read-date nil nil "-14d") 28)
       (beginend-org-agenda-mode-goto-beginning)))
