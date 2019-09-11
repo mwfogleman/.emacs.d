@@ -1935,6 +1935,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
   (setq org-agenda-files (quote ("~/org/todo.org"
                                  "~/org/agendas.org"
                                  "~/org/inbox.org"
+                                 "~/org/waiting.org"
                                  "~/org/calendar/gcal.org"
                                  "~/org/calendar/maple.org"
                                  "~/org/somedaymaybe.org")))
@@ -2030,6 +2031,11 @@ Thanks Sacha for this custom code!
       (fetch-calendar)
       (org-agenda-list 'file (org-read-date nil nil "-14d") 28)
       (beginend-org-agenda-mode-goto-beginning)))
+#+END_SRC
+****** Delegated and Waiting Tasks
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'org-agenda-custom-commands
+               '("w" "WAITING" todo "WAITING" ((org-agenda-overriding-header "Delegated and/or Waiting"))) t)
 #+END_SRC
 ***** Auto Advance
 #+BEGIN_SRC emacs-lisp
