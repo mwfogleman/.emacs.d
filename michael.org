@@ -1463,10 +1463,7 @@ Flycheck presents a handsome and usable interface for [[http://endlessparenthese
     :init
     (use-package flycheck-clojure)
     (global-flycheck-mode)
-    (setq flycheck-indication-mode 'right-fringe)
-    :config
-    (flycheck-clojure-setup)
-    (require 'flycheck-joker))
+    (setq flycheck-indication-mode 'right-fringe))
 #+END_SRC
 *** REST Exploring (Restclient)
 See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
