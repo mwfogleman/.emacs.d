@@ -123,7 +123,7 @@ Load spacemacs-light automatically on startup.
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
-  (set-default-font "Source Code Pro" nil t)
+  (set-frame-font "Source Code Pro" nil t)
   (set-face-attribute 'default nil :height 150)
 #+END_SRC
 *** Prettify Symbols
