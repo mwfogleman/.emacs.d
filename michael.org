@@ -1925,10 +1925,7 @@ I wanted to be able to add a sort property to files or subtrees and get automati
 #+END_SRC
 ***** Agenda Files
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (quote ("~/org/todo.org"
-                                 "~/org/agendas.org"
-                                 "~/org/inbox.org"
-                                 "~/org/waiting.org"
+  (setq org-agenda-files (quote ("~/org/waiting.org"
                                  "~/org/calendar/gcal.org"
                                  "~/org/calendar/maple.org"
                                  "~/org/somedaymaybe.org")))
