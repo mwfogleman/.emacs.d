@@ -1009,10 +1009,9 @@ Revert buffers automatically when underlying files are changed externally.
 I learned about save place from [[http://whattheemacsd.com/init.el-03.html][Magnars]]; if you close a buffer, it remembers where you were in the file, so that when you re-open that file the buffer goes straight to that place. The configuration of this mode is very simple as of Emacs 25.1.
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default save-place t)
   (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
-  (save-place-mode 1)
+  (save-place-mode)
 #+END_SRC
 ** Regular Expressions
 Regexes are great. Not everyone knows them, and most user interfaces don't expose them, but I think most people who use computers could use them. Luckily, Emacs is great about this. It's easier to use them if you have good tools for noticing if your regular expressions match input.
