@@ -9,7 +9,6 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/org-mode/lisp/")
 
 ;; Load the rest of the packages
-(package-initialize t)
 (setq package-enable-at-startup nil)
 
 (require 'org)
