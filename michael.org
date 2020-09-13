@@ -73,13 +73,6 @@ Async enables asynchronous processing in Emacs, as well as some basic implementa
     (require 'smtpmail-async)
     (setq send-mail-function 'async-smtpmail-send-it))
 #+END_SRC
-*** Paradox
-I like Paradox - it is an alternative / extension to the built-in package manager.
-#+BEGIN_SRC emacs-lisp
-  (use-package paradox
-    :config
-    (setq paradox-execute-asynchronously t))
-#+END_SRC
 ** Detection
 *** Detect Operating System
 These functions identify what operating system is hosting Emacs, which can be handy for system specific configuration. I have run Emacs on Windows, OS X, Linux, and BSD. I currently use Linux most of the time, and OS X some of the time, so my configuration is geared towards those. Still, I may want to run my configuration on Windows or BSD in the future so I include those functions.
@@ -502,10 +495,7 @@ The default scratch buffer in Emacs uses =lisp-interaction-mode=, which is great
              ("e" . eshell)
              ("E" . eww)
              ("h" . man)
-             ("l" . paradox-list-packages)
-             ("u" . paradox-upgrade-packages)
-             ("p l" . paradox-list-packages)
-             ("p u" . paradox-upgrade-packages)
+             ("l" . package-list-packages)
              ("P" . proced)
              ("s" . scratch)
              ("S" . make-org-scratch))
