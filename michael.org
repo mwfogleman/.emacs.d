@@ -2357,29 +2357,6 @@ From an appendix in Intro to Emacs Lisp.
   ;; Bind 'the-the' to  C-c \
   (bind-key "C-c \\" 'the-the)
 #+END_SRC
-** Notes and Reference (Evernote)
-The first function comes from a [[https://stackoverflow.com/questions/9991597/how-to-using-evernote-to-open-evernote-note-link-in-emacs-org-mode#16256029][Stack Overflow question]].
-
-#+BEGIN_SRC emacs-lisp
-  (defun org-pass-link-to-system (link)
-    (if (string-match "^[a-zA-Z0-9]+:" link)
-        (browse-url link)
-      nil))
-
-  (add-hook 'org-open-link-functions 'org-pass-link-to-system)
-
-  (defun open-evernote-osx ()
-    (interactive)
-    (when (is-mac-p) (shell-command "open -a evernote.app")))
-
-  (defun my-insert-space ()
-    (interactive)
-    (progn
-      (call-interactively 'avy-goto-char)
-      (insert-char ?\s)))
-
-  (bind-key "M-`" 'my-insert-space)
-#+END_SRC
 ** Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode)
