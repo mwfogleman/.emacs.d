@@ -2401,18 +2401,6 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
   (use-package csv-mode
     :mode ("\\.csv$" . csv-mode))
 #+END_SRC
-** Epubs
-#+BEGIN_SRC emacs-lisp
-  (defun copy-whole-buffer ()
-    (interactive)
-    (copy-region-as-kill (point-min) (point-max)))
-
-  (use-package nov
-    :bind (:map nov-mode-map
-                ("c" . copy-whole-buffer))
-    :init
-    (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
-#+END_SRC
 * Functions
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
