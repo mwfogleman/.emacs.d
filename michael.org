@@ -2550,6 +2550,16 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
     (beginning-of-buffer)
     (replace-regexp "^- " "")
     (copy-whole-buffer))
+
+  (defun remove-roam-brackets ()
+    "Removes square brackets from notes exported from Roam into Emacs."
+    (interactive)
+    (beginning-of-buffer)
+    (replace-regexp "\\[" "")
+    (beginning-of-buffer)
+    (replace-regexp "\\]" "")
+    (copy-whole-buffer))
+#+END_SRC
 ** Single Blank Lines
 #+BEGIN_SRC emacs-lisp
   (fset 'single-blanks
