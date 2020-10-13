@@ -2550,4 +2550,8 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
     (beginning-of-buffer)
     (replace-regexp "^- " "")
     (copy-whole-buffer))
+** Single Blank Lines
+#+BEGIN_SRC emacs-lisp
+  (fset 'single-blanks
+        (kmacro-lambda-form [?\C-x ?h ?\C-x ?\C-m ?r ?e ?p ?l ?a ?c ?e ?- ?r ?e ?g ?e ?x ?p return ?^ ?\C-q ?\C-j ?\C-q ?\C-j ?+ return ?\C-q ?\C-j return] 0 "%d"))
 #+END_SRC
