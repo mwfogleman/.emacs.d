@@ -1766,18 +1766,6 @@ I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] mo
     (interactive)
     (org-set-property "STYLE" "habit"))
 #+END_SRC
-**** org-gcal
-#+BEGIN_SRC emacs-lisp
-  (use-package org-gcal
-    :bind (:map org-agenda-mode-map
-                ;; "r" is bound to org-agenda-redo
-                ("g" . org-gcal-fetch))
-    :init
-    (add-hook 'emacs-startup-hook #'org-gcal-fetch)
-
-    (defun fetch-calendar ()
-      (when (internet-up-p) (org-gcal-fetch))))
-#+END_SRC
 **** org-cliplink
 =org-cliplink= lets you insert a link from your clipboard with a title that is fetched from the page's metadata.
 
