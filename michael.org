@@ -575,10 +575,11 @@ Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main fea
     (dirtrack-mode)
     (setq explicit-shell-file-name (cond ((is-linux-p) "/bin/bash")
                                          ((is-mac-p) "/usr/bin/bash")))
-    (when (is-mac-p)
-      (use-package exec-path-from-shell
-        :init
-        (exec-path-from-shell-initialize))))
+    ;; (when (is-mac-p)
+    ;;   (use-package exec-path-from-shell
+    ;;     :init
+    ;;     (exec-path-from-shell-initialize)))
+    )
 
   (add-hook 'after-save-hook
             'executable-make-buffer-file-executable-if-script-p)
@@ -604,13 +605,13 @@ For me, Dired is one of Emacs' (less-heralded) killer apps, along with Org-Mode 
     (put 'dired-find-alternate-file 'disabled nil)
     ;; (add-hook 'dired-mode-hook #'dired-omit-mode)
     (setq dired-dwim-target t
-	  dired-recursive-deletes 'always
-	  dired-recursive-copies 'always
-	  dired-isearch-filenames t
-	  dired-listing-switches "-alh"
-	  ;; dired-omit-files-p t
-	  ;; dired-omit-files "\\|^.DS_STORE$\\|^.projectile$"
-	  )
+          dired-recursive-deletes 'always
+          dired-recursive-copies 'always
+          dired-isearch-filenames t
+          dired-listing-switches "-alh"
+          ;; dired-omit-files-p t
+          ;; dired-omit-files "\\|^.DS_STORE$\\|^.projectile$"
+          )
     ;; (use-package dired+
     ;;   :init
     ;;   (setq diredp-hide-details-initially-flag t))
@@ -1078,10 +1079,6 @@ Edit List lets you edit a list variable as if it were a buffer.
     :init
     (which-key-mode))
 #+END_SRC
-*** help-fns+
-#+BEGIN_SRC emacs-lisp
-  (use-package help-fns+
-    :bind ("C-h M-k" . describe-keymap)) ; For autoloading.
 #+END_SRC
 *** discover-my-major
 #+BEGIN_SRC emacs-lisp
