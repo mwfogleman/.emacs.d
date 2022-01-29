@@ -2343,6 +2343,35 @@ From an appendix in Intro to Emacs Lisp.
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode)
 #+END_SRC
+** Obsidian
+#+BEGIN_SRC emacs-lisp
+(defun obsidian-search-vault ()
+  "Searches my Obsidian vault."
+  (interactive)
+  (counsel-find-file "/Users/tasshin/Google Drive/tasshin/pages/"))
+
+(defun obsidian-search-projects ()
+  "Searches my Obsidian vault."
+  (interactive)
+  (counsel-find-file "/Users/tasshin/Google Drive/tasshin/1_Projects/"))
+
+(defun obsidian-search-journals ()
+  "Searches my Obsidian vault."
+  (interactive)
+  (counsel-find-file "/Users/tasshin/Google Drive/tasshin/journals/"))
+
+(defun obsidian-find-today ()
+  "Searches my Obsidian vault."
+  (interactive)
+  (find-file (concat "/Users/tasshin/Google Drive/tasshin/journals/" (format-time-string "%Y-%m-%d") ".md")))
+
+(bind-keys :prefix-map obsidian-map
+           :prefix "C-c O"
+           ("v" . obsidian-search-vault)
+           ("p" . obsidian-search-projects)
+           ("j" . obsidian-search-journals)
+           ("t" . obsidian-find-today))
+#+END_SRC
 ** Calculator (Calc)
 #+BEGIN_SRC emacs-lisp
   (use-package calc
