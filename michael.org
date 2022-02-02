@@ -2361,7 +2361,7 @@ From an appendix in Intro to Emacs Lisp.
   (find-file (concat "/Users/tasshin/Google Drive/tasshin/journals/" (format-time-string "%Y-%m-%d") ".md")))
 
 (bind-keys :prefix-map obsidian-map
-           :prefix "C-c O"
+           :prefix "C-c o"
            ("v" . obsidian-search-vault)
            ("p" . obsidian-search-projects)
            ("j" . obsidian-search-journals)
