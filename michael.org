@@ -2209,12 +2209,12 @@ This function comes from [[http://kitchingroup.cheme.cmu.edu/blog/2016/03/18/Org
         (yank))))
     (outline-hide-leaves))
 
-  (add-to-list 'org-speed-commands-user
+  (add-to-list 'org-speed-commands
                (cons "q" (lambda ()
                            (avy-with avy-goto-line
                              (avy--generic-jump "^\\*+" nil avy-style)))))
 
-  (add-to-list 'org-speed-commands-user (cons "T" 'org-teleport))
+  (add-to-list 'org-speed-commands (cons "T" 'org-teleport))
 
   (bind-key "T" 'org-teleport selected-org-mode-map)
 #+END_SRC
@@ -2237,7 +2237,7 @@ Exclude completed tasks from refile targets, from [[https://michael.englehorn.co
 **** Speed Commands
 #+BEGIN_SRC emacs-lisp
   (setq org-use-speed-commands t
-        org-speed-commands-user
+        org-speed-commands
         '(("N" org-narrow-to-subtree)
           ("$" org-archive-subtree)
           ("A" org-archive-subtree)
