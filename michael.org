@@ -1526,16 +1526,6 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
     (use-package rainbow-delimiters
       :hook (prog-mode . rainbow-delimiters-mode)))
 #+END_SRC
-*** Line Numbering (linum-relative)
-When I toggle line-mode, I want to use relative line-numbers, à la mi amigo Ben. As he points out, the symbol linum-relative-current-symbol makes linum-relative use the absolute line number for the current line.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package linum-relative
-    :init
-    (setq linum-format 'linum-relative)
-    :config
-    (setq linum-relative-current-symbol ""))
-#+END_SRC
 *** Commenting (comment-dwim-2)
 Additions via [[http://endlessparentheses.com/a-comment-or-uncomment-sexp-command.html][A comment-or-uncomment-sexp command in Emacs · Endless Parentheses]]. Would love a solution integrated into comment-dwim-2.
 
