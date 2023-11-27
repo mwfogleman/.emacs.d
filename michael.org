@@ -462,7 +462,7 @@ A lot of modes let you change from read-only to writeable, or backwards: files, 
              :prefix "C-x t"
              ("d" . toggle-debug-on-error)
              ("f" . toggle-fold)
-             ("l" . linum-mode)
+             ("l" . display-line-numbers-mode)
              ("n" . narrow-or-widen-dwim)
              ("o" . org-mode)
              ("r" . read-write-toggle)
