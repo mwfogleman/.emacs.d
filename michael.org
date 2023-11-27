@@ -1750,22 +1750,6 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
      `(org-block-end-line ((t (:background "#fbf8ef"))))))
 #+END_SRC
 *** Packages
-**** org-modules
-#+BEGIN_SRC emacs-lisp
-  (require 'org-install)
-  (setq org-modules '(org-habit org-info org-tempo))
-  (org-load-modules-maybe t)
-#+END_SRC
-***** org-habits
-I use the [[http://orgmode.org/manual/Tracking-your-habits.html][org-habits]] module.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-habit-graph-column 105)
-
-  (defun org-make-habit ()
-    (interactive)
-    (org-set-property "STYLE" "habit"))
-#+END_SRC
 **** org-cliplink
 =org-cliplink= lets you insert a link from your clipboard with a title that is fetched from the page's metadata.
 
