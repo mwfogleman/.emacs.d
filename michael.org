@@ -574,7 +574,9 @@ Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main fea
     :init
     (dirtrack-mode)
     (setq explicit-shell-file-name (cond ((is-linux-p) "/bin/bash")
-                                         ((is-mac-p) "/usr/bin/bash")))
+                                         ((is-mac-p) "/usr/bin/bash"))
+          exec-path (append exec-path '("/opt/homebrew/bin/")))
+
     ;; (when (is-mac-p)
     ;;   (use-package exec-path-from-shell
     ;;     :init
