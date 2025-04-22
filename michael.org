@@ -2496,11 +2496,22 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
   (bind-keys ("M-<up>" . move-line-up)
              ("M-<down>" . move-line-down))
 #+END_SRC
-** Flush Empty Lines
+** Flushing
+*** Flush Empty Lines
 #+BEGIN_SRC emacs-lisp
   (defun flush-empty-lines ()
     (interactive)
     (flush-lines "^$"))
+#+END_SRC
+*** Flush Lines Like This
+#+BEGIN_SRC emacs-lisp
+  (defun flush-lines-like-this ()
+  "Flush all lines in the current buffer that exactly match the current line."
+  (interactive)
+  (let ((line (buffer-substring-no-properties
+               (line-beginning-position)
+               (line-end-position))))
+    (flush-lines (concat "^" (regexp-quote line) "$"))))
 #+END_SRC
 ** Processing imported notes
 #+BEGIN_SRC emacs-lisp
