@@ -1458,6 +1458,7 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
 #+BEGIN_SRC emacs-lisp
   (use-package restclient)
 #+END_SRC
+*** Claude Code
 ** Developing in Emacs
 *** Whitespace
 #+BEGIN_SRC emacs-lisp
@@ -2387,14 +2388,14 @@ Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mo
 ** Emacs Configuration File
 This function and the corresponding keybinding allows me to rapidly access my configuration. They are adapted from Bozhidar Batsov's [[http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/][post on Emacs Redux]].
 
-I use mwf-init-file rather than user-init-file, because I edit the config file in a Git repo.
+I use tasshin-init-file rather than user-init-file, because I edit the config file in a Git repo.
 
 #+BEGIN_SRC emacs-lisp
   (defun find-init-file ()
     "Edit my init file in another window."
     (interactive)
-    (let ((mwf-init-file "~/src/.emacs.d/michael.org"))
-      (find-file mwf-init-file)))
+    (let ((tasshin-init-file "~/src/.emacs.d/tasshin.org"))
+      (find-file tasshin-init-file)))
 
   (bind-key "C-c I" 'find-init-file)
 #+END_SRC

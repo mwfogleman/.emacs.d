@@ -2,8 +2,8 @@ alias blog_edit dired ~/src/blog/resources/templates/md/posts
 alias blog_update cp -r ~/src/blog/resources/public/* ~/src/mwfogleman.com/
 alias d dired $1
 alias delete_empty_files find . -type f -empty -delete
-alias ecp cp /home/michael/src/.emacs.d/michael.org /home/michael/.emacs.d/
-alias edf ediff-files /home/michael/.emacs.d/michael.org /home/michael/src/.emacs.d/michael.org
+alias ecp cp /home/tasshin/src/.emacs.d/tasshin.org /home/tasshin/.emacs.d/
+alias edf ediff-files /home/tasshin/.emacs.d/tasshin.org /home/tasshin/src/.emacs.d/tasshin.org
 alias escp cp /home/michael/src/secrets.el/secrets.org /home/michael/.emacs.d/
 alias fc fish --command $1
 alias lau lein ancient upgrade
