@@ -1459,6 +1459,17 @@ See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
   (use-package restclient)
 #+END_SRC
 *** Claude Code
+#+BEGIN_SRC emacs-lisp
+  ;; for vterm terminal backend:
+  (use-package vterm :ensure t)
+
+  ;; install claude-code.el
+  (use-package claude-code :ensure t
+    :vc (:url "https://github.com/stevemolitor/claude-code.el" :rev :newest)
+    :config (claude-code-mode)
+    :bind-keymap ("C-c C" . claude-code-command-map))
+#+END_SRC
+
 ** Developing in Emacs
 *** Whitespace
 #+BEGIN_SRC emacs-lisp
