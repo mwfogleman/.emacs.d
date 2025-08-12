@@ -1073,12 +1073,6 @@ Iedit is probably the best tool I've found for editing multiple occurences of th
   (use-package iedit
     :bind ("C-;" . iedit-mode))
 #+END_SRC
-** Edit List
-Edit List lets you edit a list variable as if it were a buffer.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package edit-list)
-#+END_SRC
 ** Discoverability
 *** which-key
 #+BEGIN_SRC emacs-lisp
