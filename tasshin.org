@@ -2050,17 +2050,6 @@ From an appendix in Intro to Emacs Lisp.
     (setq ispell-program-name "aspell"
           ispell-list-command "--list"))
 #+END_SRC
-** Document Conversions (Pandoc)
-Hit =C-c /= to run =pandoc-main-hydra/body=, the main entry point for =pandoc-mode=.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package pandoc-mode
-    :init
-    (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
-    :config
-    (when (is-mac-p)
-      (add-to-list 'exec-path "/usr/local/texlive/2016basic/bin/universal-darwin")))
-#+END_SRC
 ** CSV
 #+BEGIN_SRC emacs-lisp
   (use-package csv-mode
