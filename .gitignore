@@ -1,0 +1,26 @@
+# Emacs package directories
+elpa/
+straight/
+eln-cache/
+auto-save-list/
+
+# Backup files
+*~
+*.bak
+\#*\#
+.\#*
+
+# Auto-generated files
+.mc-lists.el
+recentf
+places
+projectile-bookmarks.eld
+url/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
