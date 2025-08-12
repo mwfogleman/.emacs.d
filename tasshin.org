@@ -2206,35 +2206,6 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
         (move-end-of-line nil)
         (newline)
         (next-line))))
-
-  (defun clean-instapaper-evernote-notes ()
-    "Cleans notes exported from Instapaper into Evernote. Copies processed buffer to clipboard."
-    (interactive)
-    (beginning-of-buffer)
-    (replace-regexp "^\“" "")
-    (beginning-of-buffer)
-    (replace-regexp "\”$" "")
-    (beginning-of-buffer)
-    (add-newlines-between-paragraphs)
-    (copy-whole-buffer))
-
-  (defun clean-liner-evernote-notes ()
-    "Cleans notes exported from Liner into Evernote. Copies processed buffer to clipboard."
-    (interactive)
-    (beginning-of-buffer)
-    (replace-regexp "Source \:" "Source:")
-    (beginning-of-buffer)
-    (replace-regexp "^- " "")
-    (copy-whole-buffer))
-
-  (defun remove-roam-brackets ()
-    "Removes square brackets from notes exported from Roam into Emacs."
-    (interactive)
-    (beginning-of-buffer)
-    (replace-regexp "\\[" "")
-    (beginning-of-buffer)
-    (replace-regexp "\\]" "")
-    (copy-whole-buffer))
 #+END_SRC
 ** Single Blank Lines
 #+BEGIN_SRC emacs-lisp
