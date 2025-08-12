@@ -1786,10 +1786,6 @@ I wanted to be able to add a sort property to files or subtrees and get automati
   (add-hook 'org-mode-hook #'yant/org-buffer-sort-by-property)
 #+END_SRC
 *** Functionality
-**** Drag and Drop
-#+BEGIN_SRC emacs-lisp
-(use-package org-download)
-#+END_SRC
 **** Exporting
 I often want to export Org-Mode documents into other formats. This section contains some defaults and packages that have made that workflow easier for me.
 
