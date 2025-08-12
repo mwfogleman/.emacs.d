@@ -1297,8 +1297,8 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
     (use-package git-link
       :bind (("C-x v L" . git-link))
       :init
+      ;; (use-package pcmpl-git)
       (setq git-link-open-in-browser t))
-    (use-package pcmpl-git)
     (defun visit-pull-request-url ()
       "Visit the current branch's PR on Github."
       (interactive)
