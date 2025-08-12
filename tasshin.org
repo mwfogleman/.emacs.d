@@ -109,8 +109,6 @@ Load spacemacs-light automatically on startup.
 
 #+BEGIN_SRC emacs-lisp
   (use-package spacemacs-theme
-    :load-path "themes"
-    :defer t
     :init
     (load-theme 'spacemacs-light t))
 #+END_SRC
