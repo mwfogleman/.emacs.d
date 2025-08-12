@@ -1785,22 +1785,6 @@ I wanted to be able to add a sort property to files or subtrees and get automati
 
   (add-hook 'org-mode-hook #'yant/org-buffer-sort-by-property)
 #+END_SRC
-**** yankpad
-#+BEGIN_SRC emacs-lisp
-  (use-package yasnippet)
-
-  (use-package yankpad
-    :init
-    (setq yankpad-file "~/org/templates/yankpad.org")
-    (bind-keys :prefix-map yank-map
-               :prefix "C-c y"
-               ("c" . yankpad-set-category)
-               ("e" . yankpad-edit)
-               ("i" . yankpad-insert)
-               ("m" . yankpad-map)
-               ("r" . yankpad-reload)
-               ("x" . yankpad-expand)))
-#+END_SRC
 *** Functionality
 **** Agendas
 ***** Configuration
