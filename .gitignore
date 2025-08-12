@@ -24,3 +24,9 @@ url/
 # OS files
 .DS_Store
 Thumbs.db
+/.places
+/emojis/
+/projects
+/smex-items
+/tasshin.el
+/transient/
