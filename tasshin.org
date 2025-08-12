@@ -47,6 +47,13 @@ If I recall correctly, when I first copy this set-up into a new machine, I still
 Use-package is a handful of things: you can make sure a package is downloaded, efficiently configure it (e.g. after load, or as needed), bind keys in a concise way, and more.
 
 #+BEGIN_SRC emacs-lisp
+  ;; Fix PATH and shell issues early
+  (when (eq system-type 'darwin)
+    (setenv "PATH" (concat "/opt/homebrew/bin:/opt/homebrew/sbin:" (getenv "PATH")))
+    (setq exec-path (append '("/opt/homebrew/bin" "/opt/homebrew/sbin") exec-path))
+    ;; Force shell-file-name to bash to avoid Fish issues
+    (setq shell-file-name "/bin/bash"))
+
   (require 'package)
   (setq package-archives
         '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -578,13 +585,8 @@ Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main fea
     :init
     (dirtrack-mode)
     (setq explicit-shell-file-name (cond ((is-linux-p) "/bin/bash")
-                                         ((is-mac-p) "/usr/bin/bash"))
-          exec-path (append exec-path '("/opt/homebrew/bin/")))
+                                         ((is-mac-p) "/opt/homebrew/bin/bash")))
 
-    ;; (when (is-mac-p)
-    ;;   (use-package exec-path-from-shell
-    ;;     :init
-    ;;     (exec-path-from-shell-initialize)))
     )
 
   (add-hook 'after-save-hook
