@@ -2405,7 +2405,7 @@ I use tasshin-init-file rather than user-init-file, because I edit the config fi
   (defun find-init-file ()
     "Edit my init file in another window."
     (interactive)
-    (let ((tasshin-init-file "~/src/.emacs.d/tasshin.org"))
+    (let ((tasshin-init-file "~/.emacs.d/tasshin.org"))
       (find-file tasshin-init-file)))
 
   (bind-key "C-c I" 'find-init-file)
