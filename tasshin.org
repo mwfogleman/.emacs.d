@@ -1434,14 +1434,14 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
       "Go back to project selection."
       (projectile-switch-project)))
 #+END_SRC
-*** Style Checking (Checkdoc with Flycheck)
-Flycheck presents a handsome and usable interface for [[http://endlessparentheses.com/Checkdoc%25252C-Package-Developing%25252C-and-Cakes.html][checkdoc]], amongst other things.
+*** Style Checking (Flymake)
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :init
-    (use-package flycheck-clojure)
-    (global-flycheck-mode)
-    (setq flycheck-indication-mode 'right-fringe))
+  (use-package flymake
+    :ensure nil  ; built-in
+    :hook (prog-mode . flymake-mode)
+    :bind (:map flymake-mode-map
+                ("M-n" . flymake-goto-next-error)
+                ("M-p" . flymake-goto-prev-error)))
 #+END_SRC
 *** REST Exploring (Restclient)
 See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
