@@ -1786,22 +1786,6 @@ I wanted to be able to add a sort property to files or subtrees and get automati
   (add-hook 'org-mode-hook #'yant/org-buffer-sort-by-property)
 #+END_SRC
 *** Functionality
-**** Capture Templates
-The first Emacs Lisp that I ever wrote was to configure my capture templates!
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-capture-templates
-        '(("t" "Task" entry (file "~/org/inbox.org")
-           "* TODO %?\n")
-          ("p" "Project" entry (file+headline "~/org/todo.org" "Projects")
-           (file "~/org/templates/newprojecttemplate.org"))
-          ("s" "Someday" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
-           "* SOMEDAY %?\n")
-          ("m" "Maybe" entry (file+headline "~/org/somedaymaybe.org" "Someday / Maybe")
-           "* MAYBE %?\n")
-          ("l" "Log" entry (file+olp+datetree "~/org/log.org" "Log")
-           (file "~/org/templates/logtemplate.org"))))
-#+END_SRC
 **** Clocking
 I really like Org-mode's clocking functionality. I mostly use it for keeping time of billable tasks.
 ***** Configuration
