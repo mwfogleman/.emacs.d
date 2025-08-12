@@ -114,8 +114,13 @@ Load spacemacs-light automatically on startup.
 #+END_SRC
 *** Font
 #+BEGIN_SRC emacs-lisp
-  (set-frame-font "Source Code Pro" nil t)
-  (set-face-attribute 'default nil :height 150)
+  (when (is-mac-p)
+    (set-face-attribute 'default nil
+                        :family "Source Code Pro"
+                        :height 150))
+
+  (unless (is-mac-p)
+    (set-frame-font "Source Code Pro-15" nil t))
 #+END_SRC
 *** Prettify Symbols
 #+BEGIN_SRC emacs-lisp
@@ -544,11 +549,6 @@ All of my packages for interacting with my computer.
           mac-option-modifier 'super
           mac-control-modifier 'control
           ns-function-modifier 'hyper))
-#+END_SRC
-**** Face Attributes
-#+BEGIN_SRC emacs-lisp
-  (when (is-mac-p)
-    (set-face-attribute 'default nil :height 165))
 #+END_SRC
 ** Shells
 Over time, I've come to prefer Eshell over shell mode or Ansi-term. The main features I tend to use are setting aliases, executing e-Lisp, and writing command output to a buffer.
