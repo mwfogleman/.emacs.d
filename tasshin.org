@@ -1711,7 +1711,7 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
           org-todo-keywords
           '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "SOMEDAY(.)" "MAYBE(m)" "|" "DONE(x!)" "CANCELLED(c)"))
           ;; Theming
-          org-ellipsis "  " ;; folding symbol
+          org-ellipsis " ▼ " ;; folding symbol
           org-pretty-entities t
           org-hide-emphasis-markers t ;; show actually italicized text instead of /italicized text/
           org-agenda-block-separator ""
