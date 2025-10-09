@@ -2083,6 +2083,54 @@ Relatedly, I often want to reload my init-file. This will actually use the syste
 
   (bind-key "C-c M-l" 'reload-init-file)
 #+END_SRC
+** Obsidian Vault
+#+BEGIN_SRC emacs-lisp
+  (defvar obsidian-vault-path
+    "~/Library/CloudStorage/GoogleDrive-michaelwfogleman@gmail.com/My Drive/tasshin"
+    "Path to the Obsidian vault.")
+#+END_SRC
+
+Functions for quick access to the Obsidian vault in Google Drive.
+
+#+BEGIN_SRC emacs-lisp
+  (defun obsidian-find-file ()
+    "Find file in Obsidian vault pages folder without showing .md extension."
+    (interactive)
+    (let* ((pages-dir (expand-file-name "pages" obsidian-vault-path))
+           (files (directory-files pages-dir nil "\\.md$"))
+           (names (mapcar (lambda (f) (file-name-sans-extension f)) files))
+           (selection (completing-read "Obsidian page: " names nil nil))
+           (file-path (when (and selection (not (string-empty-p selection)))
+                        (expand-file-name (concat selection ".md") pages-dir))))
+      (when file-path
+        (find-file file-path))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun obsidian-dired ()
+    "Open Obsidian vault in dired."
+    (interactive)
+    (dired obsidian-vault-path))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun obsidian-daily-note ()
+    "Open today's daily note in Obsidian vault."
+    (interactive)
+    (let* ((today (format-time-string "%Y-%m-%d"))
+           (daily-note (expand-file-name
+                        (concat "journals/" today ".md")
+                        obsidian-vault-path)))
+      (find-file daily-note)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (bind-keys :prefix-map obsidian-map
+             :prefix "C-c o"
+             ("f" . obsidian-find-file)
+             ("d" . obsidian-dired)
+             ("j" . obsidian-daily-note))
+#+END_SRC
 ** Buffer Management
 *** Kill This Buffer
 #+BEGIN_SRC emacs-lisp
