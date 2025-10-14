@@ -667,7 +667,8 @@ These are helper packages that make Emacs even more awesome.
 #+BEGIN_SRC emacs-lisp
   (use-package hydra
     :config
-    (setq hydra-lv nil))
+    (setq hydra-lv nil)
+    (setq ad-redefinition-action 'accept))
 #+END_SRC
 *** Zooming
 #+BEGIN_SRC emacs-lisp
