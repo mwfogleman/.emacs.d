@@ -2129,8 +2129,8 @@ Functions for quick access to the Obsidian vault in Google Drive.
   (bind-keys :prefix-map obsidian-map
              :prefix "C-c o"
              ("f" . obsidian-find-file)
-             ("d" . obsidian-dired)
-             ("j" . obsidian-daily-note))
+             ("." . obsidian-dired)
+             ("d" . obsidian-daily-note))
 #+END_SRC
 ** Buffer Management
 *** Kill This Buffer
