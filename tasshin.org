@@ -2134,11 +2134,40 @@ Functions for quick access to the Obsidian vault in Google Drive.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
+  (defun obsidian-jump-to-daily ()
+    "Select a date from a calendar and open that daily note."
+    (interactive)
+    (let ((date nil))
+      (calendar)
+      (unwind-protect
+          (progn
+            (message "Select a date (RET to confirm, q to quit)")
+            (let ((key (read-event)))
+              (while (not (memq key '(return ?\r ?q)))
+                (when (characterp key)
+                  (call-interactively (lookup-key calendar-mode-map (vector key))))
+                (setq key (read-event)))
+              (when (memq key '(return ?\r))
+                (setq date (calendar-cursor-to-date t)))))
+        (calendar-exit))
+      (when date
+        (let* ((date-string (format "%04d-%02d-%02d"
+                                    (nth 2 date)  ; year
+                                    (nth 0 date)  ; month
+                                    (nth 1 date))) ; day
+               (daily-note (expand-file-name
+                            (concat "journals/" date-string ".md")
+                            obsidian-vault-path)))
+          (find-file daily-note)))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
   (bind-keys :prefix-map obsidian-map
              :prefix "C-c o"
-             ("f" . obsidian-find-file)
              ("." . obsidian-dired)
-             ("d" . obsidian-daily-note))
+             ("c" . obsidian-jump-to-daily)
+             ("d" . obsidian-daily-note)
+             ("f" . obsidian-find-file))
 #+END_SRC
 ** Buffer Management
 *** Kill This Buffer
