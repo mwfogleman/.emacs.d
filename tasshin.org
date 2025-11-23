@@ -1666,6 +1666,7 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
+    :mode ("\\.org\\'" . org-mode)
     :bind (("C-c l" . org-store-link)
            ("C-c c" . org-capture)
            ("C-c a" . org-agenda)
@@ -1685,6 +1686,7 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
     :init
     (setq default-major-mode 'org-mode
           org-directory "~/org/"
+          org-agenda-files nil
           org-log-done t
           org-startup-indented t
           org-startup-truncated nil
@@ -1763,6 +1765,8 @@ The theming for Org-Mode is derived from [[https://lepisma.github.io/2017/10/28/
 **** org-autosort
 I wanted to be able to add a sort property to files or subtrees and get automatic autosorting. A user of /r/orgmode/ delivered [[https://www.reddit.com/r/orgmode/comments/7gqsif/is_it_possible_to_auto_sort_a_file_or_subtree_by/][a solution]].
 
+**Note (2025-11-21):** Added guards to this function to prevent it from running on new, non-existent files (which would otherwise trigger "Non-existent agenda file" errors when opening new .org files).
+
 #+BEGIN_SRC emacs-lisp
   (defun yant/org-entry-has-subentries ()
     "Any entry with subheadings."
@@ -1784,7 +1788,11 @@ I wanted to be able to add a sort property to files or subtrees and get automati
   (defun yant/org-buffer-sort-by-property (&optional MATCH)
     "Sort all subtrees in buffer by the property, which is the value of their :SORT: property.
           Only subtrees, matching MATCH are selected"
-    (org-map-entries #'yant/org-entry-sort-by-property MATCH 'file))
+    ;; Only run on files that exist and have content
+    (when (and (buffer-file-name)
+               (file-exists-p (buffer-file-name))
+               (not (= (buffer-size) 0)))
+      (org-map-entries #'yant/org-entry-sort-by-property MATCH 'file)))
 
   (add-hook 'org-mode-hook #'yant/org-buffer-sort-by-property)
 #+END_SRC
