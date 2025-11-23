@@ -4,6 +4,21 @@
 
 This is my personal Emacs configuration, organized as a literate configuration using Org-mode.
 
+* Features
+
+This configuration includes customizations for:
+
+- *Appearance* :: Custom theme, fonts, and UI tweaks
+- *Key bindings* :: Ergonomic keybindings for text editing and navigation
+- *Completion* :: Ivy, Counsel, and Swiper for fuzzy completion
+- *Navigation* :: Avy and Ace-Window for quick jumping
+- *Window management* :: Hydra-based window management
+- *File browsing* :: Dired enhancements
+- *Org mode* :: Extensive Org-mode configuration for writing and note-taking
+- *Programming* :: Support for various programming languages and development tools
+- *Obsidian integration* :: Functions for working with Obsidian vault
+- *And more* :: Shells, searching (rg), spell checking, calculator, regex tools, etc.
+
 * Structure
 
 - =init.el= :: Entry point that loads the literate configuration
