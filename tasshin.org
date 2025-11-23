@@ -2244,6 +2244,21 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
                (line-end-position))))
     (flush-lines (concat "^" (regexp-quote line) "$"))))
 #+END_SRC
+*** Clean Multiple Newlines
+#+BEGIN_SRC emacs-lisp
+  (defun clean-multiple-newlines ()
+    "Replace multiple consecutive newlines with a single newline.
+Works on the selected region if active, otherwise on the entire buffer."
+    (interactive)
+    (save-excursion
+      (save-restriction
+        (if (use-region-p)
+            (narrow-to-region (region-beginning) (region-end))
+          (widen))
+        (goto-char (point-min))
+        (while (re-search-forward "\n\n+" nil t)
+          (replace-match "\n")))))
+#+END_SRC
 ** Processing imported notes
 #+BEGIN_SRC emacs-lisp
   (defun add-newlines-between-paragraphs ()
