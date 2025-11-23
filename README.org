@@ -1,0 +1,21 @@
+#+TITLE: Tasshin's Emacs Configuration
+
+* About
+
+This is my personal Emacs configuration, organized as a literate configuration using Org-mode.
+
+* Structure
+
+- =init.el= :: Entry point that loads the literate configuration
+- =tasshin.org= :: Main literate configuration file containing all Emacs settings
+- =custom.el= :: Auto-generated Emacs customizations
+
+* Installation
+
+Clone this repository to =~/.emacs.d=:
+
+#+begin_src sh
+git clone git@github.com:mwfogleman/.emacs.d.git ~/.emacs.d
+#+end_src
+
+Start Emacs and the configuration will load automatically from =tasshin.org= via Org Babel.
