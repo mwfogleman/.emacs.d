@@ -2276,7 +2276,7 @@ Via [[https://github.com/hrs/dotfiles][Harry Schwartz]].
 *** Clean Multiple Newlines
 #+BEGIN_SRC emacs-lisp
   (defun clean-multiple-newlines ()
-    "Replace multiple consecutive newlines with a single newline.
+    "Replace multiple consecutive newlines with a single blank line.
 Works on the selected region if active, otherwise on the entire buffer."
     (interactive)
     (save-excursion
@@ -2285,8 +2285,8 @@ Works on the selected region if active, otherwise on the entire buffer."
             (narrow-to-region (region-beginning) (region-end))
           (widen))
         (goto-char (point-min))
-        (while (re-search-forward "\n\n+" nil t)
-          (replace-match "\n")))))
+        (while (re-search-forward "\n\n\n+" nil t)
+          (replace-match "\n\n")))))
 #+END_SRC
 ** Processing imported notes
 #+BEGIN_SRC emacs-lisp
