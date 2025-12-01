@@ -2306,8 +2306,21 @@ Works on the selected region if active, otherwise on the entire buffer."
 #+END_SRC
 ** Podcast HTML Formatting
 #+BEGIN_SRC emacs-lisp
-  (fset 'podcast-html
-        (kmacro-lambda-form [?\M-5 ?^ ?- ?  ?\\ ?\( ?. ?+ ?\\ ?\) ?: ?  ?\\ ?\( ?. ?+ ?\\ ?\) return ?< ?l ?i ?> ?< ?a ?  ?h ?r ?e ?f ?= ?\" ?\\ ?2 ?\" ?> ?\\ ?1 ?< ?/ ?a ?> ?< ?/ ?l ?i ?> return] 0 "%d"))
+  (defun podcast-html (start end)
+    "Convert markdown-style links to HTML list items with <ul> wrapper.
+Converts lines like '- Title: URL' to '<li><a href=\"URL\">Title</a></li>'
+and wraps the result in <ul></ul> tags."
+    (interactive "r")
+    (save-excursion
+      (let ((end-marker (make-marker)))
+        (set-marker end-marker end)
+        (goto-char start)
+        (insert "<ul>\n")
+        (while (re-search-forward "^- \\(.+\\): \\(.+\\)$" end-marker t)
+          (replace-match "<li><a href=\"\\2\">\\1</a></li>"))
+        (goto-char end-marker)
+        (insert "\n</ul>")
+        (set-marker end-marker nil))))
 
   (fset 'podcast-html-paragraph
         (kmacro-lambda-form [?< ?p ?> ?\C-e ?< ?/ ?p ?>] 0 "%d"))
