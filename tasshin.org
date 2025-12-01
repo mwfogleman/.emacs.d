@@ -2322,6 +2322,12 @@ and wraps the result in <ul></ul> tags."
         (insert "\n</ul>")
         (set-marker end-marker nil))))
 
-  (fset 'podcast-html-paragraph
-        (kmacro-lambda-form [?< ?p ?> ?\C-e ?< ?/ ?p ?>] 0 "%d"))
+  (defun podcast-html-paragraph ()
+    "Wrap current line in <p></p> tags."
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (insert "<p>")
+      (end-of-line)
+      (insert "</p>")))
 #+END_SRC
