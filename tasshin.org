@@ -1323,6 +1323,7 @@ This code from [[http://whattheemacsd.com/setup-magit.el-01.html][Magnars]] open
 **** Git Auto Commit Mode
 #+BEGIN_SRC emacs-lisp
   (use-package git-auto-commit-mode
+    :defer t
     :delight)
 #+END_SRC
 *** Project Management (Projectile)
@@ -1446,12 +1447,14 @@ Projectile configuration adapted from [[http://endlessparentheses.com/improving-
 *** REST Exploring (Restclient)
 See Magnars' tutorial on [[http://emacsrocks.com/e15.html][Emacs Rocks]].
 #+BEGIN_SRC emacs-lisp
-  (use-package restclient)
+  (use-package restclient
+    :defer t)
 #+END_SRC
 *** Claude Code
 #+BEGIN_SRC emacs-lisp
   ;; for vterm terminal backend:
-  (use-package vterm :ensure t)
+  (use-package vterm :ensure t
+    :defer t)
 
   ;; install claude-code.el
   (use-package claude-code :ensure t
@@ -1810,7 +1813,8 @@ To override, add to the #+OPTIONS: org header for a particular file:
 - To show the section numbers, set =num:t=
 ***** Use Bootstrap
 #+BEGIN_SRC emacs-lisp
-(use-package ox-twbs)
+(use-package ox-twbs
+  :defer t)
 #+END_SRC
 ***** Preview Org Exported HTML
 I don't much like Markdown, but many Markdown programs (ando other text formats and editors) have a feature where you can preview your formatting. This package adds this functionality for org-mode, using eww, the plain text browser built into Emacs.
