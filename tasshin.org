@@ -738,6 +738,18 @@ Recent files keeps track of which files you're using; I access it by rebinding f
     (recentf-mode t)
     (setq recentf-max-saved-items 100))
 #+END_SRC
+**** Save Minibuffer History
+Persist minibuffer history (commands, searches, kill ring) across Emacs sessions.
+
+#+BEGIN_SRC emacs-lisp
+  (savehist-mode 1)
+  (setq history-length t)  ; unlimited history
+  (setq history-delete-duplicates t)
+  (setq savehist-additional-variables
+        '(kill-ring
+          search-ring
+          regexp-search-ring))
+#+END_SRC
 *** Ivy and Swiper
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
