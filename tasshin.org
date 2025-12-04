@@ -298,6 +298,13 @@ From Artur's article, "[[http://endlessparentheses.com/faster-pop-to-mark-comman
 #+BEGIN_SRC emacs-lisp
 (setq ring-bell-function 'ignore)
 #+END_SRC
+*** Auto-Revert Mode
+Automatically reload files when they change on disk (useful for synced files like Obsidian notes).
+
+#+BEGIN_SRC emacs-lisp
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)  ; also revert Dired buffers
+#+END_SRC
 * Key Bindings
 Although keybindings are also located elsewhere, this section will aim to provide bindings that are not specific to any mode, package, or function.
 
