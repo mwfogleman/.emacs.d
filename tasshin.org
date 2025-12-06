@@ -1817,6 +1817,215 @@ I wanted to be able to add a sort property to files or subtrees and get automati
 
   (add-hook 'org-mode-hook #'yant/org-buffer-sort-by-property)
 #+END_SRC
+**** agent-shell
+=agent-shell= provides a native Emacs shell for interacting with LLM agents via the Agent Client Protocol (ACP). It enables chat with agents like Claude Code directly within Emacs.
+
+Requires the Claude Code ACP client to be installed globally via npm:
+: npm install -g @zed-industries/claude-code-acp
+
+#+BEGIN_SRC emacs-lisp
+  (use-package agent-shell
+    :ensure t
+    :init
+    ;; Define prefix keymap
+    (define-prefix-command 'agent-shell-map)
+    (global-set-key (kbd "C-c e") 'agent-shell-map)
+    :bind (:map agent-shell-map
+                ("s" . agent-shell)
+                ("c" . Claude)
+                ("o" . Codex))
+    :config
+    ;; Set Claude Code as the default agent
+    (setq agent-shell-preferred-agent-config
+          (agent-shell-anthropic-make-claude-code-config))
+
+    ;; Use login-based authentication
+    (setq agent-shell-anthropic-claude-authentication
+          (agent-shell-anthropic-make-authentication :login t))
+
+    ;; Create aliases so they display nicely in menus
+    (defalias 'Claude 'agent-shell-anthropic-start-claude-code)
+    (defalias 'Codex 'agent-shell-openai-start-codex))
+#+END_SRC
+**** agent-shell-manager
+=agent-shell-manager= provides a buffer manager for agent-shell with a tabulated list view of all open agent-shell buffers. Features include real-time status monitoring, process management, and debugging tools. Using [[https://github.com/ElleNajt/agent-shell-manager][Elle's version]].
+
+#+BEGIN_SRC emacs-lisp
+  ;; Add agent-shell-manager (via git subtree) to load path
+  (add-to-list 'load-path "~/.emacs.d/agent/agent-shell-manager/")
+
+  (use-package agent-shell-manager
+    :ensure nil  ; Loaded from git subtree
+    :after agent-shell
+    :bind (:map agent-shell-map
+                ("m" . agent-shell-manager-toggle))
+    :config
+    ;; Optionally set window position (default is bottom)
+    ;; Options: 'left, 'right, 'top, 'bottom
+    (setq agent-shell-manager-side 'bottom))
+
+  ;; To update: git subtree pull --prefix=agent/agent-shell-manager https://github.com/ElleNajt/agent-shell-manager.git main --squash
+
+  ;; Helper function to send content to agent-shell (from Elle's config)
+  (defun send-to-agent-shell (&optional prefix)
+    "Send content to visible agent shell in current workspace.
+If visual selection is active, sends the selected region (works in any buffer).
+In org-mode without selection:
+  - If in a source block, sends the block with results.
+  - Otherwise, sends the current org subtree.
+In non-org buffers without selection, sends the filename.
+Includes file path in the message.
+With prefix argument PREFIX (\\[universal-argument]), prompt for a custom message to send along with the content."
+    (interactive "P")
+
+    (let* ((original-buffer (current-buffer))
+           (original-window (selected-window))
+           (file-path (buffer-file-name))
+           (custom-message (when prefix (read-string "Message to send: ")))
+           (full-block nil))
+
+      ;; Capture content based on context
+      (save-excursion
+        (if (use-region-p)
+            ;; Visual selection is active - send the selected region (works anywhere)
+            (let ((region-begin (region-beginning))
+                  (region-end (region-end)))
+              (setq full-block (buffer-substring-no-properties region-begin region-end))
+
+              ;; Format with clear header
+              (setq full-block
+                    (concat
+                     (when custom-message
+                       (concat custom-message "\n\n"))
+                     "Here's a selection"
+                     (when file-path
+                       (concat " from `" file-path "`"))
+                     ":\n\n```\n"
+                     full-block
+                     "```")))
+
+          ;; No selection - behavior depends on major mode
+          (if (eq major-mode 'org-mode)
+              ;; In org-mode, try source block or subtree
+              (let ((element (org-element-at-point)))
+                (if (org-element-type-p element 'src-block)
+                    ;; Capture source block with results
+                    (let* ((block-begin (org-element-property :begin element))
+                           (block-end (org-element-property :end element))
+                           (lang (org-element-property :language element)))
+
+                      ;; Get the source block
+                      (goto-char block-begin)
+                      (setq full-block (buffer-substring-no-properties block-begin block-end))
+
+                      ;; Check if there's a results block immediately after
+                      (goto-char block-end)
+                      (when (looking-at "^[ \t]*#\\+RESULTS:")
+                        (let ((results-start (point)))
+                          (forward-line 1)
+                          ;; Find the end of the results block
+                          (cond
+                           ;; Drawer results (:results: ... :end:)
+                           ((looking-at "^[ \t]*:\\(\\w+\\):")
+                            (re-search-forward "^[ \t]*:end:" nil t)
+                            (forward-line 1))
+                           ;; Block results (#+begin_example ... #+end_example)
+                           ((looking-at "^[ \t]*#\\+begin")
+                            (re-search-forward "^[ \t]*#\\+end" nil t)
+                            (forward-line 1))
+                           ;; Table or colon results
+                           (t
+                            (while (and (not (eobp))
+                                        (or (looking-at "^[ \t]*:")  ; colon results
+                                            (looking-at "^[ \t]*|")  ; table results
+                                            (looking-at "^[ \t]*$")))  ; empty lines
+                              (forward-line 1))))
+                          (setq full-block (concat full-block
+                                                   (buffer-substring-no-properties results-start (point))))))
+
+                      ;; Format with clear header including file path
+                      (setq full-block
+                            (concat
+                             (when custom-message
+                               (concat custom-message "\n\n"))
+                             "Here's an org-mode source block"
+                             (when file-path
+                               (concat " from `" file-path "`"))
+                             ":\n\n```\n"
+                             full-block
+                             "```")))
+
+                  ;; Not in a source block, try to capture org subtree
+                  (condition-case nil
+                      (progn
+                        (org-back-to-heading t)
+                        (let ((subtree-begin (point))
+                              (subtree-end (save-excursion (org-end-of-subtree t t) (point))))
+                          (setq full-block (buffer-substring-no-properties subtree-begin subtree-end))
+
+                          ;; Format with clear header
+                          (setq full-block
+                                (concat
+                                 (when custom-message
+                                   (concat custom-message "\n\n"))
+                                 "Here's an org-mode subtree"
+                                 (when file-path
+                                   (concat " from `" file-path "`"))
+                                 ":\n\n```\n"
+                                 full-block
+                                 "```"))))
+                    ;; If we can't find a heading, send the file path
+                    (error
+                     (setq full-block
+                           (concat
+                            (when custom-message
+                              (concat custom-message "\n\n"))
+                            (if file-path
+                                (concat "Here's the file path (not at an org heading): `" file-path "`")
+                              "Current buffer has no associated file")))))))
+
+            ;; Not in org-mode and no selection - send filename
+            (setq full-block
+                  (concat
+                   (when custom-message
+                     (concat custom-message "\n\n"))
+                   (if file-path
+                       (concat "Here's the file path: `" file-path "`")
+                     "Current buffer has no associated file"))))))
+
+      (unless full-block
+        (user-error "Could not capture org content"))
+
+      ;; Find the agent shell buffer (only visible in current frame)
+      (let ((agent-buffer
+             (seq-find
+              (lambda (buf)
+                (and (get-buffer-window buf (selected-frame))
+                     (with-current-buffer buf
+                       (derived-mode-p 'agent-shell-mode))))
+              (buffer-list))))
+
+        (unless agent-buffer
+          (user-error "No agent-shell buffer found. Start agent-shell first"))
+
+        ;; Copy to clipboard
+        (kill-new full-block)
+
+        ;; Switch to agent shell and paste
+        (select-window (or (get-buffer-window agent-buffer)
+                           (display-buffer agent-buffer)))
+
+        ;; Paste and send
+        (goto-char (point-max))
+        (yank)
+        (shell-maker-submit)
+
+        ;; Return to original buffer
+        (select-window original-window))))
+
+  ;; Add keybinding to agent-shell-map
+  (define-key agent-shell-map (kbd "SPC") 'send-to-agent-shell)
+#+END_SRC
 *** Functionality
 **** Exporting
 I often want to export Org-Mode documents into other formats. This section contains some defaults and packages that have made that workflow easier for me.
